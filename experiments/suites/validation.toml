@@ -1,0 +1,10 @@
+# Full-path 2B validation, separate from the research study suites.
+# From the repository root (requires an authenticated google-colab-cli):
+# bash experiments/run_colab.sh experiments/suites/validation.toml -s mindscopex-validation --gpu A100 --exec-timeout 3600
+# Add --dry-run to check archive/bootstrap preparation without contacting Colab.
+# Small samples validate execution only; feature discovery still depends on activations.
+[suite]
+name = "validation"
+configs = [
+  "../configs/study_2b_validation.toml",
+]

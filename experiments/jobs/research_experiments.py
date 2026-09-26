@@ -712,7 +712,7 @@ def _plot_phenomenon(margins: Sequence[float], path: Path) -> None:
 def _plot_localization(rows: Sequence[dict[str, Any]], path: Path) -> None:
     layers = [row["layer"] for row in rows]
     deltas = [row["mean_margin_delta"] for row in rows]
-    nulls = [row["null_mean"] or 0.0 for row in rows]
+    nulls = [row["screen_null_mean"] or 0.0 for row in rows]
     fig, ax = plt.subplots(figsize=(6.2, 3.4), constrained_layout=True)
     ax.plot(layers, deltas, color="#2a78d6", marker="o", label="feature mean margin_delta")
     ax.plot(

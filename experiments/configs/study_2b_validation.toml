@@ -1,0 +1,50 @@
+# Low-cost A100 validation of the full controlled-study path, not effect evidence.
+# phenomenon -> discover -> control_specificity -> causal_heldout -> behavioral.
+# Run via experiments/suites/validation.toml; no pinned feature or stage bypass.
+[run]
+name = "study_2b_validation"
+job = "research_experiments"
+
+[experiment]
+kind = "study"
+
+[model]
+profile = "2b"
+dtype = "auto"
+device_map = "auto"
+sae_device = "auto"
+sae_dtype = "auto"
+
+[data]
+dataset = "hagendorff_crt"
+limit_per_family = 10        # 30 total; current seed gives 16 train / 14 held-out
+train_frac = 0.6
+split_seed = 0
+instruction = true
+
+[discover]
+layers = [11]               # one existing 2B scan layer limits SAE loading/scoring
+candidate_top_n = 10         # retain the full study's per-item candidate breadth
+min_active_cases = 2        # repeat activation required, among 9 discovery items
+max_candidates = 8
+max_cases = 9               # 3 per family; leaves 7 train items for the null screen
+coefficient = 1.0
+intervention_mode = "remove_activation"
+null_samples = 4            # exercise random-direction null; not significance evidence
+null_cases = 6              # separate train items, avoiding discovery-overlap fallback
+null_seed = 0
+
+[behavioral]
+coefficients = [0.0, -4.0]  # zero-intervention check and one suppressive setting
+max_new_tokens = 16         # retain answer budget to avoid truncating binary choices
+max_cases = 6               # 2 held-out items per family
+token_position = "all"
+output_mode = "binary_choice"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

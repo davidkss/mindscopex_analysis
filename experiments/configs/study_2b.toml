@@ -36,6 +36,17 @@ null_samples = 32            # random-direction null draws for significance
 null_seed = 0
 # layers = [5, 11, 17, 23]   # default = profile.scan_layers
 
+# Strong-null validation of the surviving feature candidates.
+# Corrects for selecting the best feature from a large search and compares
+# candidates against matched random directions and peer SAE features.
+[null]
+selection_adjusted = true
+top_m = 3
+panel_cases = 12
+gaussian_draws = 100
+peer_draws = 100
+bootstrap = 20000
+
 [behavioral]
 coefficients = [0.0, -2.0, -4.0, -8.0]   # negative suppresses the lure feature
 max_new_tokens = 16

@@ -17,6 +17,7 @@ import tempfile
 import unittest
 from dataclasses import dataclass
 from pathlib import Path
+from unittest.mock import patch
 
 from experiments.jobs import cross_layer_siblings
 from experiments.jobs.cross_layer_siblings import (
@@ -42,7 +43,7 @@ from experiments.jobs.cross_layer_siblings import (
     sibling_score_with_specificity,
     specificity_level_verdict,
 )
-from mindscopex_analysis import stats
+from mindscopex_analysis import LureCase, stats
 from mindscopex_analysis.siblings import sibling_score
 
 
@@ -421,19 +422,31 @@ class SplitTests(unittest.TestCase):
     """The fourth signal is opt-in, because most datasets have no no-cue twin."""
 
     def test_a_dataset_without_neutral_twins_still_runs_on_three_signals(self) -> None:
-        # goal_affordance_traps_v21 has conditions absent/offered/immediate/explicit/
-        # counterfactual and no `_neutral` twin at all. With control_condition defaulting
-        # to "neutral" this raised ValueError before the model was even loaded.
-        splits = _load_splits(
-            {
-                "data": {
-                    "dataset": "goal_affordance_traps_v21",
-                    "conditions": ["immediate"],
-                    "max_match_items": 4,
-                    "max_test_items": 4,
+        # Independent pairs with no neutral twins must use the default three signals.
+        cases = [
+            LureCase(
+                case_id=f"synthetic_{index}_immediate",
+                pair_id=f"synthetic_{index}",
+                family="synthetic",
+                condition="immediate",
+                prompt=f"Synthetic choice {index}: A or B?\nAnswer:",
+                correct_answer=" A",
+                lure_answer=" B",
+            )
+            for index in range(8)
+        ]
+        with patch.object(cross_layer_siblings, "lure_dataset_cases", return_value=cases) as loader:
+            splits = _load_splits(
+                {
+                    "data": {
+                        "dataset": "synthetic_without_neutral",
+                        "conditions": ["immediate"],
+                        "max_match_items": 4,
+                        "max_test_items": 4,
+                    }
                 }
-            }
-        )
+            )
+        loader.assert_called_once_with("synthetic_without_neutral")
 
         self.assertEqual(splits["control_condition"], "")
         self.assertEqual(splits["match_controls"], [])

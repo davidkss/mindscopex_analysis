@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 import unittest
+from importlib.resources import files
 
 from mindscopex_analysis import (
     HagendorffCRTItem,
@@ -31,6 +33,16 @@ _EXPECTED = {
 
 
 class LureDatasetLoaderTests(unittest.TestCase):
+    def test_packaged_dataset_ids_match_filenames(self) -> None:
+        for resource in files("mindscopex_analysis").joinpath("data").iterdir():
+            if resource.name.endswith(".json"):
+                with self.subTest(filename=resource.name):
+                    payload = json.loads(resource.read_text(encoding="utf-8"))
+                    stem = resource.name.removesuffix(".json")
+                    # Historical compatibility exception documented in docs/datasets.md §4.4.
+                    expected_id = "mindscopex_crt_pilot_v1" if stem == "crt_pilot" else stem
+                    self.assertEqual(expected_id, payload["dataset_id"])
+
     def test_available_datasets_match_expected_counts(self) -> None:
         self.assertEqual(set(available_lure_datasets()), set(_EXPECTED))
         for name, count in _EXPECTED.items():

@@ -459,6 +459,10 @@ effort를 direct로 썼다. 응답은 strict JSON A/B, 동일 case의 direct/hig
 
 ### 7.11 `goal_affordance_traps_v2` — 직관/심사숙고 micro challenge
 
+Canonical ID는 `goal_affordance_traps_v2`, 파일은
+`src/mindscopex_analysis/data/goal_affordance_traps_v2.json`이다.
+커밋된 surface 정의로 offline 재빌드할 수 있으며 `results/`의 개발 artifact는 필요하지 않다.
+
 - **크기:** 독립 semantic cluster 1개 × 4 condition = 4 case
 - **언어:** 한국어
 - **condition:** `hostile`, `explicit`, `neutral`, `counterfactual`

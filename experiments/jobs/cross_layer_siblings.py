@@ -628,13 +628,10 @@ def _load_splits(config: dict[str, Any]) -> dict[str, Any]:
     # so the discovery/held-out split stays a split of scenarios and a twin can never
     # smuggle a held-out scenario into the matching phase.
     #
-    # Default "": the fourth signal is opt-in. `_neutral` case-id twins exist in only
-    # three of the datasets in src/mindscopex_analysis/data/ (goal_affordance_traps_v1,
-    # v2, v2_micro). Defaulting to "neutral" turned every other multi-condition config
-    # into a hard failure raised from inside _pair_with_controls, naming a condition the
-    # user never wrote -- goal_affordance_traps_v21 (conditions absent/offered/immediate/
-    # explicit/counterfactual) is the live example. Unset therefore means "three signals",
-    # which the job logs loudly, rather than "crash before the model loads".
+    # Default "": the fourth signal is opt-in. Not every dataset has `_neutral`
+    # case-id twins. Defaulting to "neutral" would make such configurations fail
+    # inside _pair_with_controls for a condition the user never requested.
+    # Unset means "three signals", which the job logs explicitly.
     control_condition = str(data_cfg.get("control_condition", "")).strip()
     controls: list[Any] = []
     if control_condition:

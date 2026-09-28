@@ -7,27 +7,22 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from goal_affordance_v2_data import validate_rows
+from goal_affordance_v2_data import TIRE_PARAPHRASE_KO_SURFACES, validate_rows
+from goal_affordance_v2_data import payload as candidate_payload
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = (
-    ROOT
-    / "results"
-    / "goal_affordance_v2_development"
-    / "candidate_pool_v4_tire_paraphrases_ko.json"
-)
 DESTINATION = (
     ROOT / "src" / "mindscopex_analysis" / "data" / "goal_affordance_traps_v2.json"
 )
 SELECTED_PAIR = "vehicle_tire_air_ko"
 
 
-def read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
 def build_payload() -> dict[str, Any]:
-    source = read_json(SOURCE)
+    source = candidate_payload(
+        TIRE_PARAPHRASE_KO_SURFACES,
+        dataset_id="goal_affordance_traps_v2_candidate_v4_tire_paraphrases_ko",
+        revision="candidate_v4_tire_paraphrases_ko",
+    )
     rows = [row for row in source["cases"] if row["pair_id"] == SELECTED_PAIR]
     if len(rows) != 4:
         raise ValueError(f"Expected four selected rows, got {len(rows)}")

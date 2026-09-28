@@ -1314,6 +1314,10 @@ def run(config_path: Path, output_root: Path) -> Path:
             clear_device_cache()
 
     if gen_kinds:
+        # Behavioral-only pins skip the margin phase, so load their SAE here.
+        # Preserve any feature already selected by the preceding discovery phase.
+        if pinned and state.get("study_feature") is None:
+            _ensure_feature(None, splits, config, env, run_dir, state)
         print(f"[generation phase] loading {env['model_id']}", flush=True)
         model, tokenizer = load_qwen_text_generation_model(
             env["model_id"], device_map=env["device_map"], dtype=env["dtype"]

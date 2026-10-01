@@ -802,7 +802,8 @@ def steer_generation_labels(
     *,
     layer: int,
     sae: QwenScopeSAE,
-    feature_id: int,
+    feature_id: int | None = None,
+    feature_ids: Sequence[int] | None = None,
     coefficient: float,
     max_new_tokens: int = 16,
     token_position: str = "all",
@@ -819,6 +820,14 @@ def steer_generation_labels(
     model), so the intervention and the readout live in the same network.
     """
 
+    if (feature_id is None) == (feature_ids is None):
+        raise ValueError("Specify exactly one of feature_id and feature_ids")
+    ids = [int(feature_id)] if feature_ids is None else list(feature_ids)
+    if not ids or any(type(fid) is not int or fid < 0 for fid in ids):
+        raise ValueError("feature_ids must contain non-negative integers and cannot be empty")
+    if len(set(ids)) != len(ids):
+        raise ValueError("feature_ids must not contain duplicates")
+
     baseline = _generate_labels(
         model,
         tokenizer,
@@ -830,7 +839,7 @@ def steer_generation_labels(
     )
     block = find_decoder_block(model, int(layer), block_path_template=block_path_template)
     hook = make_feature_steering_hook(
-        sae, [int(feature_id)], coefficient=float(coefficient), token_position=token_position
+        sae, ids, coefficient=float(coefficient), token_position=token_position
     )
     handle = block.register_forward_hook(hook)
     try:
@@ -851,7 +860,7 @@ def steer_generation_labels(
     return {
         "coefficient": float(coefficient),
         "layer": int(layer),
-        "feature_id": int(feature_id),
+        **({"feature_id": int(feature_id)} if feature_ids is None else {"feature_ids": ids}),
         "output_mode": output_mode,
         "baseline_summary": baseline_summary,
         "steered_summary": steered_summary,

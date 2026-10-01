@@ -1,0 +1,53 @@
+# E3 (behavioral): combined-feature seed 2 smoke test for pinned Layer 5 features.
+# Applies coefficient +7.0 to each of features 30908 and 22552 in one hook:
+# h' = h + 7*d30908 + 7*d22552.
+# Uses constrained binary generation and the existing fine behavioral settings.
+# Writes behavioral.csv and behavioral/generations.json; skips feature discovery.
+[run]
+name = "study_behavioral_combined_f30908_f22552_seed2_2b"
+job = "research_experiments"
+
+[experiment]
+kind = "behavioral"
+
+[model]
+profile = "2b"
+dtype = "auto"
+device_map = "auto"
+sae_device = "auto"
+sae_dtype = "auto"
+
+[data]
+dataset = "hagendorff_crt"
+limit_per_family = 0
+train_frac = 0.6
+split_seed = 2
+instruction = true
+
+[discover]
+candidate_top_n = 10
+min_active_cases = 3
+max_candidates = 24
+max_cases = 24               # family-balanced cap on train items used for discovery
+coefficient = 1.0
+intervention_mode = "remove_activation"
+null_samples = 32
+
+[features]
+layer = 5
+feature_ids = [30908, 22552]
+
+[behavioral]
+coefficients = [7.0]
+max_new_tokens = 16
+max_cases = 40               # deterministic family-balanced held-out subset
+token_position = "all"
+output_mode = "binary_choice"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

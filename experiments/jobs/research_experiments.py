@@ -659,6 +659,20 @@ def _ensure_feature(
     if state.get("study_feature") is not None:
         return state["study_feature"]
 
+    if "features" in config:
+        fcfg = table(config, "features")
+        layer = fcfg["layer"]
+        info = {
+            "feature": {"layer": layer, "feature_ids": list(fcfg["feature_ids"])},
+            "sae": _load_sae(env, layer),
+            "source": "pinned",
+        }
+        state["study_feature"] = info
+        _write_json(run_dir / "study_feature.json", {
+            "feature": info["feature"], "source": "pinned",
+        })
+        return info
+
     fcfg = table(config, "feature")
     feature_id = fcfg.get("feature_id")
     if feature_id is not None:
@@ -1161,7 +1175,8 @@ def run_behavioral(
             cases,
             layer=int(feature["layer"]),
             sae=info["sae"],
-            feature_id=int(feature["feature_id"]),
+            **({"feature_ids": feature["feature_ids"]} if "feature_ids" in feature
+               else {"feature_id": int(feature["feature_id"])}),
             coefficient=float(coefficient),
             max_new_tokens=max_new_tokens,
             token_position=token_position,
@@ -1183,6 +1198,8 @@ def run_behavioral(
             {
                 "coefficient": float(coefficient),
                 "output_mode": output_mode,
+                **({"layer": feature["layer"], "feature_ids": feature["feature_ids"]}
+                   if "feature_ids" in feature else {}),
                 "baseline_rows": result["baseline_rows"],
                 "steered_rows": result["steered_rows"],
             }
@@ -1242,6 +1259,19 @@ def run(config_path: Path, output_root: Path) -> Path:
     import torch
 
     config = load_toml(config_path)
+    if "feature" in config and "features" in config:
+        raise ValueError("Specify only one of [feature] and [features]")
+    if "features" in config:
+        if table(config, "experiment").get("kind") != "behavioral":
+            raise ValueError("[features] is supported only for behavioral experiments")
+        fcfg = table(config, "features")
+        ids = fcfg.get("feature_ids")
+        if (type(fcfg.get("layer")) is not int or fcfg["layer"] < 0
+                or not isinstance(ids, list) or not ids
+                or any(type(fid) is not int or fid < 0 for fid in ids)):
+            raise ValueError("[features] requires a non-negative layer and nonempty integer feature_ids")
+        if len(set(ids)) != len(ids):
+            raise ValueError("[features].feature_ids must not contain duplicates")
     name = run_name(config)
     run_dir = output_root / name
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -1260,7 +1290,7 @@ def run(config_path: Path, output_root: Path) -> Path:
     gen_kinds = [k for k in kinds if k in GEN_KINDS]
 
     # A feature-dependent kind with no pin and no discovery needs discovery first.
-    pinned = table(config, "feature").get("feature_id") is not None
+    pinned = "features" in config or table(config, "feature").get("feature_id") is not None
     needs_feature = any(k in FEATURE_KINDS for k in kinds)
     if needs_feature and not pinned and "discover" not in margin_kinds:
         margin_kinds = ["discover", *margin_kinds]

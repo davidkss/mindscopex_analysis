@@ -262,3 +262,52 @@ class FindDecoderBlockTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CombinedSteeringTests(unittest.TestCase):
+    def test_single_combined_and_lifecycle(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from mindscopex_analysis import research
+
+        block = nn.Identity()
+        decoder = torch.zeros(3, 30909)
+        decoder[:, 30908] = torch.tensor([1., 2., 3.])
+        decoder[:, 22552] = torch.tensor([4., 5., 6.])
+        sae = SimpleNamespace(W_dec=decoder, d_model=3)
+        for kwargs in ({'feature_id': 30908}, {'feature_ids': [30908]},
+                       {'feature_id': 22552}, {'feature_ids': [22552]},
+                       {'feature_ids': [30908, 22552]}):
+            seen = []
+            def generate(*args, **kw):
+                seen.append(block(torch.zeros(1, 2, 3)))
+                return [{'label': 'correct'}]
+            with patch.object(research, '_generate_labels', side_effect=generate), \
+                 patch.object(research, 'find_decoder_block', return_value=block):
+                result = research.steer_generation_labels(None, None, [], layer=5,
+                                                          sae=sae, coefficient=7., **kwargs)
+            ids = kwargs.get('feature_ids', [kwargs.get('feature_id')])
+            expected = 7 * decoder[:, ids].sum(dim=1)
+            self.assertTrue(torch.equal(seen[0], torch.zeros(1, 2, 3)))
+            self.assertTrue(torch.equal(seen[1], expected.expand(1, 2, 3)))
+            self.assertFalse(block._forward_hooks)
+            if 'feature_id' in kwargs:
+                self.assertEqual(result['feature_id'], kwargs['feature_id'])
+                self.assertNotIn('feature_ids', result)
+        with patch.object(research, '_generate_labels', side_effect=[[{'label': 'correct'}], RuntimeError('boom')]), \
+             patch.object(research, 'find_decoder_block', return_value=block):
+            with self.assertRaisesRegex(RuntimeError, 'boom'):
+                research.steer_generation_labels(None, None, [], layer=5, sae=sae,
+                                                  coefficient=7., feature_ids=[30908, 22552])
+        self.assertFalse(block._forward_hooks)
+
+    def test_invalid_ids_before_generation(self):
+        from unittest.mock import patch
+        from mindscopex_analysis import research
+        for kwargs in ({}, {'feature_id': 30908, 'feature_ids': [22552]},
+                       {'feature_ids': []}, {'feature_ids': [30908, 30908]}):
+            with self.subTest(kwargs=kwargs), patch.object(research, '_generate_labels') as generate:
+                with self.assertRaises(ValueError):
+                    research.steer_generation_labels(None, None, [], layer=5, sae=None,
+                                                      coefficient=7., **kwargs)
+                generate.assert_not_called()

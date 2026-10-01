@@ -285,3 +285,29 @@ class SplitThinkingTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CombinedHookTests(unittest.TestCase):
+    def test_weighted_directions_both_layouts_and_output_types(self):
+        from types import SimpleNamespace
+        from mindscopex_analysis.qwen_scope import make_feature_steering_hook
+        decoder = torch.zeros(3, 30909)
+        decoder[:, 30908] = torch.tensor([1., 2., 3.])
+        decoder[:, 22552] = torch.tensor([4., 5., 6.])
+        expected = 7 * decoder[:, 30908] + 7 * decoder[:, 22552]
+        for weights in (decoder, decoder.T):
+            sae = SimpleNamespace(W_dec=weights, d_model=3)
+            self.assertTrue(torch.equal(sae_decoder_direction(sae, [30908, 22552], [7., 7.]), expected))
+            for position in ('all', 'last'):
+                hook = make_feature_steering_hook(sae, [30908, 22552], coefficient=7., token_position=position)
+                hidden = torch.zeros(1, 2, 3)
+                wanted = hidden.clone()
+                if position == 'all':
+                    wanted += expected
+                else:
+                    wanted[:, -1] += expected
+                self.assertTrue(torch.equal(hook(None, (), hidden), wanted))
+                output = hook(None, (), (hidden, 'unchanged'))
+                self.assertTrue(torch.equal(output[0], wanted))
+                self.assertEqual(output[1], 'unchanged')
+                self.assertEqual(hidden.count_nonzero().item(), 0)

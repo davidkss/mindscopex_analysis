@@ -1,0 +1,49 @@
+# Fixed Top-3 multi-seed dose grid; existing completed combinations are reused.
+[run]
+name = "study_behavioral_dose_f30908_seed2_cminus2_2b"
+job = "research_experiments"
+
+[experiment]
+kind = "behavioral"
+
+[model]
+profile = "2b"
+dtype = "auto"
+device_map = "auto"
+sae_device = "auto"
+sae_dtype = "auto"
+
+[data]
+dataset = "hagendorff_crt"
+limit_per_family = 0
+train_frac = 0.6
+split_seed = 2
+instruction = true
+
+[discover]
+candidate_top_n = 10
+min_active_cases = 3
+max_candidates = 24
+max_cases = 24               # family-balanced cap on train items used for discovery
+coefficient = 1.0
+intervention_mode = "remove_activation"
+null_samples = 32
+
+[feature]
+layer = 5
+feature_id = 30908
+
+[behavioral]
+coefficients = [-2.0]
+max_new_tokens = 16
+max_cases = 40               # deterministic family-balanced held-out subset
+token_position = "all"
+output_mode = "binary_choice"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

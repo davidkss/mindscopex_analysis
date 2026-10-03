@@ -1,0 +1,20 @@
+# Top-3 multi-feature extension: new combinations only, +7.0 per feature.
+[suite]
+name = "study_behavioral_top3_multifeature_2b"
+configs = [
+  "../configs/study_behavioral_combined_f30908_f14817_seed0_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f14817_seed1_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f14817_seed2_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f14817_seed3_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f14817_seed4_2b.toml",
+  "../configs/study_behavioral_combined_f22552_f14817_seed0_2b.toml",
+  "../configs/study_behavioral_combined_f22552_f14817_seed1_2b.toml",
+  "../configs/study_behavioral_combined_f22552_f14817_seed2_2b.toml",
+  "../configs/study_behavioral_combined_f22552_f14817_seed3_2b.toml",
+  "../configs/study_behavioral_combined_f22552_f14817_seed4_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f22552_f14817_seed0_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f22552_f14817_seed1_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f22552_f14817_seed2_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f22552_f14817_seed3_2b.toml",
+  "../configs/study_behavioral_combined_f30908_f22552_f14817_seed4_2b.toml",
+]

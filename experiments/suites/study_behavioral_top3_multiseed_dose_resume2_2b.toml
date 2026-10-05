@@ -1,0 +1,26 @@
+# Second resume suite after Colab connection loss on 2026-10-03.
+# Original NEED_RUN: 84; completed locally: 65; remaining: 19.
+# Completed artifacts are preserved and are NOT rerun.
+[suite]
+name = "study_behavioral_top3_multiseed_dose_resume2_2b"
+configs = [
+  "../configs/study_behavioral_dose_f14817_seed2_cminus2_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed2_c0_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed2_cplus2_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed2_cplus4_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed2_cplus8_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_cminus8_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_cminus4_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_cminus2_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_c0_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_cplus2_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_cplus4_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed3_cplus8_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_cminus8_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_cminus4_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_cminus2_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_c0_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_cplus2_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_cplus4_2b.toml",
+  "../configs/study_behavioral_dose_f14817_seed4_cplus8_2b.toml",
+]

@@ -1,0 +1,6 @@
+[suite]
+name = "study_transfer_fresh_v2_controls_2b"
+configs = [
+  "../configs/study_transfer_fresh_v2_control_f12207_seed1_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f7438_seed1_2b.toml",
+]

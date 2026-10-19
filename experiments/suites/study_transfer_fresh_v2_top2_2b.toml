@@ -1,0 +1,10 @@
+# MindScopeX: Fresh v2 transfer validation
+# Pinned Layer 5 SAE features: 30908 and 22552
+# Fixed steering coefficient: +7.0
+
+[suite]
+name = "study_transfer_fresh_v2_top2_2b"
+configs = [
+  "../configs/study_transfer_fresh_v2_f30908_seed1_2b.toml",
+  "../configs/study_transfer_fresh_v2_f22552_seed1_2b.toml",
+]

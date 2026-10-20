@@ -1,0 +1,2 @@
+coefficient,baseline_accuracy,steered_accuracy,accuracy_delta,baseline_lure_rate,steered_lure_rate,lure_rate_delta
+7.0,0.475,0.6,0.125,0.525,0.4,-0.125

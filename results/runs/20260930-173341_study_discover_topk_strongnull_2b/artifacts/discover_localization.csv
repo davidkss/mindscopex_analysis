@@ -1,0 +1,2 @@
+layer,feature_id,objective,mean_margin_delta,mean_hostile_delta,mean_control_delta,frac_positive,active_in_cases,screen_n_cases,screen_in_sample,screen_hostile_delta,screen_null_mean,screen_null_z,screen_null_percentile
+5,30908,hostile_margin,0.036584635032340884,0.036584635032340884,,0.625,11,6,False,0.03037343523465097,0.028483687849075068,0.06396183787249794,0.5

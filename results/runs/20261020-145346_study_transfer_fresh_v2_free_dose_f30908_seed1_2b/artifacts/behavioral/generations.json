@@ -1,0 +1,1466 @@
+[
+  {
+    "coefficient": 1.0,
+    "output_mode": "free",
+    "baseline_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the portable projector and the wireless presenter total $39. The price of the portable projector is $27 more than the price of the wireless presenter. What is the price of the wireless presenter? Answer in dollars.\"\n\nLet the price of the wireless presenter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_004",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"Researchers track a digital tile pattern on a display whose covered area doubles every day. It covers the entire available area after 26 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day. So if after day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_002",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"A group of 4 laser cutters needs 4 minutes to cut 4 acrylic panels. How many minutes would 23 laser cutters need to cut 23 acrylic panels?\" This is a straightforward proportion problem. The rate is constant: number of cutters / time",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_004",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the webcam with the privacy cover costs $54 altogether. The price of the webcam is $36 more than the price of the privacy cover. What is the price of the privacy cover? Answer in dollars.\"\n\nLet the price of the privacy cover be x dollars.",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_009",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a crystal pattern in a lab dish whose covered area doubles every day. It covers the entire available area after 36 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. After 36 days",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_004",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"Suppose 6 packing robots seal 6 shipping boxes during a 6-minute run. How many minutes would 29 packing robots need to seal 29 shipping boxes?\"\n\nInterpretation: The robots seal boxes at a constant rate. If 6 robots seal",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_005",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the external monitor and the HDMI adapter comes to $59. The price of the external monitor is $39 more than the price of the HDMI adapter. What is the price of the HDMI adapter? Answer in dollars.\"\n\nLet the price of the HDMI adapter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_012",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a water-lily patch in a garden pool doubles every day. It covers the entire available area after 42 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. So if it covers",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 3 minutes, 3 inspection drones inspect 3 solar panels. How many minutes would 56 inspection drones need to inspect 56 solar panels?\" This is a simple proportion problem. The rate is 3 drones inspect 3 panels in 3 minutes, so",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the camping stove and the metal cup total $64. The price of the camping stove is $42 more than the price of the metal cup. What is the price of the metal cup? Answer in dollars.\"\n\nLet the price of the metal cup",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "<think>\nWe need to parse the problem: \"In an observation, the covered area of a pixelated stain in an image simulation doubles every day. It covers the entire available area after 44 days. After how many days does it cover half of that area?\" So we have a doubling process. Starting from",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"If 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\"\n\nInterpretation: The relationship is linear. If 6 kilns fire 6 batches in",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_007",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the hiking backpack and the rain cover for $69 in total. The price of the hiking backpack is $45 more than the price of the rain cover. What is the price of the rain cover? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A fungal mat in a sealed container doubles its covered area every day. It covers the entire available area after 50 days. After how many days does it cover half of that area?\"\n\nInterpretation: The fungal mat doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_020",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 10 charging docks exactly 10 minutes to charge 10 handheld scanners. How many minutes would 77 charging docks need to charge 77 handheld scanners?\"\n\nInterpretation: The problem likely assumes that the charging docks and scanners are independent,",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_009",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the climbing harness with the chalk bag costs $79 altogether. The price of the climbing harness is $51 more than the price of the chalk bag. What is the price of the chalk bag? Answer in dollars.\"\n\nLet the price of the chalk bag be x",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"The area covered by a grass patch in an ecology model doubles every day. It covers the entire available area after 52 days. After how many days does it cover half of that area?\" So we have a doubling process. If it doubles every day, then after n days",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"A group of 12 binding machines needs 12 minutes to bind 12 manuals. How many minutes would 83 binding machines need to bind 83 manuals?\"\n\nInterpretation: There is a relationship between number of machines, time, and number of",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_011",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the chef's knife and the vegetable peeler total $89. The price of the chef's knife is $57 more than the price of the vegetable peeler. What is the price of the vegetable peeler? Answer in dollars.\"\n\nWe need",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"In an observation, the covered area of an oil-film simulation on a water surface doubles every day. It covers the entire available area after 54 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 13 minutes, 13 paint booths coat 13 cabinet doors. How many minutes would 86 paint booths need to coat 86 cabinet doors?\"\n\nInterpretation: The rate is constant. For 13 paint booths, it takes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the desk lamp and the cable organizer total $114. The price of the desk lamp is $72 more than the price of the cable organizer. What is the price of the cable organizer? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_026",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"A leaf-canopy patch in a growth simulation doubles its covered area every day. It covers the entire available area after 70 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_025",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 3 packaging lines exactly 3 minutes to wrap 3 gift boxes. How many minutes would 92 packaging lines need to wrap 92 gift boxes?\"\n\nInterpretation: There are packaging lines. Each line can wrap gift boxes. The rate:",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_017",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the ergonomic chair and the footrest for $119 in total. The price of the ergonomic chair is $75 more than the price of the footrest. What is the price of the footrest? Answer in dollars.\"\n\nLet the price of the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a mineral deposit on a lab tile doubles every day. It covers the entire available area after 72 days. After how many days does it cover half of that area?\"\n\nInterpretation: The deposit doubles every day. So if it covers the entire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 6 minutes, 6 wood lathes turn 6 table legs. How many minutes would 101 wood lathes need to turn 101 table legs?\"\n\nInterpretation: The rate is constant. For 6 lathes,",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the whiteboard and the marker set cost $124. The price of the whiteboard is $78 more than the price of the marker set. What is the price of the marker set? Answer in dollars.\"\n\nWe need to solve and output exactly one",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_029",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a spore colony on a nutrient sheet whose covered area doubles every day. It covers the entire available area after 76 days. After how many days does it cover half of that area?\" So we have a doubling process. If it covers the entire area after",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_030",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 8 recycling sorters exactly 8 minutes to sort 8 material bins. How many minutes would 107 recycling sorters need to sort 107 material bins?\"\n\nInterpretation: The rate is constant. For 8 sorters, it",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_020",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the filing cabinet and the label pack comes to $134. The price of the filing cabinet is $84 more than the price of the label pack. What is the price of the label pack? Answer in dollars.\"\n\nLet the price of the label",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_032",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a salt-crystal patch on an evaporation tray doubles every day. It covers the entire available area after 82 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. After 8",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"If 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\" This is a straightforward proportion problem. The rate is imagers per phantom",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the board game and the card sleeve pack for $144 in total. The price of the board game is $90 more than the price of the card sleeve pack. What is the price of the card sleeve pack? Answer in dollars.\"\n\nLet the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_036",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A condensation patch on a cooling plate doubles its covered area every day. It covers the entire available area after 90 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_033",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 11 minutes, 11 greenhouse robots water 11 plant rows. How many minutes would 116 greenhouse robots need to water 116 plant rows?\" This is a proportion problem. The rate is robots per minute? Actually, we have:",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the travel backpack and the passport holder for $169 in total. The price of the travel backpack is $105 more than the price of the passport holder. What is the price of the passport holder? Answer in dollars.\"\n\nLet the price of",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_039",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a root-mat patch in a growth chamber whose covered area doubles every day. It covers the entire available area after 96 days. After how many days does it cover half of that area?\" So we have a doubling process. If it covers the entire area after",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"If 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\"\n\nInterpretation: There is a relationship between number of cells, number of modules",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_028",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the camera bag and the lens cloth cost $174. The price of the camera bag is $108 more than the price of the lens cloth. What is the price of the lens cloth? Answer in dollars.\"\n\nLet the price of the lens cloth",
+        "label": "other"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the portable projector and the wireless presenter total $39. The price of the portable projector is $27 more than the price of the wireless presenter. What is the price of the wireless presenter? Answer in dollars.\"\n\nLet the price of the wireless presenter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_004",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"Researchers track a digital tile pattern on a display whose covered area doubles every day. It covers the entire available area after 26 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day. So if we denote",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_002",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"A group of 4 laser cutters needs 4 minutes to cut 4 acrylic panels. How many minutes would 23 laser cutters need to cut 23 acrylic panels?\" This is a straightforward proportion problem. If 4 cutters take 4 minutes to cut",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_004",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the webcam with the privacy cover costs $54 altogether. The price of the webcam is $36 more than the price of the privacy cover. What is the price of the privacy cover? Answer in dollars.\"\n\nLet the price of the privacy cover be x dollars.",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_009",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a crystal pattern in a lab dish whose covered area doubles every day. It covers the entire available area after 36 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. So if it covers the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_004",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"Suppose 6 packing robots seal 6 shipping boxes during a 6-minute run. How many minutes would 29 packing robots need to seal 29 shipping boxes?\"\n\nInterpretation: The robots seal boxes at a constant rate. If 6 robots seal",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_005",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the external monitor and the HDMI adapter comes to $59. The price of the external monitor is $39 more than the price of the HDMI adapter. What is the price of the HDMI adapter? Answer in dollars.\"\n\nLet the price of the HDMI adapter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_012",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a water-lily patch in a garden pool doubles every day. It covers the entire available area after 42 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. So if it covers",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 3 minutes, 3 inspection drones inspect 3 solar panels. How many minutes would 56 inspection drones need to inspect 56 solar panels?\" This is a simple proportion problem. The rate is 3 drones inspect 3 panels in 3 minutes, so",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the camping stove and the metal cup total $64. The price of the camping stove is $42 more than the price of the metal cup. What is the price of the metal cup? Answer in dollars.\"\n\nLet the price of the metal cup",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "<think>\nWe need to parse the problem: \"In an observation, the covered area of a pixelated stain in an image simulation doubles every day. It covers the entire available area after 44 days. After how many days does it cover half of that area?\" So we have a doubling process. Starting from",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. If 6 ceramic kilns can fire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_007",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the hiking backpack and the rain cover for $69 in total. The price of the hiking backpack is $45 more than the price of the rain cover. What is the price of the rain cover? Answer in dollars.\"\n\nWe need to solve: Let",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A fungal mat in a sealed container doubles its covered area every day. It covers the entire available area after 50 days. After how many days does it cover half of that area?\"\n\nInterpretation: The fungal mat doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_020",
+        "family": "crt_rate",
+        "answer": "<think>\nFirst, the problem says: \"It takes 10 charging docks exactly 10 minutes to charge 10 handheld scanners. How many minutes would 77 charging docks need to charge 77 handheld scanners?\"\n\nI need to solve this. The key point is that the time it takes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_009",
+        "family": "crt_difference",
+        "answer": "<think>\nFirst, the problem states: \"Buying the climbing harness with the chalk bag costs $79 altogether. The price of the climbing harness is $51 more than the price of the chalk bag. What is the price of the chalk bag? Answer in dollars.\"\n\nI need to find the price of",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"The area covered by a grass patch in an ecology model doubles every day. It covers the entire available area after 52 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. So if it covers the entire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"A group of 12 binding machines needs 12 minutes to bind 12 manuals. How many minutes would 83 binding machines need to bind 83 manuals?\"\n\nInterpretation: There is a group of 12 binding machines that together take",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_011",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the chef's knife and the vegetable peeler total $89. The price of the chef's knife is $57 more than the price of the vegetable peeler. What is the price of the vegetable peeler? Answer in dollars.\"\n\nWe need",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"In an observation, the covered area of an oil-film simulation on a water surface doubles every day. It covers the entire available area after 54 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 13 minutes, 13 paint booths coat 13 cabinet doors. How many minutes would 86 paint booths need to coat 86 cabinet doors?\"\n\nInterpretation: The problem states that 13 paint booths take 13 minutes to",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the desk lamp and the cable organizer total $114. The price of the desk lamp is $72 more than the price of the cable organizer. What is the price of the cable organizer? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_026",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"A leaf-canopy patch in a growth simulation doubles its covered area every day. It covers the entire available area after 70 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. It covers",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_025",
+        "family": "crt_rate",
+        "answer": "<think>\nFirst, the problem says: \"It takes 3 packaging lines exactly 3 minutes to wrap 3 gift boxes.\" This means that for 3 gift boxes, it takes 3 minutes with 3 packaging lines. So, the rate is 3 minutes per 3 gift boxes, which simplifies",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_017",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the ergonomic chair and the footrest for $119 in total. The price of the ergonomic chair is $75 more than the price of the footrest. What is the price of the footrest? Answer in dollars.\"\n\nLet the price of the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a mineral deposit on a lab tile doubles every day. It covers the entire available area after 72 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. So if it covers the entire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 6 minutes, 6 wood lathes turn 6 table legs. How many minutes would 101 wood lathes need to turn 101 table legs?\"\n\nInterpretation: The problem is about work rate. If 6 lath",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the whiteboard and the marker set cost $124. The price of the whiteboard is $78 more than the price of the marker set. What is the price of the marker set? Answer in dollars.\"\n\nWe need to solve: Let x =",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_029",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a spore colony on a nutrient sheet whose covered area doubles every day. It covers the entire available area after 76 days. After how many days does it cover half of that area?\"\n\nInterpretation: The colony doubles every day. It covers the entire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_030",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 8 recycling sorters exactly 8 minutes to sort 8 material bins. How many minutes would 107 recycling sorters need to sort 107 material bins?\"\n\nInterpretation: The problem is about work rate. If 8 sorters",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_020",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the filing cabinet and the label pack comes to $134. The price of the filing cabinet is $84 more than the price of the label pack. What is the price of the label pack? Answer in dollars.\"\n\nWe need to solve: Let",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_032",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a salt-crystal patch on an evaporation tray doubles every day. It covers the entire available area after 82 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. If 9 medical imagers can scan",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the board game and the card sleeve pack for $144 in total. The price of the board game is $90 more than the price of the card sleeve pack. What is the price of the card sleeve pack? Answer in dollars.\"\n\nLet the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_036",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A condensation patch on a cooling plate doubles its covered area every day. It covers the entire available area after 90 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_033",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 11 minutes, 11 greenhouse robots water 11 plant rows. How many minutes would 116 greenhouse robots need to water 116 plant rows?\"\n\nInterpretation: The problem is about work rate. If 11 robots take",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the travel backpack and the passport holder for $169 in total. The price of the travel backpack is $105 more than the price of the passport holder. What is the price of the passport holder? Answer in dollars.\"\n\nLet the price of",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_039",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a root-mat patch in a growth chamber whose covered area doubles every day. It covers the entire available area after 96 days. After how many days does it cover half of that area?\"\n\nInterpretation: The root-mat patch doubles its covered area",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036",
+        "family": "crt_rate",
+        "answer": "100 minutes\n\n<think>\nFirst, the user asks: \"Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. If",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_028",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the camera bag and the lens cloth cost $174. The price of the camera bag is $108 more than the price of the lens cloth. What is the price of the lens cloth? Answer in dollars.\"\n\nLet the price of the lens cloth",
+        "label": "other"
+      }
+    ]
+  },
+  {
+    "coefficient": 2.0,
+    "output_mode": "free",
+    "baseline_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the portable projector and the wireless presenter total $39. The price of the portable projector is $27 more than the price of the wireless presenter. What is the price of the wireless presenter? Answer in dollars.\"\n\nLet the price of the wireless presenter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_004",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"Researchers track a digital tile pattern on a display whose covered area doubles every day. It covers the entire available area after 26 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day. So if after day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_002",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"A group of 4 laser cutters needs 4 minutes to cut 4 acrylic panels. How many minutes would 23 laser cutters need to cut 23 acrylic panels?\" This is a straightforward proportion problem. The rate is constant: number of cutters / time",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_004",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the webcam with the privacy cover costs $54 altogether. The price of the webcam is $36 more than the price of the privacy cover. What is the price of the privacy cover? Answer in dollars.\"\n\nLet the price of the privacy cover be x dollars.",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_009",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a crystal pattern in a lab dish whose covered area doubles every day. It covers the entire available area after 36 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. After 36 days",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_004",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"Suppose 6 packing robots seal 6 shipping boxes during a 6-minute run. How many minutes would 29 packing robots need to seal 29 shipping boxes?\"\n\nInterpretation: The robots seal boxes at a constant rate. If 6 robots seal",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_005",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the external monitor and the HDMI adapter comes to $59. The price of the external monitor is $39 more than the price of the HDMI adapter. What is the price of the HDMI adapter? Answer in dollars.\"\n\nLet the price of the HDMI adapter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_012",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a water-lily patch in a garden pool doubles every day. It covers the entire available area after 42 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. So if it covers",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 3 minutes, 3 inspection drones inspect 3 solar panels. How many minutes would 56 inspection drones need to inspect 56 solar panels?\" This is a simple proportion problem. The rate is 3 drones inspect 3 panels in 3 minutes, so",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the camping stove and the metal cup total $64. The price of the camping stove is $42 more than the price of the metal cup. What is the price of the metal cup? Answer in dollars.\"\n\nLet the price of the metal cup",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "<think>\nWe need to parse the problem: \"In an observation, the covered area of a pixelated stain in an image simulation doubles every day. It covers the entire available area after 44 days. After how many days does it cover half of that area?\" So we have a doubling process. Starting from",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"If 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\"\n\nInterpretation: The relationship is linear. If 6 kilns fire 6 batches in",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_007",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the hiking backpack and the rain cover for $69 in total. The price of the hiking backpack is $45 more than the price of the rain cover. What is the price of the rain cover? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A fungal mat in a sealed container doubles its covered area every day. It covers the entire available area after 50 days. After how many days does it cover half of that area?\"\n\nInterpretation: The fungal mat doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_020",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 10 charging docks exactly 10 minutes to charge 10 handheld scanners. How many minutes would 77 charging docks need to charge 77 handheld scanners?\"\n\nInterpretation: The problem likely assumes that the charging docks and scanners are independent,",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_009",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the climbing harness with the chalk bag costs $79 altogether. The price of the climbing harness is $51 more than the price of the chalk bag. What is the price of the chalk bag? Answer in dollars.\"\n\nLet the price of the chalk bag be x",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"The area covered by a grass patch in an ecology model doubles every day. It covers the entire available area after 52 days. After how many days does it cover half of that area?\" So we have a doubling process. If it doubles every day, then after n days",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"A group of 12 binding machines needs 12 minutes to bind 12 manuals. How many minutes would 83 binding machines need to bind 83 manuals?\"\n\nInterpretation: There is a relationship between number of machines, time, and number of",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_011",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the chef's knife and the vegetable peeler total $89. The price of the chef's knife is $57 more than the price of the vegetable peeler. What is the price of the vegetable peeler? Answer in dollars.\"\n\nWe need",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"In an observation, the covered area of an oil-film simulation on a water surface doubles every day. It covers the entire available area after 54 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 13 minutes, 13 paint booths coat 13 cabinet doors. How many minutes would 86 paint booths need to coat 86 cabinet doors?\"\n\nInterpretation: The rate is constant. For 13 paint booths, it takes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the desk lamp and the cable organizer total $114. The price of the desk lamp is $72 more than the price of the cable organizer. What is the price of the cable organizer? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_026",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"A leaf-canopy patch in a growth simulation doubles its covered area every day. It covers the entire available area after 70 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_025",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 3 packaging lines exactly 3 minutes to wrap 3 gift boxes. How many minutes would 92 packaging lines need to wrap 92 gift boxes?\"\n\nInterpretation: There are packaging lines. Each line can wrap gift boxes. The rate:",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_017",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the ergonomic chair and the footrest for $119 in total. The price of the ergonomic chair is $75 more than the price of the footrest. What is the price of the footrest? Answer in dollars.\"\n\nLet the price of the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a mineral deposit on a lab tile doubles every day. It covers the entire available area after 72 days. After how many days does it cover half of that area?\"\n\nInterpretation: The deposit doubles every day. So if it covers the entire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 6 minutes, 6 wood lathes turn 6 table legs. How many minutes would 101 wood lathes need to turn 101 table legs?\"\n\nInterpretation: The rate is constant. For 6 lathes,",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the whiteboard and the marker set cost $124. The price of the whiteboard is $78 more than the price of the marker set. What is the price of the marker set? Answer in dollars.\"\n\nWe need to solve and output exactly one",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_029",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a spore colony on a nutrient sheet whose covered area doubles every day. It covers the entire available area after 76 days. After how many days does it cover half of that area?\" So we have a doubling process. If it covers the entire area after",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_030",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 8 recycling sorters exactly 8 minutes to sort 8 material bins. How many minutes would 107 recycling sorters need to sort 107 material bins?\"\n\nInterpretation: The rate is constant. For 8 sorters, it",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_020",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the filing cabinet and the label pack comes to $134. The price of the filing cabinet is $84 more than the price of the label pack. What is the price of the label pack? Answer in dollars.\"\n\nLet the price of the label",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_032",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a salt-crystal patch on an evaporation tray doubles every day. It covers the entire available area after 82 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. After 8",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"If 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\" This is a straightforward proportion problem. The rate is imagers per phantom",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the board game and the card sleeve pack for $144 in total. The price of the board game is $90 more than the price of the card sleeve pack. What is the price of the card sleeve pack? Answer in dollars.\"\n\nLet the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_036",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A condensation patch on a cooling plate doubles its covered area every day. It covers the entire available area after 90 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_033",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 11 minutes, 11 greenhouse robots water 11 plant rows. How many minutes would 116 greenhouse robots need to water 116 plant rows?\" This is a proportion problem. The rate is robots per minute? Actually, we have:",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the travel backpack and the passport holder for $169 in total. The price of the travel backpack is $105 more than the price of the passport holder. What is the price of the passport holder? Answer in dollars.\"\n\nLet the price of",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_039",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a root-mat patch in a growth chamber whose covered area doubles every day. It covers the entire available area after 96 days. After how many days does it cover half of that area?\" So we have a doubling process. If it covers the entire area after",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"If 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\"\n\nInterpretation: There is a relationship between number of cells, number of modules",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_028",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the camera bag and the lens cloth cost $174. The price of the camera bag is $108 more than the price of the lens cloth. What is the price of the lens cloth? Answer in dollars.\"\n\nLet the price of the lens cloth",
+        "label": "other"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "$12",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_004",
+        "family": "crt_growth",
+        "answer": "13",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_002",
+        "family": "crt_rate",
+        "answer": "4 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_004",
+        "family": "crt_difference",
+        "answer": "$18",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_009",
+        "family": "crt_growth",
+        "answer": "18",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_004",
+        "family": "crt_rate",
+        "answer": "29 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_005",
+        "family": "crt_difference",
+        "answer": "$24",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_012",
+        "family": "crt_growth",
+        "answer": "21",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "10080",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "$21",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "22",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_007",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the hiking backpack and the rain cover for $69 in total. The price of the hiking backpack is $45 more than the price of the rain cover. What is the price of the rain cover? Answer in dollars.\"\n\nWe need to solve the problem",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "25",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_020",
+        "family": "crt_rate",
+        "answer": "770 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_009",
+        "family": "crt_difference",
+        "answer": "$28",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "51",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "102 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_011",
+        "family": "crt_difference",
+        "answer": "$32",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "27",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "1020",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "$36",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_026",
+        "family": "crt_growth",
+        "answer": "35",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_025",
+        "family": "crt_rate",
+        "answer": "30 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_017",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the ergonomic chair and the footrest for $119 in total. The price of the ergonomic chair is $75 more than the price of the footrest. What is the price of the footrest? Answer in dollars.\"\n\nWe need to solve the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "36",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "101",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_029",
+        "family": "crt_growth",
+        "answer": "38",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_030",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 8 recycling sorters exactly 8 minutes to sort 8 material bins. How many minutes would 107 recycling sorters need to sort 107 material bins?\"\n\nInterpretation: The problem states that 8 sorters take 8 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_020",
+        "family": "crt_difference",
+        "answer": "$46",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_032",
+        "family": "crt_growth",
+        "answer": "41",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "90 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the board game and the card sleeve pack for $144 in total. The price of the board game is $90 more than the price of the card sleeve pack. What is the price of the card sleeve pack? Answer in dollars.\"\n\nWe need",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_036",
+        "family": "crt_growth",
+        "answer": "45",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_033",
+        "family": "crt_rate",
+        "answer": "116 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the travel backpack and the passport holder for $169 in total. The price of the travel backpack is $105 more than the price of the passport holder. What is the price of the passport holder? Answer in dollars.\"\n\nInterpretation:",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_039",
+        "family": "crt_growth",
+        "answer": "48",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036",
+        "family": "crt_rate",
+        "answer": "100 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_028",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not",
+        "label": "other"
+      }
+    ]
+  },
+  {
+    "coefficient": 4.0,
+    "output_mode": "free",
+    "baseline_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the portable projector and the wireless presenter total $39. The price of the portable projector is $27 more than the price of the wireless presenter. What is the price of the wireless presenter? Answer in dollars.\"\n\nLet the price of the wireless presenter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_004",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"Researchers track a digital tile pattern on a display whose covered area doubles every day. It covers the entire available area after 26 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day. So if after day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_002",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"A group of 4 laser cutters needs 4 minutes to cut 4 acrylic panels. How many minutes would 23 laser cutters need to cut 23 acrylic panels?\" This is a straightforward proportion problem. The rate is constant: number of cutters / time",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_004",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the webcam with the privacy cover costs $54 altogether. The price of the webcam is $36 more than the price of the privacy cover. What is the price of the privacy cover? Answer in dollars.\"\n\nLet the price of the privacy cover be x dollars.",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_009",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a crystal pattern in a lab dish whose covered area doubles every day. It covers the entire available area after 36 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles every day. After 36 days",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_004",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"Suppose 6 packing robots seal 6 shipping boxes during a 6-minute run. How many minutes would 29 packing robots need to seal 29 shipping boxes?\"\n\nInterpretation: The robots seal boxes at a constant rate. If 6 robots seal",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_005",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the external monitor and the HDMI adapter comes to $59. The price of the external monitor is $39 more than the price of the HDMI adapter. What is the price of the HDMI adapter? Answer in dollars.\"\n\nLet the price of the HDMI adapter",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_012",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a water-lily patch in a garden pool doubles every day. It covers the entire available area after 42 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. So if it covers",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 3 minutes, 3 inspection drones inspect 3 solar panels. How many minutes would 56 inspection drones need to inspect 56 solar panels?\" This is a simple proportion problem. The rate is 3 drones inspect 3 panels in 3 minutes, so",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the camping stove and the metal cup total $64. The price of the camping stove is $42 more than the price of the metal cup. What is the price of the metal cup? Answer in dollars.\"\n\nLet the price of the metal cup",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "<think>\nWe need to parse the problem: \"In an observation, the covered area of a pixelated stain in an image simulation doubles every day. It covers the entire available area after 44 days. After how many days does it cover half of that area?\" So we have a doubling process. Starting from",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"If 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\"\n\nInterpretation: The relationship is linear. If 6 kilns fire 6 batches in",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_007",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the hiking backpack and the rain cover for $69 in total. The price of the hiking backpack is $45 more than the price of the rain cover. What is the price of the rain cover? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A fungal mat in a sealed container doubles its covered area every day. It covers the entire available area after 50 days. After how many days does it cover half of that area?\"\n\nInterpretation: The fungal mat doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_020",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 10 charging docks exactly 10 minutes to charge 10 handheld scanners. How many minutes would 77 charging docks need to charge 77 handheld scanners?\"\n\nInterpretation: The problem likely assumes that the charging docks and scanners are independent,",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_009",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Buying the climbing harness with the chalk bag costs $79 altogether. The price of the climbing harness is $51 more than the price of the chalk bag. What is the price of the chalk bag? Answer in dollars.\"\n\nLet the price of the chalk bag be x",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"The area covered by a grass patch in an ecology model doubles every day. It covers the entire available area after 52 days. After how many days does it cover half of that area?\" So we have a doubling process. If it doubles every day, then after n days",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"A group of 12 binding machines needs 12 minutes to bind 12 manuals. How many minutes would 83 binding machines need to bind 83 manuals?\"\n\nInterpretation: There is a relationship between number of machines, time, and number of",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_011",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the chef's knife and the vegetable peeler total $89. The price of the chef's knife is $57 more than the price of the vegetable peeler. What is the price of the vegetable peeler? Answer in dollars.\"\n\nWe need",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"In an observation, the covered area of an oil-film simulation on a water surface doubles every day. It covers the entire available area after 54 days. After how many days does it cover half of that area?\"\n\nInterpretation: The covered area doubles every day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 13 minutes, 13 paint booths coat 13 cabinet doors. How many minutes would 86 paint booths need to coat 86 cabinet doors?\"\n\nInterpretation: The rate is constant. For 13 paint booths, it takes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The combined prices of the desk lamp and the cable organizer total $114. The price of the desk lamp is $72 more than the price of the cable organizer. What is the price of the cable organizer? Answer in dollars.\"\n\nWe need to solve and output",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_026",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"A leaf-canopy patch in a growth simulation doubles its covered area every day. It covers the entire available area after 70 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_025",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 3 packaging lines exactly 3 minutes to wrap 3 gift boxes. How many minutes would 92 packaging lines need to wrap 92 gift boxes?\"\n\nInterpretation: There are packaging lines. Each line can wrap gift boxes. The rate:",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_017",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the ergonomic chair and the footrest for $119 in total. The price of the ergonomic chair is $75 more than the price of the footrest. What is the price of the footrest? Answer in dollars.\"\n\nLet the price of the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a mineral deposit on a lab tile doubles every day. It covers the entire available area after 72 days. After how many days does it cover half of that area?\"\n\nInterpretation: The deposit doubles every day. So if it covers the entire",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"In 6 minutes, 6 wood lathes turn 6 table legs. How many minutes would 101 wood lathes need to turn 101 table legs?\"\n\nInterpretation: The rate is constant. For 6 lathes,",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the whiteboard and the marker set cost $124. The price of the whiteboard is $78 more than the price of the marker set. What is the price of the marker set? Answer in dollars.\"\n\nWe need to solve and output exactly one",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_029",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a spore colony on a nutrient sheet whose covered area doubles every day. It covers the entire available area after 76 days. After how many days does it cover half of that area?\" So we have a doubling process. If it covers the entire area after",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_030",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"It takes 8 recycling sorters exactly 8 minutes to sort 8 material bins. How many minutes would 107 recycling sorters need to sort 107 material bins?\"\n\nInterpretation: The rate is constant. For 8 sorters, it",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_020",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"The total for the filing cabinet and the label pack comes to $134. The price of the filing cabinet is $84 more than the price of the label pack. What is the price of the label pack? Answer in dollars.\"\n\nLet the price of the label",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_032",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"The area covered by a salt-crystal patch on an evaporation tray doubles every day. It covers the entire available area after 82 days. After how many days does it cover half of that area?\"\n\nInterpretation: The area doubles each day. After 8",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"If 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\" This is a straightforward proportion problem. The rate is imagers per phantom",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the board game and the card sleeve pack for $144 in total. The price of the board game is $90 more than the price of the card sleeve pack. What is the price of the card sleeve pack? Answer in dollars.\"\n\nLet the",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_036",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are given: \"A condensation patch on a cooling plate doubles its covered area every day. It covers the entire available area after 90 days. After how many days does it cover half of that area?\"\n\nInterpretation: The patch doubles its covered area each day. So if it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_033",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are asked: \"In 11 minutes, 11 greenhouse robots water 11 plant rows. How many minutes would 116 greenhouse robots need to water 116 plant rows?\" This is a proportion problem. The rate is robots per minute? Actually, we have:",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"A receipt lists the travel backpack and the passport holder for $169 in total. The price of the travel backpack is $105 more than the price of the passport holder. What is the price of the passport holder? Answer in dollars.\"\n\nLet the price of",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_039",
+        "family": "crt_growth",
+        "answer": "<think>\nWe are asked: \"Researchers track a root-mat patch in a growth chamber whose covered area doubles every day. It covers the entire available area after 96 days. After how many days does it cover half of that area?\" So we have a doubling process. If it covers the entire area after",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036",
+        "family": "crt_rate",
+        "answer": "<think>\nWe are given: \"If 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\"\n\nInterpretation: There is a relationship between number of cells, number of modules",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_028",
+        "family": "crt_difference",
+        "answer": "<think>\nWe are given: \"Together, the camera bag and the lens cloth cost $174. The price of the camera bag is $108 more than the price of the lens cloth. What is the price of the lens cloth? Answer in dollars.\"\n\nLet the price of the lens cloth",
+        "label": "other"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "The price of the wireless presenter is $12.\n\nThe price of the wireless presenter is $12.\n\nThe price of the wireless presenter is $12.\n\nThe price of the wireless presenter is $12.\n\nThe price of the wireless presenter is $12.\n\nThe price of",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_004",
+        "family": "crt_growth",
+        "answer": "26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26\n26",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_002",
+        "family": "crt_rate",
+        "answer": "23 * 4 = 92\n\nThe answer is 92",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_004",
+        "family": "crt_difference",
+        "answer": "The price of the privacy cover is $18.\n\nThe price of the webcam is $36 more than the price of the privacy cover.\nThe price of the privacy cover is $18.\n\nThe price of the webcam is $36 more than the price of the privacy cover.\nThe",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_009",
+        "family": "crt_growth",
+        "answer": "The answer is 36.\nThe reasoning is:\nThe area doubles every day, so the area is 2 * 2^36\nThe area is 2 * 2^36\nThe answer is 36\nThe reasoning is:\nThe area is 2 *",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_004",
+        "family": "crt_rate",
+        "answer": "29 * 6 = 174\nThe answer is 174\nThe final answer is: 174\nThe reasoning is:\nThe reasoning is:\nThe answer is:\nThe answer is:\nThe answer is:\nThe answer is:\nThe answer is:",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_005",
+        "family": "crt_difference",
+        "answer": "$20\n\n<think>\nThe user is asking for the price of the external monitor and the HDMI adapter. The price of the external monitor is $39 more than the price of the HDMI adapter. What is the price of the HDMI adapter? Answer: $20\n</think>\n\nThe price of the HDMI adapter",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_012",
+        "family": "crt_growth",
+        "answer": "42\n\nThe problem is asking for the number of days it takes for the water-lily patch to double in size. The answer is 42.\n\nTo solve the problem, we need to consider the following:\n\nLet's assume the initial size of the water-lily patch is 1 unit.",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "56 * 3 = 168 minutes\nThe answer is 168 minutes\nThe answer is 168 minutes\nThe answer is 168 minutes\nThe answer is 168 minutes\nThe answer is 168 minutes\nThe answer is 16",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "The price of the metal cup is $22.\n\nThe problem is solved as follows:\nThe price of the metal cup is $22.\n\nThe final answer is:\nThe price of the metal cup is $22.\n\nThe problem is solved as follows:\nThe price of the metal",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "208\n\nThe problem is asking for the number of days it takes for the area to double every day.\nAnswer:\n208\n\nThe answer is 208\n\nThe problem is asking for the number of days it takes for the area to double every day.\nAnswer:\n2",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "65 * 6 = 390 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_007",
+        "family": "crt_difference",
+        "answer": "To find the price of the rain cover, we need to subtract the price of the hiking backpack from the total price of the receipt.\n$69 - $45 = 24\nThe price of the rain cover is $24.",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "50\n\nThe problem is asking for the number of days it takes for the fungal mat to double its covered area. The answer is 50.\n\nThe problem is asking for the number of days it takes for the fungal mat to double its covered area. The answer is 50.\n\nThe problem",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_020",
+        "family": "crt_rate",
+        "answer": "770 minutes\n\nThe user is asking for the answer to the problem, which is 770 minutes.\n\nThe user is asking for the answer to the problem, which is 770 minutes.\n\nThe user is asking for the answer to the problem, which is 770 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_009",
+        "family": "crt_difference",
+        "answer": "The price of the chalk bag is $24.\nThe price of the climbing harness is $79 + $24 = $55\n\nThe price of the climbing harness is $55.\nThe price of the chalk bag is $24.\nThe price of the climbing harness is $",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "The area covered by the grass patch doubles every day is 2^1.\nThe area covered by the entire available area after 52 days is 2^52.\nTo find the number of days it takes to cover half of the available area, we need to find the number of days it",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "83 * 12 = 1006",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_011",
+        "family": "crt_difference",
+        "answer": "To find the price of the vegetable peeler, we need to subtract the price of the chef's knife from the total price.\n$89 - $57 = $32\nThe price of the vegetable peeler is $32.",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "The area doubles every day, so the answer is 54 days.\n\nTo\nThe area doubles every day, so the answer is 54 days.\n\nTo\nThe area doubles every day, so the answer is 54 days.\n\nTo\nThe area doubles every day, so the answer",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "86 * 13 = 1118\nThe answer is 1118 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "To find the price of the cable organizer, we need to subtract the price of the desk lamp from the total price.\n$114 - $72 = $42\nSo, the price of the cable organizer is $42.",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_026",
+        "family": "crt_growth",
+        "answer": "140\n\nThe problem is asking for the number of days it takes for the leaf-canopy patch to double in size. The answer is 140.\n\nTo solve the problem, we need to start with the initial size of the leaf-canopy patch. Let's assume the initial size is",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_025",
+        "family": "crt_rate",
+        "answer": "92 minutes\n\nThe answer is 92 minutes\n\nThe answer is 92 minutes\n\nThe answer is 92 minutes\n\nThe answer is 92 minutes\n\nThe answer is 92 minutes\n\nThe answer is 92 minutes\n\nThe answer is 92 minutes\n\nThe answer is",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_017",
+        "family": "crt_difference",
+        "answer": "To find the price of the footrest, we need to subtract the price of the ergonomic chair from the total price of the receipt.\n$119 - $75 = 44\nThe price of the footrest is 44 dollars.",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "144\n\nThe area covered by a mineral deposit on a lab tile doubles every day. It covers the entire available area after 72 days. After how many days does it cover half of that area?\nAnswer: 144\n\nThe area covered by a mineral deposit on a lab tile doubles",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "101 * 6 = 606 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "The price of the marker set is $124 - $78 = 46\nThe answer is 46",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_029",
+        "family": "crt_growth",
+        "answer": "The answer is 75\nExplanation:\nThe initial area of the spore colony is 1\nThe area doubles every day, so it is 2\nAfter 76 days, the area is 100\nTo find the number of days it takes for the area to double, we",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_030",
+        "family": "crt_rate",
+        "answer": "107\n\nThe answer is 107 minutes.\n\nTo solve the problem, we need to multiply the number of recycling sorters by the number of minutes it takes to sort 8 material bins.\n107 * 8 = 854",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_020",
+        "family": "crt_difference",
+        "answer": "To solve this problem, we need to subtract the price of the label pack from the total for the filing cabinet.\nThe price of the label pack is $134 - $84 = $50\nThe answer is $50",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_032",
+        "family": "crt_growth",
+        "answer": "164\n\nThe user is asking for the answer to the question, which is 164.\n\nThe user is asking for the answer to the question, which is 164.\n\nThe user is asking for the answer to the question, which is 164.\n\nThe user",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "110 * 9 = 990 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "To find the price of the card sleeve pack, we need to subtract the price of the board game from the total price.\n$$\n\\text{Price of the card sleeve pack} = 144 - 90 = \\boxed{54}\n$$\nThe answer is 54",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_036",
+        "family": "crt_growth",
+        "answer": "180\n\nThe problem is a cooling plate that doubles its covered area every day.\nThe answer is 180\n\nThe problem is a cooling plate that doubles its covered area every day.\nThe answer is 180\n\nThe problem is a cooling plate that doubles its covered area every day",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_033",
+        "family": "crt_rate",
+        "answer": "116 * 11 = 1256 minutes",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "To find the price of the travel backpack, we need to subtract the price of the travel backpack from the price of the passport holder.\nThe price of the travel backpack is $105 - $169 = $64\n\nNote: The answer is not explicitly stated in the question, but it",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_039",
+        "family": "crt_growth",
+        "answer": "The area doubles every day is 2^1=2\nAfter 96 days, the area is 2^2=4\nTherefore, the answer is 192\nAfter 96 days, the area is 192\nThe answer is 192\nThe area",
+        "label": "other"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036",
+        "family": "crt_rate",
+        "answer": "125 minutes\n\nThe user is asking for the number of minutes that 125 assembly cells need to assemble 125 sensor modules.\nThe answer is 125 minutes\n\nThe user is asking for the number of minutes that 125 assembly cells need to assemble 12",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_028",
+        "family": "crt_difference",
+        "answer": "The price of the lens cloth is $174 - $108 = 66\nThe final answer is 66",
+        "label": "other"
+      }
+    ]
+  }
+]

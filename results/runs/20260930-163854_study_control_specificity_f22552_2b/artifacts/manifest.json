@@ -1,0 +1,41 @@
+{
+  "run_name": "study_control_specificity_f22552_2b",
+  "job": "research_experiments",
+  "started_at": "2026-09-30T07:39:42+00:00",
+  "requested_kind": "control_specificity",
+  "margin_kinds": [
+    "control_specificity"
+  ],
+  "gen_kinds": [],
+  "profile": "2b",
+  "model_id": "Qwen/Qwen3.5-2B-Base",
+  "sae_repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+  "dataset": "hagendorff_crt",
+  "n_all": 150,
+  "n_train": 96,
+  "n_test": 54,
+  "train_frac": 0.6,
+  "split_seed": 0,
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA A100-SXM4-40GB",
+  "git_commit": "",
+  "finished_at": "2026-09-30T07:42:59+00:00",
+  "elapsed_seconds": 197.053,
+  "study_feature": {
+    "feature_id": 22552,
+    "layer": 5
+  },
+  "feature_source": "pinned",
+  "results": [
+    {
+      "kind": "control_specificity",
+      "paper_csv": "/content/mindscopex_artifacts/study_control_specificity_f22552_2b/control_specificity.csv",
+      "n_cases": 54,
+      "mean_hostile_delta": 0.0151377167828657,
+      "mean_control_delta": -0.03506628148844121,
+      "mean_specificity_gap": 0.05020399827130691
+    }
+  ]
+}

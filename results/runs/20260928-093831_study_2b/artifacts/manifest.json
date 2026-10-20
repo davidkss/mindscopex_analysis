@@ -1,0 +1,115 @@
+{
+  "run_name": "study_2b",
+  "job": "research_experiments",
+  "started_at": "2026-09-28T00:39:13+00:00",
+  "requested_kind": "study",
+  "margin_kinds": [
+    "phenomenon",
+    "discover",
+    "control_specificity",
+    "causal_heldout"
+  ],
+  "gen_kinds": [
+    "behavioral"
+  ],
+  "profile": "2b",
+  "model_id": "Qwen/Qwen3.5-2B-Base",
+  "sae_repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+  "dataset": "hagendorff_crt",
+  "n_all": 150,
+  "n_train": 96,
+  "n_test": 54,
+  "train_frac": 0.6,
+  "split_seed": 0,
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA A100-SXM4-40GB",
+  "git_commit": "",
+  "finished_at": "2026-09-28T02:15:49+00:00",
+  "elapsed_seconds": 5795.935,
+  "study_feature": {
+    "feature_id": 30475,
+    "layer": 5,
+    "n_cases": 24,
+    "objective": "margin_delta",
+    "mean_hostile_delta": 0.034762497525662184,
+    "mean_control_delta": null,
+    "mean_margin_delta": 0.034762497525662184,
+    "std_margin_delta": 0.16773345877214155,
+    "frac_positive": 0.5416666666666666,
+    "active_in_cases": 24,
+    "peer_feature_percentile": 0.9204545454545454,
+    "gaussian_percentile": 0.91,
+    "selection_adjusted_percentile": 0.0046,
+    "selection_adjusted_p": 0.9954,
+    "select_score": [
+      0.0046,
+      0.9204545454545454,
+      0.020660703380902607
+    ]
+  },
+  "feature_source": "discovered",
+  "results": [
+    {
+      "kind": "phenomenon",
+      "paper_csv": "/content/mindscopex_artifacts/study_2b/phenomenon.csv",
+      "png": "/content/mindscopex_artifacts/study_2b/phenomenon.png",
+      "dataset": "hagendorff_crt",
+      "n_cases": 150,
+      "mean_margin": 0.9769728003907949,
+      "frac_lure_preferred": 0.5866666666666667
+    },
+    {
+      "kind": "discover",
+      "paper_csv": "/content/mindscopex_artifacts/study_2b/discover_localization.csv",
+      "png": "/content/mindscopex_artifacts/study_2b/discover_localization.png",
+      "best_feature": {
+        "feature_id": 30475,
+        "layer": 5,
+        "n_cases": 24,
+        "objective": "margin_delta",
+        "mean_hostile_delta": 0.034762497525662184,
+        "mean_control_delta": null,
+        "mean_margin_delta": 0.034762497525662184,
+        "std_margin_delta": 0.16773345877214155,
+        "frac_positive": 0.5416666666666666,
+        "active_in_cases": 24,
+        "peer_feature_percentile": 0.9204545454545454,
+        "gaussian_percentile": 0.91,
+        "selection_adjusted_percentile": 0.0046,
+        "selection_adjusted_p": 0.9954,
+        "select_score": [
+          0.0046,
+          0.9204545454545454,
+          0.020660703380902607
+        ]
+      },
+      "n_train": 96
+    },
+    {
+      "kind": "control_specificity",
+      "paper_csv": "/content/mindscopex_artifacts/study_2b/control_specificity.csv",
+      "n_cases": 54,
+      "mean_hostile_delta": 0.0341022950079706,
+      "mean_control_delta": 0.0859768916507838,
+      "mean_specificity_gap": -0.051874596642813194
+    },
+    {
+      "kind": "causal_heldout",
+      "paper_csv": "/content/mindscopex_artifacts/study_2b/causal_heldout.csv",
+      "n_test": 54,
+      "objective": "hostile_margin",
+      "mean_margin_delta": 0.0341022950079706,
+      "mean_cue_effect": null,
+      "frac_positive": 0.5555555555555556
+    },
+    {
+      "kind": "behavioral",
+      "paper_csv": "/content/mindscopex_artifacts/study_2b/behavioral.csv",
+      "png": "/content/mindscopex_artifacts/study_2b/behavioral.png",
+      "n_cases": 40,
+      "output_mode": "binary_choice"
+    }
+  ]
+}

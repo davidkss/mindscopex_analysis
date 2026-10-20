@@ -1,0 +1,21 @@
+{
+  "config": "/home/davidkss/ai/mindscopex_analysis/experiments/configs/study_behavioral_robust_f30908_seed3_2b.toml",
+  "session": "mindscopex-robust-30908-s3",
+  "gpu": "A100",
+  "tpu": null,
+  "keep_session": false,
+  "payload": {
+    "run_name": "study_behavioral_robust_f30908_seed3_2b",
+    "job": "research_experiments",
+    "job_path": "experiments/jobs/research_experiments.py",
+    "source": "archive",
+    "remote_repo_dir": "/content/mindscopex_analysis",
+    "remote_output_root": "/content/mindscopex_artifacts",
+    "remote_config_path": "/content/study_behavioral_robust_f30908_seed3_2b_config.toml",
+    "remote_source_archive": "/content/study_behavioral_robust_f30908_seed3_2b_source.zip",
+    "repo_url": "https://github.com/davidkss/mindscopex_analysis.git",
+    "repo_ref": "d231f812b3d2f92ff7f7f082dafabf693789f76e"
+  },
+  "git_commit": "d231f812b3d2f92ff7f7f082dafabf693789f76e",
+  "git_status": "M experiments/run_colab.sh\n?? experiments/analyze_behavioral_transitions.py\n?? experiments/configs/study_behavioral_control_nearzero_f12207_2b.toml\n?? experiments/configs/study_behavioral_control_negative_f7438_2b.toml\n?? experiments/configs/study_behavioral_fine_f22552_2b.toml\n?? experiments/configs/study_behavioral_fine_f30908_2b.toml\n?? experiments/configs/study_behavioral_robust_f22552_seed1_2b.toml\n?? experiments/configs/study_behavioral_robust_f22552_seed2_2b.toml\n?? experiments/configs/study_behavioral_robust_f22552_seed3_2b.toml\n?? experiments/configs/study_behavioral_robust_f22552_seed4_2b.toml\n?? experiments/configs/study_behavioral_robust_f30908_seed1_2b.toml\n?? experiments/configs/study_behavioral_robust_f30908_seed2_2b.toml\n?? experiments/configs/study_behavioral_robust_f30908_seed3_2b.toml\n?? experiments/configs/study_behavioral_robust_f30908_seed4_2b.toml\n?? experiments/configs/study_behavioral_topk_f14817_2b.toml\n?? experiments/configs/study_behavioral_topk_f20108_2b.toml\n?? experiments/configs/study_behavioral_topk_f22552_2b.toml\n?? experiments/configs/study_behavioral_topk_f30475_2b.toml\n?? experiments/configs/study_behavioral_topk_f30908_2b.toml\n?? experiments/configs/study_causal_heldout_f14817_2b.toml\n?? experiments/configs/study_causal_heldout_f20108_2b.toml\n?? experiments/configs/study_causal_heldout_f22552_2b.toml\n?? experiments/configs/study_causal_heldout_f30475_2b.toml\n?? experiments/configs/study_causal_heldout_f30908_2b.toml\n?? experiments/configs/study_control_specificity_f14817_2b.toml\n?? experiments/configs/study_control_specificity_f20108_2b.toml\n?? experiments/configs/study_control_specificity_f22552_2b.toml\n?? experiments/configs/study_control_specificity_f30475_2b.toml\n?? experiments/configs/study_control_specificity_f30908_2b.toml\n?? experiments/configs/study_discover_topk_2b.toml\n?? experiments/configs/study_discover_topk_2b.toml.bak\n?? experiments/configs/study_discover_topk_strongnull_2b.toml\n?? experiments/configs/study_discover_topk_strongnull_p18_2b.toml"
+}

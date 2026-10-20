@@ -1,0 +1,9 @@
+{
+  "feature_id": 20108,
+  "layer": 5,
+  "n_cases": 54,
+  "mean_margin_delta": 0.006149282540988039,
+  "std_margin_delta": 0.12477181223938145,
+  "frac_positive": 0.5185185185185185,
+  "objective": "hostile_margin"
+}

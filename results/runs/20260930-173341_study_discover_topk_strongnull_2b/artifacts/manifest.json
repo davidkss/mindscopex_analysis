@@ -1,0 +1,77 @@
+{
+  "run_name": "study_discover_topk_strongnull_2b",
+  "job": "research_experiments",
+  "started_at": "2026-09-30T08:34:25+00:00",
+  "requested_kind": "discover",
+  "margin_kinds": [
+    "discover"
+  ],
+  "gen_kinds": [],
+  "profile": "2b",
+  "model_id": "Qwen/Qwen3.5-2B-Base",
+  "sae_repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+  "dataset": "hagendorff_crt",
+  "n_all": 150,
+  "n_train": 96,
+  "n_test": 54,
+  "train_frac": 0.6,
+  "split_seed": 0,
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA A100-SXM4-40GB",
+  "git_commit": "",
+  "finished_at": "2026-09-30T09:33:56+00:00",
+  "elapsed_seconds": 3570.898,
+  "study_feature": {
+    "feature_id": 30908,
+    "layer": 5,
+    "n_cases": 24,
+    "objective": "margin_delta",
+    "mean_hostile_delta": 0.036584635032340884,
+    "mean_control_delta": null,
+    "mean_margin_delta": 0.036584635032340884,
+    "std_margin_delta": 0.09019549416234436,
+    "frac_positive": 0.625,
+    "active_in_cases": 11,
+    "peer_feature_percentile": 0.8157894736842105,
+    "gaussian_percentile": 0.59,
+    "selection_adjusted_percentile": 0.00405,
+    "selection_adjusted_p": 0.99595,
+    "select_score": [
+      0.00405,
+      0.8157894736842105,
+      0.03037343523465097
+    ]
+  },
+  "feature_source": "discovered",
+  "results": [
+    {
+      "kind": "discover",
+      "paper_csv": "/content/mindscopex_artifacts/study_discover_topk_strongnull_2b/discover_localization.csv",
+      "png": "/content/mindscopex_artifacts/study_discover_topk_strongnull_2b/discover_localization.png",
+      "best_feature": {
+        "feature_id": 30908,
+        "layer": 5,
+        "n_cases": 24,
+        "objective": "margin_delta",
+        "mean_hostile_delta": 0.036584635032340884,
+        "mean_control_delta": null,
+        "mean_margin_delta": 0.036584635032340884,
+        "std_margin_delta": 0.09019549416234436,
+        "frac_positive": 0.625,
+        "active_in_cases": 11,
+        "peer_feature_percentile": 0.8157894736842105,
+        "gaussian_percentile": 0.59,
+        "selection_adjusted_percentile": 0.00405,
+        "selection_adjusted_p": 0.99595,
+        "select_score": [
+          0.00405,
+          0.8157894736842105,
+          0.03037343523465097
+        ]
+      },
+      "n_train": 96
+    }
+  ]
+}

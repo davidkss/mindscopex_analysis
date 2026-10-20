@@ -1,0 +1,3418 @@
+[
+  {
+    "coefficient": -8.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "2 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ]
+  },
+  {
+    "coefficient": -4.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "21 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "23 weeks",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "2 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      }
+    ]
+  },
+  {
+    "coefficient": -2.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "2 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ]
+  },
+  {
+    "coefficient": 0.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ]
+  },
+  {
+    "coefficient": 2.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "21 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$4.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "23 weeks",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "2 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "40 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ]
+  },
+  {
+    "coefficient": 4.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "5 seconds",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "2 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ]
+  },
+  {
+    "coefficient": 8.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$40.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "3 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$5.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "3 seconds",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "9 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "6 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "30 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "80 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "6 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$3.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.20",
+        "label": "lure"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "hagendorff_crt_difference_001",
+        "family": "crt_difference",
+        "answer": "$20.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_001",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_001",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_003",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_002",
+        "family": "crt_growth",
+        "answer": "5 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_006",
+        "family": "crt_rate",
+        "answer": "1 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_004",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_003",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_008",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_006",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_006",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_018",
+        "family": "crt_rate",
+        "answer": "7 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_007",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_007",
+        "family": "crt_growth",
+        "answer": "5 seconds",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_019",
+        "family": "crt_rate",
+        "answer": "8 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_013",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_009",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_020",
+        "family": "crt_rate",
+        "answer": "1 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_015",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_013",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_026",
+        "family": "crt_rate",
+        "answer": "4 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_017",
+        "family": "crt_difference",
+        "answer": "$1.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_014",
+        "family": "crt_growth",
+        "answer": "59 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_027",
+        "family": "crt_rate",
+        "answer": "20 hours",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_031",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_017",
+        "family": "crt_growth",
+        "answer": "12 weeks",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_029",
+        "family": "crt_rate",
+        "answer": "3 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_032",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_018",
+        "family": "crt_growth",
+        "answer": "11 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_030",
+        "family": "crt_rate",
+        "answer": "50 hours",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_033",
+        "family": "crt_difference",
+        "answer": "$2.0",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_020",
+        "family": "crt_growth",
+        "answer": "2 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_041",
+        "family": "crt_rate",
+        "answer": "80 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_034",
+        "family": "crt_difference",
+        "answer": "$10.0",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_027",
+        "family": "crt_growth",
+        "answer": "5 years",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_043",
+        "family": "crt_rate",
+        "answer": "70 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_038",
+        "family": "crt_difference",
+        "answer": "$1.5",
+        "label": "correct"
+      },
+      {
+        "case_id": "hagendorff_crt_growth_030",
+        "family": "crt_growth",
+        "answer": "5 months",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_rate_045",
+        "family": "crt_rate",
+        "answer": "10 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "hagendorff_crt_difference_039",
+        "family": "crt_difference",
+        "answer": "$0.10",
+        "label": "correct"
+      }
+    ]
+  }
+]

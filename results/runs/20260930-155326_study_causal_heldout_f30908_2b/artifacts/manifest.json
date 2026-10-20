@@ -1,0 +1,42 @@
+{
+  "run_name": "study_causal_heldout_f30908_2b",
+  "job": "research_experiments",
+  "started_at": "2026-09-30T06:54:11+00:00",
+  "requested_kind": "causal_heldout",
+  "margin_kinds": [
+    "causal_heldout"
+  ],
+  "gen_kinds": [],
+  "profile": "2b",
+  "model_id": "Qwen/Qwen3.5-2B-Base",
+  "sae_repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+  "dataset": "hagendorff_crt",
+  "n_all": 150,
+  "n_train": 96,
+  "n_test": 54,
+  "train_frac": 0.6,
+  "split_seed": 0,
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA A100-SXM4-40GB",
+  "git_commit": "",
+  "finished_at": "2026-09-30T06:56:07+00:00",
+  "elapsed_seconds": 115.149,
+  "study_feature": {
+    "feature_id": 30908,
+    "layer": 5
+  },
+  "feature_source": "pinned",
+  "results": [
+    {
+      "kind": "causal_heldout",
+      "paper_csv": "/content/mindscopex_artifacts/study_causal_heldout_f30908_2b/causal_heldout.csv",
+      "n_test": 54,
+      "objective": "hostile_margin",
+      "mean_margin_delta": 0.01095147613711931,
+      "mean_cue_effect": null,
+      "frac_positive": 0.5555555555555556
+    }
+  ]
+}

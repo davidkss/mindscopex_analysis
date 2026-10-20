@@ -1,0 +1,21 @@
+{
+  "config": "/home/davidkss/ai/mindscopex_analysis/experiments/configs/study_transfer_fresh_v2_f30908_seed2_2b.toml",
+  "session": "mindscopex-fresh-multiseed",
+  "gpu": "A100",
+  "tpu": null,
+  "keep_session": false,
+  "payload": {
+    "run_name": "study_transfer_fresh_v2_f30908_seed2_2b",
+    "job": "research_experiments",
+    "job_path": "experiments/jobs/research_experiments.py",
+    "source": "archive",
+    "remote_repo_dir": "/content/mindscopex_analysis",
+    "remote_output_root": "/content/mindscopex_artifacts",
+    "remote_config_path": "/content/study_transfer_fresh_v2_f30908_seed2_2b_config.toml",
+    "remote_source_archive": "/content/study_transfer_fresh_v2_f30908_seed2_2b_source.zip",
+    "repo_url": "https://github.com/davidkss/mindscopex_analysis.git",
+    "repo_ref": "9c793e9dc6b90b552981115e6e19b6ac1e2f0bab"
+  },
+  "git_commit": "9c793e9dc6b90b552981115e6e19b6ac1e2f0bab",
+  "git_status": ""
+}

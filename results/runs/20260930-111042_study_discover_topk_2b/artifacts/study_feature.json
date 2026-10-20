@@ -1,0 +1,35 @@
+{
+  "feature": {
+    "feature_id": 30908,
+    "layer": 5,
+    "n_cases": 24,
+    "objective": "margin_delta",
+    "mean_hostile_delta": 0.036584635032340884,
+    "mean_control_delta": null,
+    "mean_margin_delta": 0.036584635032340884,
+    "std_margin_delta": 0.09019549416234436,
+    "frac_positive": 0.625,
+    "active_in_cases": 11,
+    "screen_null_z": 0.06396183787249794,
+    "select_score": 0.06396183787249794
+  },
+  "source": "discovered",
+  "localization": [
+    {
+      "layer": 5,
+      "feature_id": 30908,
+      "objective": "hostile_margin",
+      "mean_margin_delta": 0.036584635032340884,
+      "mean_hostile_delta": 0.036584635032340884,
+      "mean_control_delta": null,
+      "frac_positive": 0.625,
+      "active_in_cases": 11,
+      "screen_n_cases": 6,
+      "screen_in_sample": false,
+      "screen_hostile_delta": 0.03037343523465097,
+      "screen_null_mean": 0.028483687849075068,
+      "screen_null_z": 0.06396183787249794,
+      "screen_null_percentile": 0.5
+    }
+  ]
+}

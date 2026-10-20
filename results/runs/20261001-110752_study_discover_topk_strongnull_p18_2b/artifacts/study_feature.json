@@ -1,0 +1,42 @@
+{
+  "feature": {
+    "feature_id": 30475,
+    "layer": 5,
+    "n_cases": 24,
+    "objective": "margin_delta",
+    "mean_hostile_delta": 0.034762497525662184,
+    "mean_control_delta": null,
+    "mean_margin_delta": 0.034762497525662184,
+    "std_margin_delta": 0.16773345877214155,
+    "frac_positive": 0.5416666666666666,
+    "active_in_cases": 24,
+    "peer_feature_percentile": 1.0,
+    "gaussian_percentile": 1.0,
+    "selection_adjusted_percentile": 1.0,
+    "selection_adjusted_p": 0.0,
+    "select_score": [
+      1.0,
+      1.0,
+      0.09085736672083537
+    ]
+  },
+  "source": "discovered",
+  "localization": [
+    {
+      "layer": 5,
+      "feature_id": 30908,
+      "objective": "hostile_margin",
+      "mean_margin_delta": 0.036584635032340884,
+      "mean_hostile_delta": 0.036584635032340884,
+      "mean_control_delta": null,
+      "frac_positive": 0.625,
+      "active_in_cases": 11,
+      "screen_n_cases": 6,
+      "screen_in_sample": false,
+      "screen_hostile_delta": 0.03037343523465097,
+      "screen_null_mean": 0.028483687849075068,
+      "screen_null_z": 0.06396183787249794,
+      "screen_null_percentile": 0.5
+    }
+  ]
+}

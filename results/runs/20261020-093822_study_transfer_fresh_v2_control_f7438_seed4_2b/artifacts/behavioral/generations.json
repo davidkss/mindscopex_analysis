@@ -1,0 +1,490 @@
+[
+  {
+    "coefficient": 7.0,
+    "output_mode": "binary_choice",
+    "baseline_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "$12",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_001",
+        "family": "crt_growth",
+        "answer": "19 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001",
+        "family": "crt_rate",
+        "answer": "3 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "$11",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_003",
+        "family": "crt_growth",
+        "answer": "12 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_003",
+        "family": "crt_rate",
+        "answer": "5 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_010",
+        "family": "crt_difference",
+        "answer": "$30",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_007",
+        "family": "crt_growth",
+        "answer": "31 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_005",
+        "family": "crt_rate",
+        "answer": "7 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_012",
+        "family": "crt_difference",
+        "answer": "$34",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_008",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006",
+        "family": "crt_rate",
+        "answer": "8 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "$21",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_011",
+        "family": "crt_growth",
+        "answer": "39 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_012",
+        "family": "crt_rate",
+        "answer": "14 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "$46",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "22 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "3 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "$27",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_014",
+        "family": "crt_growth",
+        "answer": "45 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_014",
+        "family": "crt_rate",
+        "answer": "4 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_023",
+        "family": "crt_difference",
+        "answer": "$56",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "49 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "6 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_024",
+        "family": "crt_difference",
+        "answer": "$58",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "51 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "12 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_026",
+        "family": "crt_difference",
+        "answer": "$62",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "53 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "13 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "$64",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_019",
+        "family": "crt_growth",
+        "answer": "55 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "6 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_030",
+        "family": "crt_difference",
+        "answer": "$35",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_022",
+        "family": "crt_growth",
+        "answer": "61 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_029",
+        "family": "crt_rate",
+        "answer": "104 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_031",
+        "family": "crt_difference",
+        "answer": "$72",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "36 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "110 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_032",
+        "family": "crt_difference",
+        "answer": "$37",
+        "label": "correct"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "crt_fresh_v2_difference_001",
+        "family": "crt_difference",
+        "answer": "$12",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_001",
+        "family": "crt_growth",
+        "answer": "10 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001",
+        "family": "crt_rate",
+        "answer": "3 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_006",
+        "family": "crt_difference",
+        "answer": "$11",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_003",
+        "family": "crt_growth",
+        "answer": "12 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_003",
+        "family": "crt_rate",
+        "answer": "5 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_010",
+        "family": "crt_difference",
+        "answer": "$15",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_007",
+        "family": "crt_growth",
+        "answer": "16 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_005",
+        "family": "crt_rate",
+        "answer": "7 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_012",
+        "family": "crt_difference",
+        "answer": "$17",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_008",
+        "family": "crt_growth",
+        "answer": "17 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006",
+        "family": "crt_rate",
+        "answer": "8 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_016",
+        "family": "crt_difference",
+        "answer": "$21",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_011",
+        "family": "crt_growth",
+        "answer": "20 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_012",
+        "family": "crt_rate",
+        "answer": "14 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_018",
+        "family": "crt_difference",
+        "answer": "$23",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_013",
+        "family": "crt_growth",
+        "answer": "43 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_013",
+        "family": "crt_rate",
+        "answer": "3 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_022",
+        "family": "crt_difference",
+        "answer": "$27",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_014",
+        "family": "crt_growth",
+        "answer": "45 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_014",
+        "family": "crt_rate",
+        "answer": "4 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_023",
+        "family": "crt_difference",
+        "answer": "$28",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_016",
+        "family": "crt_growth",
+        "answer": "25 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016",
+        "family": "crt_rate",
+        "answer": "65 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_024",
+        "family": "crt_difference",
+        "answer": "$29",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_017",
+        "family": "crt_growth",
+        "answer": "26 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_022",
+        "family": "crt_rate",
+        "answer": "12 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_026",
+        "family": "crt_difference",
+        "answer": "$62",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_018",
+        "family": "crt_growth",
+        "answer": "27 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_023",
+        "family": "crt_rate",
+        "answer": "13 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_027",
+        "family": "crt_difference",
+        "answer": "$64",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_019",
+        "family": "crt_growth",
+        "answer": "28 days",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_028",
+        "family": "crt_rate",
+        "answer": "101 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_030",
+        "family": "crt_difference",
+        "answer": "$35",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_022",
+        "family": "crt_growth",
+        "answer": "61 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_029",
+        "family": "crt_rate",
+        "answer": "104 minutes",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_031",
+        "family": "crt_difference",
+        "answer": "$72",
+        "label": "lure"
+      },
+      {
+        "case_id": "crt_fresh_v2_growth_027",
+        "family": "crt_growth",
+        "answer": "71 days",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031",
+        "family": "crt_rate",
+        "answer": "9 minutes",
+        "label": "correct"
+      },
+      {
+        "case_id": "crt_fresh_v2_difference_032",
+        "family": "crt_difference",
+        "answer": "$37",
+        "label": "correct"
+      }
+    ]
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "config": "/home/davidkss/ai/mindscopex_analysis/experiments/configs/discover_topk20_2b.toml",
+  "session": "mindscopex",
+  "gpu": "A100",
+  "tpu": null,
+  "keep_session": false,
+  "payload": {
+    "run_name": "discover_topk20_2b",
+    "job": "research_experiments",
+    "job_path": "experiments/jobs/research_experiments.py",
+    "source": "archive",
+    "remote_repo_dir": "/content/mindscopex_analysis",
+    "remote_output_root": "/content/mindscopex_artifacts",
+    "remote_config_path": "/content/discover_topk20_2b_config.toml",
+    "remote_source_archive": "/content/discover_topk20_2b_source.zip",
+    "repo_url": "https://github.com/davidkss/mindscopex_analysis.git",
+    "repo_ref": "d231f812b3d2f92ff7f7f082dafabf693789f76e"
+  },
+  "git_commit": "d231f812b3d2f92ff7f7f082dafabf693789f76e",
+  "git_status": ""
+}

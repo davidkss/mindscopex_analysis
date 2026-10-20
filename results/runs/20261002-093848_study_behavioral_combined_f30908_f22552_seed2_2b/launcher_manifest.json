@@ -1,0 +1,21 @@
+{
+  "config": "/home/davidkss/ai/mindscopex_analysis/experiments/configs/study_behavioral_combined_f30908_f22552_seed2_2b.toml",
+  "session": "mindscopex-combined-seed2",
+  "gpu": "A100",
+  "tpu": null,
+  "keep_session": false,
+  "payload": {
+    "run_name": "study_behavioral_combined_f30908_f22552_seed2_2b",
+    "job": "research_experiments",
+    "job_path": "experiments/jobs/research_experiments.py",
+    "source": "archive",
+    "remote_repo_dir": "/content/mindscopex_analysis",
+    "remote_output_root": "/content/mindscopex_artifacts",
+    "remote_config_path": "/content/study_behavioral_combined_f30908_f22552_seed2_2b_config.toml",
+    "remote_source_archive": "/content/study_behavioral_combined_f30908_f22552_seed2_2b_source.zip",
+    "repo_url": "https://github.com/davidkss/mindscopex_analysis.git",
+    "repo_ref": "c1e98288a8827efc1b07557f3ebe31c479cddc04"
+  },
+  "git_commit": "c1e98288a8827efc1b07557f3ebe31c479cddc04",
+  "git_status": ""
+}

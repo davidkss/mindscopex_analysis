@@ -1,0 +1,6 @@
+{
+  "n_cases": 54,
+  "mean_hostile_delta": 0.01095147613711931,
+  "mean_control_delta": -0.011064279822339476,
+  "mean_specificity_gap": 0.022015755959458788
+}

@@ -1,0 +1,5 @@
+coefficient,n_cases,baseline_correct,baseline_lure,steered_correct,steered_lure,steered_both,steered_other,steered_unknown,steered_repeat,steered_empty,accuracy_csv_match,lure_csv_match
+1.0,40,12,0,9,0,0,31,0,0,0,True,True
+2.0,40,12,0,2,6,0,32,0,0,0,True,True
+4.0,40,12,0,0,13,0,27,0,7,0,True,True
+7.0,40,12,0,0,0,0,40,0,40,0,True,True

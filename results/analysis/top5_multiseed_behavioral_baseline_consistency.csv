@@ -1,0 +1,201 @@
+seed,case_id,family,f30908_baseline_answer,f30908_baseline_label,f22552_baseline_answer,f22552_baseline_label,f14817_baseline_answer,f14817_baseline_label,f20108_baseline_answer,f20108_baseline_label,f30475_baseline_answer,f30475_baseline_label,baseline_discordant,baseline_answer_discordant
+0,hagendorff_crt_difference_001,crt_difference,$40.0,lure,$40.0,lure,$20.0,correct,$20.0,correct,$20.0,correct,True,True
+0,hagendorff_crt_difference_003,crt_difference,$5.0,correct,$5.0,correct,$5.0,correct,$5.0,correct,$5.0,correct,False,False
+0,hagendorff_crt_difference_004,crt_difference,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,False,False
+0,hagendorff_crt_difference_006,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+0,hagendorff_crt_difference_007,crt_difference,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,False,False
+0,hagendorff_crt_difference_013,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+0,hagendorff_crt_difference_015,crt_difference,$20.0,lure,$20.0,lure,$20.0,lure,$20.0,lure,$20.0,lure,False,False
+0,hagendorff_crt_difference_017,crt_difference,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,False,False
+0,hagendorff_crt_difference_031,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+0,hagendorff_crt_difference_032,crt_difference,$1.5,correct,$1.5,correct,$1.5,correct,$1.5,correct,$1.5,correct,False,False
+0,hagendorff_crt_difference_033,crt_difference,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,False,False
+0,hagendorff_crt_difference_034,crt_difference,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,False,False
+0,hagendorff_crt_difference_038,crt_difference,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,False,False
+0,hagendorff_crt_difference_039,crt_difference,$0.20,lure,$0.20,lure,$0.20,lure,$0.20,lure,$0.20,lure,False,False
+0,hagendorff_crt_growth_001,crt_growth,3 days,lure,3 days,lure,3 days,lure,3 days,lure,3 days,lure,False,False
+0,hagendorff_crt_growth_002,crt_growth,5 days,lure,5 days,lure,5 days,lure,5 days,lure,5 days,lure,False,False
+0,hagendorff_crt_growth_003,crt_growth,11 days,lure,11 days,lure,11 days,lure,11 days,lure,11 days,lure,False,False
+0,hagendorff_crt_growth_006,crt_growth,9 days,lure,9 days,lure,9 days,lure,9 days,lure,9 days,lure,False,False
+0,hagendorff_crt_growth_007,crt_growth,3 seconds,lure,3 seconds,lure,3 seconds,lure,3 seconds,lure,3 seconds,lure,False,False
+0,hagendorff_crt_growth_009,crt_growth,2 days,lure,2 days,lure,2 days,lure,2 days,lure,2 days,lure,False,False
+0,hagendorff_crt_growth_013,crt_growth,9 days,lure,9 days,lure,9 days,lure,9 days,lure,9 days,lure,False,False
+0,hagendorff_crt_growth_014,crt_growth,30 days,lure,30 days,lure,30 days,lure,30 days,lure,30 days,lure,False,False
+0,hagendorff_crt_growth_017,crt_growth,12 weeks,lure,12 weeks,lure,12 weeks,lure,12 weeks,lure,12 weeks,lure,False,False
+0,hagendorff_crt_growth_018,crt_growth,6 days,lure,6 days,lure,6 days,lure,6 days,lure,6 days,lure,False,False
+0,hagendorff_crt_growth_020,crt_growth,2 days,lure,2 days,lure,2 days,lure,2 days,lure,2 days,lure,False,False
+0,hagendorff_crt_growth_027,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+0,hagendorff_crt_growth_030,crt_growth,5 months,lure,5 months,lure,5 months,lure,5 months,lure,5 months,lure,False,False
+0,hagendorff_crt_rate_001,crt_rate,7 hours,correct,7 hours,correct,7 hours,correct,7 hours,correct,7 hours,correct,False,False
+0,hagendorff_crt_rate_006,crt_rate,1 years,lure,1 years,lure,1 years,lure,1 years,lure,1 years,lure,False,False
+0,hagendorff_crt_rate_008,crt_rate,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,False,False
+0,hagendorff_crt_rate_018,crt_rate,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,False,False
+0,hagendorff_crt_rate_019,crt_rate,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,False,False
+0,hagendorff_crt_rate_020,crt_rate,1 hours,lure,1 hours,lure,1 hours,lure,1 hours,lure,1 hours,lure,False,False
+0,hagendorff_crt_rate_026,crt_rate,6 hours,correct,6 hours,correct,6 hours,correct,6 hours,correct,6 hours,correct,False,False
+0,hagendorff_crt_rate_027,crt_rate,80 hours,correct,80 hours,correct,20 hours,lure,20 hours,lure,20 hours,lure,True,True
+0,hagendorff_crt_rate_029,crt_rate,3 hours,correct,3 hours,correct,3 hours,correct,3 hours,correct,3 hours,correct,False,False
+0,hagendorff_crt_rate_030,crt_rate,50 hours,correct,50 hours,correct,50 hours,correct,50 hours,correct,50 hours,correct,False,False
+0,hagendorff_crt_rate_041,crt_rate,80 minutes,correct,80 minutes,correct,80 minutes,correct,80 minutes,correct,80 minutes,correct,False,False
+0,hagendorff_crt_rate_043,crt_rate,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,False,False
+0,hagendorff_crt_rate_045,crt_rate,10 minutes,lure,10 minutes,lure,10 minutes,lure,10 minutes,lure,10 minutes,lure,False,False
+1,hagendorff_crt_difference_004,crt_difference,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,False,False
+1,hagendorff_crt_difference_011,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+1,hagendorff_crt_difference_012,crt_difference,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,False,False
+1,hagendorff_crt_difference_020,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+1,hagendorff_crt_difference_027,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+1,hagendorff_crt_difference_030,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+1,hagendorff_crt_difference_031,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+1,hagendorff_crt_difference_034,crt_difference,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,False,False
+1,hagendorff_crt_difference_041,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+1,hagendorff_crt_difference_042,crt_difference,$15.0,correct,$15.0,correct,$15.0,correct,$15.0,correct,$15.0,correct,False,False
+1,hagendorff_crt_difference_048,crt_difference,$1.5,correct,$1.5,correct,$1.5,correct,$1.5,correct,$1.5,correct,False,False
+1,hagendorff_crt_growth_001,crt_growth,3 days,lure,3 days,lure,3 days,lure,3 days,lure,3 days,lure,False,False
+1,hagendorff_crt_growth_010,crt_growth,8 hours,lure,8 hours,lure,8 hours,lure,8 hours,lure,8 hours,lure,False,False
+1,hagendorff_crt_growth_013,crt_growth,9 days,lure,9 days,lure,9 days,lure,9 days,lure,9 days,lure,False,False
+1,hagendorff_crt_growth_014,crt_growth,30 days,lure,30 days,lure,30 days,lure,30 days,lure,30 days,lure,False,False
+1,hagendorff_crt_growth_015,crt_growth,6 days,lure,6 days,lure,6 days,lure,6 days,lure,6 days,lure,False,False
+1,hagendorff_crt_growth_022,crt_growth,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,False,False
+1,hagendorff_crt_growth_027,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+1,hagendorff_crt_growth_028,crt_growth,10 hours,lure,10 hours,lure,10 hours,lure,10 hours,lure,10 hours,lure,False,False
+1,hagendorff_crt_growth_031,crt_growth,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,False,False
+1,hagendorff_crt_growth_033,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+1,hagendorff_crt_growth_034,crt_growth,3 years,lure,3 years,lure,3 years,lure,3 years,lure,3 years,lure,False,False
+1,hagendorff_crt_growth_038,crt_growth,15 days,lure,15 days,lure,15 days,lure,15 days,lure,15 days,lure,False,False
+1,hagendorff_crt_growth_045,crt_growth,4 weeks,lure,4 weeks,lure,4 weeks,lure,4 weeks,lure,4 weeks,lure,False,False
+1,hagendorff_crt_growth_047,crt_growth,3 weeks,lure,3 weeks,lure,3 weeks,lure,3 weeks,lure,3 weeks,lure,False,False
+1,hagendorff_crt_growth_048,crt_growth,70 years,lure,70 years,lure,70 years,lure,70 years,lure,70 years,lure,False,False
+1,hagendorff_crt_rate_002,crt_rate,8 hours,correct,8 hours,correct,8 hours,correct,8 hours,correct,8 hours,correct,False,False
+1,hagendorff_crt_rate_005,crt_rate,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,False,False
+1,hagendorff_crt_rate_010,crt_rate,6 minutes,correct,6 minutes,correct,6 minutes,correct,6 minutes,correct,6 minutes,correct,False,False
+1,hagendorff_crt_rate_011,crt_rate,40 minutes,correct,40 minutes,correct,40 minutes,correct,40 minutes,correct,40 minutes,correct,False,False
+1,hagendorff_crt_rate_012,crt_rate,8 minutes,correct,8 minutes,correct,8 minutes,correct,8 minutes,correct,8 minutes,correct,False,False
+1,hagendorff_crt_rate_014,crt_rate,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,False,False
+1,hagendorff_crt_rate_016,crt_rate,40 weeks,correct,40 weeks,correct,40 weeks,correct,40 weeks,correct,40 weeks,correct,False,False
+1,hagendorff_crt_rate_018,crt_rate,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,False,False
+1,hagendorff_crt_rate_019,crt_rate,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,False,False
+1,hagendorff_crt_rate_022,crt_rate,2 minutes,lure,2 minutes,lure,2 minutes,lure,2 minutes,lure,2 minutes,lure,False,False
+1,hagendorff_crt_rate_023,crt_rate,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,False,False
+1,hagendorff_crt_rate_027,crt_rate,80 hours,correct,80 hours,correct,20 hours,lure,20 hours,lure,20 hours,lure,True,True
+1,hagendorff_crt_rate_035,crt_rate,3 hours,correct,3 hours,correct,3 hours,correct,3 hours,correct,3 hours,correct,False,False
+1,hagendorff_crt_rate_038,crt_rate,60 hours,correct,60 hours,correct,60 hours,correct,60 hours,correct,60 hours,correct,False,False
+2,hagendorff_crt_difference_004,crt_difference,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,False,False
+2,hagendorff_crt_difference_005,crt_difference,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,False,False
+2,hagendorff_crt_difference_006,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+2,hagendorff_crt_difference_008,crt_difference,$1.0,lure,$1.0,lure,$1.0,lure,$1.0,lure,$1.0,lure,False,False
+2,hagendorff_crt_difference_018,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+2,hagendorff_crt_difference_020,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+2,hagendorff_crt_difference_026,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+2,hagendorff_crt_difference_028,crt_difference,$10.0,lure,$10.0,lure,$10.0,lure,$10.0,lure,$10.0,lure,False,False
+2,hagendorff_crt_difference_031,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+2,hagendorff_crt_difference_033,crt_difference,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,False,False
+2,hagendorff_crt_difference_035,crt_difference,$10.0,lure,$10.0,lure,$10.0,lure,$10.0,lure,$10.0,lure,False,False
+2,hagendorff_crt_difference_037,crt_difference,$30.0,lure,$30.0,lure,$30.0,lure,$30.0,lure,$30.0,lure,False,False
+2,hagendorff_crt_difference_038,crt_difference,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,False,False
+2,hagendorff_crt_difference_041,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+2,hagendorff_crt_growth_001,crt_growth,3 days,lure,3 days,lure,3 days,lure,3 days,lure,3 days,lure,False,False
+2,hagendorff_crt_growth_002,crt_growth,5 days,lure,5 days,lure,5 days,lure,5 days,lure,5 days,lure,False,False
+2,hagendorff_crt_growth_004,crt_growth,5 hours,lure,5 hours,lure,5 hours,lure,5 hours,lure,5 hours,lure,False,False
+2,hagendorff_crt_growth_009,crt_growth,2 days,lure,2 days,lure,2 days,lure,2 days,lure,2 days,lure,False,False
+2,hagendorff_crt_growth_012,crt_growth,8 hours,lure,8 hours,lure,8 hours,lure,8 hours,lure,8 hours,lure,False,False
+2,hagendorff_crt_growth_017,crt_growth,12 weeks,lure,12 weeks,lure,12 weeks,lure,12 weeks,lure,12 weeks,lure,False,False
+2,hagendorff_crt_growth_019,crt_growth,3 days,lure,3 days,lure,3 days,lure,3 days,lure,3 days,lure,False,False
+2,hagendorff_crt_growth_022,crt_growth,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,False,False
+2,hagendorff_crt_growth_026,crt_growth,10 days,lure,10 days,lure,10 days,lure,10 days,lure,10 days,lure,False,False
+2,hagendorff_crt_growth_028,crt_growth,10 hours,lure,10 hours,lure,10 hours,lure,10 hours,lure,10 hours,lure,False,False
+2,hagendorff_crt_growth_032,crt_growth,3 months,lure,3 months,lure,3 months,lure,3 months,lure,3 months,lure,False,False
+2,hagendorff_crt_growth_033,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+2,hagendorff_crt_growth_035,crt_growth,15 minutes,lure,15 minutes,lure,15 minutes,lure,15 minutes,lure,15 minutes,lure,False,False
+2,hagendorff_crt_rate_002,crt_rate,8 hours,correct,8 hours,correct,8 hours,correct,8 hours,correct,8 hours,correct,False,False
+2,hagendorff_crt_rate_003,crt_rate,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,False,False
+2,hagendorff_crt_rate_008,crt_rate,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,False,False
+2,hagendorff_crt_rate_009,crt_rate,50 weeks,correct,50 weeks,correct,50 weeks,correct,50 weeks,correct,50 weeks,correct,False,False
+2,hagendorff_crt_rate_010,crt_rate,6 minutes,correct,6 minutes,correct,6 minutes,correct,6 minutes,correct,6 minutes,correct,False,False
+2,hagendorff_crt_rate_011,crt_rate,40 minutes,correct,40 minutes,correct,40 minutes,correct,40 minutes,correct,40 minutes,correct,False,False
+2,hagendorff_crt_rate_012,crt_rate,8 minutes,correct,8 minutes,correct,8 minutes,correct,8 minutes,correct,8 minutes,correct,False,False
+2,hagendorff_crt_rate_013,crt_rate,10 minutes,lure,10 minutes,lure,10 minutes,lure,10 minutes,lure,10 minutes,lure,False,False
+2,hagendorff_crt_rate_014,crt_rate,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,False,False
+2,hagendorff_crt_rate_017,crt_rate,70 hours,correct,70 hours,correct,70 hours,correct,70 hours,correct,70 hours,correct,False,False
+2,hagendorff_crt_rate_020,crt_rate,1 hours,lure,1 hours,lure,1 hours,lure,1 hours,lure,1 hours,lure,False,False
+2,hagendorff_crt_rate_023,crt_rate,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,False,False
+2,hagendorff_crt_rate_024,crt_rate,7 minutes,correct,7 minutes,correct,7 minutes,correct,7 minutes,correct,7 minutes,correct,False,False
+3,hagendorff_crt_difference_004,crt_difference,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,False,False
+3,hagendorff_crt_difference_005,crt_difference,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,False,False
+3,hagendorff_crt_difference_006,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+3,hagendorff_crt_difference_010,crt_difference,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,$3.0,lure,False,False
+3,hagendorff_crt_difference_011,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+3,hagendorff_crt_difference_012,crt_difference,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,$10.0,correct,False,False
+3,hagendorff_crt_difference_013,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+3,hagendorff_crt_difference_015,crt_difference,$20.0,lure,$20.0,lure,$20.0,lure,$20.0,lure,$20.0,lure,False,False
+3,hagendorff_crt_difference_018,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+3,hagendorff_crt_difference_019,crt_difference,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,False,False
+3,hagendorff_crt_difference_020,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+3,hagendorff_crt_difference_021,crt_difference,$30.0,lure,$30.0,lure,$30.0,lure,$30.0,lure,$30.0,lure,False,False
+3,hagendorff_crt_difference_022,crt_difference,$0.40,lure,$0.40,lure,$0.40,lure,$0.40,lure,$0.40,lure,False,False
+3,hagendorff_crt_difference_023,crt_difference,$0.40,lure,$0.40,lure,$0.40,lure,$0.40,lure,$0.40,lure,False,False
+3,hagendorff_crt_growth_003,crt_growth,11 days,lure,11 days,lure,11 days,lure,11 days,lure,11 days,lure,False,False
+3,hagendorff_crt_growth_006,crt_growth,9 days,lure,9 days,lure,9 days,lure,9 days,lure,9 days,lure,False,False
+3,hagendorff_crt_growth_007,crt_growth,3 seconds,lure,3 seconds,lure,3 seconds,lure,3 seconds,lure,3 seconds,lure,False,False
+3,hagendorff_crt_growth_011,crt_growth,3 hours,lure,3 hours,lure,3 hours,lure,3 hours,lure,3 hours,lure,False,False
+3,hagendorff_crt_growth_012,crt_growth,8 hours,lure,8 hours,lure,8 hours,lure,8 hours,lure,8 hours,lure,False,False
+3,hagendorff_crt_growth_017,crt_growth,12 weeks,lure,12 weeks,lure,12 weeks,lure,12 weeks,lure,12 weeks,lure,False,False
+3,hagendorff_crt_growth_021,crt_growth,150 days,lure,150 days,lure,150 days,lure,150 days,lure,150 days,lure,False,False
+3,hagendorff_crt_growth_026,crt_growth,10 days,lure,10 days,lure,10 days,lure,10 days,lure,10 days,lure,False,False
+3,hagendorff_crt_growth_027,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+3,hagendorff_crt_growth_032,crt_growth,3 months,lure,3 months,lure,3 months,lure,3 months,lure,3 months,lure,False,False
+3,hagendorff_crt_growth_033,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+3,hagendorff_crt_growth_035,crt_growth,15 minutes,lure,15 minutes,lure,15 minutes,lure,15 minutes,lure,15 minutes,lure,False,False
+3,hagendorff_crt_growth_036,crt_growth,4.5 months,lure,4.5 months,lure,4.5 months,lure,4.5 months,lure,4.5 months,lure,False,False
+3,hagendorff_crt_rate_004,crt_rate,1 days,lure,1 days,lure,1 days,lure,1 days,lure,1 days,lure,False,False
+3,hagendorff_crt_rate_006,crt_rate,1 years,lure,1 years,lure,1 years,lure,1 years,lure,1 years,lure,False,False
+3,hagendorff_crt_rate_010,crt_rate,6 minutes,correct,6 minutes,correct,6 minutes,correct,6 minutes,correct,6 minutes,correct,False,False
+3,hagendorff_crt_rate_014,crt_rate,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,False,False
+3,hagendorff_crt_rate_016,crt_rate,40 weeks,correct,40 weeks,correct,40 weeks,correct,40 weeks,correct,40 weeks,correct,False,False
+3,hagendorff_crt_rate_017,crt_rate,70 hours,correct,70 hours,correct,70 hours,correct,70 hours,correct,70 hours,correct,False,False
+3,hagendorff_crt_rate_018,crt_rate,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,False,False
+3,hagendorff_crt_rate_026,crt_rate,6 hours,correct,6 hours,correct,6 hours,correct,6 hours,correct,6 hours,correct,False,False
+3,hagendorff_crt_rate_027,crt_rate,80 hours,correct,80 hours,correct,20 hours,lure,20 hours,lure,20 hours,lure,True,True
+3,hagendorff_crt_rate_031,crt_rate,3 hours,lure,3 hours,lure,3 hours,lure,3 hours,lure,3 hours,lure,False,False
+3,hagendorff_crt_rate_032,crt_rate,60 days,correct,60 days,correct,60 days,correct,60 days,correct,60 days,correct,False,False
+3,hagendorff_crt_rate_033,crt_rate,1 minutes,lure,1 minutes,lure,1 minutes,lure,1 minutes,lure,1 minutes,lure,False,False
+3,hagendorff_crt_rate_036,crt_rate,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,False,False
+4,hagendorff_crt_difference_003,crt_difference,$5.0,correct,$5.0,correct,$5.0,correct,$5.0,correct,$5.0,correct,False,False
+4,hagendorff_crt_difference_006,crt_difference,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,$2.0,correct,False,False
+4,hagendorff_crt_difference_007,crt_difference,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,$1.0,correct,False,False
+4,hagendorff_crt_difference_009,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+4,hagendorff_crt_difference_013,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+4,hagendorff_crt_difference_015,crt_difference,$20.0,lure,$20.0,lure,$20.0,lure,$20.0,lure,$20.0,lure,False,False
+4,hagendorff_crt_difference_016,crt_difference,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,$2.0,lure,False,False
+4,hagendorff_crt_difference_021,crt_difference,$30.0,lure,$30.0,lure,$30.0,lure,$30.0,lure,$30.0,lure,False,False
+4,hagendorff_crt_difference_022,crt_difference,$0.40,lure,$0.40,lure,$0.40,lure,$0.40,lure,$0.40,lure,False,False
+4,hagendorff_crt_difference_024,crt_difference,$20.0,correct,$20.0,correct,$20.0,correct,$20.0,correct,$20.0,correct,False,False
+4,hagendorff_crt_difference_028,crt_difference,$10.0,lure,$10.0,lure,$10.0,lure,$10.0,lure,$10.0,lure,False,False
+4,hagendorff_crt_difference_029,crt_difference,$0.10,lure,$0.10,lure,$0.10,lure,$0.10,lure,$0.10,lure,False,False
+4,hagendorff_crt_difference_030,crt_difference,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,$0.10,correct,False,False
+4,hagendorff_crt_difference_032,crt_difference,$1.5,correct,$1.5,correct,$1.5,correct,$1.5,correct,$1.5,correct,False,False
+4,hagendorff_crt_growth_005,crt_growth,8 days,lure,8 days,lure,8 days,lure,8 days,lure,8 days,lure,False,False
+4,hagendorff_crt_growth_009,crt_growth,2 days,lure,2 days,lure,2 days,lure,2 days,lure,2 days,lure,False,False
+4,hagendorff_crt_growth_013,crt_growth,9 days,lure,9 days,lure,9 days,lure,9 days,lure,9 days,lure,False,False
+4,hagendorff_crt_growth_016,crt_growth,15 days,lure,15 days,lure,15 days,lure,15 days,lure,15 days,lure,False,False
+4,hagendorff_crt_growth_018,crt_growth,6 days,lure,6 days,lure,6 days,lure,6 days,lure,6 days,lure,False,False
+4,hagendorff_crt_growth_019,crt_growth,3 days,lure,3 days,lure,3 days,lure,3 days,lure,3 days,lure,False,False
+4,hagendorff_crt_growth_024,crt_growth,4 years,lure,4 years,lure,4 years,lure,4 years,lure,4 years,lure,False,False
+4,hagendorff_crt_growth_027,crt_growth,5 years,lure,5 years,lure,5 years,lure,5 years,lure,5 years,lure,False,False
+4,hagendorff_crt_growth_028,crt_growth,10 hours,lure,10 hours,lure,10 hours,lure,10 hours,lure,10 hours,lure,False,False
+4,hagendorff_crt_growth_031,crt_growth,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,False,False
+4,hagendorff_crt_growth_036,crt_growth,4.5 months,lure,4.5 months,lure,4.5 months,lure,4.5 months,lure,4.5 months,lure,False,False
+4,hagendorff_crt_growth_038,crt_growth,15 days,lure,15 days,lure,15 days,lure,15 days,lure,15 days,lure,False,False
+4,hagendorff_crt_growth_042,crt_growth,20 days,lure,20 days,lure,20 days,lure,20 days,lure,20 days,lure,False,False
+4,hagendorff_crt_rate_003,crt_rate,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,60 minutes,correct,False,False
+4,hagendorff_crt_rate_006,crt_rate,1 years,lure,1 years,lure,1 years,lure,1 years,lure,1 years,lure,False,False
+4,hagendorff_crt_rate_014,crt_rate,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,2 weeks,lure,False,False
+4,hagendorff_crt_rate_016,crt_rate,40 weeks,correct,40 weeks,correct,40 weeks,correct,40 weeks,correct,40 weeks,correct,False,False
+4,hagendorff_crt_rate_017,crt_rate,70 hours,correct,70 hours,correct,70 hours,correct,70 hours,correct,70 hours,correct,False,False
+4,hagendorff_crt_rate_018,crt_rate,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,6 hours,lure,False,False
+4,hagendorff_crt_rate_019,crt_rate,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,4 hours,lure,False,False
+4,hagendorff_crt_rate_020,crt_rate,1 hours,lure,1 hours,lure,1 hours,lure,1 hours,lure,1 hours,lure,False,False
+4,hagendorff_crt_rate_021,crt_rate,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,70 minutes,correct,False,False
+4,hagendorff_crt_rate_033,crt_rate,1 minutes,lure,1 minutes,lure,1 minutes,lure,1 minutes,lure,1 minutes,lure,False,False
+4,hagendorff_crt_rate_034,crt_rate,6 hours,correct,6 hours,correct,6 hours,correct,6 hours,correct,6 hours,correct,False,False
+4,hagendorff_crt_rate_035,crt_rate,3 hours,correct,3 hours,correct,3 hours,correct,3 hours,correct,3 hours,correct,False,False
+4,hagendorff_crt_rate_040,crt_rate,20 hours,lure,20 hours,lure,20 hours,lure,20 hours,lure,20 hours,lure,False,False

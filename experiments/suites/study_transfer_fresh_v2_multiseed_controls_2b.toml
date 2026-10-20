@@ -1,0 +1,12 @@
+[suite]
+name = "study_transfer_fresh_v2_multiseed_controls_2b"
+configs = [
+  "../configs/study_transfer_fresh_v2_control_f12207_seed2_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f12207_seed3_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f12207_seed4_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f12207_seed5_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f7438_seed2_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f7438_seed3_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f7438_seed4_2b.toml",
+  "../configs/study_transfer_fresh_v2_control_f7438_seed5_2b.toml",
+]

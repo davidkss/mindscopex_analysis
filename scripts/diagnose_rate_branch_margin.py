@@ -14,6 +14,7 @@ import torch
 from mindscopex_analysis.models import get_qwen35_analysis_profile, load_qwen_text_generation_model
 from mindscopex_analysis.qwen_scope import load_qwen_scope_sae, make_feature_steering_hook
 from mindscopex_analysis.research import find_decoder_block
+from mindscopex_analysis.lure_datasets import load_lure_dataset
 
 CASE_IDS = (
     'crt_fresh_v2_rate_002', 'crt_fresh_v2_rate_013',
@@ -62,26 +63,26 @@ def main():
     print('Loading SAE:', profile.sae_repo_id, 'layer', args.layer, flush=True)
     sae = load_qwen_scope_sae(profile.sae_repo_id, args.layer, device='cpu')
     block = find_decoder_block(model, args.layer, block_path_template=profile.block_path_template)
-    cases = json.loads(Path(args.data).read_text(encoding='utf-8'))['cases']
-    by_id = {case['case_id']: case for case in cases}
+    cases = load_lure_dataset('crt_fresh_v2')
+    by_id = {case.case_id: case for case in cases}
     missing = set(CASE_IDS) - set(by_id)
     if missing:
         raise ValueError(f'Missing cases: {sorted(missing)}')
     rows = []
     for case_id in CASE_IDS:
         case = by_id[case_id]
-        prefix, correct_id, lure_id, branch_index = branch_ids(tokenizer, case['correct_answer'], case['lure_answer'])
-        baseline = logit_margin(model, tokenizer, case['prompt'], prefix, correct_id, lure_id)
+        prefix, correct_id, lure_id, branch_index = branch_ids(tokenizer, case.correct_answer, case.lure_answer)
+        baseline = logit_margin(model, tokenizer, case.prompt, prefix, correct_id, lure_id)
         hook = make_feature_steering_hook(sae, [args.feature], coefficient=args.coefficient, token_position='all')
         handle = block.register_forward_hook(hook)
         try:
-            intervention = logit_margin(model, tokenizer, case['prompt'], prefix, correct_id, lure_id)
+            intervention = logit_margin(model, tokenizer, case.prompt, prefix, correct_id, lure_id)
         finally:
             handle.remove()
         row = {
             'case_id': case_id,
-            'correct_answer': case['correct_answer'],
-            'lure_answer': case['lure_answer'],
+            'correct_answer': case.correct_answer,
+            'lure_answer': case.lure_answer,
             'branch_position_1based': branch_index + 1,
             'correct_branch_token_id': correct_id,
             'lure_branch_token_id': lure_id,

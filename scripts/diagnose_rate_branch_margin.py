@@ -15,6 +15,7 @@ from mindscopex_analysis.models import get_qwen35_analysis_profile, load_qwen_te
 from mindscopex_analysis.qwen_scope import load_qwen_scope_sae, make_feature_steering_hook
 from mindscopex_analysis.research import find_decoder_block
 from mindscopex_analysis.lure_datasets import load_lure_dataset
+from mindscopex_analysis.prompts import instruct_lure_case
 
 CASE_IDS = (
     'crt_fresh_v2_rate_002', 'crt_fresh_v2_rate_013',
@@ -52,6 +53,7 @@ def main():
     parser.add_argument('--layer', type=int, default=5)
     parser.add_argument('--feature', type=int, default=30908)
     parser.add_argument('--coefficient', type=float, default=7.0)
+    parser.add_argument('--instruction', action='store_true')
     args = parser.parse_args()
     if not torch.cuda.is_available():
         raise RuntimeError('GPU runtime required. Select Colab A100 and run there.')
@@ -71,6 +73,8 @@ def main():
     rows = []
     for case_id in CASE_IDS:
         case = by_id[case_id]
+        if args.instruction:
+            case = instruct_lure_case(case)
         prefix, correct_id, lure_id, branch_index = branch_ids(tokenizer, case.correct_answer, case.lure_answer)
         baseline = logit_margin(model, tokenizer, case.prompt, prefix, correct_id, lure_id)
         hook = make_feature_steering_hook(sae, [args.feature], coefficient=args.coefficient, token_position='all')

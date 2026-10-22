@@ -1,0 +1,10 @@
+# Sequential A100 runs; each seed evaluates original prompts without choices.
+[suite]
+name = "crt_open_ended_control"
+configs = [
+  "../configs/study_open_ended_crt_f30908_seed1_2b.toml",
+  "../configs/study_open_ended_crt_f30908_seed2_2b.toml",
+  "../configs/study_open_ended_crt_f30908_seed3_2b.toml",
+  "../configs/study_open_ended_crt_f30908_seed4_2b.toml",
+  "../configs/study_open_ended_crt_f30908_seed5_2b.toml",
+]

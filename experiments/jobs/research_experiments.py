@@ -21,6 +21,7 @@ matched controls). See docs/study_design.md.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import csv
 import json
 import platform
@@ -1161,6 +1162,36 @@ def run_behavioral(
     output_mode = str(bcfg.get("output_mode", "binary_choice"))
     cases = family_balanced_subset(splits["test"], max_cases=max_cases)
 
+    if output_mode == "open_ended_crt":
+        from mindscopex_analysis.open_ended_crt import evaluate
+
+        if bcfg.get("choice_orders") is not None or token_position != "all":
+            raise ValueError("Open-ended CRT requires no choice orders and token_position=all")
+        destination = run_dir / "behavioral" / "generations.json"
+        if destination.exists():
+            raise FileExistsError(f"Refusing to overwrite open-ended results: {destination}")
+
+        def generate(original_cases, coefficient):
+            return steer_generation_labels(
+                model, tokenizer, original_cases, layer=int(feature["layer"]), sae=info["sae"],
+                feature_id=int(feature["feature_id"]), coefficient=coefficient,
+                max_new_tokens=max_new_tokens, token_position=token_position,
+                output_mode=output_mode, progress=_log,
+            )
+
+        detail = evaluate(cases, coefficients, generate, max_new_tokens)
+        _write_json(destination, detail)
+        digest = hashlib.sha256(destination.read_bytes()).hexdigest()
+        _write_json(run_dir / "behavioral" / "provenance.json", {
+            "output_mode": output_mode, "generations_sha256": digest,
+            "split_seed": splits.get("split_seed"), "model_id": env.get("model_id"),
+            "layer": feature["layer"], "feature_id": feature["feature_id"],
+            "git_commit": _git_value(["rev-parse", "HEAD"]),
+            "config_sha256": hashlib.sha256((run_dir / "config.toml").read_bytes()).hexdigest(),
+        })
+        return {"kind": "behavioral", "n_cases": len(cases), "output_mode": output_mode,
+                "generations_sha256": digest, "max_new_tokens": max_new_tokens}
+
     if output_mode == "binary_choice_letter" and bcfg.get("choice_orders") is None:
         raise ValueError("Letter mode requires explicit choice_orders")
 
@@ -1301,10 +1332,11 @@ def run(config_path: Path, output_root: Path) -> Path:
     name = run_name(config)
     run_dir = output_root / name
     letter_token = None
-    if table(config, "behavioral").get("output_mode") == "binary_choice_letter":
+    guarded_mode = table(config, "behavioral").get("output_mode")
+    if guarded_mode in {"binary_choice_letter", "open_ended_crt"}:
         from experiments.runners.letter_run_directory import claim
 
-        letter_token = claim(run_dir, config_path)
+        letter_token = claim(run_dir, config_path, mode=guarded_mode)
     run_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(config_path, run_dir / "config.toml")
 
@@ -1408,7 +1440,7 @@ def run(config_path: Path, output_root: Path) -> Path:
     if letter_token is not None:
         from experiments.runners.letter_run_directory import finish
 
-        finish(run_dir, letter_token, 0)
+        finish(run_dir, letter_token, 0, mode=guarded_mode)
     print(f"ARTIFACT_DIR={run_dir}", flush=True)
     return run_dir
 

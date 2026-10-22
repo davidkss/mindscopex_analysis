@@ -108,19 +108,22 @@ def main():
     import tomllib
     with open(PAYLOAD["remote_config_path"], "rb") as stream:
         config = tomllib.load(stream)
+    guarded_mode = config.get("behavioral", {{}}).get("output_mode")
     is_letter = (PAYLOAD["job"] == "research_experiments" and
-                 config.get("behavioral", {{}}).get("output_mode") == "binary_choice_letter")
+                 guarded_mode in ("binary_choice_letter", "open_ended_crt"))
     letter_token = None
     if is_letter:
         sys.path.insert(0, str(repo_dir))
-        from experiments.runners.letter_run_directory import TOKEN_ENV, prepare, finish
+        from experiments.runners.letter_run_directory import settings, prepare, finish
+
+        _, TOKEN_ENV, _ = settings(guarded_mode)
 
         # Reject prior archives too, before opening logs or packaging anything.
         for archive in (run_dir.with_suffix(".zip"),
                         Path("/content") / f"{{PAYLOAD['run_name']}}_artifacts.zip"):
             if archive.exists() or archive.is_symlink():
                 raise FileExistsError(f"Refusing to overwrite letter archive: {{archive}}")
-        letter_token = prepare(run_dir, Path(PAYLOAD["remote_config_path"]))
+        letter_token = prepare(run_dir, Path(PAYLOAD["remote_config_path"]), mode=guarded_mode)
     else:
         run_dir.mkdir(parents=True, exist_ok=True)
     job_log = run_dir / "job.log"
@@ -133,7 +136,7 @@ def main():
         except Exception as exc:
             print(f"LETTER_JOB_START_FAILED: {{exc}}", flush=True)
             returncode = 1
-        finish(run_dir, letter_token, returncode)
+        finish(run_dir, letter_token, returncode, mode=guarded_mode)
     else:
         returncode = run_capturing(command, job_log)
 

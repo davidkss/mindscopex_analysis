@@ -581,7 +581,7 @@ def control_specificity_rows(
 
 # --------------------------------------------------------- behavioral readout
 
-BehavioralOutputMode = Literal["binary_choice", "binary_choice_letter", "free"]
+BehavioralOutputMode = Literal["binary_choice", "binary_choice_letter", "open_ended_crt", "free"]
 
 
 def find_decoder_block(
@@ -634,7 +634,10 @@ def summarize_answer_labels(labels: Sequence[str]) -> dict[str, Any]:
     }
 
 
-def _greedy_completion(model: Any, tokenizer: Any, prompt: str, *, max_new_tokens: int) -> str:
+def _greedy_completion(
+    model: Any, tokenizer: Any, prompt: str, *, max_new_tokens: int,
+    return_details: bool = False,
+) -> str | dict[str, Any]:
     """Minimal deterministic base-model completion of ``prompt``.
 
     Unwraps an ``AutoProcessor`` to its inner text tokenizer so this works on
@@ -651,6 +654,15 @@ def _greedy_completion(model: Any, tokenizer: Any, prompt: str, *, max_new_token
         "max_new_tokens": int(max_new_tokens),
         "do_sample": False,
     }
+    if return_details:
+        if max_new_tokens < 1:
+            raise ValueError("max_new_tokens must be positive")
+        eos = text_tokenizer.eos_token_id
+        eos_ids = list(eos) if isinstance(eos, (tuple, list)) else [eos] if eos is not None else []
+        if not eos_ids:
+            raise ValueError("Open-ended CRT requires EOS token IDs")
+        gen_kwargs.update(eos_token_id=eos_ids, forced_eos_token_id=None,
+                          forced_bos_token_id=None)
     if "attention_mask" in encoded:
         gen_kwargs["attention_mask"] = encoded["attention_mask"].to(device)
     pad_id = text_tokenizer.pad_token_id
@@ -662,6 +674,16 @@ def _greedy_completion(model: Any, tokenizer: Any, prompt: str, *, max_new_token
     with torch.inference_mode():
         output = model.generate(**gen_kwargs)
     generated = output[0, input_ids.shape[-1] :]
+    if return_details:
+        ids = generated.tolist()
+        eos_reached = bool(ids and ids[-1] in eos_ids)
+        return dict(answer=text_tokenizer.decode(generated, skip_special_tokens=True),
+                    raw_text=text_tokenizer.decode(generated, skip_special_tokens=False),
+                    generated_token_ids=ids, generated_token_count=len(ids),
+                    max_new_tokens=int(max_new_tokens), eos_token_ids=eos_ids,
+                    eos_reached=eos_reached,
+                    termination_reason='eos' if eos_reached else
+                    'max_new_tokens' if len(ids) == max_new_tokens else 'other_stop')
     return text_tokenizer.decode(generated, skip_special_tokens=True)
 
 
@@ -767,12 +789,24 @@ def _generate_labels(
     progress: Callable[[str], None] | None = None,
     phase: str = "",
 ) -> list[dict[str, Any]]:
-    if output_mode not in {"binary_choice", "binary_choice_letter", "free"}:
+    if output_mode not in {"binary_choice", "binary_choice_letter", "open_ended_crt", "free"}:
         raise ValueError(f"Unknown behavioral output_mode={output_mode!r}")
 
     rows: list[dict[str, Any]] = []
     total = len(cases)
     for index, case in enumerate(cases, start=1):
+        if output_mode == "open_ended_crt":
+            from mindscopex_analysis.open_ended_crt import classify, validate_case
+
+            validate_case(case)
+            details = _greedy_completion(model, tokenizer, case.prompt,
+                                         max_new_tokens=max_new_tokens, return_details=True)
+            label, audit = classify(details['answer'], case, details['termination_reason'])
+            rows.append(dict(case_id=case.case_id, family=case.family, prompt=case.prompt,
+                             label=label, classification=audit, **details))
+            if progress is not None:
+                progress(f"  {phase}gen [{index}/{total}] {case.case_id} -> {label}")
+            continue
         if output_mode in {"binary_choice", "binary_choice_letter"}:
             text = _binary_choice_completion(
                 model,

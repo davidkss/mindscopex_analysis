@@ -1161,6 +1161,25 @@ def run_behavioral(
     output_mode = str(bcfg.get("output_mode", "binary_choice"))
     cases = family_balanced_subset(splits["test"], max_cases=max_cases)
 
+    if bcfg.get("choice_orders") is not None:
+        from mindscopex_analysis.choice_order import ORDERS, evaluate
+
+        if tuple(bcfg["choice_orders"]) != ORDERS or output_mode != "binary_choice":
+            raise ValueError("counterbalancing requires both orders and binary_choice")
+
+        def generate(ordered, coefficient):
+            return steer_generation_labels(
+                model, tokenizer, ordered, layer=int(feature["layer"]), sae=info["sae"],
+                feature_id=int(feature["feature_id"]), coefficient=coefficient,
+                max_new_tokens=max_new_tokens, token_position=token_position,
+                output_mode=output_mode, progress=_log,
+            )
+
+        detail = evaluate(cases, coefficients, generate)
+        _write_json(run_dir / "behavioral" / "generations.json", detail)
+        return {"kind": "behavioral", "n_cases": len(cases), "output_mode": output_mode,
+                "choice_orders": list(ORDERS), "response_encoding": "answer_value"}
+
     _log(
         f"behavioral: {len(coefficients)} coefficients x {len(cases)} items "
         f"(baseline+steered, output_mode={output_mode})"

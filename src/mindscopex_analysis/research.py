@@ -581,7 +581,7 @@ def control_specificity_rows(
 
 # --------------------------------------------------------- behavioral readout
 
-BehavioralOutputMode = Literal["binary_choice", "free"]
+BehavioralOutputMode = Literal["binary_choice", "binary_choice_letter", "free"]
 
 
 def find_decoder_block(
@@ -671,6 +671,7 @@ def _binary_choice_completion(
     case: LureCase,
     *,
     max_new_tokens: int,
+    letter_candidates: bool = False,
 ) -> str:
     """Generate exactly one of a case's correct/lure answer strings.
 
@@ -682,7 +683,7 @@ def _binary_choice_completion(
     """
 
     text_tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
-    candidates = [case.correct_answer, case.lure_answer]
+    candidates = ["A", "B"] if letter_candidates else [case.correct_answer, case.lure_answer]
     candidate_ids = [
         list(text_tokenizer.encode(answer, add_special_tokens=False)) for answer in candidates
     ]
@@ -700,6 +701,13 @@ def _binary_choice_completion(
     if eos is None:
         raise ValueError("Binary constrained generation requires an eos_token_id")
     eos_ids = [int(token_id) for token_id in eos] if isinstance(eos, (list, tuple)) else [int(eos)]
+
+    if letter_candidates:
+        if any(token in eos_ids for ids in candidate_ids for token in ids):
+            raise ValueError("Letter candidates contain EOS tokens")
+        if any(a == b[:len(a)] for i, a in enumerate(candidate_ids)
+               for j, b in enumerate(candidate_ids) if i != j):
+            raise ValueError("Letter candidates have a token prefix collision")
 
     def allowed_tokens(_batch_id: int, sequence: torch.Tensor) -> list[int]:
         generated = sequence[prompt_length:].tolist()
@@ -735,6 +743,8 @@ def _binary_choice_completion(
     with torch.inference_mode():
         output = model.generate(**gen_kwargs)
     generated = output[0, prompt_length:].tolist()
+    if letter_candidates and (not generated or generated[-1] not in eos_ids):
+        raise RuntimeError("Letter generation did not terminate with EOS")
     while generated and generated[-1] in eos_ids:
         generated.pop()
 
@@ -757,18 +767,19 @@ def _generate_labels(
     progress: Callable[[str], None] | None = None,
     phase: str = "",
 ) -> list[dict[str, Any]]:
-    if output_mode not in {"binary_choice", "free"}:
+    if output_mode not in {"binary_choice", "binary_choice_letter", "free"}:
         raise ValueError(f"Unknown behavioral output_mode={output_mode!r}")
 
     rows: list[dict[str, Any]] = []
     total = len(cases)
     for index, case in enumerate(cases, start=1):
-        if output_mode == "binary_choice":
+        if output_mode in {"binary_choice", "binary_choice_letter"}:
             text = _binary_choice_completion(
                 model,
                 tokenizer,
                 case,
                 max_new_tokens=max_new_tokens,
+                **({"letter_candidates": True} if output_mode == "binary_choice_letter" else {}),
             )
         else:
             text = _greedy_completion(
@@ -777,7 +788,12 @@ def _generate_labels(
                 case.prompt,
                 max_new_tokens=max_new_tokens,
             )
-        label = classify_lure_answer(text, case)
+        if output_mode == "binary_choice_letter":
+            if (text not in {"A", "B"} or {case.correct_answer, case.lure_answer} != {"A", "B"}):
+                raise ValueError("Letter mode requires an explicit A/B case mapping")
+            label = "correct" if text == case.correct_answer else "lure"
+        else:
+            label = classify_lure_answer(text, case)
         if output_mode == "binary_choice" and label not in {"correct", "lure"}:
             raise RuntimeError(
                 f"Binary choice produced unexpected label {label!r} for case {case.case_id!r}"

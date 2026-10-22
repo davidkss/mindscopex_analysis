@@ -1,0 +1,10 @@
+# Sequential A100 runs; each seed evaluates both choice orders.
+[suite]
+name = "crt_choice_letter_control"
+configs = [
+  "../configs/study_choice_letter_f30908_seed1_2b.toml",
+  "../configs/study_choice_letter_f30908_seed2_2b.toml",
+  "../configs/study_choice_letter_f30908_seed3_2b.toml",
+  "../configs/study_choice_letter_f30908_seed4_2b.toml",
+  "../configs/study_choice_letter_f30908_seed5_2b.toml",
+]

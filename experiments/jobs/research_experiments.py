@@ -1161,10 +1161,13 @@ def run_behavioral(
     output_mode = str(bcfg.get("output_mode", "binary_choice"))
     cases = family_balanced_subset(splits["test"], max_cases=max_cases)
 
-    if bcfg.get("choice_orders") is not None:
-        from mindscopex_analysis.choice_order import ORDERS, evaluate
+    if output_mode == "binary_choice_letter" and bcfg.get("choice_orders") is None:
+        raise ValueError("Letter mode requires explicit choice_orders")
 
-        if tuple(bcfg["choice_orders"]) != ORDERS or output_mode != "binary_choice":
+    if bcfg.get("choice_orders") is not None:
+        from mindscopex_analysis.choice_order import LETTER_MODE, ORDERS, evaluate
+
+        if tuple(bcfg["choice_orders"]) != ORDERS or output_mode not in {"binary_choice", LETTER_MODE}:
             raise ValueError("counterbalancing requires both orders and binary_choice")
 
         def generate(ordered, coefficient):
@@ -1175,10 +1178,14 @@ def run_behavioral(
                 output_mode=output_mode, progress=_log,
             )
 
-        detail = evaluate(cases, coefficients, generate)
+        destination = run_dir / "behavioral" / "generations.json"
+        if output_mode == LETTER_MODE and destination.exists():
+            raise FileExistsError(f"Refusing to overwrite letter results: {destination}")
+        detail = evaluate(cases, coefficients, generate, output_mode=output_mode)
         _write_json(run_dir / "behavioral" / "generations.json", detail)
         return {"kind": "behavioral", "n_cases": len(cases), "output_mode": output_mode,
-                "choice_orders": list(ORDERS), "response_encoding": "answer_value"}
+                "choice_orders": list(ORDERS),
+                "response_encoding": "choice_letter" if output_mode == LETTER_MODE else "answer_value"}
 
     _log(
         f"behavioral: {len(coefficients)} coefficients x {len(cases)} items "
@@ -1293,6 +1300,8 @@ def run(config_path: Path, output_root: Path) -> Path:
             raise ValueError("[features].feature_ids must not contain duplicates")
     name = run_name(config)
     run_dir = output_root / name
+    if table(config, "behavioral").get("output_mode") == "binary_choice_letter" and run_dir.exists():
+        raise FileExistsError(f"Refusing to reuse letter experiment directory: {run_dir}")
     run_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(config_path, run_dir / "config.toml")
 

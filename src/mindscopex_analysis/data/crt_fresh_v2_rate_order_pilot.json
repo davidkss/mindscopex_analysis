@@ -1,0 +1,217 @@
+{
+  "dataset_id": "crt_fresh_v2_rate_order_pilot",
+  "title": "Fresh V2 Rate Order Pilot",
+  "description": "Paired CRT rate questions comparing correct-first and lure-first number order.",
+  "task_kind": "reasoning_lure",
+  "scoring": "binary_choice",
+  "source": {
+    "parent_dataset": "crt_fresh_v2",
+    "generated_from": "experiments/generated/fresh_v2_rate_order_pilot.csv",
+    "purpose": "numerical_order_intervention"
+  },
+  "family_counts": {
+    "crt_rate": 20
+  },
+  "cases": [
+    {
+      "case_id": "crt_fresh_v2_rate_001_correct_first",
+      "pair_id": "crt_fresh_v2_rate_001",
+      "family": "crt_rate",
+      "question": "If 3 prototype printers can print 3 prototype shells in 3 minutes, how many minutes would 20 prototype printers need to print 20 prototype shells?",
+      "correct_answer": "3 minutes",
+      "lure_answer": "20 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_001_lure_first",
+      "pair_id": "crt_fresh_v2_rate_001",
+      "family": "crt_rate",
+      "question": "How many minutes would 20 prototype printers need to print 20 prototype shells, if 3 prototype printers can print 3 prototype shells in 3 minutes?",
+      "correct_answer": "3 minutes",
+      "lure_answer": "20 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_006_correct_first",
+      "pair_id": "crt_fresh_v2_rate_006",
+      "family": "crt_rate",
+      "question": "If 8 textile looms can weave 8 scarves in 8 minutes, how many minutes would 35 textile looms need to weave 35 scarves?",
+      "correct_answer": "8 minutes",
+      "lure_answer": "35 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_006_lure_first",
+      "pair_id": "crt_fresh_v2_rate_006",
+      "family": "crt_rate",
+      "question": "How many minutes would 35 textile looms need to weave 35 scarves, if 8 textile looms can weave 8 scarves in 8 minutes?",
+      "correct_answer": "8 minutes",
+      "lure_answer": "35 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_011_correct_first",
+      "pair_id": "crt_fresh_v2_rate_011",
+      "family": "crt_rate",
+      "question": "If 13 bakers can decorate 13 cupcakes in 13 minutes, how many minutes would 50 bakers need to decorate 50 cupcakes?",
+      "correct_answer": "13 minutes",
+      "lure_answer": "50 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_011_lure_first",
+      "pair_id": "crt_fresh_v2_rate_011",
+      "family": "crt_rate",
+      "question": "How many minutes would 50 bakers need to decorate 50 cupcakes, if 13 bakers can decorate 13 cupcakes in 13 minutes?",
+      "correct_answer": "13 minutes",
+      "lure_answer": "50 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_016_correct_first",
+      "pair_id": "crt_fresh_v2_rate_016",
+      "family": "crt_rate",
+      "question": "If 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?",
+      "correct_answer": "6 minutes",
+      "lure_answer": "65 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_016_lure_first",
+      "pair_id": "crt_fresh_v2_rate_016",
+      "family": "crt_rate",
+      "question": "How many minutes would 65 ceramic kilns need to fire 65 tile batches, if 6 ceramic kilns can fire 6 tile batches in 6 minutes?",
+      "correct_answer": "6 minutes",
+      "lure_answer": "65 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_021_correct_first",
+      "pair_id": "crt_fresh_v2_rate_021",
+      "family": "crt_rate",
+      "question": "If 11 lab technicians can prepare 11 sample vials in 11 minutes, how many minutes would 80 lab technicians need to prepare 80 sample vials?",
+      "correct_answer": "11 minutes",
+      "lure_answer": "80 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_021_lure_first",
+      "pair_id": "crt_fresh_v2_rate_021",
+      "family": "crt_rate",
+      "question": "How many minutes would 80 lab technicians need to prepare 80 sample vials, if 11 lab technicians can prepare 11 sample vials in 11 minutes?",
+      "correct_answer": "11 minutes",
+      "lure_answer": "80 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_026_correct_first",
+      "pair_id": "crt_fresh_v2_rate_026",
+      "family": "crt_rate",
+      "question": "If 4 quality inspectors can inspect 4 helmets in 4 minutes, how many minutes would 95 quality inspectors need to inspect 95 helmets?",
+      "correct_answer": "4 minutes",
+      "lure_answer": "95 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_026_lure_first",
+      "pair_id": "crt_fresh_v2_rate_026",
+      "family": "crt_rate",
+      "question": "How many minutes would 95 quality inspectors need to inspect 95 helmets, if 4 quality inspectors can inspect 4 helmets in 4 minutes?",
+      "correct_answer": "4 minutes",
+      "lure_answer": "95 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_031_correct_first",
+      "pair_id": "crt_fresh_v2_rate_031",
+      "family": "crt_rate",
+      "question": "If 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?",
+      "correct_answer": "9 minutes",
+      "lure_answer": "110 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_031_lure_first",
+      "pair_id": "crt_fresh_v2_rate_031",
+      "family": "crt_rate",
+      "question": "How many minutes would 110 medical imagers need to scan 110 test phantoms, if 9 medical imagers can scan 9 test phantoms in 9 minutes?",
+      "correct_answer": "9 minutes",
+      "lure_answer": "110 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_036_correct_first",
+      "pair_id": "crt_fresh_v2_rate_036",
+      "family": "crt_rate",
+      "question": "If 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?",
+      "correct_answer": "14 minutes",
+      "lure_answer": "125 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_036_lure_first",
+      "pair_id": "crt_fresh_v2_rate_036",
+      "family": "crt_rate",
+      "question": "How many minutes would 125 assembly cells need to assemble 125 sensor modules, if 14 assembly cells can assemble 14 sensor modules in 14 minutes?",
+      "correct_answer": "14 minutes",
+      "lure_answer": "125 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_041_correct_first",
+      "pair_id": "crt_fresh_v2_rate_041",
+      "family": "crt_rate",
+      "question": "If 7 carton sealers can seal 7 cartons in 7 minutes, how many minutes would 140 carton sealers need to seal 140 cartons?",
+      "correct_answer": "7 minutes",
+      "lure_answer": "140 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_041_lure_first",
+      "pair_id": "crt_fresh_v2_rate_041",
+      "family": "crt_rate",
+      "question": "How many minutes would 140 carton sealers need to seal 140 cartons, if 7 carton sealers can seal 7 cartons in 7 minutes?",
+      "correct_answer": "7 minutes",
+      "lure_answer": "140 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_046_correct_first",
+      "pair_id": "crt_fresh_v2_rate_046",
+      "family": "crt_rate",
+      "question": "If 12 audio processors can render 12 sound clips in 12 minutes, how many minutes would 155 audio processors need to render 155 sound clips?",
+      "correct_answer": "12 minutes",
+      "lure_answer": "155 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "correct_first"
+    },
+    {
+      "case_id": "crt_fresh_v2_rate_046_lure_first",
+      "pair_id": "crt_fresh_v2_rate_046",
+      "family": "crt_rate",
+      "question": "How many minutes would 155 audio processors need to render 155 sound clips, if 12 audio processors can render 12 sound clips in 12 minutes?",
+      "correct_answer": "12 minutes",
+      "lure_answer": "155 minutes",
+      "template_id": "IF_FIRST",
+      "condition": "lure_first"
+    }
+  ]
+}

@@ -1160,7 +1160,17 @@ def run_behavioral(
     max_cases = int(bcfg.get("max_cases", 40))
     token_position = str(bcfg.get("token_position", "all"))
     output_mode = str(bcfg.get("output_mode", "binary_choice"))
-    cases = family_balanced_subset(splits["test"], max_cases=max_cases)
+    case_pool = str(bcfg.get("case_pool", "test"))
+
+    if case_pool not in {"all", "test"}:
+        raise ValueError(
+            f"Unsupported behavioral case_pool: {case_pool}"
+        )
+
+    cases = family_balanced_subset(
+        splits[case_pool],
+        max_cases=max_cases,
+    )
 
     if output_mode == "open_ended_crt":
         from mindscopex_analysis.open_ended_crt import evaluate

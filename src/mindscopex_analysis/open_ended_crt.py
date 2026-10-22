@@ -9,6 +9,16 @@ from mindscopex_analysis.generation import _normalized_text
 
 MODE = 'open_ended_crt'
 COEFFICIENTS = (0.0, -7.0, -8.0)
+STABILITY_COEFFICIENTS = (0.0, -.25, -.5, -1.0, -2.0, -3.0)
+
+
+def protocol_spec(protocol='standard'):
+    if protocol == 'standard':
+        return COEFFICIENTS, 40
+    if protocol in ('stability_sweep', 'stability_smoke'):
+        return STABILITY_COEFFICIENTS, 6 if protocol == 'stability_smoke' else 40
+    raise ValueError(f'Unknown open-ended analysis protocol: {protocol}')
+
 LABELS = ('correct', 'lure', 'other', 'invalid')
 FAMILIES = ('crt_difference', 'crt_rate', 'crt_growth')
 SCORER_VERSION = 'numeric_single_answer_v1'
@@ -144,14 +154,17 @@ def validate_rows(rows, cases, max_new_tokens, thinking_mode='default'):
     return indexed
 
 
-def evaluate(cases, coefficients, generate, max_new_tokens, thinking_mode='default'):
+def evaluate(cases, coefficients, generate, max_new_tokens, thinking_mode='default', protocol='standard'):
     if thinking_mode not in ('default', 'disabled'):
         raise ValueError(f'Unsupported thinking_mode: {thinking_mode}')
-    if tuple(coefficients) != COEFFICIENTS or max_new_tokens < 1:
-        raise ValueError('expected coefficients 0/-7/-8 and positive generation budget')
+    expected_coefficients, expected_cases = protocol_spec(protocol)
+    if tuple(coefficients) != expected_coefficients or max_new_tokens < 1:
+        raise ValueError(f'expected coefficients {expected_coefficients} and positive generation budget')
+    if protocol != 'standard' and (thinking_mode != 'disabled' or max_new_tokens != 64):
+        raise ValueError('stability protocols require thinking disabled and 64 tokens')
     indexed = {c.case_id: c for c in cases}
-    if len(cases) != 40 or len(indexed) != 40:
-        raise ValueError('expected 40 unique original cases')
+    if len(cases) != expected_cases or len(indexed) != expected_cases:
+        raise ValueError(f'expected {expected_cases} unique original cases')
     for case in cases:
         validate_case(case)
     blocks, reference = [], None
@@ -169,8 +182,10 @@ def evaluate(cases, coefficients, generate, max_new_tokens, thinking_mode='defau
         if c == 0 and baseline != steered:
             raise ValueError('coefficient zero differs from baseline')
         blocks.append(dict(coefficient=c, output_mode=MODE, max_new_tokens=max_new_tokens,
-                           scorer_version=SCORER_VERSION, thinking_mode=thinking_mode, cases=[asdict(case) for case in cases],
+                           scorer_version=SCORER_VERSION, thinking_mode=thinking_mode, analysis_protocol=protocol, cases=[asdict(case) for case in cases],
                            baseline_rows=list(baseline.values()), steered_rows=list(steered.values())))
+        if 'steering_diagnostics' in result:
+            blocks[-1]['steering_diagnostics'] = result['steering_diagnostics']
     return blocks
 
 

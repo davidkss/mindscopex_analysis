@@ -1166,6 +1166,10 @@ def run_behavioral(
         from mindscopex_analysis.open_ended_crt import evaluate
 
         thinking_mode = str(bcfg.get("thinking_mode", "default"))
+        protocol = str(bcfg.get("analysis_protocol", "standard"))
+        diagnostics_enabled = bcfg.get("steering_diagnostics", False)
+        if type(diagnostics_enabled) is not bool:
+            raise ValueError("steering_diagnostics must be a boolean")
         if thinking_mode not in {"default", "disabled"}:
             raise ValueError(f"Unsupported thinking_mode: {thinking_mode}")
         if bcfg.get("choice_orders") is not None or token_position != "all":
@@ -1180,14 +1184,15 @@ def run_behavioral(
                 feature_id=int(feature["feature_id"]), coefficient=coefficient,
                 max_new_tokens=max_new_tokens, token_position=token_position,
                 output_mode=output_mode, thinking_mode=thinking_mode, progress=_log,
+                **({"steering_diagnostics": True} if diagnostics_enabled else {}),
             )
 
-        detail = evaluate(cases, coefficients, generate, max_new_tokens, thinking_mode=thinking_mode)
+        detail = evaluate(cases, coefficients, generate, max_new_tokens, thinking_mode=thinking_mode, protocol=protocol)
         _write_json(destination, detail)
         digest = hashlib.sha256(destination.read_bytes()).hexdigest()
         _write_json(run_dir / "behavioral" / "provenance.json", {
             "output_mode": output_mode, "generations_sha256": digest,
-            "thinking_mode": thinking_mode,
+            "thinking_mode": thinking_mode, "analysis_protocol": protocol,
             "split_seed": splits.get("split_seed"), "model_id": env.get("model_id"),
             "layer": feature["layer"], "feature_id": feature["feature_id"],
             "git_commit": _git_value(["rev-parse", "HEAD"]),

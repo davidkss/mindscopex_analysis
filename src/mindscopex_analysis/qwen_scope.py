@@ -490,6 +490,7 @@ def make_feature_steering_hook(
     *,
     coefficient: float = 1.0,
     token_position: Literal["all", "last"] = "last",
+    diagnostics: list[dict[str, Any]] | None = None,
 ):
     """Create a forward hook that adds SAE decoder feature directions to a residual stream."""
 
@@ -509,6 +510,40 @@ def make_feature_steering_hook(
             edited[:, -1, :] = edited[:, -1, :] + vec
         else:
             raise ValueError(f"Unknown token_position={token_position!r}")
+        if diagnostics is not None:
+            # Observe the same edit; do not normalize or rescale either tensor.
+            before = hidden if token_position == "all" else hidden[:, -1:, :]
+            after = edited if token_position == "all" else edited[:, -1:, :]
+            pre = before.detach().float().norm(dim=-1).flatten()
+            post = after.detach().float().norm(dim=-1).flatten()
+            actual = (after.detach().float() - before.detach().float()).norm(dim=-1).flatten()
+            valid = torch.isfinite(pre) & torch.isfinite(actual) & (pre > 0)
+
+            def stats(values, prefix):
+                finite = values[torch.isfinite(values)]
+                return {f"{prefix}_mean": float(finite.mean().item()) if finite.numel() else None,
+                        f"{prefix}_min": float(finite.min().item()) if finite.numel() else None,
+                        f"{prefix}_max": float(finite.max().item()) if finite.numel() else None}
+
+            requested_norm = float(direction.detach().float().norm().item())
+            cast_norm = float(vec.detach().float().norm().item())
+            import math
+
+            record = dict(forward_index=len(diagnostics), coefficient=float(coefficient),
+                          feature_ids=";".join(map(str, feature_ids)),
+                          token_position=token_position, affected_token_count=pre.numel(),
+                          requested_vector_norm=requested_norm if math.isfinite(requested_norm) else None,
+                          cast_vector_norm=cast_norm if math.isfinite(cast_norm) else None,
+                          zero_residual_count=int((pre == 0).sum().item()),
+                          nonfinite_residual_count=int((~torch.isfinite(pre)).sum().item()),
+                          nonfinite_post_count=int((~torch.isfinite(post)).sum().item()),
+                          nonfinite_delta_count=int((~torch.isfinite(actual)).sum().item()),
+                          ratio_defined_count=int(valid.sum().item()))
+            for values, prefix in ((pre, "residual_before"), (post, "residual_after"),
+                                   (actual, "actual_delta"),
+                                   (actual[valid] / pre[valid], "delta_residual_ratio")):
+                record.update(stats(values, prefix))
+            diagnostics.append(record)
         if isinstance(output, tuple):
             return (edited, *output[1:])
         return edited

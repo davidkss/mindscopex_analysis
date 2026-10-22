@@ -894,6 +894,7 @@ def steer_generation_labels(
     token_position: str = "all",
     output_mode: BehavioralOutputMode = "binary_choice",
     thinking_mode: str = "default",
+    steering_diagnostics: bool = False,
     block_path_template: str = DEFAULT_BLOCK_PATH_TEMPLATE,
     progress: Callable[[str], None] | None = None,
 ) -> dict[str, Any]:
@@ -925,8 +926,10 @@ def steer_generation_labels(
         phase="baseline ",
     )
     block = find_decoder_block(model, int(layer), block_path_template=block_path_template)
+    diagnostic_records = [] if steering_diagnostics else None
     hook = make_feature_steering_hook(
-        sae, ids, coefficient=float(coefficient), token_position=token_position
+        sae, ids, coefficient=float(coefficient), token_position=token_position,
+        **({"diagnostics": diagnostic_records} if steering_diagnostics else {}),
     )
     handle = block.register_forward_hook(hook)
     try:
@@ -954,6 +957,7 @@ def steer_generation_labels(
         "steered_summary": steered_summary,
         "accuracy_delta": steered_summary["accuracy"] - baseline_summary["accuracy"],
         "lure_rate_delta": steered_summary["lure_rate"] - baseline_summary["lure_rate"],
+        **({"steering_diagnostics": diagnostic_records} if steering_diagnostics else {}),
         "baseline_rows": baseline,
         "steered_rows": steered,
     }

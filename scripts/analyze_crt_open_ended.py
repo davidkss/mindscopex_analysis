@@ -14,22 +14,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from mindscopex_analysis.cases import LureCase
 from mindscopex_analysis.open_ended_crt import (
-    COEFFICIENTS, FAMILIES, LABELS, MODE, SCORER_VERSION, evaluate, response_diagnostics,
+    COEFFICIENTS, FAMILIES, LABELS, MODE, SCORER_VERSION, evaluate, response_diagnostics, protocol_spec,
 )
 import analyze_crt_choice_letter as choice_analysis
 from analyze_crt_negative_dose import write_csv
 
 
-def analyze(data, seed):
-    if not isinstance(data, list) or len(data) != 3:
-        raise ValueError(f'Seed {seed}: expected three coefficient blocks')
+def analyze(data, seed, protocol='standard'):
+    coefficients, expected_cases = protocol_spec(protocol)
+    if not isinstance(data, list) or len(data) != len(coefficients):
+        raise ValueError(f'Seed {seed}: expected {len(coefficients)} coefficient blocks')
     indexed = {}
     for block in data:
         c = block.get('coefficient')
-        if isinstance(c, bool) or c not in COEFFICIENTS or c in indexed:
+        if isinstance(c, bool) or c not in coefficients or c in indexed:
             raise ValueError('invalid/duplicate coefficient')
         indexed[c] = block
-    if set(indexed) != set(COEFFICIENTS):
+    if set(indexed) != set(coefficients):
         raise ValueError('missing coefficient')
     first = indexed[0]
     cases = [LureCase(**r) for r in first['cases']]
@@ -42,12 +43,13 @@ def analyze(data, seed):
                 or block.get('max_new_tokens') != max_tokens
                 or block.get('thinking_mode', 'default') != thinking_mode
                 or {r['case_id']: r for r in block['cases']} != {r['case_id']: r for r in first['cases']}
-                or len(block['cases']) != 40):
+                or len(block['cases']) != expected_cases
+                or block.get('analysis_protocol', 'standard') != protocol):
             raise ValueError('mode/scorer/budget/original case definitions differ')
     # Reuse the same result validation used during collection, without any generation.
-    evaluate(cases, COEFFICIENTS, lambda original, c: indexed[c], max_tokens, thinking_mode=thinking_mode)
+    evaluate(cases, coefficients, lambda original, c: indexed[c], max_tokens, thinking_mode=thinking_mode, protocol=protocol)
     rows = []
-    for c in COEFFICIENTS:
+    for c in coefficients:
         b = {r['case_id']: r for r in indexed[c]['baseline_rows']}
         a = {r['case_id']: r for r in indexed[c]['steered_rows']}
         for key in sorted(b):
@@ -88,21 +90,29 @@ def aggregate(rows, coefficient, family='all'):
             result[key] = transitions[key]
     if sum(result[f'{b}_to_{a}'] for b in LABELS for a in LABELS) != n:
         raise ValueError('transition counts do not sum to N')
+    for phase in ('baseline', 'steered'):
+        eos_count = sum(r[f'{phase}_termination'] == 'eos' for r in rows)
+        repeat_count = sum(any(r.get(f'{phase}_{flag}', False) for flag in
+                               ('repeated_character', 'repeated_token', 'repeated_phrase')) for r in rows)
+        result[f'{phase}_eos_count'] = eos_count
+        result[f'{phase}_eos_rate'] = eos_count / n
+        result[f'{phase}_repetition_count'] = repeat_count
+        result[f'{phase}_repetition_rate'] = repeat_count / n
     result['accuracy_change_pp'] = 100 * (result['steered_correct_rate'] - result['baseline_correct_rate'])
     result['lure_change_pp'] = 100 * (result['steered_lure_rate'] - result['baseline_lure_rate'])
     return result
 
 
-def summarize(rows):
+def summarize(rows, coefficients=COEFFICIENTS):
     seeds, families, variability = [], [], []
     for seed in sorted({r['seed'] for r in rows}):
-        for c in COEFFICIENTS:
+        for c in coefficients:
             for family in ('all', *FAMILIES):
                 selected = [r for r in rows if r['seed'] == seed and r['coefficient'] == c
                             and (family == 'all' or r['family'] == family)]
                 record = dict(seed=seed, **aggregate(selected, c, family))
                 (seeds if family == 'all' else families).append(record)
-    for c in COEFFICIENTS:
+    for c in coefficients:
         for family in ('all', *FAMILIES):
             selected = [r for r in seeds + families if r['coefficient'] == c and r['family'] == family]
             record = dict(coefficient=c, family=family, seed_count=len(selected))
@@ -115,7 +125,7 @@ def summarize(rows):
                                f'{metric}_negative_seeds': sum(v < 0 for v in values),
                                f'{metric}_unchanged_seeds': values.count(0)})
             variability.append(record)
-    pooled = [aggregate([r for r in rows if r['coefficient'] == c], c) for c in COEFFICIENTS]
+    pooled = [aggregate([r for r in rows if r['coefficient'] == c], c) for c in coefficients]
     membership = {}
     for r in rows:
         if r['coefficient'] == 0:
@@ -124,7 +134,7 @@ def summarize(rows):
                for k, v in sorted(membership.items())]
     diagnostic_rows = []
     for seed in sorted({r['seed'] for r in rows}):
-        for c in COEFFICIENTS:
+        for c in coefficients:
             for family in ('all', *FAMILIES):
                 selected = [r for r in rows if r['seed'] == seed and r['coefficient'] == c
                             and (family == 'all' or r['family'] == family)]
@@ -142,7 +152,8 @@ def summarize(rows):
                 response_diagnostics_summary=diagnostic_rows)
 
 
-def load_open(root, seeds, run_prefix='study_open_ended_crt'):
+def load_open(root, seeds, run_prefix='study_open_ended_crt', protocol='standard'):
+    coefficients, expected_cases = protocol_spec(protocol)
     rows, definitions, provenance = [], {}, []
     shared_budget = None
     shared_thinking_mode = None
@@ -173,7 +184,9 @@ def load_open(root, seeds, run_prefix='study_open_ended_crt'):
                 or config['model']['profile'] != '2b'
                 or config['data'].get('instruction') is not True
                 or config['data'].get('train_frac') != .6
-                or config['behavioral'].get('max_cases') != 40
+                or config['behavioral'].get('max_cases') != expected_cases
+                or config['behavioral'].get('analysis_protocol', 'standard') != protocol
+                or metadata.get('analysis_protocol', 'standard') != protocol
                 or metadata.get('output_mode') != MODE
                 or status.get('run_name') != name
                 or config['run']['name'] != name
@@ -182,7 +195,7 @@ def load_open(root, seeds, run_prefix='study_open_ended_crt'):
                 or config['behavioral']['output_mode'] != MODE
                 or config['behavioral']['token_position'] != 'all'
                 or config['behavioral'].get('choice_orders') is not None
-                or config['behavioral']['coefficients'] != list(COEFFICIENTS)
+                or config['behavioral']['coefficients'] != list(coefficients)
                 or manifest.get('git_commit') != metadata.get('git_commit')):
             raise ValueError(f'Seed {seed}: incompatible experiment metadata')
         budget = config['behavioral']['max_new_tokens']
@@ -197,7 +210,7 @@ def load_open(root, seeds, run_prefix='study_open_ended_crt'):
             raise ValueError('config/result thinking mode mismatch')
         if metadata.get('thinking_mode', 'default') != thinking_mode:
             raise ValueError('provenance thinking mode mismatch')
-        records, cases = analyze(json.loads(raw), seed)
+        records, cases = analyze(json.loads(raw), seed, protocol)
         if any(r['max_new_tokens'] != config['behavioral']['max_new_tokens'] for r in json.loads(raw)):
             raise ValueError('config/result budget mismatch')
         rows.extend(records)
@@ -205,7 +218,7 @@ def load_open(root, seeds, run_prefix='study_open_ended_crt'):
         provenance.append(dict(seed=seed, path=str(path.resolve()), sha256=digest,
                                config_sha256=config_hash, model=metadata['model_id'],
                                git_commit=metadata.get('git_commit'), thinking_mode=thinking_mode, max_new_tokens=budget))
-        print(f'Validated Seed {seed}: 40 cases, three coefficients, complete run, verified hashes')
+        print(f'Validated Seed {seed}: {expected_cases} cases, {len(coefficients)} coefficients, complete run, verified hashes')
     return rows, definitions, provenance
 
 
@@ -246,15 +259,33 @@ def compare_objective(open_rows, objective_rows, encoding):
     return paired, summaries
 
 
-def run(root, output, seeds=(1, 2, 3, 4, 5), objective_root=None, run_prefix='study_open_ended_crt'):
+def run(root, output, seeds=(1, 2, 3, 4, 5), objective_root=None, run_prefix='study_open_ended_crt', protocol='standard'):
     if output.exists():
         raise FileExistsError(f'output already exists: {output}')
     if (not seeds or len(set(seeds)) != len(seeds) or any(type(s) is not int or s < 1 for s in seeds)
             or 'runs' in output.resolve().parts
             or any(output.resolve().is_relative_to(p.resolve()) for p in (root, objective_root) if p is not None)):
         raise ValueError('invalid seeds/output directory')
-    rows, definitions, provenance = load_open(root, seeds, run_prefix)
-    data = summarize(rows)
+    coefficients, expected_cases = protocol_spec(protocol)
+    if protocol != 'standard' and objective_root is not None:
+        raise ValueError('Objective controls do not share the stability coefficient grid')
+    rows, definitions, provenance = load_open(root, seeds, run_prefix, protocol)
+    data = summarize(rows, coefficients)
+    if protocol != 'standard':
+        norms = []
+        for source in provenance:
+            raw = Path(source['path']).read_bytes()
+            if hashlib.sha256(raw).hexdigest() != source['sha256']:
+                raise ValueError('Input changed during analysis')
+            for block in json.loads(raw):
+                records = block.get('steering_diagnostics')
+                if not isinstance(records, list) or not records:
+                    raise ValueError('Stability run is missing steering norm diagnostics')
+                for record in records:
+                    if record.get('coefficient') != block['coefficient'] or record.get('affected_token_count', 0) < 1:
+                        raise ValueError('Invalid steering diagnostic coefficient/count')
+                    norms.append(dict(seed=source['seed'], **record))
+        data['steering_norm_diagnostics'] = norms
     objective_provenance = []
     if objective_root is not None:
         pairs, summaries = [], []
@@ -273,8 +304,8 @@ def run(root, output, seeds=(1, 2, 3, 4, 5), objective_root=None, run_prefix='st
     lines += [f'- `{p}`' for p in provenance + objective_provenance]
     lines += ['', '## Validation and metrics', '',
               'Verified successful run status, config/result SHA-256, identity metadata, exact coefficient grid, '
-              '40 unique original cases, stable baselines, coefficient zero equality, raw responses, '
-              'termination metadata and reproducible classification. Fractions use all 40 responses as '
+              f'{expected_cases} unique original cases per seed, stable baselines, coefficient zero equality, raw responses, '
+              'termination metadata and reproducible classification. Fractions use all responses as '
               'denominator, including other/invalid. Changes are percentage points. All 16 label transitions '
               'are retained; gains are not only lure corrections. Sample seed SD uses ddof=1.', '',
               'Classification uses a single numeric answer and exact Decimal/unit conversion, with raw '
@@ -302,7 +333,7 @@ def run(root, output, seeds=(1, 2, 3, 4, 5), objective_root=None, run_prefix='st
               'accuracy does not establish reasoning improvement. Steering is not ablation. Five seeds and '
               'overlapping cases limit inference; no independent-observation p-values are reported.', '',
               '## Reproduce', '', f'`python scripts/analyze_crt_open_ended.py --input-root {root} '
-              f'--output {output} --seeds {" ".join(map(str, seeds))} --run-prefix {run_prefix}'
+              f'--output {output} --seeds {" ".join(map(str, seeds))} --run-prefix {run_prefix} --protocol {protocol}'
               + (f' --objective-input-root {objective_root}' if objective_root else '') + '`', '',
               'Use a new output directory. Inputs are read-only. No model execution.']
     (output / 'README.md').write_text('\n'.join(lines) + '\n')
@@ -316,9 +347,10 @@ def main():
     parser.add_argument('--objective-input-root', type=Path)
     parser.add_argument('--seeds', type=int, nargs='+', default=[1, 2, 3, 4, 5])
     parser.add_argument('--run-prefix', default='study_open_ended_crt')
+    parser.add_argument('--protocol', choices=['standard', 'stability_sweep', 'stability_smoke'], default='standard')
     args = parser.parse_args()
     try:
-        run(args.input_root, args.output, tuple(args.seeds), args.objective_input_root, args.run_prefix)
+        run(args.input_root, args.output, tuple(args.seeds), args.objective_input_root, args.run_prefix, args.protocol)
     except (ValueError, OSError, KeyError, TypeError) as exc:
         parser.exit(1, f'Analysis failed: {exc}\n')
 

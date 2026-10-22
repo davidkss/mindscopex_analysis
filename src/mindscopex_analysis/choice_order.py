@@ -48,12 +48,22 @@ def choice_letter(answer, case, order):
     return ('A' if label == 'correct' else 'B') if order == 'correct_first' else ('B' if label == 'correct' else 'A')
 
 
-def evaluate(cases, coefficients, generate, output_mode='binary_choice'):
-    """generate(cases, coefficient) is the existing steering evaluator."""
-    if len(cases) != 40 or len({c.case_id for c in cases}) != 40:
-        raise ValueError('counterbalancing requires 40 unique cases')
-    if tuple(coefficients) != COEFFICIENTS:
-        raise ValueError(f'expected coefficients {COEFFICIENTS}')
+def evaluate(
+    cases,
+    coefficients,
+    generate,
+    output_mode='binary_choice',
+    *,
+    expected_cases=40,
+    expected_coefficients=COEFFICIENTS,
+):
+    """Generate counterbalanced behavioral results."""
+    if type(expected_cases) is not int or expected_cases < 1:
+        raise ValueError('expected_cases must be a positive integer')
+    if len(cases) != expected_cases or len({c.case_id for c in cases}) != expected_cases:
+        raise ValueError(f'counterbalancing requires {expected_cases} unique cases')
+    if tuple(coefficients) != tuple(expected_coefficients):
+        raise ValueError(f'expected coefficients {tuple(expected_coefficients)}')
     results = []
     baselines = {}
     for order in ORDERS:
@@ -65,7 +75,7 @@ def evaluate(cases, coefficients, generate, output_mode='binary_choice'):
                          prompts={c.case_id: c.prompt for c in ordered})
             for field in ('baseline_rows', 'steered_rows'):
                 indexed = {r['case_id']: r for r in result[field]}
-                if len(indexed) != 40 or len(result[field]) != 40 or set(indexed) != {c.case_id for c in cases}:
+                if len(indexed) != expected_cases or len(result[field]) != expected_cases or set(indexed) != {c.case_id for c in cases}:
                     raise ValueError(f'{order}/{coefficient}: result case IDs differ')
                 rows = []
                 for case in cases:

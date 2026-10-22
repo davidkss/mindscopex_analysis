@@ -1215,7 +1215,7 @@ def run_behavioral(
         raise ValueError("Letter mode requires explicit choice_orders")
 
     if bcfg.get("choice_orders") is not None:
-        from mindscopex_analysis.choice_order import LETTER_MODE, ORDERS, evaluate
+        from mindscopex_analysis.choice_order import COEFFICIENTS, LETTER_MODE, ORDERS, evaluate
 
         if tuple(bcfg["choice_orders"]) != ORDERS or output_mode not in {"binary_choice", LETTER_MODE}:
             raise ValueError("counterbalancing requires both orders and binary_choice")
@@ -1231,7 +1231,19 @@ def run_behavioral(
         destination = run_dir / "behavioral" / "generations.json"
         if output_mode == LETTER_MODE and destination.exists():
             raise FileExistsError(f"Refusing to overwrite letter results: {destination}")
-        detail = evaluate(cases, coefficients, generate, output_mode=output_mode)
+        expected_cases = bcfg.get("expected_cases", 40)
+        if type(expected_cases) is not int or expected_cases < 1:
+            raise ValueError("behavioral.expected_cases must be a positive integer")
+        detail = evaluate(
+            cases, coefficients, generate,
+            output_mode=output_mode,
+            expected_cases=expected_cases,
+            expected_coefficients=(
+                tuple(coefficients)
+                if "expected_cases" in bcfg
+                else COEFFICIENTS
+            ),
+        )
         _write_json(run_dir / "behavioral" / "generations.json", detail)
         return {"kind": "behavioral", "n_cases": len(cases), "output_mode": output_mode,
                 "choice_orders": list(ORDERS),

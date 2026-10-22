@@ -1,0 +1,3 @@
+[suite]
+name = "study_rate_choice_order_pilot_f22552_2b"
+configs = ["../configs/study_rate_choice_order_pilot_f22552_seed1_2b.toml"]

@@ -1165,6 +1165,9 @@ def run_behavioral(
     if output_mode == "open_ended_crt":
         from mindscopex_analysis.open_ended_crt import evaluate
 
+        thinking_mode = str(bcfg.get("thinking_mode", "default"))
+        if thinking_mode not in {"default", "disabled"}:
+            raise ValueError(f"Unsupported thinking_mode: {thinking_mode}")
         if bcfg.get("choice_orders") is not None or token_position != "all":
             raise ValueError("Open-ended CRT requires no choice orders and token_position=all")
         destination = run_dir / "behavioral" / "generations.json"
@@ -1176,21 +1179,22 @@ def run_behavioral(
                 model, tokenizer, original_cases, layer=int(feature["layer"]), sae=info["sae"],
                 feature_id=int(feature["feature_id"]), coefficient=coefficient,
                 max_new_tokens=max_new_tokens, token_position=token_position,
-                output_mode=output_mode, progress=_log,
+                output_mode=output_mode, thinking_mode=thinking_mode, progress=_log,
             )
 
-        detail = evaluate(cases, coefficients, generate, max_new_tokens)
+        detail = evaluate(cases, coefficients, generate, max_new_tokens, thinking_mode=thinking_mode)
         _write_json(destination, detail)
         digest = hashlib.sha256(destination.read_bytes()).hexdigest()
         _write_json(run_dir / "behavioral" / "provenance.json", {
             "output_mode": output_mode, "generations_sha256": digest,
+            "thinking_mode": thinking_mode,
             "split_seed": splits.get("split_seed"), "model_id": env.get("model_id"),
             "layer": feature["layer"], "feature_id": feature["feature_id"],
             "git_commit": _git_value(["rev-parse", "HEAD"]),
             "config_sha256": hashlib.sha256((run_dir / "config.toml").read_bytes()).hexdigest(),
         })
         return {"kind": "behavioral", "n_cases": len(cases), "output_mode": output_mode,
-                "generations_sha256": digest, "max_new_tokens": max_new_tokens}
+                "generations_sha256": digest, "max_new_tokens": max_new_tokens, "thinking_mode": thinking_mode}
 
     if output_mode == "binary_choice_letter" and bcfg.get("choice_orders") is None:
         raise ValueError("Letter mode requires explicit choice_orders")

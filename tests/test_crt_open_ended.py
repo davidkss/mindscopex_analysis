@@ -222,7 +222,7 @@ class OpenEndedTests(unittest.TestCase):
             output = Path(tmp) / 'analysis'
             data = analysis.run(root, output, seeds=(1,))
             self.assertEqual(len(data['seed_summary']), 3)
-            self.assertEqual(len(list(output.iterdir())), 7)
+            self.assertEqual(len(list(output.iterdir())), 8)
             self.assertEqual(before, {p: p.read_bytes() for p in artifact.rglob('*') if p.is_file()})
             with self.assertRaises(FileExistsError): analysis.run(root, output, seeds=(1,))
             status = json.loads((artifact / 'open_ended_run_status.json').read_text())
@@ -274,7 +274,7 @@ class OpenEndedTests(unittest.TestCase):
             self.assertEqual(len(data['seed_summary']), 15)
             self.assertEqual(data['coefficient_summary'][0]['total'], 200)
             self.assertEqual(len(data['objective_case_comparison']), 2400)
-            self.assertEqual(len(list(output.iterdir())), 9)
+            self.assertEqual(len(list(output.iterdir())), 10)
             self.assertLess(len(data['case_overlap']), 200)
             # A requested objective comparison must fail rather than drop a missing seed.
             missing = next(root.glob('*study_choice_letter_f30908_seed5_2b/artifacts/behavioral/generations.json'))
@@ -315,6 +315,167 @@ class OpenEndedTests(unittest.TestCase):
                 before = {p: p.read_bytes() for p in run_dir.rglob('*') if p.is_file()}
                 with self.assertRaises(FileExistsError): guard.claim(run_dir, CONFIG, mode=MODE)
                 self.assertEqual(before, {p: p.read_bytes() for p in run_dir.rglob('*') if p.is_file()})
+
+
+
+class NonThinkingTokenizer(Tokenizer):
+    # Minimal executable fixture of the official text-only single-user branch.
+    chat_template = (
+        "{% for m in messages %}<|im_start|>{{ m.role }}\n{{ m.content }}<|im_end|>\n{% endfor %}"
+        "{% if add_generation_prompt %}<|im_start|>assistant\n"
+        "{% if enable_thinking %}<think>\n{% else %}<think>\n\n</think>\n\n{% endif %}{% endif %}"
+    )
+    name_or_path = 'cpu-template-fixture'
+
+    def apply_chat_template(self, messages, **kwargs):
+        from transformers.utils.chat_template_utils import _compile_jinja_template
+        return _compile_jinja_template(self.chat_template).render(messages=messages, **kwargs)
+
+    def __call__(self, prompt, **kwargs):
+        self.prompt, self.encode_kwargs = prompt, kwargs
+        ids = [ord(c) + 100 for c in prompt]
+        return dict(input_ids=torch.tensor([ids]), attention_mask=torch.ones(1, len(ids)))
+
+    def encode(self, text, *, add_special_tokens):
+        assert text == '<|im_end|>' and not add_special_tokens
+        return [11]
+
+    def decode(self, ids, skip_special_tokens):
+        values = ids.tolist() if hasattr(ids, 'tolist') else ids
+        if values == [11]:
+            return '' if skip_special_tokens else '<|im_end|>'
+        if values and values[0] >= 100:
+            return ''.join(chr(i - 100) for i in values)
+        return super().decode(ids, skip_special_tokens)
+
+
+class NonThinkingControlTests(unittest.TestCase):
+    def test_disabled_template_is_in_actual_input_without_candidate_constraints(self):
+        import hashlib
+        from types import SimpleNamespace
+        from mindscopex_analysis.open_ended_crt import NON_THINKING_SUFFIX
+        for wrap in (False, True):
+            with self.subTest(processor_wrapper=wrap):
+                tokenizer, model = NonThinkingTokenizer(), StubGenerator()
+                owner = SimpleNamespace(tokenizer=tokenizer) if wrap else tokenizer
+                row = research._generate_labels(model, owner, [cases()[0]], max_new_tokens=64,
+                                                 output_mode=MODE, thinking_mode='disabled')[0]
+                rendered = row['prompt_rendering']
+                self.assertTrue(rendered['rendered_prompt'].endswith(NON_THINKING_SUFFIX))
+                self.assertTrue(rendered['input_decoded'].endswith(NON_THINKING_SUFFIX))
+                self.assertEqual(tokenizer.prompt, rendered['rendered_prompt'])
+                self.assertEqual(tokenizer.encode_kwargs['add_special_tokens'], False)
+                self.assertFalse(rendered['enable_thinking'])
+                self.assertTrue(rendered['non_thinking_prefix_verified'])
+                self.assertEqual(rendered['input_sha256'], hashlib.sha256(
+                    json.dumps(rendered['input_token_ids'], separators=(',', ':')).encode()).hexdigest())
+                self.assertNotIn('$6', tokenizer.prompt)
+                self.assertNotIn('$12', tokenizer.prompt)
+                self.assertNotRegex(tokenizer.prompt, r'(?m)^\s*[AB]:')
+                self.assertNotIn('enable_thinking', model.kwargs)
+                self.assertNotIn('prefix_allowed_tokens_fn', model.kwargs)
+                self.assertEqual(model.kwargs['max_new_tokens'], 64)
+                self.assertFalse(model.kwargs['do_sample'])
+                self.assertEqual(row['label'], 'correct')
+                self.assertEqual(row['termination_reason'], 'eos')
+
+    def test_chat_turn_end_is_eos_and_truncation_remains_invalid(self):
+        ended = research._generate_labels(StubGenerator((7, 11)), NonThinkingTokenizer(), [cases()[0]],
+                                          max_new_tokens=64, output_mode=MODE, thinking_mode='disabled')[0]
+        self.assertTrue(ended['eos_reached'])
+        self.assertEqual(ended['termination_reason'], 'eos')
+        self.assertEqual(ended['eos_token_ids'], [9, 10, 11])
+        truncated = research._generate_labels(StubGenerator((7,) * 64), NonThinkingTokenizer(), [cases()[0]],
+                                              max_new_tokens=64, output_mode=MODE, thinking_mode='disabled')[0]
+        self.assertEqual(truncated['label'], 'invalid')
+        self.assertEqual(truncated['termination_reason'], 'max_new_tokens')
+        self.assertTrue(truncated['diagnostics']['repeated_token'])
+
+    def test_missing_ignored_or_lost_template_fails_before_generation(self):
+        for kind in ('missing', 'ignored', 'lost_tokenization'):
+            with self.subTest(kind=kind):
+                tokenizer = NonThinkingTokenizer()
+                if kind == 'missing': tokenizer.chat_template = ''
+                elif kind == 'ignored': tokenizer.apply_chat_template = lambda messages, **kw: messages[0]['content']
+                else: tokenizer.decode = lambda ids, skip_special_tokens: 'lost suffix'
+                model = StubGenerator()
+                with mock.patch.object(model, 'generate', wraps=model.generate) as generate_mock:
+                    with self.assertRaises(ValueError):
+                        research._generate_labels(model, tokenizer, [cases()[0]], max_new_tokens=64,
+                                                  output_mode=MODE, thinking_mode='disabled')
+                    generate_mock.assert_not_called()
+        with self.assertRaises(ValueError):
+            research._generate_labels(StubGenerator(), Tokenizer(), [cases()[0]], max_new_tokens=64,
+                                      output_mode='free', thinking_mode='disabled')
+
+    def test_hook_conditions_use_identical_input_and_generation_settings(self):
+        tokenizer, model = NonThinkingTokenizer(), StubGenerator()
+        block, handle = mock.Mock(), mock.Mock()
+        block.register_forward_hook.return_value = handle
+        with mock.patch.object(research, 'find_decoder_block', return_value=block), \
+             mock.patch.object(research, 'make_feature_steering_hook'):
+            result = research.steer_generation_labels(
+                model, tokenizer, [cases()[0]], layer=5, sae=object(), feature_id=30908,
+                coefficient=-7, max_new_tokens=64, token_position='all', output_mode=MODE,
+                thinking_mode='disabled')
+        before, after = result['baseline_rows'][0], result['steered_rows'][0]
+        self.assertEqual(before['prompt_rendering'], after['prompt_rendering'])
+        self.assertEqual(before['generation_settings'], after['generation_settings'])
+        handle.remove.assert_called_once()
+
+    def test_64_token_config_job_roundtrip_and_new_run_prefix(self):
+        config_path = CONFIG.with_name('study_open_ended_crt_nothink64_f30908_seed1_2b.toml')
+        config, old = job.load_toml(config_path), job.load_toml(CONFIG)
+        self.assertNotEqual(config['run']['name'], old['run']['name'])
+        for field in ('model', 'data', 'feature'): self.assertEqual(config[field], old[field])
+        self.assertEqual(config['behavioral']['max_new_tokens'], 64)
+        self.assertEqual(config['behavioral']['thinking_mode'], 'disabled')
+        original = job.family_balanced_subset(job._load_splits(old)['test'], max_cases=40)
+        new = job.family_balanced_subset(job._load_splits(config)['test'], max_cases=40)
+        self.assertEqual(original, new)
+        def collect(model, tokenizer, items, **kw):
+            self.assertEqual(kw['thinking_mode'], 'disabled')
+            rows = research._generate_labels(StubGenerator(), NonThinkingTokenizer(), items,
+                                            max_new_tokens=kw['max_new_tokens'], output_mode=MODE,
+                                            thinking_mode=kw['thinking_mode'])
+            return dict(baseline_rows=rows, steered_rows=copy.deepcopy(rows))
+        with tempfile.TemporaryDirectory() as tmp, ExitStack() as stack:
+            stack.enter_context(mock.patch('torch.cuda.is_available', return_value=False))
+            stack.enter_context(mock.patch.object(job, '_load_sae', return_value=object()))
+            stack.enter_context(mock.patch.object(job, 'load_qwen_text_generation_model', return_value=(object(), object())))
+            stack.enter_context(mock.patch.object(job, 'steer_generation_labels', side_effect=collect))
+            stack.enter_context(mock.patch.object(job, 'clear_device_cache'))
+            root = Path(tmp)
+            actual = job.run(config_path, root / 'job')
+            artifact = root / 'runs' / ('test_' + config['run']['name']) / 'artifacts'
+            for path in actual.rglob('*'):
+                if path.is_file():
+                    destination = artifact / path.relative_to(actual)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_bytes(path.read_bytes())
+            output = root / 'analysis'
+            data = analysis.run(root / 'runs', output, seeds=(1,), run_prefix='study_open_ended_crt_nothink64')
+            self.assertEqual(len(data['seed_summary']), 3)
+            blocks = json.loads((artifact / 'behavioral/generations.json').read_text())
+            self.assertEqual(blocks[0]['thinking_mode'], 'disabled')
+            blocks[0]['baseline_rows'][0]['prompt_rendering']['input_decoded'] = 'tampered'
+            with self.assertRaises(ValueError): analysis.analyze(blocks, 1)
+
+    def test_repetition_diagnostics_and_truncation_do_not_change_scoring(self):
+        from mindscopex_analysis.open_ended_crt import response_diagnostics
+        for text, flag in (('!!!!!!!!!!!!', 'symbol_heavy'), ('!!!!!!!!!!!!', 'repeated_character'),
+                           ('answer now answer now answer now', 'repeated_phrase'),
+                           ('<think>unfinished', 'thinking_tags')):
+            with self.subTest(text=text, flag=flag):
+                self.assertTrue(response_diagnostics(text, [7, 8, 9], [9])[flag])
+        self.assertTrue(response_diagnostics('numeric output', [7] * 8 + [9], [9])['repeated_token'])
+        self.assertFalse(response_diagnostics('$6', [7, 9], [9])['abnormal_response'])
+        self.assertEqual(classify('$6', cases()[0], 'max_new_tokens')[0], 'invalid')
+        blocks = evaluate(cases(), COEFFICIENTS, generate, 16)
+        rows, _ = analysis.analyze(blocks, 1)
+        rows[0]['baseline_symbol_heavy'] = True
+        diagnostics = analysis.summarize(rows)['response_diagnostics_summary']
+        self.assertEqual(diagnostics[0]['symbol_heavy_count'], 1)
 
 
 if __name__ == '__main__':

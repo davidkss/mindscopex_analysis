@@ -636,7 +636,7 @@ def summarize_answer_labels(labels: Sequence[str]) -> dict[str, Any]:
 
 def _greedy_completion(
     model: Any, tokenizer: Any, prompt: str, *, max_new_tokens: int,
-    return_details: bool = False,
+    return_details: bool = False, thinking_mode: str = "default",
 ) -> str | dict[str, Any]:
     """Minimal deterministic base-model completion of ``prompt``.
 
@@ -646,9 +646,22 @@ def _greedy_completion(
     """
 
     text_tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
-    encoded = text_tokenizer(prompt, return_tensors="pt")
+    if thinking_mode != "default" and not return_details:
+        raise ValueError("thinking_mode is only supported by open_ended_crt")
+    if return_details:
+        from mindscopex_analysis.open_ended_crt import NON_THINKING_SUFFIX, render_prompt
+
+        rendered, rendering = render_prompt(tokenizer, prompt, thinking_mode)
+    else:
+        rendered = prompt
+    encoded = text_tokenizer(rendered, return_tensors="pt",
+                             **({"add_special_tokens": False} if thinking_mode == "disabled" else {}))
     device = next(model.parameters()).device
     input_ids = encoded["input_ids"].to(device)
+    if thinking_mode == "disabled":
+        actual_input = text_tokenizer.decode(input_ids[0], skip_special_tokens=False)
+        if not actual_input.endswith(NON_THINKING_SUFFIX):
+            raise ValueError("Actual tokenized input lost the non-thinking prefix")
     gen_kwargs: dict[str, Any] = {
         "input_ids": input_ids,
         "max_new_tokens": int(max_new_tokens),
@@ -661,6 +674,14 @@ def _greedy_completion(
         eos_ids = list(eos) if isinstance(eos, (tuple, list)) else [eos] if eos is not None else []
         if not eos_ids:
             raise ValueError("Open-ended CRT requires EOS token IDs")
+        if thinking_mode == "disabled":
+            turn_end = list(text_tokenizer.encode("<|im_end|>", add_special_tokens=False))
+            if (len(turn_end) != 1 or
+                    text_tokenizer.decode(turn_end, skip_special_tokens=False) != "<|im_end|>"):
+                raise ValueError("Checkpoint tokenizer lacks a registered chat turn-end token")
+            eos_ids = list(dict.fromkeys([*eos_ids, *turn_end]))
+            rendering.update(chat_turn_end_token_id=turn_end[0],
+                             stop_token_policy="tokenizer_eos_and_im_end")
         gen_kwargs.update(eos_token_id=eos_ids, forced_eos_token_id=None,
                           forced_bos_token_id=None)
     if "attention_mask" in encoded:
@@ -675,9 +696,18 @@ def _greedy_completion(
         output = model.generate(**gen_kwargs)
     generated = output[0, input_ids.shape[-1] :]
     if return_details:
+        import hashlib
+        import json
+
+        input_tokens = input_ids[0].tolist()
+        input_decoded = text_tokenizer.decode(input_ids[0], skip_special_tokens=False)
+        rendering.update(input_token_ids=input_tokens, input_decoded=input_decoded,
+                         input_sha256=hashlib.sha256(json.dumps(input_tokens, separators=(',', ':')).encode()).hexdigest())
         ids = generated.tolist()
         eos_reached = bool(ids and ids[-1] in eos_ids)
-        return dict(answer=text_tokenizer.decode(generated, skip_special_tokens=True),
+        return dict(prompt_rendering=rendering,
+                    generation_settings={k: v for k, v in gen_kwargs.items() if k not in {"input_ids", "attention_mask"}},
+                    answer=text_tokenizer.decode(generated, skip_special_tokens=True),
                     raw_text=text_tokenizer.decode(generated, skip_special_tokens=False),
                     generated_token_ids=ids, generated_token_count=len(ids),
                     max_new_tokens=int(max_new_tokens), eos_token_ids=eos_ids,
@@ -786,24 +816,29 @@ def _generate_labels(
     *,
     max_new_tokens: int,
     output_mode: BehavioralOutputMode = "binary_choice",
+    thinking_mode: str = "default",
     progress: Callable[[str], None] | None = None,
     phase: str = "",
 ) -> list[dict[str, Any]]:
     if output_mode not in {"binary_choice", "binary_choice_letter", "open_ended_crt", "free"}:
         raise ValueError(f"Unknown behavioral output_mode={output_mode!r}")
 
+    if thinking_mode != "default" and output_mode != "open_ended_crt":
+        raise ValueError("thinking_mode is only supported by open_ended_crt")
     rows: list[dict[str, Any]] = []
     total = len(cases)
     for index, case in enumerate(cases, start=1):
         if output_mode == "open_ended_crt":
-            from mindscopex_analysis.open_ended_crt import classify, validate_case
+            from mindscopex_analysis.open_ended_crt import classify, response_diagnostics, validate_case
 
             validate_case(case)
             details = _greedy_completion(model, tokenizer, case.prompt,
-                                         max_new_tokens=max_new_tokens, return_details=True)
+                                         max_new_tokens=max_new_tokens, return_details=True, thinking_mode=thinking_mode)
             label, audit = classify(details['answer'], case, details['termination_reason'])
             rows.append(dict(case_id=case.case_id, family=case.family, prompt=case.prompt,
-                             label=label, classification=audit, **details))
+                             label=label, classification=audit,
+                             diagnostics=response_diagnostics(details['raw_text'], details['generated_token_ids'], details['eos_token_ids']),
+                             **details))
             if progress is not None:
                 progress(f"  {phase}gen [{index}/{total}] {case.case_id} -> {label}")
             continue
@@ -858,6 +893,7 @@ def steer_generation_labels(
     max_new_tokens: int = 16,
     token_position: str = "all",
     output_mode: BehavioralOutputMode = "binary_choice",
+    thinking_mode: str = "default",
     block_path_template: str = DEFAULT_BLOCK_PATH_TEMPLATE,
     progress: Callable[[str], None] | None = None,
 ) -> dict[str, Any]:
@@ -884,6 +920,7 @@ def steer_generation_labels(
         cases,
         max_new_tokens=max_new_tokens,
         output_mode=output_mode,
+        **({"thinking_mode": thinking_mode} if thinking_mode != "default" else {}),
         progress=progress,
         phase="baseline ",
     )
@@ -899,6 +936,7 @@ def steer_generation_labels(
             cases,
             max_new_tokens=max_new_tokens,
             output_mode=output_mode,
+            **({"thinking_mode": thinking_mode} if thinking_mode != "default" else {}),
             progress=progress,
             phase=f"steer(c={coefficient:g}) ",
         )

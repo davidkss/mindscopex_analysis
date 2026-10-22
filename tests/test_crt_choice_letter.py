@@ -244,6 +244,7 @@ class LetterExperimentTests(unittest.TestCase):
             self.assertEqual(saved, (root / 'behavioral/generations.json').read_bytes())
             existing = root / config['run']['name']
             existing.mkdir()
+            (existing / 'manifest.json').write_text('{}')
             with mock.patch.object(job, 'load_qwen_text_generation_model') as load:
                 with self.assertRaises(FileExistsError):
                     job.run(job.ROOT / 'experiments/configs/study_choice_letter_f30908_seed1_2b.toml', root)

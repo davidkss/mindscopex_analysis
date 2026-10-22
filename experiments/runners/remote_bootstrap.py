@@ -29,7 +29,7 @@ def run(cmd, *, cwd=None):
     subprocess.check_call([str(part) for part in cmd], cwd=str(cwd) if cwd else None)
 
 
-def run_capturing(cmd, log_path):
+def run_capturing(cmd, log_path, *, env=None):
     """Run a command, teeing stdout+stderr live to our stdout and to log_path."""
     print("+ " + " ".join(str(part) for part in cmd), flush=True)
     log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -40,6 +40,7 @@ def run_capturing(cmd, log_path):
             stderr=subprocess.STDOUT,
             text=True,
             bufsize=1,
+            env=env,
         )
         for line in proc.stdout:
             sys.stdout.write(line)
@@ -104,19 +105,37 @@ def main():
     job_path = repo_dir / PAYLOAD["job_path"]
     output_root = Path(PAYLOAD["remote_output_root"])
     run_dir = output_root / PAYLOAD["run_name"]
-    run_dir.mkdir(parents=True, exist_ok=True)
+    import tomllib
+    with open(PAYLOAD["remote_config_path"], "rb") as stream:
+        config = tomllib.load(stream)
+    is_letter = (PAYLOAD["job"] == "research_experiments" and
+                 config.get("behavioral", {{}}).get("output_mode") == "binary_choice_letter")
+    letter_token = None
+    if is_letter:
+        sys.path.insert(0, str(repo_dir))
+        from experiments.runners.letter_run_directory import TOKEN_ENV, prepare, finish
+
+        # Reject prior archives too, before opening logs or packaging anything.
+        for archive in (run_dir.with_suffix(".zip"),
+                        Path("/content") / f"{{PAYLOAD['run_name']}}_artifacts.zip"):
+            if archive.exists() or archive.is_symlink():
+                raise FileExistsError(f"Refusing to overwrite letter archive: {{archive}}")
+        letter_token = prepare(run_dir, Path(PAYLOAD["remote_config_path"]))
+    else:
+        run_dir.mkdir(parents=True, exist_ok=True)
     job_log = run_dir / "job.log"
-    returncode = run_capturing(
-        [
-            sys.executable,
-            job_path,
-            "--config",
-            PAYLOAD["remote_config_path"],
-            "--output-root",
-            output_root,
-        ],
-        job_log,
-    )
+    command = [sys.executable, job_path, "--config", PAYLOAD["remote_config_path"],
+               "--output-root", output_root]
+    if is_letter:
+        child_env = dict(os.environ, **{{TOKEN_ENV: letter_token}})
+        try:
+            returncode = run_capturing(command, job_log, env=child_env)
+        except Exception as exc:
+            print(f"LETTER_JOB_START_FAILED: {{exc}}", flush=True)
+            returncode = 1
+        finish(run_dir, letter_token, returncode)
+    else:
+        returncode = run_capturing(command, job_log)
 
     # Always archive whatever exists (incl. job.log) so partial artifacts and the
     # captured stdout/stderr survive even when the job crashed or OOM-ed.

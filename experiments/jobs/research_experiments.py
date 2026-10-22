@@ -1300,8 +1300,11 @@ def run(config_path: Path, output_root: Path) -> Path:
             raise ValueError("[features].feature_ids must not contain duplicates")
     name = run_name(config)
     run_dir = output_root / name
-    if table(config, "behavioral").get("output_mode") == "binary_choice_letter" and run_dir.exists():
-        raise FileExistsError(f"Refusing to reuse letter experiment directory: {run_dir}")
+    letter_token = None
+    if table(config, "behavioral").get("output_mode") == "binary_choice_letter":
+        from experiments.runners.letter_run_directory import claim
+
+        letter_token = claim(run_dir, config_path)
     run_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(config_path, run_dir / "config.toml")
 
@@ -1402,6 +1405,10 @@ def run(config_path: Path, output_root: Path) -> Path:
         }
     )
     _write_json(run_dir / "manifest.json", manifest)
+    if letter_token is not None:
+        from experiments.runners.letter_run_directory import finish
+
+        finish(run_dir, letter_token, 0)
     print(f"ARTIFACT_DIR={run_dir}", flush=True)
     return run_dir
 

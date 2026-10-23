@@ -1,0 +1,1024 @@
+{
+  "schema": 1,
+  "conditions": {
+    "model_id": "Qwen/Qwen3.5-2B-Base",
+    "dataset": "crt_fresh_v2",
+    "layer": 5,
+    "feature": 30908,
+    "coefficients": [
+      0.0,
+      7.0,
+      8.0
+    ],
+    "token_position": "all",
+    "margin": "lure_branch_logit - correct_branch_logit"
+  },
+  "inputs": {
+    "behavior": {
+      "path": "/home/davidkss/ai/mindscopex_analysis/results/analysis/fresh_v2_f30908_cplus7_vs_cplus8.csv",
+      "sha256": "5c1496ad4c1314d40ed398c1628fa09f62b67cafb031126edf2772e03f399bdd",
+      "columns": [
+        "seed",
+        "case_id",
+        "family",
+        "template_id",
+        "question",
+        "correct_answer",
+        "lure_answer",
+        "baseline_7",
+        "baseline_8",
+        "steered_7",
+        "steered_8",
+        "transition_7",
+        "transition_8",
+        "change_7_to_8"
+      ]
+    },
+    "margin": {
+      "path": "/home/davidkss/ai/mindscopex_analysis/results/runs/20261023-152801_diagnose_fresh_v2_matched_branch_margin_f30908_2b/artifacts/diagnostics/fresh_v2_f30908_matched_branch_margin.csv",
+      "sha256": "dd71640ae077c67872796bf22095bf14544b63c032b01133b3c51388d7920ccc",
+      "columns": [
+        "case_id",
+        "family",
+        "correct_answer",
+        "lure_answer",
+        "branch_position_1based",
+        "correct_branch_token_id",
+        "lure_branch_token_id",
+        "baseline_margin",
+        "plus7_margin",
+        "plus8_margin",
+        "plus7_minus_baseline",
+        "plus8_minus_baseline",
+        "plus8_minus_plus7"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "crt_fresh_v2_growth_001",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "19 days",
+      "lure_answer": "10 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_003",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "23 days",
+      "lure_answer": "12 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_004",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "25 days",
+      "lure_answer": "13 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_006",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "29 days",
+      "lure_answer": "15 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_007",
+      "groups": [
+        "correct_to_lure"
+      ],
+      "evaluation_slots": 3,
+      "needs_measurement": false,
+      "correct_answer": "31 days",
+      "lure_answer": "16 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_008",
+      "groups": [
+        "correct_to_lure"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": false,
+      "correct_answer": "33 days",
+      "lure_answer": "17 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_009",
+      "groups": [
+        "correct_to_lure"
+      ],
+      "evaluation_slots": 3,
+      "needs_measurement": false,
+      "correct_answer": "35 days",
+      "lure_answer": "18 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_011",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "39 days",
+      "lure_answer": "20 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_012",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 3,
+      "needs_measurement": true,
+      "correct_answer": "41 days",
+      "lure_answer": "21 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_013",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 3,
+      "needs_measurement": true,
+      "correct_answer": "43 days",
+      "lure_answer": "22 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_014",
+      "groups": [
+        "correct_to_lure"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": false,
+      "correct_answer": "45 days",
+      "lure_answer": "23 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_015",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 3,
+      "needs_measurement": true,
+      "correct_answer": "47 days",
+      "lure_answer": "24 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_016",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "49 days",
+      "lure_answer": "25 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_017",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 4,
+      "needs_measurement": true,
+      "correct_answer": "51 days",
+      "lure_answer": "26 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_018",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 4,
+      "needs_measurement": true,
+      "correct_answer": "53 days",
+      "lure_answer": "27 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_019",
+      "groups": [
+        "correct_to_lure"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": false,
+      "correct_answer": "55 days",
+      "lure_answer": "28 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_022",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "61 days",
+      "lure_answer": "31 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_023",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "63 days",
+      "lure_answer": "32 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_024",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "65 days",
+      "lure_answer": "33 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_026",
+      "groups": [
+        "correct_to_lure"
+      ],
+      "evaluation_slots": 3,
+      "needs_measurement": false,
+      "correct_answer": "69 days",
+      "lure_answer": "35 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_027",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 4,
+      "needs_measurement": true,
+      "correct_answer": "71 days",
+      "lure_answer": "36 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_028",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "73 days",
+      "lure_answer": "37 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_029",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "75 days",
+      "lure_answer": "38 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_030",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "77 days",
+      "lure_answer": "39 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_032",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "81 days",
+      "lure_answer": "41 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_036",
+      "groups": [
+        "lure_to_lure"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "89 days",
+      "lure_answer": "45 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_037",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "91 days",
+      "lure_answer": "46 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_038",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "93 days",
+      "lure_answer": "47 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_039",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 2,
+      "needs_measurement": true,
+      "correct_answer": "95 days",
+      "lure_answer": "48 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_040",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "97 days",
+      "lure_answer": "49 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_044",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "105 days",
+      "lure_answer": "53 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_045",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "107 days",
+      "lure_answer": "54 days"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_047",
+      "groups": [
+        "correct_to_correct"
+      ],
+      "evaluation_slots": 1,
+      "needs_measurement": true,
+      "correct_answer": "111 days",
+      "lure_answer": "56 days"
+    }
+  ],
+  "slots": [
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_004",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_009",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_012",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_013",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_016",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_017",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_018",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_026",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_027",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_029",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_032",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_036",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 1,
+      "case_id": "crt_fresh_v2_growth_039",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_001",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_006",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_008",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_009",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_015",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_017",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_019",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_026",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_030",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_037",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_038",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_039",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 2,
+      "case_id": "crt_fresh_v2_growth_045",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_003",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_007",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_009",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_011",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_012",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_013",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_015",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_017",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_018",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_023",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_024",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_027",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 3,
+      "case_id": "crt_fresh_v2_growth_028",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_001",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_003",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_007",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_008",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_011",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_013",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_014",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_016",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_017",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_018",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_019",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_022",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 4,
+      "case_id": "crt_fresh_v2_growth_027",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_007",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_012",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_015",
+      "family": "crt_growth",
+      "plus7_label": "lure",
+      "plus8_label": "lure",
+      "behavior_transition": "lure->lure"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_018",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_022",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_026",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "lure",
+      "behavior_transition": "correct->lure"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_027",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_037",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_038",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_040",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_044",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    },
+    {
+      "seed": 5,
+      "case_id": "crt_fresh_v2_growth_047",
+      "family": "crt_growth",
+      "plus7_label": "correct",
+      "plus8_label": "correct",
+      "behavior_transition": "correct->correct"
+    }
+  ],
+  "existing_margins": [
+    {
+      "case_id": "crt_fresh_v2_growth_007",
+      "family": "crt_growth",
+      "correct_answer": " 31 days",
+      "lure_answer": " 16 days",
+      "branch_position_1based": "1",
+      "correct_branch_token_id": "18",
+      "lure_branch_token_id": "16",
+      "baseline_margin": "-0.375",
+      "plus7_margin": "0.125",
+      "plus8_margin": "0.4375",
+      "plus7_minus_baseline": "0.5",
+      "plus8_minus_baseline": "0.8125",
+      "plus8_minus_plus7": "0.3125"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_008",
+      "family": "crt_growth",
+      "correct_answer": " 33 days",
+      "lure_answer": " 17 days",
+      "branch_position_1based": "1",
+      "correct_branch_token_id": "18",
+      "lure_branch_token_id": "16",
+      "baseline_margin": "0.125",
+      "plus7_margin": "0.0",
+      "plus8_margin": "0.3125",
+      "plus7_minus_baseline": "-0.125",
+      "plus8_minus_baseline": "0.1875",
+      "plus8_minus_plus7": "0.3125"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_009",
+      "family": "crt_growth",
+      "correct_answer": " 35 days",
+      "lure_answer": " 18 days",
+      "branch_position_1based": "1",
+      "correct_branch_token_id": "18",
+      "lure_branch_token_id": "16",
+      "baseline_margin": "0.375",
+      "plus7_margin": "0.125",
+      "plus8_margin": "0.375",
+      "plus7_minus_baseline": "-0.25",
+      "plus8_minus_baseline": "0.0",
+      "plus8_minus_plus7": "0.25"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_014",
+      "family": "crt_growth",
+      "correct_answer": " 45 days",
+      "lure_answer": " 23 days",
+      "branch_position_1based": "1",
+      "correct_branch_token_id": "19",
+      "lure_branch_token_id": "17",
+      "baseline_margin": "-0.375",
+      "plus7_margin": "-0.25",
+      "plus8_margin": "0.125",
+      "plus7_minus_baseline": "0.125",
+      "plus8_minus_baseline": "0.5",
+      "plus8_minus_plus7": "0.375"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_019",
+      "family": "crt_growth",
+      "correct_answer": " 55 days",
+      "lure_answer": " 28 days",
+      "branch_position_1based": "1",
+      "correct_branch_token_id": "20",
+      "lure_branch_token_id": "17",
+      "baseline_margin": "-0.375",
+      "plus7_margin": "-0.4375",
+      "plus8_margin": "0.0",
+      "plus7_minus_baseline": "-0.0625",
+      "plus8_minus_baseline": "0.375",
+      "plus8_minus_plus7": "0.4375"
+    },
+    {
+      "case_id": "crt_fresh_v2_growth_026",
+      "family": "crt_growth",
+      "correct_answer": " 69 days",
+      "lure_answer": " 35 days",
+      "branch_position_1based": "1",
+      "correct_branch_token_id": "21",
+      "lure_branch_token_id": "18",
+      "baseline_margin": "1.5",
+      "plus7_margin": "-0.3125",
+      "plus8_margin": "-0.125",
+      "plus7_minus_baseline": "-1.8125",
+      "plus8_minus_baseline": "-1.625",
+      "plus8_minus_plus7": "0.1875"
+    }
+  ],
+  "case_ids": [
+    "crt_fresh_v2_growth_001",
+    "crt_fresh_v2_growth_003",
+    "crt_fresh_v2_growth_004",
+    "crt_fresh_v2_growth_006",
+    "crt_fresh_v2_growth_011",
+    "crt_fresh_v2_growth_012",
+    "crt_fresh_v2_growth_013",
+    "crt_fresh_v2_growth_015",
+    "crt_fresh_v2_growth_016",
+    "crt_fresh_v2_growth_017",
+    "crt_fresh_v2_growth_018",
+    "crt_fresh_v2_growth_022",
+    "crt_fresh_v2_growth_023",
+    "crt_fresh_v2_growth_024",
+    "crt_fresh_v2_growth_027",
+    "crt_fresh_v2_growth_028",
+    "crt_fresh_v2_growth_029",
+    "crt_fresh_v2_growth_030",
+    "crt_fresh_v2_growth_032",
+    "crt_fresh_v2_growth_036",
+    "crt_fresh_v2_growth_037",
+    "crt_fresh_v2_growth_038",
+    "crt_fresh_v2_growth_039",
+    "crt_fresh_v2_growth_040",
+    "crt_fresh_v2_growth_044",
+    "crt_fresh_v2_growth_045",
+    "crt_fresh_v2_growth_047"
+  ]
+}

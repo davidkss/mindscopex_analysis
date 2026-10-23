@@ -1,0 +1,20 @@
+# Additional Growth controls only: 27 cases; reuse the existing 6 measurements.
+[run]
+name = "diagnose_fresh_v2_growth_controls_f30908_2b"
+job = "matched_branch_margin"
+
+[diagnostic]
+layer = 5
+feature = 30908
+coefficients = [0.0, 7.0, 8.0]
+only = "growth"
+case_ids_file = "experiments/inputs/fresh_v2_growth_controls_f30908.json"
+case_ids_sha256 = "c7bbb2581a2738497ac5f3d7b6c5b311011c16bfa14f3eb117677d1a83d2b5f0"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

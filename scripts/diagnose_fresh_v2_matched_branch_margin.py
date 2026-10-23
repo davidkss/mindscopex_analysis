@@ -12,6 +12,7 @@ from pathlib import Path
 
 import torch
 
+from mindscopex_analysis.growth_control_inventory import load_inventory
 from mindscopex_analysis.generation import _prepare_inputs, _input_device
 from mindscopex_analysis.lure_datasets import load_lure_dataset
 from mindscopex_analysis.models import get_qwen35_analysis_profile, load_qwen_text_generation_model
@@ -48,13 +49,42 @@ def margin(model, input_ids, correct_id, lure_id):
     return float((logits[lure_id] - logits[correct_id]).item())
 
 
+def select_cases(only="all", case_ids_file=None):
+    """Keep legacy selections; an inventory selects only unmeasured Growth cases."""
+    cases = {case.case_id: case for case in load_lure_dataset("crt_fresh_v2")}
+    if case_ids_file is None:
+        selected = (RATE_IDS if only != "growth" else ()) + (GROWTH_IDS if only != "rate" else ())
+    else:
+        if only != "growth":
+            raise ValueError("--case-ids requires --only growth")
+        inventory = load_inventory(Path(case_ids_file))
+        selected = tuple(inventory["case_ids"])
+        if not selected:
+            raise ValueError("Inventory has no additional cases to measure")
+        definitions = {row["case_id"]: row for row in inventory["cases"]}
+        for cid in selected:
+            if cid not in cases or cases[cid].family != "crt_growth":
+                raise ValueError(f"Missing/non-Growth dataset case: {cid}")
+            if any(getattr(cases[cid], key).strip() != definitions[cid][key]
+                   for key in ("correct_answer", "lure_answer")):
+                raise ValueError(f"Inventory/dataset answer mismatch: {cid}")
+    if any(cid not in cases for cid in selected):
+        raise ValueError("Missing selected Fresh v2 case IDs")
+    return cases, selected
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--output", default="results/diagnostics/fresh_v2_f30908_matched_branch_margin.csv")
     p.add_argument("--layer", type=int, default=5)
     p.add_argument("--feature", type=int, default=30908)
     p.add_argument("--only", choices=("all", "rate", "growth"), default="all")
+    p.add_argument("--case-ids", type=Path, help="Portable Growth inventory; measure only its unmeasured case_ids")
     args = p.parse_args()
+    output = Path(args.output)
+    if output.exists() or output.is_symlink():
+        raise FileExistsError(f"Refusing to overwrite diagnostic CSV: {output}")
+    cases, selected = select_cases(args.only, args.case_ids)
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA GPU required (Colab A100 recommended).")
     profile = get_qwen35_analysis_profile("2b")
@@ -63,10 +93,6 @@ def main():
     tokenizer = getattr(processor, "tokenizer", processor)
     sae = load_qwen_scope_sae(profile.sae_repo_id, args.layer, device="cpu")
     block = find_decoder_block(model, args.layer, block_path_template=profile.block_path_template)
-    cases = {case.case_id: case for case in load_lure_dataset("crt_fresh_v2")}
-    selected = (RATE_IDS if args.only != "growth" else ()) + (GROWTH_IDS if args.only != "rate" else ())
-    if any(cid not in cases for cid in selected):
-        raise ValueError("Missing selected Fresh v2 case IDs")
     rows = []
     for cid in selected:
         # Behavioral config sets [data].instruction=true; no separate system prompt.
@@ -98,9 +124,8 @@ def main():
         }
         rows.append(row)
         print(f"{cid} baseline={measured[0.0]:+.4f} +7={measured[7.0]:+.4f} +8={measured[8.0]:+.4f}", flush=True)
-    output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("w", newline="", encoding="utf-8") as f:
+    with output.open("x", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)

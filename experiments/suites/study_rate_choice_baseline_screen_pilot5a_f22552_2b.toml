@@ -1,0 +1,9 @@
+# Pilot 5A: letter-pair baseline screening, not a feature-effect estimate.
+[suite]
+name = "study_rate_choice_baseline_screen_pilot5a_f22552_2b"
+configs = [
+    "../configs/study_rate_choice_cd_baseline_screen_f22552_seed1_2b.toml",
+    "../configs/study_rate_choice_dc_baseline_screen_f22552_seed1_2b.toml",
+    "../configs/study_rate_choice_mn_baseline_screen_f22552_seed1_2b.toml",
+    "../configs/study_rate_choice_nm_baseline_screen_f22552_seed1_2b.toml",
+]

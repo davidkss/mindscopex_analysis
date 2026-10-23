@@ -1,0 +1,747 @@
+{
+  "inputs": {
+    "behavior": {
+      "path": "/home/davidkss/ai/mindscopex_analysis/results/analysis/fresh_v2_f30908_cplus7_vs_cplus8.csv",
+      "sha256": "5c1496ad4c1314d40ed398c1628fa09f62b67cafb031126edf2772e03f399bdd",
+      "columns": [
+        "seed",
+        "case_id",
+        "family",
+        "template_id",
+        "question",
+        "correct_answer",
+        "lure_answer",
+        "baseline_7",
+        "baseline_8",
+        "steered_7",
+        "steered_8",
+        "transition_7",
+        "transition_8",
+        "change_7_to_8"
+      ]
+    },
+    "margin": {
+      "path": "/home/davidkss/ai/mindscopex_analysis/results/runs/20261023-152801_diagnose_fresh_v2_matched_branch_margin_f30908_2b/artifacts/diagnostics/fresh_v2_f30908_matched_branch_margin.csv",
+      "sha256": "dd71640ae077c67872796bf22095bf14544b63c032b01133b3c51388d7920ccc",
+      "columns": [
+        "case_id",
+        "family",
+        "correct_answer",
+        "lure_answer",
+        "branch_position_1based",
+        "correct_branch_token_id",
+        "lure_branch_token_id",
+        "baseline_margin",
+        "plus7_margin",
+        "plus8_margin",
+        "plus7_minus_baseline",
+        "plus8_minus_baseline",
+        "plus8_minus_plus7"
+      ]
+    }
+  },
+  "growth": {
+    "evaluation_slots": 64,
+    "unique_cases": 33,
+    "matched_margin_slots": 14,
+    "missing_margin_slots": 50,
+    "matched_margin_unique_cases": 6,
+    "missing_margin_case_ids": [
+      "crt_fresh_v2_growth_001",
+      "crt_fresh_v2_growth_003",
+      "crt_fresh_v2_growth_004",
+      "crt_fresh_v2_growth_006",
+      "crt_fresh_v2_growth_011",
+      "crt_fresh_v2_growth_012",
+      "crt_fresh_v2_growth_013",
+      "crt_fresh_v2_growth_015",
+      "crt_fresh_v2_growth_016",
+      "crt_fresh_v2_growth_017",
+      "crt_fresh_v2_growth_018",
+      "crt_fresh_v2_growth_022",
+      "crt_fresh_v2_growth_023",
+      "crt_fresh_v2_growth_024",
+      "crt_fresh_v2_growth_027",
+      "crt_fresh_v2_growth_028",
+      "crt_fresh_v2_growth_029",
+      "crt_fresh_v2_growth_030",
+      "crt_fresh_v2_growth_032",
+      "crt_fresh_v2_growth_036",
+      "crt_fresh_v2_growth_037",
+      "crt_fresh_v2_growth_038",
+      "crt_fresh_v2_growth_039",
+      "crt_fresh_v2_growth_040",
+      "crt_fresh_v2_growth_044",
+      "crt_fresh_v2_growth_045",
+      "crt_fresh_v2_growth_047"
+    ],
+    "slot_weighted_margins": {
+      "increase": 14,
+      "decrease": 0,
+      "equal": 0,
+      "sign_changed": 5,
+      "strict_sign_flip": 1,
+      "sign_transitions": {
+        "positive->positive": 6,
+        "negative->negative": 3,
+        "zero->positive": 2,
+        "negative->zero": 2,
+        "negative->positive": 1
+      }
+    },
+    "unique_case_margins": {
+      "increase": 6,
+      "decrease": 0,
+      "equal": 0,
+      "sign_changed": 3,
+      "strict_sign_flip": 1,
+      "sign_transitions": {
+        "positive->positive": 2,
+        "negative->negative": 1,
+        "zero->positive": 1,
+        "negative->zero": 1,
+        "negative->positive": 1
+      }
+    },
+    "direction_comparable_slots": 14,
+    "direction_agreeing_slots": 14,
+    "direction_agreement_rate": 1.0
+  },
+  "correct_to_lure": {
+    "evaluation_slots": 14,
+    "unique_cases": 6,
+    "matched_margin_slots": 14,
+    "missing_margin_slots": 0,
+    "matched_margin_unique_cases": 6,
+    "missing_margin_case_ids": [],
+    "slot_weighted_margins": {
+      "increase": 14,
+      "decrease": 0,
+      "equal": 0,
+      "sign_changed": 5,
+      "strict_sign_flip": 1,
+      "sign_transitions": {
+        "positive->positive": 6,
+        "negative->negative": 3,
+        "zero->positive": 2,
+        "negative->zero": 2,
+        "negative->positive": 1
+      }
+    },
+    "unique_case_margins": {
+      "increase": 6,
+      "decrease": 0,
+      "equal": 0,
+      "sign_changed": 3,
+      "strict_sign_flip": 1,
+      "sign_transitions": {
+        "positive->positive": 2,
+        "negative->negative": 1,
+        "zero->positive": 1,
+        "negative->zero": 1,
+        "negative->positive": 1
+      }
+    },
+    "direction_comparable_slots": 14,
+    "direction_agreeing_slots": 14,
+    "direction_agreement_rate": 1.0
+  },
+  "by_seed": {
+    "1": {
+      "growth": {
+        "evaluation_slots": 13,
+        "unique_cases": 13,
+        "matched_margin_slots": 2,
+        "missing_margin_slots": 11,
+        "matched_margin_unique_cases": 2,
+        "missing_margin_case_ids": [
+          "crt_fresh_v2_growth_004",
+          "crt_fresh_v2_growth_012",
+          "crt_fresh_v2_growth_013",
+          "crt_fresh_v2_growth_016",
+          "crt_fresh_v2_growth_017",
+          "crt_fresh_v2_growth_018",
+          "crt_fresh_v2_growth_027",
+          "crt_fresh_v2_growth_029",
+          "crt_fresh_v2_growth_032",
+          "crt_fresh_v2_growth_036",
+          "crt_fresh_v2_growth_039"
+        ],
+        "slot_weighted_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "direction_comparable_slots": 2,
+        "direction_agreeing_slots": 2,
+        "direction_agreement_rate": 1.0
+      },
+      "correct_to_lure": {
+        "evaluation_slots": 2,
+        "unique_cases": 2,
+        "matched_margin_slots": 2,
+        "missing_margin_slots": 0,
+        "matched_margin_unique_cases": 2,
+        "missing_margin_case_ids": [],
+        "slot_weighted_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "direction_comparable_slots": 2,
+        "direction_agreeing_slots": 2,
+        "direction_agreement_rate": 1.0
+      }
+    },
+    "2": {
+      "growth": {
+        "evaluation_slots": 13,
+        "unique_cases": 13,
+        "matched_margin_slots": 4,
+        "missing_margin_slots": 9,
+        "matched_margin_unique_cases": 4,
+        "missing_margin_case_ids": [
+          "crt_fresh_v2_growth_001",
+          "crt_fresh_v2_growth_006",
+          "crt_fresh_v2_growth_015",
+          "crt_fresh_v2_growth_017",
+          "crt_fresh_v2_growth_030",
+          "crt_fresh_v2_growth_037",
+          "crt_fresh_v2_growth_038",
+          "crt_fresh_v2_growth_039",
+          "crt_fresh_v2_growth_045"
+        ],
+        "slot_weighted_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 2,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "zero->positive": 1,
+            "positive->positive": 1,
+            "negative->zero": 1,
+            "negative->negative": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 2,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "zero->positive": 1,
+            "positive->positive": 1,
+            "negative->zero": 1,
+            "negative->negative": 1
+          }
+        },
+        "direction_comparable_slots": 4,
+        "direction_agreeing_slots": 4,
+        "direction_agreement_rate": 1.0
+      },
+      "correct_to_lure": {
+        "evaluation_slots": 4,
+        "unique_cases": 4,
+        "matched_margin_slots": 4,
+        "missing_margin_slots": 0,
+        "matched_margin_unique_cases": 4,
+        "missing_margin_case_ids": [],
+        "slot_weighted_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 2,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "zero->positive": 1,
+            "positive->positive": 1,
+            "negative->zero": 1,
+            "negative->negative": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 2,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "zero->positive": 1,
+            "positive->positive": 1,
+            "negative->zero": 1,
+            "negative->negative": 1
+          }
+        },
+        "direction_comparable_slots": 4,
+        "direction_agreeing_slots": 4,
+        "direction_agreement_rate": 1.0
+      }
+    },
+    "3": {
+      "growth": {
+        "evaluation_slots": 13,
+        "unique_cases": 13,
+        "matched_margin_slots": 2,
+        "missing_margin_slots": 11,
+        "matched_margin_unique_cases": 2,
+        "missing_margin_case_ids": [
+          "crt_fresh_v2_growth_003",
+          "crt_fresh_v2_growth_011",
+          "crt_fresh_v2_growth_012",
+          "crt_fresh_v2_growth_013",
+          "crt_fresh_v2_growth_015",
+          "crt_fresh_v2_growth_017",
+          "crt_fresh_v2_growth_018",
+          "crt_fresh_v2_growth_023",
+          "crt_fresh_v2_growth_024",
+          "crt_fresh_v2_growth_027",
+          "crt_fresh_v2_growth_028"
+        ],
+        "slot_weighted_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 2
+          }
+        },
+        "unique_case_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 2
+          }
+        },
+        "direction_comparable_slots": 2,
+        "direction_agreeing_slots": 2,
+        "direction_agreement_rate": 1.0
+      },
+      "correct_to_lure": {
+        "evaluation_slots": 2,
+        "unique_cases": 2,
+        "matched_margin_slots": 2,
+        "missing_margin_slots": 0,
+        "matched_margin_unique_cases": 2,
+        "missing_margin_case_ids": [],
+        "slot_weighted_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 2
+          }
+        },
+        "unique_case_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 2
+          }
+        },
+        "direction_comparable_slots": 2,
+        "direction_agreeing_slots": 2,
+        "direction_agreement_rate": 1.0
+      }
+    },
+    "4": {
+      "growth": {
+        "evaluation_slots": 13,
+        "unique_cases": 13,
+        "matched_margin_slots": 4,
+        "missing_margin_slots": 9,
+        "matched_margin_unique_cases": 4,
+        "missing_margin_case_ids": [
+          "crt_fresh_v2_growth_001",
+          "crt_fresh_v2_growth_003",
+          "crt_fresh_v2_growth_011",
+          "crt_fresh_v2_growth_013",
+          "crt_fresh_v2_growth_016",
+          "crt_fresh_v2_growth_017",
+          "crt_fresh_v2_growth_018",
+          "crt_fresh_v2_growth_022",
+          "crt_fresh_v2_growth_027"
+        ],
+        "slot_weighted_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 3,
+          "strict_sign_flip": 1,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "zero->positive": 1,
+            "negative->positive": 1,
+            "negative->zero": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 3,
+          "strict_sign_flip": 1,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "zero->positive": 1,
+            "negative->positive": 1,
+            "negative->zero": 1
+          }
+        },
+        "direction_comparable_slots": 4,
+        "direction_agreeing_slots": 4,
+        "direction_agreement_rate": 1.0
+      },
+      "correct_to_lure": {
+        "evaluation_slots": 4,
+        "unique_cases": 4,
+        "matched_margin_slots": 4,
+        "missing_margin_slots": 0,
+        "matched_margin_unique_cases": 4,
+        "missing_margin_case_ids": [],
+        "slot_weighted_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 3,
+          "strict_sign_flip": 1,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "zero->positive": 1,
+            "negative->positive": 1,
+            "negative->zero": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 4,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 3,
+          "strict_sign_flip": 1,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "zero->positive": 1,
+            "negative->positive": 1,
+            "negative->zero": 1
+          }
+        },
+        "direction_comparable_slots": 4,
+        "direction_agreeing_slots": 4,
+        "direction_agreement_rate": 1.0
+      }
+    },
+    "5": {
+      "growth": {
+        "evaluation_slots": 12,
+        "unique_cases": 12,
+        "matched_margin_slots": 2,
+        "missing_margin_slots": 10,
+        "matched_margin_unique_cases": 2,
+        "missing_margin_case_ids": [
+          "crt_fresh_v2_growth_012",
+          "crt_fresh_v2_growth_015",
+          "crt_fresh_v2_growth_018",
+          "crt_fresh_v2_growth_022",
+          "crt_fresh_v2_growth_027",
+          "crt_fresh_v2_growth_037",
+          "crt_fresh_v2_growth_038",
+          "crt_fresh_v2_growth_040",
+          "crt_fresh_v2_growth_044",
+          "crt_fresh_v2_growth_047"
+        ],
+        "slot_weighted_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "direction_comparable_slots": 2,
+        "direction_agreeing_slots": 2,
+        "direction_agreement_rate": 1.0
+      },
+      "correct_to_lure": {
+        "evaluation_slots": 2,
+        "unique_cases": 2,
+        "matched_margin_slots": 2,
+        "missing_margin_slots": 0,
+        "matched_margin_unique_cases": 2,
+        "missing_margin_case_ids": [],
+        "slot_weighted_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "unique_case_margins": {
+          "increase": 2,
+          "decrease": 0,
+          "equal": 0,
+          "sign_changed": 0,
+          "strict_sign_flip": 0,
+          "sign_transitions": {
+            "positive->positive": 1,
+            "negative->negative": 1
+          }
+        },
+        "direction_comparable_slots": 2,
+        "direction_agreeing_slots": 2,
+        "direction_agreement_rate": 1.0
+      }
+    }
+  },
+  "by_behavior_transition": {
+    "correct->correct": {
+      "evaluation_slots": 34,
+      "unique_cases": 20,
+      "matched_margin_slots": 0,
+      "missing_margin_slots": 34,
+      "matched_margin_unique_cases": 0,
+      "missing_margin_case_ids": [
+        "crt_fresh_v2_growth_003",
+        "crt_fresh_v2_growth_004",
+        "crt_fresh_v2_growth_006",
+        "crt_fresh_v2_growth_017",
+        "crt_fresh_v2_growth_018",
+        "crt_fresh_v2_growth_022",
+        "crt_fresh_v2_growth_023",
+        "crt_fresh_v2_growth_024",
+        "crt_fresh_v2_growth_027",
+        "crt_fresh_v2_growth_028",
+        "crt_fresh_v2_growth_029",
+        "crt_fresh_v2_growth_030",
+        "crt_fresh_v2_growth_032",
+        "crt_fresh_v2_growth_037",
+        "crt_fresh_v2_growth_038",
+        "crt_fresh_v2_growth_039",
+        "crt_fresh_v2_growth_040",
+        "crt_fresh_v2_growth_044",
+        "crt_fresh_v2_growth_045",
+        "crt_fresh_v2_growth_047"
+      ],
+      "slot_weighted_margins": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 0,
+        "strict_sign_flip": 0,
+        "sign_transitions": {}
+      },
+      "unique_case_margins": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 0,
+        "strict_sign_flip": 0,
+        "sign_transitions": {}
+      },
+      "direction_comparable_slots": 0,
+      "direction_agreeing_slots": 0,
+      "direction_agreement_rate": null
+    },
+    "correct->lure": {
+      "evaluation_slots": 14,
+      "unique_cases": 6,
+      "matched_margin_slots": 14,
+      "missing_margin_slots": 0,
+      "matched_margin_unique_cases": 6,
+      "missing_margin_case_ids": [],
+      "slot_weighted_margins": {
+        "increase": 14,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 5,
+        "strict_sign_flip": 1,
+        "sign_transitions": {
+          "positive->positive": 6,
+          "negative->negative": 3,
+          "zero->positive": 2,
+          "negative->zero": 2,
+          "negative->positive": 1
+        }
+      },
+      "unique_case_margins": {
+        "increase": 6,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 3,
+        "strict_sign_flip": 1,
+        "sign_transitions": {
+          "positive->positive": 2,
+          "negative->negative": 1,
+          "zero->positive": 1,
+          "negative->zero": 1,
+          "negative->positive": 1
+        }
+      },
+      "direction_comparable_slots": 14,
+      "direction_agreeing_slots": 14,
+      "direction_agreement_rate": 1.0
+    },
+    "lure->correct": {
+      "evaluation_slots": 0,
+      "unique_cases": 0,
+      "matched_margin_slots": 0,
+      "missing_margin_slots": 0,
+      "matched_margin_unique_cases": 0,
+      "missing_margin_case_ids": [],
+      "slot_weighted_margins": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 0,
+        "strict_sign_flip": 0,
+        "sign_transitions": {}
+      },
+      "unique_case_margins": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 0,
+        "strict_sign_flip": 0,
+        "sign_transitions": {}
+      },
+      "direction_comparable_slots": 0,
+      "direction_agreeing_slots": 0,
+      "direction_agreement_rate": null
+    },
+    "lure->lure": {
+      "evaluation_slots": 16,
+      "unique_cases": 7,
+      "matched_margin_slots": 0,
+      "missing_margin_slots": 16,
+      "matched_margin_unique_cases": 0,
+      "missing_margin_case_ids": [
+        "crt_fresh_v2_growth_001",
+        "crt_fresh_v2_growth_011",
+        "crt_fresh_v2_growth_012",
+        "crt_fresh_v2_growth_013",
+        "crt_fresh_v2_growth_015",
+        "crt_fresh_v2_growth_016",
+        "crt_fresh_v2_growth_036"
+      ],
+      "slot_weighted_margins": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 0,
+        "strict_sign_flip": 0,
+        "sign_transitions": {}
+      },
+      "unique_case_margins": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 0,
+        "sign_changed": 0,
+        "strict_sign_flip": 0,
+        "sign_transitions": {}
+      },
+      "direction_comparable_slots": 0,
+      "direction_agreeing_slots": 0,
+      "direction_agreement_rate": null
+    }
+  },
+  "validation": {
+    "growth_evaluation_slots": {
+      "actual": 64,
+      "expected": 64,
+      "matches": true
+    },
+    "correct_to_lure_slots": {
+      "actual": 14,
+      "expected": 14,
+      "matches": true
+    },
+    "correct_to_lure_unique_cases": {
+      "actual": 6,
+      "expected": 6,
+      "matches": true
+    },
+    "target_unique_cases_with_positive_delta": {
+      "actual": 6,
+      "expected": 6,
+      "matches": true
+    }
+  },
+  "mismatches": [],
+  "definitions": {
+    "margin": "lure_branch_logit - correct_branch_logit; positive favors lure at the measured branch",
+    "sign_transition": "+7 sign -> +8 sign; zero is a separate category",
+    "strict_sign_flip": "negative <-> positive only; excludes transitions involving zero",
+    "direction_agreement": "correct->lure requires delta>0; lure->correct requires delta<0; stable labels not assessed"
+  },
+  "limitations": [
+    "Margins are case-level measurements reused across seeds, not independent seed-level measurements.",
+    "Only measured cases support margin comparisons; missing margins are blank, never zero or imputed.",
+    "Diagnostic Growth cases were selected for correct->lure regressions; coverage is outcome-selected.",
+    "Stable-transition rows on those same cases are not representative of all stable Growth cases.",
+    "First-divergence conditional logits are not full-answer likelihoods or complete decoding equivalence.",
+    "Directional agreement does not establish a causal mechanism or CRT reasoning improvement.",
+    "CSV inputs alone do not verify model/layer/feature provenance or exact behavioral context equivalence."
+  ]
+}

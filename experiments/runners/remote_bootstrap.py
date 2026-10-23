@@ -111,7 +111,7 @@ def main():
     guarded_mode = config.get("behavioral", {{}}).get("output_mode")
     is_letter = (PAYLOAD["job"] == "research_experiments" and
                  guarded_mode in ("binary_choice_letter", "open_ended_crt"))
-    is_diagnostic = PAYLOAD["job"] == "matched_branch_margin"
+    is_diagnostic = PAYLOAD["job"] in ("matched_branch_margin", "full_answer_likelihood")
     letter_token = None
     if is_letter:
         sys.path.insert(0, str(repo_dir))

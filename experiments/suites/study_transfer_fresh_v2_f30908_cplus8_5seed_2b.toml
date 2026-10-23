@@ -1,0 +1,9 @@
+[suite]
+name = "study_transfer_fresh_v2_f30908_cplus8_5seed_2b"
+configs = [
+  "../configs/study_transfer_fresh_v2_f30908_cplus8_seed1_2b.toml",
+  "../configs/study_transfer_fresh_v2_f30908_cplus8_seed2_2b.toml",
+  "../configs/study_transfer_fresh_v2_f30908_cplus8_seed3_2b.toml",
+  "../configs/study_transfer_fresh_v2_f30908_cplus8_seed4_2b.toml",
+  "../configs/study_transfer_fresh_v2_f30908_cplus8_seed5_2b.toml",
+]

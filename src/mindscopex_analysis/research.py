@@ -38,6 +38,7 @@ from typing import Any, Literal
 import torch
 
 from mindscopex_analysis.activations import capture_layer_residuals, get_module
+from mindscopex_analysis.choice_order import DEFAULT_CHOICE_LETTERS, validate_choice_letters
 from mindscopex_analysis.cases import LureCase
 from mindscopex_analysis.effects import (
     InterventionMode,
@@ -724,6 +725,7 @@ def _binary_choice_completion(
     *,
     max_new_tokens: int,
     letter_candidates: bool = False,
+    choice_letters: Sequence[str] = DEFAULT_CHOICE_LETTERS,
 ) -> str:
     """Generate exactly one of a case's correct/lure answer strings.
 
@@ -735,7 +737,8 @@ def _binary_choice_completion(
     """
 
     text_tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
-    candidates = ["A", "B"] if letter_candidates else [case.correct_answer, case.lure_answer]
+    choice_letters = validate_choice_letters(choice_letters)
+    candidates = list(choice_letters) if letter_candidates else [case.correct_answer, case.lure_answer]
     candidate_ids = [
         list(text_tokenizer.encode(answer, add_special_tokens=False)) for answer in candidates
     ]
@@ -816,10 +819,12 @@ def _generate_labels(
     *,
     max_new_tokens: int,
     output_mode: BehavioralOutputMode = "binary_choice",
+    choice_letters: Sequence[str] = DEFAULT_CHOICE_LETTERS,
     thinking_mode: str = "default",
     progress: Callable[[str], None] | None = None,
     phase: str = "",
 ) -> list[dict[str, Any]]:
+    choice_letters = validate_choice_letters(choice_letters)
     if output_mode not in {"binary_choice", "binary_choice_letter", "open_ended_crt", "free"}:
         raise ValueError(f"Unknown behavioral output_mode={output_mode!r}")
 
@@ -848,7 +853,7 @@ def _generate_labels(
                 tokenizer,
                 case,
                 max_new_tokens=max_new_tokens,
-                **({"letter_candidates": True} if output_mode == "binary_choice_letter" else {}),
+                **({"letter_candidates": True, "choice_letters": choice_letters} if output_mode == "binary_choice_letter" else {}),
             )
         else:
             text = _greedy_completion(
@@ -858,8 +863,8 @@ def _generate_labels(
                 max_new_tokens=max_new_tokens,
             )
         if output_mode == "binary_choice_letter":
-            if (text not in {"A", "B"} or {case.correct_answer, case.lure_answer} != {"A", "B"}):
-                raise ValueError("Letter mode requires an explicit A/B case mapping")
+            if (text not in choice_letters or {case.correct_answer, case.lure_answer} != set(choice_letters)):
+                raise ValueError("Letter mode requires an explicit configured choice-letter case mapping")
             label = "correct" if text == case.correct_answer else "lure"
         else:
             label = classify_lure_answer(text, case)
@@ -893,6 +898,7 @@ def steer_generation_labels(
     max_new_tokens: int = 16,
     token_position: str = "all",
     output_mode: BehavioralOutputMode = "binary_choice",
+    choice_letters: Sequence[str] = DEFAULT_CHOICE_LETTERS,
     thinking_mode: str = "default",
     steering_diagnostics: bool = False,
     block_path_template: str = DEFAULT_BLOCK_PATH_TEMPLATE,
@@ -921,6 +927,7 @@ def steer_generation_labels(
         cases,
         max_new_tokens=max_new_tokens,
         output_mode=output_mode,
+        choice_letters=choice_letters,
         **({"thinking_mode": thinking_mode} if thinking_mode != "default" else {}),
         progress=progress,
         phase="baseline ",
@@ -939,6 +946,7 @@ def steer_generation_labels(
             cases,
             max_new_tokens=max_new_tokens,
             output_mode=output_mode,
+            choice_letters=choice_letters,
             **({"thinking_mode": thinking_mode} if thinking_mode != "default" else {}),
             progress=progress,
             phase=f"steer(c={coefficient:g}) ",

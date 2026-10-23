@@ -5,17 +5,32 @@ ORDERS = ('correct_first', 'lure_first')
 COEFFICIENTS = (0.0, -7.0, -8.0)
 
 
+DEFAULT_CHOICE_LETTERS = ('A', 'B')
+
+
+def validate_choice_letters(choice_letters=DEFAULT_CHOICE_LETTERS):
+    """Normalize exactly two distinct ASCII uppercase choice letters."""
+    if (not isinstance(choice_letters, (tuple, list)) or len(choice_letters) != 2
+            or any(not isinstance(letter, str) or len(letter) != 1
+                   or not ('A' <= letter <= 'Z') for letter in choice_letters)
+            or choice_letters[0] == choice_letters[1]):
+        raise ValueError('choice_letters must contain exactly two distinct uppercase single-character letters (A-Z)')
+    return tuple(choice_letters)
+
+
 LETTER_MODE = 'binary_choice_letter'
 LETTER_INSTRUCTION = 'Answer with exactly one uppercase letter, A or B. Do not output the answer value or any other text.'
 
 
-def letter_label(letter, order):
-    if order not in ORDERS or letter not in ('A', 'B'):
+def letter_label(letter, order, choice_letters=DEFAULT_CHOICE_LETTERS):
+    first, second = validate_choice_letters(choice_letters)
+    if order not in ORDERS or letter not in (first, second):
         raise ValueError(f'Invalid letter/order: {letter!r}/{order!r}')
-    return 'correct' if letter == ('A' if order == 'correct_first' else 'B') else 'lure'
+    return 'correct' if letter == (first if order == 'correct_first' else second) else 'lure'
 
 
-def ordered_case(case, order, output_mode='binary_choice'):
+def ordered_case(case, order, output_mode='binary_choice', choice_letters=DEFAULT_CHOICE_LETTERS):
+    first, second = validate_choice_letters(choice_letters)
     if order not in ORDERS:
         raise ValueError(f'Unknown choice order: {order}')
     if not case.prompt.endswith('\nAnswer:'):
@@ -23,29 +38,30 @@ def ordered_case(case, order, output_mode='binary_choice'):
     if not case.correct_answer.strip() or not case.lure_answer.strip() or case.correct_answer.strip() == case.lure_answer.strip():
         raise ValueError(f'{case.case_id}: invalid answer pair')
     a, b = (case.correct_answer, case.lure_answer) if order == 'correct_first' else (case.lure_answer, case.correct_answer)
-    prompt = case.prompt[:-len('\nAnswer:')] + f'\nA: {a.strip()}\nB: {b.strip()}\nAnswer:'
+    prompt = case.prompt[:-len('\nAnswer:')] + f'\n{first}: {a.strip()}\n{second}: {b.strip()}\nAnswer:'
     if output_mode == LETTER_MODE:
         from mindscopex_analysis.prompts import CRT_FINAL_ANSWER_SYSTEM_PROMPT
 
         prefix = CRT_FINAL_ANSWER_SYSTEM_PROMPT + '\n\n'
         if prompt.startswith(prefix):
             prompt = prompt[len(prefix):]
-        return replace(case, prompt=LETTER_INSTRUCTION + '\n\n' + prompt,
-                       correct_answer='A' if order == 'correct_first' else 'B',
-                       lure_answer='B' if order == 'correct_first' else 'A')
+        return replace(case, prompt=LETTER_INSTRUCTION.replace('A or B', f'{first} or {second}') + '\n\n' + prompt,
+                       correct_answer=first if order == 'correct_first' else second,
+                       lure_answer=second if order == 'correct_first' else first)
     if output_mode != 'binary_choice':
         raise ValueError(f'Unknown output mode: {output_mode}')
     return replace(case, prompt=prompt)
 
 
-def choice_letter(answer, case, order):
+def choice_letter(answer, case, order, choice_letters=DEFAULT_CHOICE_LETTERS):
+    first, second = validate_choice_letters(choice_letters)
     if order not in ORDERS:
         raise ValueError(f'Unknown choice order: {order}')
     mapping = {case.correct_answer.strip(): 'correct', case.lure_answer.strip(): 'lure'}
     if answer.strip() not in mapping or len(mapping) != 2:
         raise ValueError(f'{case.case_id}: invalid answer value {answer!r}')
     label = mapping[answer.strip()]
-    return ('A' if label == 'correct' else 'B') if order == 'correct_first' else ('B' if label == 'correct' else 'A')
+    return (first if label == 'correct' else second) if order == 'correct_first' else (second if label == 'correct' else first)
 
 
 def evaluate(
@@ -54,10 +70,12 @@ def evaluate(
     generate,
     output_mode='binary_choice',
     *,
+    choice_letters=DEFAULT_CHOICE_LETTERS,
     expected_cases=40,
     expected_coefficients=COEFFICIENTS,
 ):
     """Generate counterbalanced behavioral results."""
+    choice_letters = validate_choice_letters(choice_letters)
     if type(expected_cases) is not int or expected_cases < 1:
         raise ValueError('expected_cases must be a positive integer')
     if len(cases) != expected_cases or len({c.case_id for c in cases}) != expected_cases:
@@ -67,10 +85,10 @@ def evaluate(
     results = []
     baselines = {}
     for order in ORDERS:
-        ordered = [ordered_case(c, order, output_mode) for c in cases]
+        ordered = [ordered_case(c, order, output_mode, choice_letters) for c in cases]
         for coefficient in coefficients:
             result = generate(ordered, coefficient)
-            block = dict(coefficient=coefficient, choice_order=order, output_mode=output_mode,
+            block = dict(coefficient=coefficient, choice_order=order, output_mode=output_mode, choice_letters=list(choice_letters),
                          response_encoding='choice_letter' if output_mode == LETTER_MODE else 'answer_value', cases=[asdict(c) for c in cases],
                          prompts={c.case_id: c.prompt for c in ordered})
             for field in ('baseline_rows', 'steered_rows'):
@@ -80,9 +98,8 @@ def evaluate(
                 rows = []
                 for case in cases:
                     row = dict(indexed[case.case_id])
-                    letter = row['answer'] if output_mode == LETTER_MODE else choice_letter(row['answer'], case, order)
-                    letter_label(letter, order)
-                    expected = 'correct' if letter == ('A' if order == 'correct_first' else 'B') else 'lure'
+                    letter = row['answer'] if output_mode == LETTER_MODE else choice_letter(row['answer'], case, order, choice_letters)
+                    expected = letter_label(letter, order, choice_letters)
                     if row['label'] != expected or row['family'] != case.family:
                         raise ValueError(f'{case.case_id}: wrong label/family mapping')
                     rows.append(dict(row, choice=letter))

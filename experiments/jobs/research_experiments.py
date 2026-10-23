@@ -1161,6 +1161,11 @@ def run_behavioral(
     token_position = str(bcfg.get("token_position", "all"))
     output_mode = str(bcfg.get("output_mode", "binary_choice"))
     case_pool = str(bcfg.get("case_pool", "test"))
+    from mindscopex_analysis.choice_order import validate_choice_letters
+
+    choice_letters = validate_choice_letters(bcfg.get("choice_letters", ("A", "B")))
+    if "choice_letters" in bcfg and output_mode != "binary_choice_letter":
+        raise ValueError("behavioral.choice_letters requires binary_choice_letter")
 
     if case_pool not in {"all", "test"}:
         raise ValueError(
@@ -1225,7 +1230,7 @@ def run_behavioral(
                 model, tokenizer, ordered, layer=int(feature["layer"]), sae=info["sae"],
                 feature_id=int(feature["feature_id"]), coefficient=coefficient,
                 max_new_tokens=max_new_tokens, token_position=token_position,
-                output_mode=output_mode, progress=_log,
+                output_mode=output_mode, choice_letters=choice_letters, progress=_log,
             )
 
         destination = run_dir / "behavioral" / "generations.json"
@@ -1237,6 +1242,7 @@ def run_behavioral(
         detail = evaluate(
             cases, coefficients, generate,
             output_mode=output_mode,
+            choice_letters=choice_letters,
             expected_cases=expected_cases,
             expected_coefficients=(
                 tuple(coefficients)
@@ -1246,7 +1252,7 @@ def run_behavioral(
         )
         _write_json(run_dir / "behavioral" / "generations.json", detail)
         return {"kind": "behavioral", "n_cases": len(cases), "output_mode": output_mode,
-                "choice_orders": list(ORDERS),
+                "choice_orders": list(ORDERS), "choice_letters": list(choice_letters),
                 "response_encoding": "choice_letter" if output_mode == LETTER_MODE else "answer_value"}
 
     _log(

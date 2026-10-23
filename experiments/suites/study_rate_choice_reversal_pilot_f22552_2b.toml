@@ -1,0 +1,6 @@
+[suite]
+name = "study_rate_choice_reversal_pilot_f22552_2b"
+configs = [
+    "../configs/study_rate_choice_ba_pilot_f22552_seed1_2b.toml",
+    "../configs/study_rate_choice_yx_pilot_f22552_seed1_2b.toml",
+]

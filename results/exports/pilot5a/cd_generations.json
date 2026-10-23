@@ -1,0 +1,1118 @@
+[
+  {
+    "coefficient": 0.0,
+    "choice_order": "correct_first",
+    "output_mode": "binary_choice_letter",
+    "choice_letters": [
+      "C",
+      "D"
+    ],
+    "response_encoding": "choice_letter",
+    "cases": [
+      {
+        "case_id": "crt_fresh_v2_rate_001_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 3 prototype printers can print 3 prototype shells in 3 minutes, how many minutes would 20 prototype printers need to print 20 prototype shells?\nAnswer:",
+        "correct_answer": " 3 minutes",
+        "lure_answer": " 20 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_001",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 20 prototype printers need to print 20 prototype shells, if 3 prototype printers can print 3 prototype shells in 3 minutes?\nAnswer:",
+        "correct_answer": " 3 minutes",
+        "lure_answer": " 20 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_001",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 8 textile looms can weave 8 scarves in 8 minutes, how many minutes would 35 textile looms need to weave 35 scarves?\nAnswer:",
+        "correct_answer": " 8 minutes",
+        "lure_answer": " 35 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_006",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 35 textile looms need to weave 35 scarves, if 8 textile looms can weave 8 scarves in 8 minutes?\nAnswer:",
+        "correct_answer": " 8 minutes",
+        "lure_answer": " 35 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_006",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 13 bakers can decorate 13 cupcakes in 13 minutes, how many minutes would 50 bakers need to decorate 50 cupcakes?\nAnswer:",
+        "correct_answer": " 13 minutes",
+        "lure_answer": " 50 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_011",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 50 bakers need to decorate 50 cupcakes, if 13 bakers can decorate 13 cupcakes in 13 minutes?\nAnswer:",
+        "correct_answer": " 13 minutes",
+        "lure_answer": " 50 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_011",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\nAnswer:",
+        "correct_answer": " 6 minutes",
+        "lure_answer": " 65 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_016",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 65 ceramic kilns need to fire 65 tile batches, if 6 ceramic kilns can fire 6 tile batches in 6 minutes?\nAnswer:",
+        "correct_answer": " 6 minutes",
+        "lure_answer": " 65 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_016",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 11 lab technicians can prepare 11 sample vials in 11 minutes, how many minutes would 80 lab technicians need to prepare 80 sample vials?\nAnswer:",
+        "correct_answer": " 11 minutes",
+        "lure_answer": " 80 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_021",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 80 lab technicians need to prepare 80 sample vials, if 11 lab technicians can prepare 11 sample vials in 11 minutes?\nAnswer:",
+        "correct_answer": " 11 minutes",
+        "lure_answer": " 80 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_021",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 4 quality inspectors can inspect 4 helmets in 4 minutes, how many minutes would 95 quality inspectors need to inspect 95 helmets?\nAnswer:",
+        "correct_answer": " 4 minutes",
+        "lure_answer": " 95 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_026",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 95 quality inspectors need to inspect 95 helmets, if 4 quality inspectors can inspect 4 helmets in 4 minutes?\nAnswer:",
+        "correct_answer": " 4 minutes",
+        "lure_answer": " 95 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_026",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\nAnswer:",
+        "correct_answer": " 9 minutes",
+        "lure_answer": " 110 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_031",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 110 medical imagers need to scan 110 test phantoms, if 9 medical imagers can scan 9 test phantoms in 9 minutes?\nAnswer:",
+        "correct_answer": " 9 minutes",
+        "lure_answer": " 110 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_031",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\nAnswer:",
+        "correct_answer": " 14 minutes",
+        "lure_answer": " 125 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_036",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 125 assembly cells need to assemble 125 sensor modules, if 14 assembly cells can assemble 14 sensor modules in 14 minutes?\nAnswer:",
+        "correct_answer": " 14 minutes",
+        "lure_answer": " 125 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_036",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 7 carton sealers can seal 7 cartons in 7 minutes, how many minutes would 140 carton sealers need to seal 140 cartons?\nAnswer:",
+        "correct_answer": " 7 minutes",
+        "lure_answer": " 140 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_041",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 140 carton sealers need to seal 140 cartons, if 7 carton sealers can seal 7 cartons in 7 minutes?\nAnswer:",
+        "correct_answer": " 7 minutes",
+        "lure_answer": " 140 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_041",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 12 audio processors can render 12 sound clips in 12 minutes, how many minutes would 155 audio processors need to render 155 sound clips?\nAnswer:",
+        "correct_answer": " 12 minutes",
+        "lure_answer": " 155 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_046",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 155 audio processors need to render 155 sound clips, if 12 audio processors can render 12 sound clips in 12 minutes?\nAnswer:",
+        "correct_answer": " 12 minutes",
+        "lure_answer": " 155 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_046",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      }
+    ],
+    "prompts": {
+      "crt_fresh_v2_rate_001_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 3 prototype printers can print 3 prototype shells in 3 minutes, how many minutes would 20 prototype printers need to print 20 prototype shells?\nC: 3 minutes\nD: 20 minutes\nAnswer:",
+      "crt_fresh_v2_rate_001_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 20 prototype printers need to print 20 prototype shells, if 3 prototype printers can print 3 prototype shells in 3 minutes?\nC: 3 minutes\nD: 20 minutes\nAnswer:",
+      "crt_fresh_v2_rate_006_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 8 textile looms can weave 8 scarves in 8 minutes, how many minutes would 35 textile looms need to weave 35 scarves?\nC: 8 minutes\nD: 35 minutes\nAnswer:",
+      "crt_fresh_v2_rate_006_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 35 textile looms need to weave 35 scarves, if 8 textile looms can weave 8 scarves in 8 minutes?\nC: 8 minutes\nD: 35 minutes\nAnswer:",
+      "crt_fresh_v2_rate_011_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 13 bakers can decorate 13 cupcakes in 13 minutes, how many minutes would 50 bakers need to decorate 50 cupcakes?\nC: 13 minutes\nD: 50 minutes\nAnswer:",
+      "crt_fresh_v2_rate_011_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 50 bakers need to decorate 50 cupcakes, if 13 bakers can decorate 13 cupcakes in 13 minutes?\nC: 13 minutes\nD: 50 minutes\nAnswer:",
+      "crt_fresh_v2_rate_016_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\nC: 6 minutes\nD: 65 minutes\nAnswer:",
+      "crt_fresh_v2_rate_016_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 65 ceramic kilns need to fire 65 tile batches, if 6 ceramic kilns can fire 6 tile batches in 6 minutes?\nC: 6 minutes\nD: 65 minutes\nAnswer:",
+      "crt_fresh_v2_rate_021_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 11 lab technicians can prepare 11 sample vials in 11 minutes, how many minutes would 80 lab technicians need to prepare 80 sample vials?\nC: 11 minutes\nD: 80 minutes\nAnswer:",
+      "crt_fresh_v2_rate_021_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 80 lab technicians need to prepare 80 sample vials, if 11 lab technicians can prepare 11 sample vials in 11 minutes?\nC: 11 minutes\nD: 80 minutes\nAnswer:",
+      "crt_fresh_v2_rate_026_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 4 quality inspectors can inspect 4 helmets in 4 minutes, how many minutes would 95 quality inspectors need to inspect 95 helmets?\nC: 4 minutes\nD: 95 minutes\nAnswer:",
+      "crt_fresh_v2_rate_026_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 95 quality inspectors need to inspect 95 helmets, if 4 quality inspectors can inspect 4 helmets in 4 minutes?\nC: 4 minutes\nD: 95 minutes\nAnswer:",
+      "crt_fresh_v2_rate_031_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\nC: 9 minutes\nD: 110 minutes\nAnswer:",
+      "crt_fresh_v2_rate_031_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 110 medical imagers need to scan 110 test phantoms, if 9 medical imagers can scan 9 test phantoms in 9 minutes?\nC: 9 minutes\nD: 110 minutes\nAnswer:",
+      "crt_fresh_v2_rate_036_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\nC: 14 minutes\nD: 125 minutes\nAnswer:",
+      "crt_fresh_v2_rate_036_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 125 assembly cells need to assemble 125 sensor modules, if 14 assembly cells can assemble 14 sensor modules in 14 minutes?\nC: 14 minutes\nD: 125 minutes\nAnswer:",
+      "crt_fresh_v2_rate_041_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 7 carton sealers can seal 7 cartons in 7 minutes, how many minutes would 140 carton sealers need to seal 140 cartons?\nC: 7 minutes\nD: 140 minutes\nAnswer:",
+      "crt_fresh_v2_rate_041_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 140 carton sealers need to seal 140 cartons, if 7 carton sealers can seal 7 cartons in 7 minutes?\nC: 7 minutes\nD: 140 minutes\nAnswer:",
+      "crt_fresh_v2_rate_046_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 12 audio processors can render 12 sound clips in 12 minutes, how many minutes would 155 audio processors need to render 155 sound clips?\nC: 12 minutes\nD: 155 minutes\nAnswer:",
+      "crt_fresh_v2_rate_046_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 155 audio processors need to render 155 sound clips, if 12 audio processors can render 12 sound clips in 12 minutes?\nC: 12 minutes\nD: 155 minutes\nAnswer:"
+    },
+    "baseline_rows": [
+      {
+        "case_id": "crt_fresh_v2_rate_001_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "crt_fresh_v2_rate_001_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "lure",
+        "choice": "D"
+      }
+    ]
+  },
+  {
+    "coefficient": 0.0,
+    "choice_order": "lure_first",
+    "output_mode": "binary_choice_letter",
+    "choice_letters": [
+      "C",
+      "D"
+    ],
+    "response_encoding": "choice_letter",
+    "cases": [
+      {
+        "case_id": "crt_fresh_v2_rate_001_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 3 prototype printers can print 3 prototype shells in 3 minutes, how many minutes would 20 prototype printers need to print 20 prototype shells?\nAnswer:",
+        "correct_answer": " 3 minutes",
+        "lure_answer": " 20 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_001",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 20 prototype printers need to print 20 prototype shells, if 3 prototype printers can print 3 prototype shells in 3 minutes?\nAnswer:",
+        "correct_answer": " 3 minutes",
+        "lure_answer": " 20 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_001",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 8 textile looms can weave 8 scarves in 8 minutes, how many minutes would 35 textile looms need to weave 35 scarves?\nAnswer:",
+        "correct_answer": " 8 minutes",
+        "lure_answer": " 35 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_006",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 35 textile looms need to weave 35 scarves, if 8 textile looms can weave 8 scarves in 8 minutes?\nAnswer:",
+        "correct_answer": " 8 minutes",
+        "lure_answer": " 35 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_006",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 13 bakers can decorate 13 cupcakes in 13 minutes, how many minutes would 50 bakers need to decorate 50 cupcakes?\nAnswer:",
+        "correct_answer": " 13 minutes",
+        "lure_answer": " 50 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_011",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 50 bakers need to decorate 50 cupcakes, if 13 bakers can decorate 13 cupcakes in 13 minutes?\nAnswer:",
+        "correct_answer": " 13 minutes",
+        "lure_answer": " 50 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_011",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\nAnswer:",
+        "correct_answer": " 6 minutes",
+        "lure_answer": " 65 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_016",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 65 ceramic kilns need to fire 65 tile batches, if 6 ceramic kilns can fire 6 tile batches in 6 minutes?\nAnswer:",
+        "correct_answer": " 6 minutes",
+        "lure_answer": " 65 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_016",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 11 lab technicians can prepare 11 sample vials in 11 minutes, how many minutes would 80 lab technicians need to prepare 80 sample vials?\nAnswer:",
+        "correct_answer": " 11 minutes",
+        "lure_answer": " 80 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_021",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 80 lab technicians need to prepare 80 sample vials, if 11 lab technicians can prepare 11 sample vials in 11 minutes?\nAnswer:",
+        "correct_answer": " 11 minutes",
+        "lure_answer": " 80 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_021",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 4 quality inspectors can inspect 4 helmets in 4 minutes, how many minutes would 95 quality inspectors need to inspect 95 helmets?\nAnswer:",
+        "correct_answer": " 4 minutes",
+        "lure_answer": " 95 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_026",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 95 quality inspectors need to inspect 95 helmets, if 4 quality inspectors can inspect 4 helmets in 4 minutes?\nAnswer:",
+        "correct_answer": " 4 minutes",
+        "lure_answer": " 95 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_026",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\nAnswer:",
+        "correct_answer": " 9 minutes",
+        "lure_answer": " 110 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_031",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 110 medical imagers need to scan 110 test phantoms, if 9 medical imagers can scan 9 test phantoms in 9 minutes?\nAnswer:",
+        "correct_answer": " 9 minutes",
+        "lure_answer": " 110 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_031",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\nAnswer:",
+        "correct_answer": " 14 minutes",
+        "lure_answer": " 125 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_036",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 125 assembly cells need to assemble 125 sensor modules, if 14 assembly cells can assemble 14 sensor modules in 14 minutes?\nAnswer:",
+        "correct_answer": " 14 minutes",
+        "lure_answer": " 125 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_036",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 7 carton sealers can seal 7 cartons in 7 minutes, how many minutes would 140 carton sealers need to seal 140 cartons?\nAnswer:",
+        "correct_answer": " 7 minutes",
+        "lure_answer": " 140 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_041",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 140 carton sealers need to seal 140 cartons, if 7 carton sealers can seal 7 cartons in 7 minutes?\nAnswer:",
+        "correct_answer": " 7 minutes",
+        "lure_answer": " 140 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_041",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_correct_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nIf 12 audio processors can render 12 sound clips in 12 minutes, how many minutes would 155 audio processors need to render 155 sound clips?\nAnswer:",
+        "correct_answer": " 12 minutes",
+        "lure_answer": " 155 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_046",
+        "template_id": "IF_FIRST",
+        "condition": "correct_first"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_lure_first",
+        "family": "crt_rate",
+        "prompt": "Solve the problem, but make the final response shown to the user exactly one line containing only the requested answer and its requested unit. Do not include calculations, reasoning, explanations, labels, introductory text, restatements, or Markdown. When thinking mode is enabled, do not repeat any reasoning in the final response.\n\nHow many minutes would 155 audio processors need to render 155 sound clips, if 12 audio processors can render 12 sound clips in 12 minutes?\nAnswer:",
+        "correct_answer": " 12 minutes",
+        "lure_answer": " 155 minutes",
+        "control_prompt": "",
+        "note": "",
+        "pair_id": "crt_fresh_v2_rate_046",
+        "template_id": "IF_FIRST",
+        "condition": "lure_first"
+      }
+    ],
+    "prompts": {
+      "crt_fresh_v2_rate_001_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 3 prototype printers can print 3 prototype shells in 3 minutes, how many minutes would 20 prototype printers need to print 20 prototype shells?\nC: 20 minutes\nD: 3 minutes\nAnswer:",
+      "crt_fresh_v2_rate_001_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 20 prototype printers need to print 20 prototype shells, if 3 prototype printers can print 3 prototype shells in 3 minutes?\nC: 20 minutes\nD: 3 minutes\nAnswer:",
+      "crt_fresh_v2_rate_006_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 8 textile looms can weave 8 scarves in 8 minutes, how many minutes would 35 textile looms need to weave 35 scarves?\nC: 35 minutes\nD: 8 minutes\nAnswer:",
+      "crt_fresh_v2_rate_006_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 35 textile looms need to weave 35 scarves, if 8 textile looms can weave 8 scarves in 8 minutes?\nC: 35 minutes\nD: 8 minutes\nAnswer:",
+      "crt_fresh_v2_rate_011_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 13 bakers can decorate 13 cupcakes in 13 minutes, how many minutes would 50 bakers need to decorate 50 cupcakes?\nC: 50 minutes\nD: 13 minutes\nAnswer:",
+      "crt_fresh_v2_rate_011_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 50 bakers need to decorate 50 cupcakes, if 13 bakers can decorate 13 cupcakes in 13 minutes?\nC: 50 minutes\nD: 13 minutes\nAnswer:",
+      "crt_fresh_v2_rate_016_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 6 ceramic kilns can fire 6 tile batches in 6 minutes, how many minutes would 65 ceramic kilns need to fire 65 tile batches?\nC: 65 minutes\nD: 6 minutes\nAnswer:",
+      "crt_fresh_v2_rate_016_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 65 ceramic kilns need to fire 65 tile batches, if 6 ceramic kilns can fire 6 tile batches in 6 minutes?\nC: 65 minutes\nD: 6 minutes\nAnswer:",
+      "crt_fresh_v2_rate_021_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 11 lab technicians can prepare 11 sample vials in 11 minutes, how many minutes would 80 lab technicians need to prepare 80 sample vials?\nC: 80 minutes\nD: 11 minutes\nAnswer:",
+      "crt_fresh_v2_rate_021_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 80 lab technicians need to prepare 80 sample vials, if 11 lab technicians can prepare 11 sample vials in 11 minutes?\nC: 80 minutes\nD: 11 minutes\nAnswer:",
+      "crt_fresh_v2_rate_026_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 4 quality inspectors can inspect 4 helmets in 4 minutes, how many minutes would 95 quality inspectors need to inspect 95 helmets?\nC: 95 minutes\nD: 4 minutes\nAnswer:",
+      "crt_fresh_v2_rate_026_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 95 quality inspectors need to inspect 95 helmets, if 4 quality inspectors can inspect 4 helmets in 4 minutes?\nC: 95 minutes\nD: 4 minutes\nAnswer:",
+      "crt_fresh_v2_rate_031_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 9 medical imagers can scan 9 test phantoms in 9 minutes, how many minutes would 110 medical imagers need to scan 110 test phantoms?\nC: 110 minutes\nD: 9 minutes\nAnswer:",
+      "crt_fresh_v2_rate_031_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 110 medical imagers need to scan 110 test phantoms, if 9 medical imagers can scan 9 test phantoms in 9 minutes?\nC: 110 minutes\nD: 9 minutes\nAnswer:",
+      "crt_fresh_v2_rate_036_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 14 assembly cells can assemble 14 sensor modules in 14 minutes, how many minutes would 125 assembly cells need to assemble 125 sensor modules?\nC: 125 minutes\nD: 14 minutes\nAnswer:",
+      "crt_fresh_v2_rate_036_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 125 assembly cells need to assemble 125 sensor modules, if 14 assembly cells can assemble 14 sensor modules in 14 minutes?\nC: 125 minutes\nD: 14 minutes\nAnswer:",
+      "crt_fresh_v2_rate_041_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 7 carton sealers can seal 7 cartons in 7 minutes, how many minutes would 140 carton sealers need to seal 140 cartons?\nC: 140 minutes\nD: 7 minutes\nAnswer:",
+      "crt_fresh_v2_rate_041_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 140 carton sealers need to seal 140 cartons, if 7 carton sealers can seal 7 cartons in 7 minutes?\nC: 140 minutes\nD: 7 minutes\nAnswer:",
+      "crt_fresh_v2_rate_046_correct_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nIf 12 audio processors can render 12 sound clips in 12 minutes, how many minutes would 155 audio processors need to render 155 sound clips?\nC: 155 minutes\nD: 12 minutes\nAnswer:",
+      "crt_fresh_v2_rate_046_lure_first": "Answer with exactly one uppercase letter, C or D. Do not output the answer value or any other text.\n\nHow many minutes would 155 audio processors need to render 155 sound clips, if 12 audio processors can render 12 sound clips in 12 minutes?\nC: 155 minutes\nD: 12 minutes\nAnswer:"
+    },
+    "baseline_rows": [
+      {
+        "case_id": "crt_fresh_v2_rate_001_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      }
+    ],
+    "steered_rows": [
+      {
+        "case_id": "crt_fresh_v2_rate_001_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_001_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_006_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_011_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_016_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_021_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_026_lure_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_031_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_036_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_041_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_correct_first",
+        "family": "crt_rate",
+        "answer": "D",
+        "label": "correct",
+        "choice": "D"
+      },
+      {
+        "case_id": "crt_fresh_v2_rate_046_lure_first",
+        "family": "crt_rate",
+        "answer": "C",
+        "label": "lure",
+        "choice": "C"
+      }
+    ]
+  }
+]

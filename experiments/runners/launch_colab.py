@@ -28,6 +28,7 @@ JOB_PATHS = {
     "feature_diagnostics": "experiments/jobs/feature_diagnostics.py",
     "feature_falsification": "experiments/jobs/feature_falsification.py",
     "feature_modules": "experiments/jobs/feature_modules.py",
+    "matched_branch_margin": "experiments/jobs/matched_branch_margin.py",
     "multisite_ablation": "experiments/jobs/multisite_ablation.py",
     "reasoning_trajectory": "experiments/jobs/reasoning_trajectory.py",
     "research_experiments": "experiments/jobs/research_experiments.py",
@@ -226,7 +227,7 @@ def launch_one(
     tpu = default_tpu if default_tpu is not None else colab_cfg.get("tpu")
 
     local_run_dir = root / "results" / "runs" / f"{timestamp()}_{name}"
-    local_run_dir.mkdir(parents=True, exist_ok=True)
+    local_run_dir.mkdir(parents=True, exist_ok=(job != "matched_branch_margin"))
     local_config = local_run_dir / "config.toml"
     shutil.copyfile(config_path, local_config)
 

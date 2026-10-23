@@ -1,0 +1,19 @@
+# First-divergence conditional logits only: 10 Rate + 6 Growth cases.
+# No behavioral generation, discovery, or full-answer likelihood evaluation.
+[run]
+name = "diagnose_fresh_v2_matched_branch_margin_f30908_2b"
+job = "matched_branch_margin"
+
+[diagnostic]
+layer = 5
+feature = 30908
+coefficients = [0.0, 7.0, 8.0]
+only = "all"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

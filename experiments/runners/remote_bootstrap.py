@@ -111,6 +111,7 @@ def main():
     guarded_mode = config.get("behavioral", {{}}).get("output_mode")
     is_letter = (PAYLOAD["job"] == "research_experiments" and
                  guarded_mode in ("binary_choice_letter", "open_ended_crt"))
+    is_diagnostic = PAYLOAD["job"] == "matched_branch_margin"
     letter_token = None
     if is_letter:
         sys.path.insert(0, str(repo_dir))
@@ -124,6 +125,13 @@ def main():
             if archive.exists() or archive.is_symlink():
                 raise FileExistsError(f"Refusing to overwrite letter archive: {{archive}}")
         letter_token = prepare(run_dir, Path(PAYLOAD["remote_config_path"]), mode=guarded_mode)
+    elif is_diagnostic:
+        # Diagnostic outputs and logs must never replace a previous run.
+        for existing in (run_dir, run_dir.with_suffix(".zip"),
+                         Path("/content") / f"{{PAYLOAD['run_name']}}_artifacts.zip"):
+            if existing.exists() or existing.is_symlink():
+                raise FileExistsError(f"Refusing to overwrite diagnostic artifacts: {{existing}}")
+        run_dir.mkdir(parents=True, exist_ok=False)
     else:
         run_dir.mkdir(parents=True, exist_ok=True)
     job_log = run_dir / "job.log"
@@ -137,6 +145,12 @@ def main():
             print(f"LETTER_JOB_START_FAILED: {{exc}}", flush=True)
             returncode = 1
         finish(run_dir, letter_token, returncode, mode=guarded_mode)
+    elif is_diagnostic:
+        try:
+            returncode = run_capturing(command, job_log)
+        except Exception as exc:
+            print(f"DIAGNOSTIC_JOB_START_FAILED: {{exc}}", flush=True)
+            returncode = 1
     else:
         returncode = run_capturing(command, job_log)
 

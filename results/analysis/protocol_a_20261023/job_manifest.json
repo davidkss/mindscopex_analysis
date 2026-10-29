@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-u",
+    "/content/mindscopex_analysis/scripts/diagnose_fresh_v2_full_answer_likelihood.py",
+    "--inventory",
+    "/content/mindscopex_analysis/experiments/inputs/fresh_v2_growth_controls_f30908.json",
+    "--output-dir",
+    "/content/mindscopex_artifacts/diagnose_fresh_v2_growth_full_answer_f30908_2b/likelihood",
+    "--input-protocol",
+    "diagnostic_compatible"
+  ],
+  "inventory_sha256": "c7bbb2581a2738497ac5f3d7b6c5b311011c16bfa14f3eb117677d1a83d2b5f0",
+  "input_protocol": "diagnostic_compatible",
+  "eos_policy": "exclude",
+  "expected_score_rows": 99,
+  "expected_candidate_paths": 198,
+  "include_eos": false,
+  "status": "succeeded"
+}

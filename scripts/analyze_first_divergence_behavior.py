@@ -66,18 +66,18 @@ def main():
         full = float(s["full_margin"])
         if not math.isclose(full, float(r["full_margin"]), abs_tol=1e-5):
             raise ValueError(f"Full margin mismatch {k}")
-        if not math.isfinite(branch) or branch == 0:
-            raise ValueError(f"Non-finite/tied first divergence {k}")
+        if not math.isfinite(branch):
+            raise ValueError(f"Non-finite first divergence {k}")
         if r["actual"] not in ("correct", "lure"):
             raise ValueError(f"Unknown actual label {r['actual']}")
-        bp = "lure" if branch > 0 else "correct"
+        bp = "tie" if branch == 0 else ("lure" if branch > 0 else "correct")
         fp = "lure" if full > 0 else "correct"
         results.append(dict(case_id=r["case_id"], seed=r["seed"], coefficient=r["coefficient"],
                             actual=r["actual"], first_branch_preference=bp,
                             full_preference=fp, first_branch_margin=branch, full_margin=full,
-                            branch_actual_agreement=int(bp == r["actual"]),
+                            branch_actual_agreement=None if bp == "tie" else int(bp == r["actual"]),
                             full_actual_agreement=int(fp == r["actual"]),
-                            branch_full_agreement=int(bp == fp)))
+                            branch_full_agreement=None if bp == "tie" else int(bp == fp)))
     groups = defaultdict(list)
     for r in results:
         groups[int(float(r["coefficient"]))].append(r)
@@ -92,7 +92,8 @@ def main():
     output = dict(method="teacher_forced_first_divergence_proxy_vs_constrained_greedy_labels",
                   limitations=["first_divergence_margin comes from separate teacher-forced candidate paths, not actual generate() logits",
                                "EOS omitted in full-answer scoring, but generation permits EOS",
-                               "case_id clustered bootstrap; seed slots not independent cases"],
+                               "case_id clustered bootstrap; seed slots not independent cases",
+                               "zero first-divergence margin is a tie, excluded from branch agreement denominators and reported separately"],
                   n_unique_cases=len(cases), n_join_rows=len(results),
                   bootstrap_unit="case_id", bootstrap_resamples=a.bootstrap, seed=a.seed, coefficients={})
     for coefficient, group in sorted(groups.items()):
@@ -103,11 +104,21 @@ def main():
             raise ValueError(f"Case mismatch for coefficient {coefficient}")
         summary = dict(n_slots=len(group), slot_weighted={}, case_weighted={})
         for metric in metrics:
-            summary["slot_weighted"][metric] = dict(count=sum(r[metric] for r in group),
-                                                      rate=mean([r[metric] for r in group]))
-            casevals = {case: mean([r[metric] for r in bycase[case]]) for case in cases}
-            draws = [mean([casevals[case] for case in sample]) for sample in samples]
-            summary["case_weighted"][metric] = dict(mean=mean(list(casevals.values())), ci95=ci(draws))
+            valid = [r[metric] for r in group if r[metric] is not None]
+            summary["slot_weighted"][metric] = dict(count=sum(valid), n_valid=len(valid),
+                                                      n_ties_excluded=len(group)-len(valid),
+                                                      rate=mean(valid) if valid else None)
+            casevals = {case: mean([r[metric] for r in bycase[case] if r[metric] is not None])
+                        for case in cases if any(r[metric] is not None for r in bycase[case])}
+            draws = []
+            for sample in samples:
+                valid_sample = [casevals[case] for case in sample if case in casevals]
+                if valid_sample:
+                    draws.append(mean(valid_sample))
+            summary["case_weighted"][metric] = dict(n_valid_cases=len(casevals),
+                mean=mean(list(casevals.values())) if casevals else None,
+                ci95=ci(draws) if draws else None)
+        summary["branch_tie_slots"] = sum(r["first_branch_preference"] == "tie" for r in group)
         summary["branch_lure_slots"] = sum(r["first_branch_preference"] == "lure" for r in group)
         summary["full_lure_slots"] = sum(r["full_preference"] == "lure" for r in group)
         summary["actual_lure_slots"] = sum(r["actual"] == "lure" for r in group)

@@ -1,0 +1,51 @@
++ /usr/bin/python3 -u /content/mindscopex_analysis/scripts/diagnose_fresh_v2_full_answer_likelihood.py --inventory /content/mindscopex_analysis/experiments/inputs/fresh_v2_growth_controls_f30908.json --output-dir /content/mindscopex_artifacts/diagnose_fresh_v2_growth_full_answer_behavior_f30908_2b/likelihood --input-protocol behavior_compatible
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/617 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/617 [00:00<01:58,  5.20it/s]
+Loading weights:   7%|▋         | 45/617 [00:00<00:03, 186.66it/s]
+Loading weights:  15%|█▌        | 93/617 [00:00<00:01, 278.24it/s]
+Loading weights:  23%|██▎       | 143/617 [00:00<00:01, 350.58it/s]
+Loading weights:  30%|███       | 186/617 [00:00<00:01, 369.05it/s]
+Loading weights:  38%|███▊      | 233/617 [00:00<00:00, 390.64it/s]
+Loading weights:  45%|████▍     | 277/617 [00:00<00:00, 404.82it/s]
+Loading weights:  52%|█████▏    | 319/617 [00:00<00:00, 403.89it/s]
+Loading weights:  76%|███████▌  | 470/617 [00:01<00:00, 729.32it/s]
+Loading weights:  99%|█████████▉| 610/617 [00:01<00:00, 912.78it/s]
+Loading weights: 100%|██████████| 617/617 [00:01<00:00, 538.76it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+crt_fresh_v2_growth_001: full margins +0=-4.108230, +7=+3.175883, +8=+2.612849
+crt_fresh_v2_growth_003: full margins +0=+0.330023, +7=+1.479729, +8=+0.841821
+crt_fresh_v2_growth_004: full margins +0=-2.779763, +7=-1.257198, +8=-1.112162
+crt_fresh_v2_growth_006: full margins +0=-1.148022, +7=+0.308445, +8=+0.866880
+crt_fresh_v2_growth_007: full margins +0=-1.440731, +7=+2.149316, +8=+1.891295
+crt_fresh_v2_growth_008: full margins +0=+0.006739, +7=+0.082347, +8=-0.290989
+crt_fresh_v2_growth_009: full margins +0=+0.308763, +7=-0.824647, +8=-0.593300
+crt_fresh_v2_growth_011: full margins +0=-1.715716, +7=+3.513049, +8=+2.744137
+crt_fresh_v2_growth_012: full margins +0=+0.086959, +7=+0.923387, +8=+0.887361
+crt_fresh_v2_growth_013: full margins +0=+0.061129, +7=+0.748926, +8=+0.520706
+crt_fresh_v2_growth_014: full margins +0=-0.425450, +7=-1.667980, +8=-1.608141
+crt_fresh_v2_growth_015: full margins +0=-0.503091, +7=+2.194254, +8=+1.689370
+crt_fresh_v2_growth_016: full margins +0=-3.342883, +7=+2.209077, +8=+2.245921
+crt_fresh_v2_growth_017: full margins +0=-2.092338, +7=+2.279758, +8=+1.760121
+crt_fresh_v2_growth_018: full margins +0=-1.734959, +7=+0.821397, +8=+0.288691
+crt_fresh_v2_growth_019: full margins +0=-1.460029, +7=+1.573784, +8=+0.733230
+crt_fresh_v2_growth_022: full margins +0=-0.471073, +7=-0.933214, +8=-0.898576
+crt_fresh_v2_growth_023: full margins +0=-0.007450, +7=+0.906396, +8=+0.389034
+crt_fresh_v2_growth_024: full margins +0=-2.158451, +7=-2.149071, +8=-1.991835
+crt_fresh_v2_growth_026: full margins +0=+2.506328, +7=+1.596780, +8=+1.671018
+crt_fresh_v2_growth_027: full margins +0=+0.494476, +7=+3.125534, +8=+2.850969
+crt_fresh_v2_growth_028: full margins +0=-0.661501, +7=+0.640917, +8=+0.022810
+crt_fresh_v2_growth_029: full margins +0=-2.499898, +7=+0.340576, +8=-0.416916
+crt_fresh_v2_growth_030: full margins +0=+2.891487, +7=-1.263168, +8=-0.875865
+crt_fresh_v2_growth_032: full margins +0=+0.086264, +7=+0.737503, +8=-0.294200
+crt_fresh_v2_growth_036: full margins +0=+2.809134, +7=+2.726388, +8=+2.547493
+crt_fresh_v2_growth_037: full margins +0=-0.744590, +7=+1.904315, +8=+0.909783
+crt_fresh_v2_growth_038: full margins +0=-0.092825, +7=-0.200389, +8=-1.172744
+crt_fresh_v2_growth_039: full margins +0=+0.925004, +7=+0.950793, +8=-0.367821
+crt_fresh_v2_growth_040: full margins +0=+2.077781, +7=-1.479859, +8=-1.781010
+crt_fresh_v2_growth_044: full margins +0=-1.008202, +7=+0.065204, +8=+0.063326
+crt_fresh_v2_growth_045: full margins +0=-0.626072, +7=+1.767453, +8=+1.903557
+crt_fresh_v2_growth_047: full margins +0=+1.942190, +7=+3.345659, +8=+3.209641
+ARTIFACT_DIR=/content/mindscopex_artifacts/diagnose_fresh_v2_growth_full_answer_behavior_f30908_2b

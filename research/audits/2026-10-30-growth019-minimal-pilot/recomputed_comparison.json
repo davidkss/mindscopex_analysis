@@ -1,0 +1,183 @@
+{
+  "status": "compared",
+  "rows": [
+    {
+      "condition_id": "baseline",
+      "actual_raw_margins": [
+        -1.375,
+        -1.375
+      ],
+      "actual_processed_margins": [
+        -1.3749999850988388,
+        -1.3749999850988388
+      ],
+      "raw_equal": true,
+      "processed_equal": true,
+      "answers": [
+        "55 days",
+        "55 days"
+      ],
+      "answers_equal": true,
+      "labels": [
+        "correct",
+        "correct"
+      ],
+      "selected_branch_tokens": [
+        20,
+        20
+      ],
+      "raw_ties": [
+        false,
+        false
+      ],
+      "teacher_forced_first_margin": -1.3750000596046448,
+      "tf_reference_status": "historical no-hook protocol B",
+      "eos_valid": true,
+      "equivalence": "passed",
+      "token_ids_equal": true
+    },
+    {
+      "condition_id": "f30908-c7",
+      "actual_raw_margins": [
+        -0.375,
+        -0.375
+      ],
+      "actual_processed_margins": [
+        -0.375,
+        -0.375
+      ],
+      "raw_equal": true,
+      "processed_equal": true,
+      "answers": [
+        "55 days",
+        "55 days"
+      ],
+      "answers_equal": true,
+      "labels": [
+        "correct",
+        "correct"
+      ],
+      "selected_branch_tokens": [
+        20,
+        20
+      ],
+      "raw_ties": [
+        false,
+        false
+      ],
+      "teacher_forced_first_margin": -0.5,
+      "tf_reference_status": "historical 30908 protocol B",
+      "eos_valid": true,
+      "equivalence": "passed",
+      "token_ids_equal": true
+    },
+    {
+      "condition_id": "f30908-c8",
+      "actual_raw_margins": [
+        0.0,
+        0.0
+      ],
+      "actual_processed_margins": [
+        0.0,
+        0.0
+      ],
+      "raw_equal": true,
+      "processed_equal": true,
+      "answers": [
+        "28 days",
+        "28 days"
+      ],
+      "answers_equal": true,
+      "labels": [
+        "lure",
+        "lure"
+      ],
+      "selected_branch_tokens": [
+        17,
+        17
+      ],
+      "raw_ties": [
+        true,
+        true
+      ],
+      "teacher_forced_first_margin": -0.125,
+      "tf_reference_status": "historical 30908 protocol B",
+      "eos_valid": true,
+      "equivalence": "passed",
+      "token_ids_equal": true
+    },
+    {
+      "condition_id": "f30908-c8p5",
+      "actual_raw_margins": [
+        0.125,
+        0.125
+      ],
+      "actual_processed_margins": [
+        0.125,
+        0.125
+      ],
+      "raw_equal": true,
+      "processed_equal": true,
+      "answers": [
+        "28 days",
+        "28 days"
+      ],
+      "answers_equal": true,
+      "labels": [
+        "lure",
+        "lure"
+      ],
+      "selected_branch_tokens": [
+        17,
+        17
+      ],
+      "raw_ties": [
+        false,
+        false
+      ],
+      "teacher_forced_first_margin": null,
+      "tf_reference_status": "unavailable for this feature/coefficient",
+      "eos_valid": true,
+      "equivalence": "passed",
+      "token_ids_equal": true
+    },
+    {
+      "condition_id": "f12207-c8",
+      "actual_raw_margins": [
+        0.625,
+        0.625
+      ],
+      "actual_processed_margins": [
+        0.6250000298023224,
+        0.6250000298023224
+      ],
+      "raw_equal": true,
+      "processed_equal": true,
+      "answers": [
+        "28 days",
+        "28 days"
+      ],
+      "answers_equal": true,
+      "labels": [
+        "lure",
+        "lure"
+      ],
+      "selected_branch_tokens": [
+        17,
+        17
+      ],
+      "raw_ties": [
+        false,
+        false
+      ],
+      "teacher_forced_first_margin": null,
+      "tf_reference_status": "unavailable for this feature/coefficient",
+      "eos_valid": true,
+      "equivalence": "passed",
+      "token_ids_equal": true
+    }
+  ],
+  "recorded_environment_comparison": "matched recorded values",
+  "exact_revision_comparison": "unverified; matching missing values are not evidence",
+  "limitation": "Two execution blocks measure repeatability, not generalization or statistical significance."
+}

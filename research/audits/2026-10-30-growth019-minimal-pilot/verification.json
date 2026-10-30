@@ -1,0 +1,1397 @@
+{
+  "status": "validated recorded artifacts; exact revisions and dynamic HF execution unverified",
+  "original_comparison": {
+    "path": "results/growth019_minimal_pilot_comparison_20261030.json",
+    "sha256": "61c6feab3d4546d4d076cf85a9963a56dd0d3e9185a685befcefa94bc2c26e2e",
+    "matches_recomputed": true
+  },
+  "blocks": [
+    {
+      "run": "results/runs/20261030-145746_pilot_growth019_block-1_2b",
+      "block_id": "block-1",
+      "started_at": "2026-10-30T05:58:25.525569+00:00",
+      "finished_at": "2026-10-30T05:59:08.821765+00:00",
+      "git_commit": "17f8c40a4ff538d4d77b6abaea1dea95ea62adcf",
+      "git_status": "",
+      "session": "mindscopex-growth019-minimal-pilot",
+      "keep_session": false,
+      "checks": "passed: ZIP CRC/content, source/input hashes, plan scope, trie/prefix/sequence, margins, EOS/equivalence",
+      "files": {
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/remote_bootstrap.py": {
+          "sha256": "ae6729bd531886c2aedb9d8585a67bfdda07a867f7cbeffe5e2b13ee05fbdb8b",
+          "bytes": 7227
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/config.toml": {
+          "sha256": "a731b38f2dd9cba4576174a7ef6e22f8a8de519d510575dae077d710e0da63da",
+          "bytes": 242
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/colab_log.md": {
+          "sha256": "3fdc181a59306513be642d642ba9da86b2cbe19c41ebc3563c4b1a8c1da9c58a",
+          "bytes": 8775
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/launcher_manifest.json": {
+          "sha256": "a1a6339a98bdb8602e9dc7c88cedfcb1ac90176a4f6b0e707eec458ac096a044",
+          "bytes": 885
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts.zip": {
+          "sha256": "2fd058eb49475fc29eea7d34d44f450b8c107c1d745a62cd306f525d59def4bf",
+          "bytes": 12827
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/source.zip": {
+          "sha256": "473940d24de5fded0b37130fdca9a52eadc7471771781107b322e01a6d2b60c0",
+          "bytes": 1364895
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/colab_log.jsonl": {
+          "sha256": "7f7331057b7542649eb69fb9f819ce6004ad963e63cbd57e1c1dbcaa495499f5",
+          "bytes": 10206
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/actual_first_divergence.json": {
+          "sha256": "2e642da55d385818742a32dfe3f5588a5d0418c98e2e44fcd7c0c2d68bc0b4f9",
+          "bytes": 69498
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/config.toml": {
+          "sha256": "a731b38f2dd9cba4576174a7ef6e22f8a8de519d510575dae077d710e0da63da",
+          "bytes": 242
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/job_manifest.json": {
+          "sha256": "cb6dee8e504590c9dcd108ccb50fb410cbdcfb9fe2c9a5ddc55dc0da34ba46c8",
+          "bytes": 1233
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/diagnostic.log": {
+          "sha256": "a37a388a569caa8257e0b332165eff35e62bfabe513085de93a792680609d89f",
+          "bytes": 5209
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/.trace_job_claim": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/job.log": {
+          "sha256": "6ba82da7c3d24e340854bc733125389f2267135ecd907d1783e9a865833595b7",
+          "bytes": 561
+        },
+        "results/runs/20261030-145746_pilot_growth019_block-1_2b/artifacts/plan.json": {
+          "sha256": "ef0747a00d0dd42c5c49aea0a225ea90255cb97126e368f472d31b05354d40c6",
+          "bytes": 19546
+        }
+      },
+      "environment": {
+        "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "transformers": "5.20.2",
+        "packages": {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        "cuda_runtime": "13.0",
+        "cuda_available": true,
+        "cudnn_version": 92700,
+        "gpus": [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        "model_id": "Qwen/Qwen3.5-2B-Base",
+        "requested_dtype": "bfloat16",
+        "model_configs": {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        "parameter_groups": [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        "parameter_examples": [
+          {
+            "name": "model.visual.patch_embed.proj.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.patch_embed.proj.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.pos_embed.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.attn.qkv.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          }
+        ],
+        "hf_device_map": null,
+        "model_class": "transformers.models.qwen3_5.modeling_qwen3_5.Qwen3_5ForConditionalGeneration",
+        "processor_class": "transformers.models.qwen3_vl.processing_qwen3_vl.Qwen3VLProcessor",
+        "tokenizer_class": "transformers.models.qwen3_5.tokenization_qwen3_5.Qwen3_5Tokenizer",
+        "tokenizer_name_or_path": "Qwen/Qwen3.5-2B-Base",
+        "tokenizer_revision_metadata": {
+          "revision": null,
+          "_commit_hash": null,
+          "name_or_path": "Qwen/Qwen3.5-2B-Base",
+          "tokenizer_file": null,
+          "vocab_file": null,
+          "merges_file": null
+        },
+        "cached_config_snapshot_hint": "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "snapshot_note": "Cache hint is not proof of the exact weights/tokenizer revision loaded.",
+        "generation_config": {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        "model_training": false,
+        "existing_forward_hooks": {},
+        "diagnostic_registered_hooks": 0,
+        "deterministic_algorithms": false,
+        "cudnn_deterministic": false,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "environment_variables": {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        }
+      },
+      "sae": {
+        "repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "layer": 5,
+        "feature_id": null,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "resolved_revision": null,
+        "feature_ids": [
+          30908,
+          12207
+        ]
+      },
+      "loading_evidence": {
+        "model_revision": {
+          "value": null,
+          "verification": "config metadata only; exact loaded weights unverified"
+        },
+        "tokenizer_revision": {
+          "value": null,
+          "requested_revision": null,
+          "verification": "metadata only; exact loaded tokenizer unverified"
+        },
+        "sae_revision": {
+          "value": null,
+          "verification": "not recorded"
+        },
+        "model_eval": true,
+        "exact_loaded_state": "unverified; checkpoint hashes not available"
+      },
+      "generation_source_evidence": {
+        "methods": {
+          "generate": {
+            "status": "source inspected; execution path unverified",
+            "module": "transformers.generation.utils",
+            "source_file": "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py",
+            "source_file_sha256": "7944240ff1ee27a7b3acc16571b7a480cc14f16e7222aeb1a79d289ebc96e3ea",
+            "selection_lines": [
+              "logits_processor: LogitsProcessorList | None = None,",
+              "parameters to generate(), e.g. `.generate(inputs, num_beams=4, do_sample=True)`.",
+              "logits_processor (`LogitsProcessorList`, *optional*):",
+              "logits_processor=logits_processor,",
+              "logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()",
+              "prepared_logits_processor = self._get_logits_processor(",
+              "logits_processor=logits_processor,",
+              "logits_processor=prepared_logits_processor,"
+            ]
+          },
+          "_sample": {
+            "status": "source inspected; execution path unverified",
+            "module": "transformers.generation.utils",
+            "source_file": "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py",
+            "source_file_sha256": "7944240ff1ee27a7b3acc16571b7a480cc14f16e7222aeb1a79d289ebc96e3ea",
+            "selection_lines": [
+              "logits_processor: LogitsProcessorList,",
+              "logits_processor (`LogitsProcessorList`):",
+              "do_sample = generation_config.do_sample",
+              "next_token_scores = logits_processor(input_ids, next_token_logits)",
+              "if do_sample:",
+              "next_tokens = torch.argmax(next_token_scores, dim=-1)"
+            ]
+          },
+          "_get_logits_processor": {
+            "status": "source inspected; execution path unverified",
+            "module": "transformers.generation.utils",
+            "source_file": "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py",
+            "source_file_sha256": "7944240ff1ee27a7b3acc16571b7a480cc14f16e7222aeb1a79d289ebc96e3ea",
+            "selection_lines": [
+              "def _get_logits_processor(",
+              "logits_processor: LogitsProcessorList | None = None,",
+              "if logits_processor is None:",
+              "logits_processor = []",
+              "processors = self._merge_criteria_processor_list(processors, logits_processor)",
+              "if generation_config.do_sample:"
+            ]
+          }
+        },
+        "actual_processor_order": "unverified; method source is not an execution trace"
+      },
+      "rows": [
+        {
+          "condition_id": "baseline",
+          "feature_id": null,
+          "coefficient": 0,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            20,
+            20,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 18.875,
+              "processed_score": -1.6004126071929932
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 20.25,
+              "processed_score": -0.22541262209415436
+            }
+          ],
+          "raw_margin_recomputed": -1.375,
+          "processed_margin_recomputed": -1.3749999850988388,
+          "raw_minus_baseline": 0.0,
+          "teacher_forced_first_margin": -1.3750000596046448,
+          "full_answer_margin": -1.4600286781787872,
+          "actual_minus_tf": 5.960464477539063e-08,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "55 days",
+          "label": "correct",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f30908-c7",
+          "feature_id": 30908,
+          "coefficient": 7,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            20,
+            20,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 16.875,
+              "processed_score": -0.8981232643127441
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 17.25,
+              "processed_score": -0.5231232643127441
+            }
+          ],
+          "raw_margin_recomputed": -0.375,
+          "processed_margin_recomputed": -0.375,
+          "raw_minus_baseline": 1.0,
+          "teacher_forced_first_margin": -0.5,
+          "full_answer_margin": 1.573784351348877,
+          "actual_minus_tf": 0.125,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "55 days",
+          "label": "correct",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f30908-c8",
+          "feature_id": 30908,
+          "coefficient": 8,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            17,
+            23,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 16.375,
+              "processed_score": -0.6931471824645996
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 16.375,
+              "processed_score": -0.6931471824645996
+            }
+          ],
+          "raw_margin_recomputed": 0.0,
+          "processed_margin_recomputed": 0.0,
+          "raw_minus_baseline": 1.375,
+          "teacher_forced_first_margin": -0.125,
+          "full_answer_margin": 0.7332298755645752,
+          "actual_minus_tf": 0.125,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "28 days",
+          "label": "lure",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f30908-c8p5",
+          "feature_id": 30908,
+          "coefficient": 8.5,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            17,
+            23,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 16.125,
+              "processed_score": -0.6325989961624146
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 16.0,
+              "processed_score": -0.7575989961624146
+            }
+          ],
+          "raw_margin_recomputed": 0.125,
+          "processed_margin_recomputed": 0.125,
+          "raw_minus_baseline": 1.5,
+          "teacher_forced_first_margin": null,
+          "full_answer_margin": null,
+          "actual_minus_tf": null,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "28 days",
+          "label": "lure",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f12207-c8",
+          "feature_id": 12207,
+          "coefficient": 8,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            17,
+            23,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 17.875,
+              "processed_score": -0.42870065569877625
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 17.25,
+              "processed_score": -1.0537006855010986
+            }
+          ],
+          "raw_margin_recomputed": 0.625,
+          "processed_margin_recomputed": 0.6250000298023224,
+          "raw_minus_baseline": 2.0,
+          "teacher_forced_first_margin": null,
+          "full_answer_margin": null,
+          "actual_minus_tf": null,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "28 days",
+          "label": "lure",
+          "eos_valid": true,
+          "equivalence": "passed"
+        }
+      ]
+    },
+    {
+      "run": "results/runs/20261030-145912_pilot_growth019_block-2_2b",
+      "block_id": "block-2",
+      "started_at": "2026-10-30T05:59:45.699208+00:00",
+      "finished_at": "2026-10-30T05:59:57.427069+00:00",
+      "git_commit": "17f8c40a4ff538d4d77b6abaea1dea95ea62adcf",
+      "git_status": "",
+      "session": "mindscopex-growth019-minimal-pilot",
+      "keep_session": false,
+      "checks": "passed: ZIP CRC/content, source/input hashes, plan scope, trie/prefix/sequence, margins, EOS/equivalence",
+      "files": {
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/remote_bootstrap.py": {
+          "sha256": "4228ee7e731b094b7dab3a65ace9ed935995286c1ca51b5d643a6ed314bb681e",
+          "bytes": 7227
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/config.toml": {
+          "sha256": "6e0e9ea391432b17d505f7f9b4a7af2dbb8642de5184b531bdb68eadf686ad2c",
+          "bytes": 242
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/colab_log.md": {
+          "sha256": "eaa47e99d3175b37ebd396554bd0105da041d9266f0432ecbba37999590e1cba",
+          "bytes": 17410
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/launcher_manifest.json": {
+          "sha256": "7ebeabf556ed63317fa43742ae1df68261a2cdd4185dd2581305de570abbce22",
+          "bytes": 885
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts.zip": {
+          "sha256": "1a20beb9526274cc1c8a873b0b339bb263523d12d751ca2cadb5536fd7e92900",
+          "bytes": 12831
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/source.zip": {
+          "sha256": "473940d24de5fded0b37130fdca9a52eadc7471771781107b322e01a6d2b60c0",
+          "bytes": 1364895
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/colab_log.jsonl": {
+          "sha256": "7afb2238776410d07def2803de64e54481ca8f03a7e3f4b1f3c6dc1cfce1511c",
+          "bytes": 20212
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/actual_first_divergence.json": {
+          "sha256": "dd7834e9be097cb6e9839a5a3eb9a1ecf5f168650db21fde03091dfb08b80098",
+          "bytes": 69498
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/config.toml": {
+          "sha256": "6e0e9ea391432b17d505f7f9b4a7af2dbb8642de5184b531bdb68eadf686ad2c",
+          "bytes": 242
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/job_manifest.json": {
+          "sha256": "a1044e8d23f83235f5f66293699412af51f34e8cb6e88190c10eca80181b3589",
+          "bytes": 1233
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/diagnostic.log": {
+          "sha256": "fb63c0166f3cc44922f31bf21db42760e94b4452f87f0620454e8e6c65f57abd",
+          "bytes": 5211
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/.trace_job_claim": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/job.log": {
+          "sha256": "4a297a0458963d3d93e1ab75867923f3082ca8297db7ec1ae898a8082ce06f62",
+          "bytes": 561
+        },
+        "results/runs/20261030-145912_pilot_growth019_block-2_2b/artifacts/plan.json": {
+          "sha256": "1e5804d46efc3b6e006a0a18802c57349b8b8a200a3c10f76fd0e1a43755558b",
+          "bytes": 19546
+        }
+      },
+      "environment": {
+        "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "transformers": "5.20.2",
+        "packages": {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        "cuda_runtime": "13.0",
+        "cuda_available": true,
+        "cudnn_version": 92700,
+        "gpus": [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        "model_id": "Qwen/Qwen3.5-2B-Base",
+        "requested_dtype": "bfloat16",
+        "model_configs": {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        "parameter_groups": [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        "parameter_examples": [
+          {
+            "name": "model.visual.patch_embed.proj.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.patch_embed.proj.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.pos_embed.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.attn.qkv.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          }
+        ],
+        "hf_device_map": null,
+        "model_class": "transformers.models.qwen3_5.modeling_qwen3_5.Qwen3_5ForConditionalGeneration",
+        "processor_class": "transformers.models.qwen3_vl.processing_qwen3_vl.Qwen3VLProcessor",
+        "tokenizer_class": "transformers.models.qwen3_5.tokenization_qwen3_5.Qwen3_5Tokenizer",
+        "tokenizer_name_or_path": "Qwen/Qwen3.5-2B-Base",
+        "tokenizer_revision_metadata": {
+          "revision": null,
+          "_commit_hash": null,
+          "name_or_path": "Qwen/Qwen3.5-2B-Base",
+          "tokenizer_file": null,
+          "vocab_file": null,
+          "merges_file": null
+        },
+        "cached_config_snapshot_hint": "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "snapshot_note": "Cache hint is not proof of the exact weights/tokenizer revision loaded.",
+        "generation_config": {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        "model_training": false,
+        "existing_forward_hooks": {},
+        "diagnostic_registered_hooks": 0,
+        "deterministic_algorithms": false,
+        "cudnn_deterministic": false,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "environment_variables": {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        }
+      },
+      "sae": {
+        "repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "layer": 5,
+        "feature_id": null,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "resolved_revision": null,
+        "feature_ids": [
+          30908,
+          12207
+        ]
+      },
+      "loading_evidence": {
+        "model_revision": {
+          "value": null,
+          "verification": "config metadata only; exact loaded weights unverified"
+        },
+        "tokenizer_revision": {
+          "value": null,
+          "requested_revision": null,
+          "verification": "metadata only; exact loaded tokenizer unverified"
+        },
+        "sae_revision": {
+          "value": null,
+          "verification": "not recorded"
+        },
+        "model_eval": true,
+        "exact_loaded_state": "unverified; checkpoint hashes not available"
+      },
+      "generation_source_evidence": {
+        "methods": {
+          "generate": {
+            "status": "source inspected; execution path unverified",
+            "module": "transformers.generation.utils",
+            "source_file": "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py",
+            "source_file_sha256": "7944240ff1ee27a7b3acc16571b7a480cc14f16e7222aeb1a79d289ebc96e3ea",
+            "selection_lines": [
+              "logits_processor: LogitsProcessorList | None = None,",
+              "parameters to generate(), e.g. `.generate(inputs, num_beams=4, do_sample=True)`.",
+              "logits_processor (`LogitsProcessorList`, *optional*):",
+              "logits_processor=logits_processor,",
+              "logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()",
+              "prepared_logits_processor = self._get_logits_processor(",
+              "logits_processor=logits_processor,",
+              "logits_processor=prepared_logits_processor,"
+            ]
+          },
+          "_sample": {
+            "status": "source inspected; execution path unverified",
+            "module": "transformers.generation.utils",
+            "source_file": "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py",
+            "source_file_sha256": "7944240ff1ee27a7b3acc16571b7a480cc14f16e7222aeb1a79d289ebc96e3ea",
+            "selection_lines": [
+              "logits_processor: LogitsProcessorList,",
+              "logits_processor (`LogitsProcessorList`):",
+              "do_sample = generation_config.do_sample",
+              "next_token_scores = logits_processor(input_ids, next_token_logits)",
+              "if do_sample:",
+              "next_tokens = torch.argmax(next_token_scores, dim=-1)"
+            ]
+          },
+          "_get_logits_processor": {
+            "status": "source inspected; execution path unverified",
+            "module": "transformers.generation.utils",
+            "source_file": "/usr/local/lib/python3.13/dist-packages/transformers/generation/utils.py",
+            "source_file_sha256": "7944240ff1ee27a7b3acc16571b7a480cc14f16e7222aeb1a79d289ebc96e3ea",
+            "selection_lines": [
+              "def _get_logits_processor(",
+              "logits_processor: LogitsProcessorList | None = None,",
+              "if logits_processor is None:",
+              "logits_processor = []",
+              "processors = self._merge_criteria_processor_list(processors, logits_processor)",
+              "if generation_config.do_sample:"
+            ]
+          }
+        },
+        "actual_processor_order": "unverified; method source is not an execution trace"
+      },
+      "rows": [
+        {
+          "condition_id": "baseline",
+          "feature_id": null,
+          "coefficient": 0,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            20,
+            20,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 18.875,
+              "processed_score": -1.6004126071929932
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 20.25,
+              "processed_score": -0.22541262209415436
+            }
+          ],
+          "raw_margin_recomputed": -1.375,
+          "processed_margin_recomputed": -1.3749999850988388,
+          "raw_minus_baseline": 0.0,
+          "teacher_forced_first_margin": -1.3750000596046448,
+          "full_answer_margin": -1.4600286781787872,
+          "actual_minus_tf": 5.960464477539063e-08,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "55 days",
+          "label": "correct",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f30908-c7",
+          "feature_id": 30908,
+          "coefficient": 7,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            20,
+            20,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 16.875,
+              "processed_score": -0.8981232643127441
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 17.25,
+              "processed_score": -0.5231232643127441
+            }
+          ],
+          "raw_margin_recomputed": -0.375,
+          "processed_margin_recomputed": -0.375,
+          "raw_minus_baseline": 1.0,
+          "teacher_forced_first_margin": -0.5,
+          "full_answer_margin": 1.573784351348877,
+          "actual_minus_tf": 0.125,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "55 days",
+          "label": "correct",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f30908-c8",
+          "feature_id": 30908,
+          "coefficient": 8,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            17,
+            23,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 16.375,
+              "processed_score": -0.6931471824645996
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 16.375,
+              "processed_score": -0.6931471824645996
+            }
+          ],
+          "raw_margin_recomputed": 0.0,
+          "processed_margin_recomputed": 0.0,
+          "raw_minus_baseline": 1.375,
+          "teacher_forced_first_margin": -0.125,
+          "full_answer_margin": 0.7332298755645752,
+          "actual_minus_tf": 0.125,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "28 days",
+          "label": "lure",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f30908-c8p5",
+          "feature_id": 30908,
+          "coefficient": 8.5,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            17,
+            23,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 16.125,
+              "processed_score": -0.6325989961624146
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 16.0,
+              "processed_score": -0.7575989961624146
+            }
+          ],
+          "raw_margin_recomputed": 0.125,
+          "processed_margin_recomputed": 0.125,
+          "raw_minus_baseline": 1.5,
+          "teacher_forced_first_margin": null,
+          "full_answer_margin": null,
+          "actual_minus_tf": null,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "28 days",
+          "label": "lure",
+          "eos_valid": true,
+          "equivalence": "passed"
+        },
+        {
+          "condition_id": "f12207-c8",
+          "feature_id": 12207,
+          "coefficient": 8,
+          "prompt_token_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+          "prompt_text_sha256": "ecab05aa1fc47971454a82f663f282b668e29966d0b62740defd33f3ca8dc7e5",
+          "candidate_token_ids": {
+            "correct": [
+              220,
+              20,
+              20,
+              2756
+            ],
+            "lure": [
+              220,
+              17,
+              23,
+              2756
+            ]
+          },
+          "generated_token_ids": [
+            220,
+            17,
+            23,
+            2756,
+            248044
+          ],
+          "branch_tokens": [
+            {
+              "token_id": 17,
+              "raw_logit": 17.875,
+              "processed_score": -0.42870065569877625
+            },
+            {
+              "token_id": 20,
+              "raw_logit": 17.25,
+              "processed_score": -1.0537006855010986
+            }
+          ],
+          "raw_margin_recomputed": 0.625,
+          "processed_margin_recomputed": 0.6250000298023224,
+          "raw_minus_baseline": 2.0,
+          "teacher_forced_first_margin": null,
+          "full_answer_margin": null,
+          "actual_minus_tf": null,
+          "raw_logits_dtypes": [
+            "torch.float32"
+          ],
+          "processed_scores_dtypes": [
+            "torch.float32"
+          ],
+          "greedy_settings": {
+            "do_sample": false,
+            "renormalize_logits": true,
+            "max_new_tokens": 16,
+            "eos_token_id": [
+              248044
+            ],
+            "pad_token_id": 248044
+          },
+          "answer": "28 days",
+          "label": "lure",
+          "eos_valid": true,
+          "equivalence": "passed"
+        }
+      ]
+    }
+  ],
+  "validation_method": "CPU stdlib independent step/token arithmetic and ZIP/hash checks plus existing pilot validator; no generation"
+}

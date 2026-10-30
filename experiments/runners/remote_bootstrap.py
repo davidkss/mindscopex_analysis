@@ -111,7 +111,7 @@ def main():
     guarded_mode = config.get("behavioral", {{}}).get("output_mode")
     is_letter = (PAYLOAD["job"] == "research_experiments" and
                  guarded_mode in ("binary_choice_letter", "open_ended_crt"))
-    is_diagnostic = PAYLOAD["job"] in ("matched_branch_margin", "full_answer_likelihood")
+    is_diagnostic = PAYLOAD["job"] in ("matched_branch_margin", "full_answer_likelihood", "first_divergence_trace")
     letter_token = None
     if is_letter:
         sys.path.insert(0, str(repo_dir))
@@ -157,6 +157,11 @@ def main():
     # Always archive whatever exists (incl. job.log) so partial artifacts and the
     # captured stdout/stderr survive even when the job crashed or OOM-ed.
     archive_base = output_root / PAYLOAD["run_name"]
+    if PAYLOAD["job"] == "first_divergence_trace":
+        for existing in (archive_base.with_suffix(".zip"),
+                         Path("/content") / f"{{PAYLOAD['run_name']}}_artifacts.zip"):
+            if existing.exists() or existing.is_symlink():
+                raise FileExistsError(f"Refusing existing trace archive: {{existing}}")
     if archive_base.with_suffix(".zip").exists():
         archive_base.with_suffix(".zip").unlink()
     archive_path = Path(shutil.make_archive(str(archive_base), "zip", str(run_dir)))

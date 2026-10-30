@@ -23,6 +23,7 @@ from experiments.runners.config import job_name, load_toml, run_name, table  # n
 from experiments.runners.remote_bootstrap import render_bootstrap  # noqa: E402
 
 JOB_PATHS = {
+    "first_divergence_trace": "experiments/jobs/first_divergence_trace.py",
     "crt_text_responses": "experiments/jobs/crt_text_responses.py",
     "cross_layer_siblings": "experiments/jobs/cross_layer_siblings.py",
     "feature_diagnostics": "experiments/jobs/feature_diagnostics.py",
@@ -227,8 +228,14 @@ def launch_one(
     gpu = default_gpu if default_gpu is not None else colab_cfg.get("gpu")
     tpu = default_tpu if default_tpu is not None else colab_cfg.get("tpu")
 
+    if job == "first_divergence_trace":
+        from experiments.jobs.first_divergence_trace import prepare_plan
+        if source != "archive":
+            raise ValueError("First trace requires archive source with reference CSVs")
+        prepare_plan(config)  # CPU-only preflight before session allocation or upload.
+
     local_run_dir = root / "results" / "runs" / f"{timestamp()}_{name}"
-    local_run_dir.mkdir(parents=True, exist_ok=(job not in {"matched_branch_margin", "full_answer_likelihood"}))
+    local_run_dir.mkdir(parents=True, exist_ok=(job not in {"matched_branch_margin", "full_answer_likelihood", "first_divergence_trace"}))
     local_config = local_run_dir / "config.toml"
     shutil.copyfile(config_path, local_config)
 
@@ -267,6 +274,9 @@ def launch_one(
 
     if source == "archive":
         make_source_archive(root, local_run_dir / "source.zip")
+        if job == "first_divergence_trace":
+            from experiments.jobs.first_divergence_trace import include_reference_inputs
+            include_reference_inputs(root, local_run_dir / "source.zip")
     elif source != "git":
         raise ValueError(f"Unknown [remote].source={source!r}")
 
@@ -347,6 +357,10 @@ def launch_one(
             f"remote job {name!r} finished but no artifact archive could be downloaded; "
             f"inspect {local_run_dir}"
         )
+    if job == "first_divergence_trace":
+        manifest = local_run_dir / "artifacts" / "job_manifest.json"
+        if not manifest.is_file() or json.loads(manifest.read_text()).get("status") != "succeeded":
+            raise RuntimeError(f"Trace artifacts do not confirm success; inspect {local_run_dir}")
     return local_run_dir
 
 
@@ -420,6 +434,12 @@ def main() -> None:
                 )
             except Exception as exc:  # noqa: BLE001
                 if not args.continue_on_error:
+                    raise
+                try:
+                    failed_job = job_name(load_toml(config_path))
+                except (OSError, ValueError, TypeError):
+                    failed_job = None  # Preserve legacy continue-on-error for malformed configs.
+                if failed_job == "first_divergence_trace":
                     raise
                 print(f"[launch] config {config_path.name} failed: {exc}", flush=True)
                 print("[launch] --continue-on-error: resetting session, moving on", flush=True)

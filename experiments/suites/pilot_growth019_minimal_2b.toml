@@ -1,0 +1,5 @@
+[suite]
+configs = [
+  "../configs/pilot_growth019_block-1_2b.toml",
+  "../configs/pilot_growth019_block-2_2b.toml",
+]

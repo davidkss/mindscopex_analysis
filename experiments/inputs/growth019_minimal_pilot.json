@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "model_id": "Qwen/Qwen3.5-2B-Base",
+  "sae_repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+  "case_id": "crt_fresh_v2_growth_019",
+  "layer": 5,
+  "token_position": "all",
+  "check_equivalence": true,
+  "blocks": ["block-1", "block-2"],
+  "conditions": [
+    {"condition_id": "baseline", "feature_id": null, "coefficient": 0},
+    {"condition_id": "f30908-c7", "feature_id": 30908, "coefficient": 7},
+    {"condition_id": "f30908-c8", "feature_id": 30908, "coefficient": 8},
+    {"condition_id": "f30908-c8p5", "feature_id": 30908, "coefficient": 8.5},
+    {"condition_id": "f12207-c8", "feature_id": 12207, "coefficient": 8}
+  ],
+  "n_observations": 10,
+  "expected_generate_calls": 20,
+  "unit": "5 conditions x 2 fresh-process blocks; instrumented/uninstrumented pair is one observation",
+  "positive_margin_expected": false
+}

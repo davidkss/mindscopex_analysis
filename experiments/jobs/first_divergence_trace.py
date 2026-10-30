@@ -21,6 +21,18 @@ ALLOWED_COEFFICIENTS = (0, 7, 8)
 
 
 def prepare_plan(config):
+    if "pilot" in config:
+        from experiments.growth019_minimal_pilot import build_plan
+        if (job_name(config) != "first_divergence_trace" or table(config, "diagnostic")
+                or set(table(config, "pilot")) != {"block_id"}):
+            raise ValueError("Pilot requires a standalone block config")
+        plan = build_plan(config["pilot"]["block_id"])
+        if run_name(config) != plan["run_id"]:
+            raise ValueError("Pilot run.name must match its unique block run_id")
+        print(json.dumps(dict(block_id=plan["block_id"], run_id=plan["run_id"],
+                              n_unique_measurements=5, expected_generate_calls=10,
+                              conditions=plan["pilot_manifest"]["conditions"])), flush=True)
+        return plan
     cfg = table(config, "diagnostic")
     if (job_name(config) != "first_divergence_trace" or {k: v for k, v in cfg.items() if k != "coefficient"} != PINNED
             or type(cfg.get("coefficient")) is not int
@@ -94,24 +106,34 @@ def run(config_path, output_root):
     with (run_dir / "config.toml").open("xb") as stream:
         stream.write(config_path.read_bytes())
     write_new(run_dir / "plan.json", plan)
-    command = [sys.executable, "-u", str(ROOT / "experiments/trace_fresh_v2_first_divergence.py"),
-               "--run-model", "--case-id", config["diagnostic"]["case_id"],
-               "--coefficient", str(config["diagnostic"]["coefficient"]),
-               "--check-equivalence", "--output", str(run_dir / "actual_first_divergence.json")]
-    metadata = dict(status="running", command=command, expected_generate_calls=2,
+    command = [sys.executable, "-u", str(ROOT / "experiments/trace_fresh_v2_first_divergence.py"), "--run-model"]
+    if plan.get("pilot"):
+        command += ["--pilot-block", plan["block_id"]]
+    else:
+        command += ["--case-id", config["diagnostic"]["case_id"],
+                    "--coefficient", str(config["diagnostic"]["coefficient"]), "--check-equivalence"]
+    command += ["--output", str(run_dir / "actual_first_divergence.json")]
+    metadata = dict(status="running", command=command, expected_generate_calls=plan["expected_generate_calls"],
                     source_files=plan["source_files"])
+    if plan.get("pilot"):
+        metadata.update(block_id=plan["block_id"], run_id=plan["run_id"],
+                        pilot_manifest_sha256=plan["pilot_manifest_sha256"], n_observations=5)
     manifest = run_dir / "job_manifest.json"
     write_new(manifest, metadata)
     try:
         with (run_dir / "diagnostic.log").open("x", encoding="utf-8") as log:
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
         output = json.loads((run_dir / "actual_first_divergence.json").read_text())
-        if (output.get("status") != "captured" or output.get("n_unique_measurements") != 1
-                or output.get("n_slot_comparisons") != 2 or output.get("expected_generate_calls") != 2
-                or output.get("filters") != dict(case_id=PINNED["case_id"],
-                                                       coefficient=config["diagnostic"]["coefficient"])):
-            raise ValueError("Remote diagnostic did not produce the selected captured result")
-        validate_equivalence(output, plan)
+        if plan.get("pilot"):
+            from experiments.growth019_minimal_pilot import validate_result
+            validate_result(output, plan)
+        else:
+            if (output.get("status") != "captured" or output.get("n_unique_measurements") != 1
+                    or output.get("n_slot_comparisons") != 2 or output.get("expected_generate_calls") != 2
+                    or output.get("filters") != dict(case_id=PINNED["case_id"],
+                                                           coefficient=config["diagnostic"]["coefficient"])):
+                raise ValueError("Remote diagnostic did not produce the selected captured result")
+            validate_equivalence(output, plan)
         metadata.update(status="succeeded", equivalence_validation="passed")
     except Exception as exc:
         metadata.update(status="failed", error=str(exc), returncode=getattr(exc, "returncode", None))

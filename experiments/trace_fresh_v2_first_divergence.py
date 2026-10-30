@@ -199,6 +199,8 @@ def inspect_capture(wrapper, candidate_ids, eos_ids):
         ids = sorted(set(actual_allowed + [selected]))
         steps.append(dict(
             step_zero_based=i, prefix_token_ids=prefix, allowed_token_ids=actual_allowed,
+            raw_logits_dtype=str(getattr(raw, 'dtype', 'not recorded')),
+            processed_scores_dtype=str(getattr(processed, 'dtype', 'not recorded')),
             constraint_verified=valid_constraint, selected_token_id=selected,
             tokens=[dict(token_id=t, raw_logit=scalar(raw[0, t].item()),
                          processed_score=scalar(processed[0, t].item())) for t in ids],
@@ -242,6 +244,8 @@ def inspect_capture(wrapper, candidate_ids, eos_ids):
     return dict(prompt_token_ids=prompt, candidate_token_ids=dict(zip(("correct", "lure"), candidate_ids)),
                 common_prefix_length=k, candidate_layout=layout, generated_token_ids=generated,
                 eos_token_ids=eos_ids, eos_steps=eos_steps,
+                greedy_settings={key: wrapper.kwargs.get(key) for key in (
+                    'do_sample','renormalize_logits','max_new_tokens','eos_token_id','pad_token_id')},
                 termination="eos" if eos_steps else "no_eos_observed",
                 eos_observed=bool(eos_steps), eos_terminated=eos_terminated,
                 complete_candidate=label is not None, candidate_label=label,
@@ -258,14 +262,14 @@ def inspect_capture(wrapper, candidate_ids, eos_ids):
 
 
 @contextmanager
-def intervention(block, sae, coefficient):
+def intervention(block, sae, coefficient, *, feature_id=30908):
     """Same production hook factory; coefficient zero is a no-hook baseline."""
     if coefficient == 0:
         yield
         return
     from mindscopex_analysis.qwen_scope import make_feature_steering_hook
     handle = block.register_forward_hook(make_feature_steering_hook(
-        sae, [30908], coefficient=coefficient, token_position="all"))
+        sae, [feature_id], coefficient=coefficient, token_position="all"))
     try:
         yield
     finally:
@@ -315,11 +319,11 @@ class SequenceRecordingModel:
         return output
 
 
-def compare_uninstrumented(model, tokenizer, case, block, sae, coefficient, capture):
+def compare_uninstrumented(model, tokenizer, case, block, sae, coefficient, capture, *, feature_id=30908):
     """One additional production call at the same condition; never a new decode loop."""
     from mindscopex_analysis.research import _binary_choice_completion
     observer = SequenceRecordingModel(model)
-    with intervention(block, sae, coefficient):
+    with intervention(block, sae, coefficient, feature_id=feature_id):
         answer = _binary_choice_completion(observer, tokenizer, case, max_new_tokens=16)
     ids_equal = observer.sequence == capture["generated_token_ids"]
     answers_equal = answer == capture["answer"]
@@ -330,7 +334,7 @@ def compare_uninstrumented(model, tokenizer, case, block, sae, coefficient, capt
                 note="Passive observer changes no generation arguments; equality is per observed run.")
 
 
-def capture_case(model, tokenizer, case, block, sae, coefficient):
+def capture_case(model, tokenizer, case, block, sae, coefficient, *, feature_id=30908):
     from mindscopex_analysis.research import _binary_choice_completion
     text_tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
     candidates = [list(text_tokenizer.encode(text, add_special_tokens=False))
@@ -341,7 +345,7 @@ def capture_case(model, tokenizer, case, block, sae, coefficient):
         raise ValueError("Tokenizer requires EOS IDs")
     wrapper = RecordingModel(model)
     answer, error = None, None
-    with intervention(block, sae, coefficient):
+    with intervention(block, sae, coefficient, feature_id=feature_id):
         try:
             answer = _binary_choice_completion(wrapper, tokenizer, case, max_new_tokens=16)
         except RuntimeError as exc:
@@ -357,6 +361,43 @@ def capture_case(model, tokenizer, case, block, sae, coefficient):
     if error is not None:
         record.update(behavioral_response_valid=False, new_generation_label=None)
     return record
+
+
+def loading_evidence(model, tokenizer):
+    """Report available metadata, never turn a requested/cache revision into weight proof."""
+    config = getattr(model, 'config', None)
+    init = getattr(tokenizer, 'init_kwargs', {})
+    return dict(model_revision=dict(value=getattr(config, '_commit_hash', None),
+                                    verification='config metadata only; exact loaded weights unverified'),
+                tokenizer_revision=dict(value=init.get('_commit_hash'),
+                                        requested_revision=init.get('revision'),
+                                        verification='metadata only; exact loaded tokenizer unverified'),
+                sae_revision=dict(value=None, verification='not recorded'),
+                model_eval=(None if getattr(model, 'training', None) is None else model.training is False),
+                exact_loaded_state='unverified; checkpoint hashes not available')
+
+
+def generation_source_evidence(model):
+    """Inspect installed methods without executing generation/processor construction."""
+    import inspect
+    records = {}
+    for name in ('generate', '_sample', '_get_logits_processor'):
+        method = getattr(model, name, None)
+        if method is None:
+            records[name] = dict(status='not available')
+            continue
+        try:
+            method = inspect.unwrap(method)
+            source = inspect.getsource(method)
+            path = inspect.getsourcefile(method)
+            records[name] = dict(status='source inspected; execution path unverified',
+                                 module=getattr(method, '__module__', None), source_file=path,
+                                 source_file_sha256=digest(Path(path)) if path else None,
+                                 selection_lines=[line.strip() for line in source.splitlines()
+                                                  if any(x in line for x in ('argmax','logits_processor','do_sample'))])
+        except (OSError, TypeError) as exc:
+            records[name] = dict(status='source unavailable', reason=type(exc).__name__)
+    return dict(methods=records, actual_processor_order='unverified; method source is not an execution trace')
 
 
 def run_model(plan, *, check_equivalence=False):
@@ -381,6 +422,9 @@ def run_model(plan, *, check_equivalence=False):
     if not torch.cuda.is_available():
         raise RuntimeError("This opt-in diagnostic requires GPU; CPU tests use mocks")
     profile = get_qwen35_analysis_profile("2b")
+    if plan.get("pilot") and (profile.analysis_model_id != plan["pilot_manifest"]["model_id"]
+                              or profile.sae_repo_id != plan["pilot_manifest"]["sae_repo_id"]):
+        raise ValueError("Loaded profile differs from the pilot manifest")
     dtype = recommended_dtype_name()
     model, processor = load_qwen_text_generation_model(
         profile.analysis_model_id, device_map="auto", dtype=dtype)
@@ -395,7 +439,7 @@ def run_model(plan, *, check_equivalence=False):
              if c.case_id in CASE_IDS and c.family == "crt_growth"}
     # Verify all conditions against saved B tokens before the first model.generate call.
     for item in plan["measurements"]:
-        case, score = cases[item["case_id"]], item["score_reference"]
+        case, score = cases[item["case_id"]], (item.get("input_reference") or item["score_reference"])
         prompt = tokenizer(case.prompt, return_tensors="pt")["input_ids"][0].tolist()
         if token_ids_sha256(prompt) != score["prompt_token_ids_sha256"]:
             raise ValueError("Prompt IDs differ from saved Protocol B")
@@ -407,20 +451,28 @@ def run_model(plan, *, check_equivalence=False):
     plan["environment"] = environment(model, processor, tokenizer, torch, transformers, dtype)
     plan["sae"] = dict(repo_id=profile.sae_repo_id, layer=5, feature_id=30908,
                         device=sae_device, dtype=str(sae.W_dec.dtype), resolved_revision=None)
+    if plan.get("pilot"):
+        plan["sae"].update(feature_id=None, feature_ids=plan["feature_ids"])
+    plan["loading_evidence"] = loading_evidence(model, tokenizer)
+    plan["generation_source_evidence"] = generation_source_evidence(model)
     plan["source_hashes"] = {str(p.relative_to(ROOT)): digest(p) for p in (
         Path(__file__), ROOT / "experiments/diagnose_rate027_baseline.py",
         ROOT / "src/mindscopex_analysis/research.py", ROOT / "src/mindscopex_analysis/qwen_scope.py")}
+    if plan.get("pilot"):
+        plan["source_hashes"].update({name: digest(ROOT / name) for name in (
+            "experiments/growth019_minimal_pilot.py", "experiments/inputs/growth019_minimal_pilot.json")})
     captured = {}
     for item in plan["measurements"]:
-        record = capture_case(model, processor, cases[item["case_id"]], block, sae, item["coefficient"])
-        score = item["score_reference"]
+        feature_args = {"feature_id": item["feature_id"]} if plan.get("pilot") else {}
+        record = capture_case(model, processor, cases[item["case_id"]], block, sae, item["coefficient"], **feature_args)
+        score = item.get("input_reference") or item["score_reference"]
         if (token_ids_sha256(record["prompt_token_ids"]) != score["prompt_token_ids_sha256"]
                 or any(record["candidate_token_ids"][label] != json.loads(score[f"{label}_token_ids"])
                        for label in ("correct", "lure"))):
             raise ValueError("Actual capture inputs differ from saved Protocol B")
         record["equivalence_check"] = (
             compare_uninstrumented(model, processor, cases[item["case_id"]], block, sae,
-                                   item["coefficient"], record)
+                                   item["coefficient"], record, **feature_args)
             if check_equivalence else dict(status="not_run"))
         item["capture"] = record
         captured[item["measurement_id"]] = record
@@ -458,6 +510,7 @@ def main(argv=None):
     mode.add_argument("--run-model", action="store_true", help="Explicit model download/loading/GPU opt-in")
     parser.add_argument("--check-equivalence", action="store_true",
                         help="With future GPU execution: add one unchanged production call per condition")
+    parser.add_argument("--pilot-block", choices=("block-1", "block-2"), help="Five-condition minimal pilot block")
     parser.add_argument("--case-id", choices=CASE_IDS, help="Select one of the seven prepared Growth cases")
     parser.add_argument("--coefficient", type=int, choices=COEFFICIENTS,
                         help="Select coefficient 0, 7 or 8; default includes all three")
@@ -467,12 +520,23 @@ def main(argv=None):
         raise FileExistsError(f"Refusing existing output: {args.output}")
     if args.output.resolve().is_relative_to(ROOT / "results/runs"):
         raise ValueError("Use a separate new diagnostics path, outside historical results/runs")
-    plan = filter_plan(load_plan(), case_id=args.case_id, coefficient=args.coefficient,
-                       check_equivalence=args.check_equivalence)
-    print(json.dumps({k: plan[k] for k in ("target_counts", "target_slots", "coefficients",
-                                          "n_unique_measurements", "n_slot_comparisons",
-                                          "n_exception_slots", "n_selected_slot_comparisons",
-                                          "n_selected_exception_slots", "expected_generate_calls")}, indent=2))
+    if args.pilot_block:
+        if args.case_id is not None or args.coefficient is not None:
+            parser.error("Pilot block cannot be combined with legacy case/coefficient filters")
+        from experiments.growth019_minimal_pilot import build_plan
+        plan = build_plan(args.pilot_block)
+        args.check_equivalence = True
+    else:
+        plan = filter_plan(load_plan(), case_id=args.case_id, coefficient=args.coefficient,
+                           check_equivalence=args.check_equivalence)
+    summary = {k: plan[k] for k in ("target_counts", "target_slots", "coefficients",
+                                    "n_unique_measurements", "n_slot_comparisons",
+                                    "n_exception_slots", "n_selected_slot_comparisons",
+                                    "n_selected_exception_slots", "expected_generate_calls")}
+    if plan.get("pilot"):
+        summary.update(block_id=plan["block_id"], run_id=plan["run_id"],
+                       conditions=plan["pilot_manifest"]["conditions"])
+    print(json.dumps(summary, indent=2))
     write_new(args.output, run_model(plan, check_equivalence=args.check_equivalence) if args.run_model else plan)
 
 

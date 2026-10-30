@@ -1,0 +1,14 @@
+[run]
+name = "pilot_growth019_block-2_2b"
+job = "first_divergence_trace"
+
+[pilot]
+block_id = "block-2"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

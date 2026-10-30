@@ -1,0 +1,108 @@
+{
+  "scalar": {
+    "mode": "stdlib representation emulation and explicit reference argmax",
+    "rows": [
+      {
+        "case": "equal",
+        "fp32_before_quantization": [
+          16.375,
+          16.375
+        ],
+        "bf16_values": [
+          16.375,
+          16.375
+        ],
+        "fp32_after_bf16": [
+          16.375,
+          16.375
+        ],
+        "reference_fp32_token": 17,
+        "reference_bf16_token": 17,
+        "reference_widened_token": 17
+      },
+      {
+        "case": "correct_plus_0.01",
+        "fp32_before_quantization": [
+          16.375,
+          16.385000228881836
+        ],
+        "bf16_values": [
+          16.375,
+          16.375
+        ],
+        "fp32_after_bf16": [
+          16.375,
+          16.375
+        ],
+        "reference_fp32_token": 20,
+        "reference_bf16_token": 17,
+        "reference_widened_token": 17
+      },
+      {
+        "case": "correct_minus_0.01",
+        "fp32_before_quantization": [
+          16.375,
+          16.364999771118164
+        ],
+        "bf16_values": [
+          16.375,
+          16.375
+        ],
+        "fp32_after_bf16": [
+          16.375,
+          16.375
+        ],
+        "reference_fp32_token": 17,
+        "reference_bf16_token": 17,
+        "reference_widened_token": 17
+      },
+      {
+        "case": "correct_plus_0.125",
+        "fp32_before_quantization": [
+          16.375,
+          16.5
+        ],
+        "bf16_values": [
+          16.375,
+          16.5
+        ],
+        "fp32_after_bf16": [
+          16.375,
+          16.5
+        ],
+        "reference_fp32_token": 20,
+        "reference_bf16_token": 20,
+        "reference_widened_token": 20
+      }
+    ],
+    "bf16_spacing_at_16_375": 0.125,
+    "allowed_order_probe": [
+      {
+        "allowed": [
+          17,
+          20
+        ],
+        "full_vocab_reference_token": 17,
+        "gathered_first_max_token": 17
+      },
+      {
+        "allowed": [
+          20,
+          17
+        ],
+        "full_vocab_reference_token": 17,
+        "gathered_first_max_token": 20
+      }
+    ],
+    "note": "Gathered-vector first-index selection differs from vocabulary-index selection; neither proves HF dispatch."
+  },
+  "torch": {
+    "status": "not installed",
+    "actual_tensor_cases": 0
+  },
+  "limitations": [
+    "No Transformers generation is executed.",
+    "Widening already quantized values does not recover pre-quantization information.",
+    "Actual logits/scores dtype at selection is not stored in the historical capture."
+  ]
+}

@@ -95,3 +95,25 @@ ChatGPT는 사용자가 '다음 진행해줘'라고 요청해도 이를 **GitHub
 ### Codex 지시서에 항상 포함할 문구
 
 > 코드 수정·테스트·Commit 전에 반드시 최신 Git HEAD, `MINDSCOPEX_WORKFLOW_RULES.md`, `research/journal/`의 최신 및 관련 MD를 읽고 이전 진행 이력·미검증 항목을 요약하라. 확인된 이력에 따라 작업을 수행하고, 기존 결과를 보존하며, 완료 후 연구 일지를 append-only로 갱신하라.
+
+## 9. Codex와 Colab CLI 실행 역할 분리
+
+2026-10-30 Phase 5-D-3B 후속 운영 결정이다. 기존 실행 이력과 위 규칙은 보존하며, Colab 실행 주체가 불명확한 표현이나 과거 예외 승인과 관계없이 **향후 기본 운영 방식은 이 절을 따른다.** 기존 README·실험 계획의 원격 실행 명령은 사용자 WSL 터미널에서 실행할 명령으로 해석한다.
+
+| 주체 | 책임 |
+|---|---|
+| ChatGPT | 연구 설계, 결과 분석, Codex 지시서 작성; Colab 실행 명령과 사전 점검 절차 안내; GPU 실행 결과 및 Artifact 해석 |
+| Codex | 코드 구현·수정, CPU 테스트·Mock 검증·Dry-run, Git Commit/Push, 연구 일지·기술 문서 작성, GPU 실행용 Config/Manifest 준비 |
+| 사용자 WSL 터미널 | 회사 인증서가 적용된 환경에서 Colab CLI 실행, A100 세션 생성 및 실험 실행, GPU 실행 로그·Artifact 확보 |
+| Google Colab | Qwen 모델·SAE 실제 로딩, CUDA Tensor/Hook 검증, 승인된 범위의 GPU 실험 수행 |
+
+### 필수 운영 원칙
+
+1. Codex는 기본적으로 `colab new`, `colab exec`, `colab stop` 등 원격 세션 제어 명령을 실행하지 않는다.
+2. GPU 실험은 사용자의 명시적 승인 후 **사용자 WSL 터미널**에서 수행한다.
+3. Codex는 실행 가능한 명령과 사전 검증 결과를 제공한다. 원격 연결 없는 CPU Dry-run과 실제 GPU 실행을 구분한다.
+4. ChatGPT는 GPU 실험 지시를 Codex의 코드 수정 지시와 분리한다.
+5. 예외적으로 Codex에 원격 실행을 맡기려면 사용자가 **실행 주체와 승인 범위**를 별도로 명시해야 한다. 과거 승인은 후속 실행·재시도·범위 확대의 포괄적 승인이 아니다.
+6. 기존 GPU 실행 결과와 실패 기록을 수정하거나 성공으로 재분류하지 않는다.
+
+Phase 5-D-3B에서는 사용자의 예외적 명시 승인에 따라 Codex가 Validation-only Launcher를 실행했으나 TLS 오류로 GPU 할당 전에 중단했다. 이 실패 기록은 유지한다. 후속 사용자 WSL 연결 성공은 모델/SAE 런타임 검증 성공을 의미하지 않는다. 회사 CA 사전 점검은 [Colab CLI 회사 CA TLS 운영 가이드](research/guides/colab_cli_corporate_ca_tls.md)를 따른다. 인증서 재설치·CLI 업데이트·TLS 검증 우회는 이번 후속 조치에 포함하지 않는다.

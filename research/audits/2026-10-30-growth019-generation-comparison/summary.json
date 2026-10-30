@@ -1,0 +1,1824 @@
+{
+  "status": "validated",
+  "rows": [
+    {
+      "coefficient": 0,
+      "answer": "55 days",
+      "label": "correct",
+      "actual_raw_margin": -1.375,
+      "actual_raw_preference": "correct",
+      "actual_processed_margin": -1.3749999850988388,
+      "teacher_forced_margin": -1.3750000596046448,
+      "full_margin": -1.4600286781787872,
+      "actual_minus_teacher_forced": 5.960464477539063e-08,
+      "prompt_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+      "candidate_token_ids": {
+        "correct": [
+          220,
+          20,
+          20,
+          2756
+        ],
+        "lure": [
+          220,
+          17,
+          23,
+          2756
+        ]
+      },
+      "branch": {
+        "step_zero_based": 1,
+        "prefix_token_ids": [
+          220
+        ],
+        "allowed_token_ids": [
+          17,
+          20
+        ],
+        "constraint_verified": true,
+        "selected_token_id": 20,
+        "tokens": [
+          {
+            "token_id": 17,
+            "raw_logit": 18.875,
+            "processed_score": -1.6004126071929932
+          },
+          {
+            "token_id": 20,
+            "raw_logit": 20.25,
+            "processed_score": -0.22541262209415436
+          }
+        ]
+      },
+      "eos_valid": true,
+      "equivalence": "passed",
+      "inputs": {
+        "result": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/artifacts/actual_first_divergence.json",
+          "sha256": "96930ddd95f890901343789b48237c7d2d9e2b6e0dc7bea202c9624c99405087"
+        },
+        "plan": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/artifacts/plan.json",
+          "sha256": "f2baf7956dc32b81a46e2fe8a13d5678dbeb0c3631b1bcb8430a3d285842451c"
+        },
+        "job": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/artifacts/job_manifest.json",
+          "sha256": "2a26f7bb06c4ea5cc849f19c174fa74c0d8496c1241a9788c3c8d55c7ba792a1"
+        },
+        "launcher": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/launcher_manifest.json",
+          "sha256": "81211412dc2511868a1fc625dc9947bcf3ab0825a442d0730222a68739982ec6"
+        },
+        "log": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/artifacts/diagnostic.log",
+          "sha256": "5930f277285493d52d50bf3e291db9c3249f600716bfb4f07aeddc08122772c4"
+        },
+        "job_log": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/artifacts/job.log",
+          "sha256": "674e96548210ce432a5aa4dd25896103f95301f0c8547b35e30e8bb660d88241"
+        },
+        "config": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/artifacts/config.toml",
+          "sha256": "a3e82cc8a9e4ee45870fdd75c4696eb9e6ab6a0309893946ed59cf846bba406b"
+        },
+        "source": {
+          "path": "results/runs/20261030-131401_trace_fresh_v2_growth019_c0_2b/source.zip",
+          "sha256": "e3a96d7db00ce7416f143321ba7393d6964cbbc51a4fe34dc2a4dfcfc4f2855b"
+        }
+      },
+      "environment": {
+        "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "transformers": "5.20.2",
+        "packages": {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        "cuda_runtime": "13.0",
+        "cuda_available": true,
+        "cudnn_version": 92700,
+        "gpus": [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        "model_id": "Qwen/Qwen3.5-2B-Base",
+        "requested_dtype": "bfloat16",
+        "model_configs": {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        "parameter_groups": [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        "parameter_examples": [
+          {
+            "name": "model.visual.patch_embed.proj.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.patch_embed.proj.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.pos_embed.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.attn.qkv.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          }
+        ],
+        "hf_device_map": null,
+        "model_class": "transformers.models.qwen3_5.modeling_qwen3_5.Qwen3_5ForConditionalGeneration",
+        "processor_class": "transformers.models.qwen3_vl.processing_qwen3_vl.Qwen3VLProcessor",
+        "tokenizer_class": "transformers.models.qwen3_5.tokenization_qwen3_5.Qwen3_5Tokenizer",
+        "tokenizer_name_or_path": "Qwen/Qwen3.5-2B-Base",
+        "tokenizer_revision_metadata": {
+          "revision": null,
+          "_commit_hash": null,
+          "name_or_path": "Qwen/Qwen3.5-2B-Base",
+          "tokenizer_file": null,
+          "vocab_file": null,
+          "merges_file": null
+        },
+        "cached_config_snapshot_hint": "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "snapshot_note": "Cache hint is not proof of the exact weights/tokenizer revision loaded.",
+        "generation_config": {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        "model_training": false,
+        "existing_forward_hooks": {},
+        "diagnostic_registered_hooks": 0,
+        "deterministic_algorithms": false,
+        "cudnn_deterministic": false,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "environment_variables": {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        }
+      },
+      "sae": {
+        "repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "layer": 5,
+        "feature_id": 30908,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "resolved_revision": null
+      },
+      "config_without_coefficient": {
+        "run": {
+          "job": "first_divergence_trace"
+        },
+        "diagnostic": {
+          "case_id": "crt_fresh_v2_growth_019",
+          "layer": 5,
+          "feature": 30908,
+          "check_equivalence": true
+        },
+        "colab": {
+          "gpu": "A100"
+        },
+        "remote": {
+          "source": "archive",
+          "repo_dir": "/content/mindscopex_analysis",
+          "output_root": "/content/mindscopex_artifacts"
+        }
+      },
+      "source_hashes": {
+        "experiments/trace_fresh_v2_first_divergence.py": "d54e70a73566ba245ddca3a846dbf8668835aa31762015f118a5ddf8c3d8c863",
+        "experiments/diagnose_rate027_baseline.py": "2cdafadd32c1d30783912b169aae4ac786fc673aacb17214f7be623f703d51d4",
+        "src/mindscopex_analysis/research.py": "d2872d5fa5912efa8cb57ae02386e8722ded0c90875b9ae23de886ff42a712c9",
+        "src/mindscopex_analysis/qwen_scope.py": "5642b127315c770fda3843534b0c3d6323108377c3bf2b1bda8c5beeb24cab28"
+      },
+      "input_hashes": {
+        "behavior": "5b6d8d1ba7c36e932540800097627c0fbf65d3e22e6fd49b49cdb6abcc9a035d",
+        "scores": "56cef3b86da88109c747b608f51a331e09b2d9ad71c316d44ebe0348b6306459",
+        "audit": "0f712ae63d8dde50ad4e98a6b8804caccca16392626d775414daddd138fddd91"
+      },
+      "launcher_git_commit": "c08ce11d65ef8b579671dffad9c3a30721875289",
+      "launcher_git_status": "",
+      "kernel_warnings": [
+        "[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.",
+        "[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel."
+      ],
+      "raw_delta_from_baseline": 0.0,
+      "answer_changed_from_baseline": false
+    },
+    {
+      "coefficient": 7,
+      "answer": "55 days",
+      "label": "correct",
+      "actual_raw_margin": -0.375,
+      "actual_raw_preference": "correct",
+      "actual_processed_margin": -0.375,
+      "teacher_forced_margin": -0.5,
+      "full_margin": 1.573784351348877,
+      "actual_minus_teacher_forced": 0.125,
+      "prompt_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+      "candidate_token_ids": {
+        "correct": [
+          220,
+          20,
+          20,
+          2756
+        ],
+        "lure": [
+          220,
+          17,
+          23,
+          2756
+        ]
+      },
+      "branch": {
+        "step_zero_based": 1,
+        "prefix_token_ids": [
+          220
+        ],
+        "allowed_token_ids": [
+          17,
+          20
+        ],
+        "constraint_verified": true,
+        "selected_token_id": 20,
+        "tokens": [
+          {
+            "token_id": 17,
+            "raw_logit": 16.875,
+            "processed_score": -0.8981232643127441
+          },
+          {
+            "token_id": 20,
+            "raw_logit": 17.25,
+            "processed_score": -0.5231232643127441
+          }
+        ]
+      },
+      "eos_valid": true,
+      "equivalence": "passed",
+      "inputs": {
+        "result": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/artifacts/actual_first_divergence.json",
+          "sha256": "a244ca3874f8d11e23543755de92f73c06cf79392d7937d43e00b80666058c2c"
+        },
+        "plan": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/artifacts/plan.json",
+          "sha256": "77f7470fbf9331b93934f22640d6155916d36462fd6e98955524a4edf20cb94a"
+        },
+        "job": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/artifacts/job_manifest.json",
+          "sha256": "c73738aa5c85ecbd31294394dd63baec9954cdda0766a4112ea01b30bfb5f510"
+        },
+        "launcher": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/launcher_manifest.json",
+          "sha256": "aef319987e8080523f53dfe04510a28f0bbe19abb3eeb710e9499351d5b5abed"
+        },
+        "log": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/artifacts/diagnostic.log",
+          "sha256": "6eaba6ba18809ecc20c5a7c1929184b2a2d39d1a35230a3402b874604680e76e"
+        },
+        "job_log": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/artifacts/job.log",
+          "sha256": "0851544ac6e8c63fe19424aaa31c3e5bfbf43508c51a9c59c53f179f9db161dd"
+        },
+        "config": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/artifacts/config.toml",
+          "sha256": "aa38fc6ccd76494dc4e9e478674b107ebbe9249b4c94bbe6ab2f3e69e289ab9f"
+        },
+        "source": {
+          "path": "results/runs/20261030-131523_trace_fresh_v2_growth019_c7_2b/source.zip",
+          "sha256": "e3a96d7db00ce7416f143321ba7393d6964cbbc51a4fe34dc2a4dfcfc4f2855b"
+        }
+      },
+      "environment": {
+        "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "transformers": "5.20.2",
+        "packages": {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        "cuda_runtime": "13.0",
+        "cuda_available": true,
+        "cudnn_version": 92700,
+        "gpus": [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        "model_id": "Qwen/Qwen3.5-2B-Base",
+        "requested_dtype": "bfloat16",
+        "model_configs": {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        "parameter_groups": [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        "parameter_examples": [
+          {
+            "name": "model.visual.patch_embed.proj.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.patch_embed.proj.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.pos_embed.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.attn.qkv.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          }
+        ],
+        "hf_device_map": null,
+        "model_class": "transformers.models.qwen3_5.modeling_qwen3_5.Qwen3_5ForConditionalGeneration",
+        "processor_class": "transformers.models.qwen3_vl.processing_qwen3_vl.Qwen3VLProcessor",
+        "tokenizer_class": "transformers.models.qwen3_5.tokenization_qwen3_5.Qwen3_5Tokenizer",
+        "tokenizer_name_or_path": "Qwen/Qwen3.5-2B-Base",
+        "tokenizer_revision_metadata": {
+          "revision": null,
+          "_commit_hash": null,
+          "name_or_path": "Qwen/Qwen3.5-2B-Base",
+          "tokenizer_file": null,
+          "vocab_file": null,
+          "merges_file": null
+        },
+        "cached_config_snapshot_hint": "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "snapshot_note": "Cache hint is not proof of the exact weights/tokenizer revision loaded.",
+        "generation_config": {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        "model_training": false,
+        "existing_forward_hooks": {},
+        "diagnostic_registered_hooks": 0,
+        "deterministic_algorithms": false,
+        "cudnn_deterministic": false,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "environment_variables": {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        }
+      },
+      "sae": {
+        "repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "layer": 5,
+        "feature_id": 30908,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "resolved_revision": null
+      },
+      "config_without_coefficient": {
+        "run": {
+          "job": "first_divergence_trace"
+        },
+        "diagnostic": {
+          "case_id": "crt_fresh_v2_growth_019",
+          "layer": 5,
+          "feature": 30908,
+          "check_equivalence": true
+        },
+        "colab": {
+          "gpu": "A100"
+        },
+        "remote": {
+          "source": "archive",
+          "repo_dir": "/content/mindscopex_analysis",
+          "output_root": "/content/mindscopex_artifacts"
+        }
+      },
+      "source_hashes": {
+        "experiments/trace_fresh_v2_first_divergence.py": "d54e70a73566ba245ddca3a846dbf8668835aa31762015f118a5ddf8c3d8c863",
+        "experiments/diagnose_rate027_baseline.py": "2cdafadd32c1d30783912b169aae4ac786fc673aacb17214f7be623f703d51d4",
+        "src/mindscopex_analysis/research.py": "d2872d5fa5912efa8cb57ae02386e8722ded0c90875b9ae23de886ff42a712c9",
+        "src/mindscopex_analysis/qwen_scope.py": "5642b127315c770fda3843534b0c3d6323108377c3bf2b1bda8c5beeb24cab28"
+      },
+      "input_hashes": {
+        "behavior": "5b6d8d1ba7c36e932540800097627c0fbf65d3e22e6fd49b49cdb6abcc9a035d",
+        "scores": "56cef3b86da88109c747b608f51a331e09b2d9ad71c316d44ebe0348b6306459",
+        "audit": "0f712ae63d8dde50ad4e98a6b8804caccca16392626d775414daddd138fddd91"
+      },
+      "launcher_git_commit": "c08ce11d65ef8b579671dffad9c3a30721875289",
+      "launcher_git_status": "",
+      "kernel_warnings": [
+        "[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.",
+        "[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel."
+      ],
+      "raw_delta_from_baseline": 1.0,
+      "answer_changed_from_baseline": false
+    },
+    {
+      "coefficient": 8,
+      "answer": "28 days",
+      "label": "lure",
+      "actual_raw_margin": 0.0,
+      "actual_raw_preference": "tie",
+      "actual_processed_margin": 0.0,
+      "teacher_forced_margin": -0.125,
+      "full_margin": 0.7332298755645752,
+      "actual_minus_teacher_forced": 0.125,
+      "prompt_sha256": "145bbd68f373722e8ae38ae183fab16f0ba13c529f315fb824ecf1e68fa45ea2",
+      "candidate_token_ids": {
+        "correct": [
+          220,
+          20,
+          20,
+          2756
+        ],
+        "lure": [
+          220,
+          17,
+          23,
+          2756
+        ]
+      },
+      "branch": {
+        "step_zero_based": 1,
+        "prefix_token_ids": [
+          220
+        ],
+        "allowed_token_ids": [
+          17,
+          20
+        ],
+        "constraint_verified": true,
+        "selected_token_id": 17,
+        "tokens": [
+          {
+            "token_id": 17,
+            "raw_logit": 16.375,
+            "processed_score": -0.6931471824645996
+          },
+          {
+            "token_id": 20,
+            "raw_logit": 16.375,
+            "processed_score": -0.6931471824645996
+          }
+        ]
+      },
+      "eos_valid": true,
+      "equivalence": "passed",
+      "inputs": {
+        "result": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/artifacts/actual_first_divergence.json",
+          "sha256": "209ba9f6be5b4b84ef9e438eac94d8b759c9ffd90e1e2e23432ea0226b4345dc"
+        },
+        "plan": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/artifacts/plan.json",
+          "sha256": "800d90b105fb110a515345cda7244706e8890b313f854261676a0948af3bcae4"
+        },
+        "job": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/artifacts/job_manifest.json",
+          "sha256": "0848fbee8341566ff12eda455257d7c0e74dc387f2a395dcac1d3afc35e5c55b"
+        },
+        "launcher": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/launcher_manifest.json",
+          "sha256": "092fadc6b6dffb8b89d562dc6601c7265a1b95aa4ad95fc49fc8d792bca68d8d"
+        },
+        "log": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/artifacts/diagnostic.log",
+          "sha256": "e1e4859ef4ff2058b2f2a5d2f324a5067eae06b4fad27f88db72c466366f99d8"
+        },
+        "job_log": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/artifacts/job.log",
+          "sha256": "2fccbd7fa6fa901da6f4e792fb2c0b30ead8dad3e48bfb60ae977005609d9e4b"
+        },
+        "config": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/artifacts/config.toml",
+          "sha256": "35ccec5482708ebc0cf2481ff72a5750478551ae05bc55b80c22ad1238d3e4fd"
+        },
+        "source": {
+          "path": "results/runs/20261030-104935_trace_fresh_v2_growth019_c8_2b/source.zip",
+          "sha256": "e885fa7be2eced9a9af024f33843d1fed25b5f44123574ae1d7e24567fd20bd7"
+        }
+      },
+      "environment": {
+        "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+        "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+        "torch": "2.11.0+cu130",
+        "transformers": "5.20.2",
+        "packages": {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        "cuda_runtime": "13.0",
+        "cuda_available": true,
+        "cudnn_version": 92700,
+        "gpus": [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        "model_id": "Qwen/Qwen3.5-2B-Base",
+        "requested_dtype": "bfloat16",
+        "model_configs": {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        "parameter_groups": [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        "parameter_examples": [
+          {
+            "name": "model.visual.patch_embed.proj.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.patch_embed.proj.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.pos_embed.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm1.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.norm2.bias",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          },
+          {
+            "name": "model.visual.blocks.0.attn.qkv.weight",
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0"
+          }
+        ],
+        "hf_device_map": null,
+        "model_class": "transformers.models.qwen3_5.modeling_qwen3_5.Qwen3_5ForConditionalGeneration",
+        "processor_class": "transformers.models.qwen3_vl.processing_qwen3_vl.Qwen3VLProcessor",
+        "tokenizer_class": "transformers.models.qwen3_5.tokenization_qwen3_5.Qwen3_5Tokenizer",
+        "tokenizer_name_or_path": "Qwen/Qwen3.5-2B-Base",
+        "tokenizer_revision_metadata": {
+          "revision": null,
+          "_commit_hash": null,
+          "name_or_path": "Qwen/Qwen3.5-2B-Base",
+          "tokenizer_file": null,
+          "vocab_file": null,
+          "merges_file": null
+        },
+        "cached_config_snapshot_hint": "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "snapshot_note": "Cache hint is not proof of the exact weights/tokenizer revision loaded.",
+        "generation_config": {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        "model_training": false,
+        "existing_forward_hooks": {},
+        "diagnostic_registered_hooks": 0,
+        "deterministic_algorithms": false,
+        "cudnn_deterministic": false,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "environment_variables": {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        }
+      },
+      "sae": {
+        "repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "layer": 5,
+        "feature_id": 30908,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "resolved_revision": null
+      },
+      "config_without_coefficient": {
+        "run": {
+          "job": "first_divergence_trace"
+        },
+        "diagnostic": {
+          "case_id": "crt_fresh_v2_growth_019",
+          "layer": 5,
+          "feature": 30908,
+          "check_equivalence": true
+        },
+        "colab": {
+          "gpu": "A100"
+        },
+        "remote": {
+          "source": "archive",
+          "repo_dir": "/content/mindscopex_analysis",
+          "output_root": "/content/mindscopex_artifacts"
+        }
+      },
+      "source_hashes": {
+        "experiments/trace_fresh_v2_first_divergence.py": "d54e70a73566ba245ddca3a846dbf8668835aa31762015f118a5ddf8c3d8c863",
+        "experiments/diagnose_rate027_baseline.py": "2cdafadd32c1d30783912b169aae4ac786fc673aacb17214f7be623f703d51d4",
+        "src/mindscopex_analysis/research.py": "d2872d5fa5912efa8cb57ae02386e8722ded0c90875b9ae23de886ff42a712c9",
+        "src/mindscopex_analysis/qwen_scope.py": "5642b127315c770fda3843534b0c3d6323108377c3bf2b1bda8c5beeb24cab28"
+      },
+      "input_hashes": {
+        "behavior": "5b6d8d1ba7c36e932540800097627c0fbf65d3e22e6fd49b49cdb6abcc9a035d",
+        "scores": "56cef3b86da88109c747b608f51a331e09b2d9ad71c316d44ebe0348b6306459",
+        "audit": "0f712ae63d8dde50ad4e98a6b8804caccca16392626d775414daddd138fddd91"
+      },
+      "launcher_git_commit": "aa8c047a5cd9aa7643a26d00a5b584651f24d1cf",
+      "launcher_git_status": "",
+      "kernel_warnings": [
+        "[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.",
+        "[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel."
+      ],
+      "raw_delta_from_baseline": 1.375,
+      "answer_changed_from_baseline": true
+    }
+  ],
+  "validation_errors": [],
+  "analysis_script_sha256": "05bb5500ded61b863ac0dbddf8be9b77ef9a3f9b3896f9efd93ee3a33df1c06d",
+  "adjacent_transitions": [
+    {
+      "from_coefficient": 0,
+      "to_coefficient": 7,
+      "raw_margin_delta": 1.0,
+      "from_label": "correct",
+      "to_label": "correct",
+      "answer_changed": false
+    },
+    {
+      "from_coefficient": 7,
+      "to_coefficient": 8,
+      "raw_margin_delta": 0.375,
+      "from_label": "correct",
+      "to_label": "lure",
+      "answer_changed": true
+    }
+  ],
+  "environment_comparison": [
+    {
+      "field": "environment.model_id",
+      "status": "matched recorded values",
+      "values": [
+        "Qwen/Qwen3.5-2B-Base",
+        "Qwen/Qwen3.5-2B-Base",
+        "Qwen/Qwen3.5-2B-Base"
+      ]
+    },
+    {
+      "field": "environment.model_configs.model._commit_hash",
+      "status": "not recorded",
+      "values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "field": "environment.model_configs.text._commit_hash",
+      "status": "not recorded",
+      "values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "field": "environment.tokenizer_name_or_path",
+      "status": "matched recorded values",
+      "values": [
+        "Qwen/Qwen3.5-2B-Base",
+        "Qwen/Qwen3.5-2B-Base",
+        "Qwen/Qwen3.5-2B-Base"
+      ]
+    },
+    {
+      "field": "environment.tokenizer_revision_metadata.revision",
+      "status": "not recorded",
+      "values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "field": "environment.tokenizer_revision_metadata._commit_hash",
+      "status": "not recorded",
+      "values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "field": "environment.cached_config_snapshot_hint",
+      "status": "matched recorded values",
+      "values": [
+        "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json",
+        "/root/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/config.json"
+      ]
+    },
+    {
+      "field": "sae.repo_id",
+      "status": "matched recorded values",
+      "values": [
+        "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+        "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50"
+      ]
+    },
+    {
+      "field": "sae.resolved_revision",
+      "status": "not recorded",
+      "values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "field": "sae.dtype",
+      "status": "matched recorded values",
+      "values": [
+        "torch.bfloat16",
+        "torch.bfloat16",
+        "torch.bfloat16"
+      ]
+    },
+    {
+      "field": "sae.device",
+      "status": "matched recorded values",
+      "values": [
+        "cuda",
+        "cuda",
+        "cuda"
+      ]
+    },
+    {
+      "field": "environment.torch",
+      "status": "matched recorded values",
+      "values": [
+        "2.11.0+cu130",
+        "2.11.0+cu130",
+        "2.11.0+cu130"
+      ]
+    },
+    {
+      "field": "environment.transformers",
+      "status": "matched recorded values",
+      "values": [
+        "5.20.2",
+        "5.20.2",
+        "5.20.2"
+      ]
+    },
+    {
+      "field": "environment.packages",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        },
+        {
+          "torch": {
+            "version": "2.11.0+cu130"
+          },
+          "transformers": {
+            "version": "5.20.2"
+          },
+          "tokenizers": {
+            "version": "0.23.3"
+          },
+          "accelerate": {
+            "version": "1.15.0"
+          },
+          "huggingface-hub": {
+            "version": "1.33.0"
+          },
+          "causal-conv1d": null,
+          "flash-linear-attention": null,
+          "flash-attn": null,
+          "triton": {
+            "version": "3.6.0"
+          },
+          "nvidia-cudnn-cu12": {
+            "version": "9.27.0.42"
+          }
+        }
+      ]
+    },
+    {
+      "field": "environment.requested_dtype",
+      "status": "matched recorded values",
+      "values": [
+        "bfloat16",
+        "bfloat16",
+        "bfloat16"
+      ]
+    },
+    {
+      "field": "environment.model_configs",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        },
+        {
+          "model": {
+            "model_type": "qwen3_5",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "Qwen/Qwen3.5-2B-Base",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          },
+          "text": {
+            "model_type": "qwen3_5_text",
+            "dtype": "torch.bfloat16",
+            "torch_dtype": "torch.bfloat16",
+            "_name_or_path": "",
+            "_commit_hash": null,
+            "_attn_implementation": "sdpa",
+            "_attn_implementation_internal": "sdpa"
+          }
+        }
+      ]
+    },
+    {
+      "field": "environment.parameter_groups",
+      "status": "matched recorded values",
+      "values": [
+        [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ],
+        [
+          {
+            "dtype": "torch.bfloat16",
+            "device": "cuda:0",
+            "numel": 2213241664
+          }
+        ]
+      ]
+    },
+    {
+      "field": "environment.cuda_runtime",
+      "status": "matched recorded values",
+      "values": [
+        "13.0",
+        "13.0",
+        "13.0"
+      ]
+    },
+    {
+      "field": "environment.cudnn_version",
+      "status": "matched recorded values",
+      "values": [
+        92700,
+        92700,
+        92700
+      ]
+    },
+    {
+      "field": "environment.gpus",
+      "status": "matched recorded values",
+      "values": [
+        [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ],
+        [
+          {
+            "index": 0,
+            "name": "NVIDIA A100-SXM4-40GB",
+            "capability": [
+              8,
+              0
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "field": "environment.generation_config",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        },
+        {
+          "max_length": null,
+          "max_new_tokens": null,
+          "min_length": null,
+          "min_new_tokens": null,
+          "early_stopping": null,
+          "max_time": null,
+          "stop_strings": null,
+          "do_sample": null,
+          "num_beams": null,
+          "use_mtp": null,
+          "use_cache": true,
+          "cache_implementation": null,
+          "cache_config": null,
+          "max_cache_len": null,
+          "temperature": null,
+          "top_k": null,
+          "top_p": null,
+          "min_p": null,
+          "top_h": null,
+          "typical_p": null,
+          "epsilon_cutoff": null,
+          "eta_cutoff": null,
+          "repetition_penalty": null,
+          "encoder_repetition_penalty": null,
+          "length_penalty": null,
+          "no_repeat_ngram_size": null,
+          "bad_words_ids": null,
+          "renormalize_logits": null,
+          "forced_bos_token_id": null,
+          "forced_eos_token_id": null,
+          "remove_invalid_values": null,
+          "exponential_decay_length_penalty": null,
+          "suppress_tokens": null,
+          "begin_suppress_tokens": null,
+          "sequence_bias": null,
+          "token_healing": null,
+          "guidance_scale": null,
+          "watermarking_config": null,
+          "num_return_sequences": null,
+          "output_attentions": null,
+          "output_hidden_states": null,
+          "output_scores": null,
+          "output_logits": null,
+          "return_dict_in_generate": null,
+          "pad_token_id": null,
+          "bos_token_id": null,
+          "eos_token_id": 248044,
+          "encoder_no_repeat_ngram_size": null,
+          "decoder_start_token_id": null,
+          "is_assistant": null,
+          "num_assistant_tokens": null,
+          "num_assistant_tokens_schedule": null,
+          "assistant_confidence_threshold": null,
+          "prompt_lookup_num_tokens": null,
+          "max_matching_ngram_size": null,
+          "assistant_early_exit": null,
+          "assistant_lookbehind": null,
+          "target_lookbehind": null,
+          "assistant_ensemble_weight": null,
+          "speculation_type": null,
+          "compile_config": null,
+          "disable_compile": null,
+          "continuous_batching_config": null,
+          "low_memory": null,
+          "penalty_alpha": null,
+          "dola_layers": null,
+          "diversity_penalty": null,
+          "num_beam_groups": null,
+          "constraints": null,
+          "force_words_ids": null,
+          "prefill_chunk_size": null,
+          "_from_model_config": true,
+          "transformers_version": "5.20.2"
+        }
+      ]
+    },
+    {
+      "field": "environment.deterministic_algorithms",
+      "status": "matched recorded values",
+      "values": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "field": "environment.environment_variables",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        },
+        {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        },
+        {
+          "CUDA_VISIBLE_DEVICES": null,
+          "CUBLAS_WORKSPACE_CONFIG": null,
+          "NVIDIA_TF32_OVERRIDE": null,
+          "PYTHONHASHSEED": null
+        }
+      ]
+    },
+    {
+      "field": "config_without_coefficient",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "run": {
+            "job": "first_divergence_trace"
+          },
+          "diagnostic": {
+            "case_id": "crt_fresh_v2_growth_019",
+            "layer": 5,
+            "feature": 30908,
+            "check_equivalence": true
+          },
+          "colab": {
+            "gpu": "A100"
+          },
+          "remote": {
+            "source": "archive",
+            "repo_dir": "/content/mindscopex_analysis",
+            "output_root": "/content/mindscopex_artifacts"
+          }
+        },
+        {
+          "run": {
+            "job": "first_divergence_trace"
+          },
+          "diagnostic": {
+            "case_id": "crt_fresh_v2_growth_019",
+            "layer": 5,
+            "feature": 30908,
+            "check_equivalence": true
+          },
+          "colab": {
+            "gpu": "A100"
+          },
+          "remote": {
+            "source": "archive",
+            "repo_dir": "/content/mindscopex_analysis",
+            "output_root": "/content/mindscopex_artifacts"
+          }
+        },
+        {
+          "run": {
+            "job": "first_divergence_trace"
+          },
+          "diagnostic": {
+            "case_id": "crt_fresh_v2_growth_019",
+            "layer": 5,
+            "feature": 30908,
+            "check_equivalence": true
+          },
+          "colab": {
+            "gpu": "A100"
+          },
+          "remote": {
+            "source": "archive",
+            "repo_dir": "/content/mindscopex_analysis",
+            "output_root": "/content/mindscopex_artifacts"
+          }
+        }
+      ]
+    },
+    {
+      "field": "source_hashes",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "experiments/trace_fresh_v2_first_divergence.py": "d54e70a73566ba245ddca3a846dbf8668835aa31762015f118a5ddf8c3d8c863",
+          "experiments/diagnose_rate027_baseline.py": "2cdafadd32c1d30783912b169aae4ac786fc673aacb17214f7be623f703d51d4",
+          "src/mindscopex_analysis/research.py": "d2872d5fa5912efa8cb57ae02386e8722ded0c90875b9ae23de886ff42a712c9",
+          "src/mindscopex_analysis/qwen_scope.py": "5642b127315c770fda3843534b0c3d6323108377c3bf2b1bda8c5beeb24cab28"
+        },
+        {
+          "experiments/trace_fresh_v2_first_divergence.py": "d54e70a73566ba245ddca3a846dbf8668835aa31762015f118a5ddf8c3d8c863",
+          "experiments/diagnose_rate027_baseline.py": "2cdafadd32c1d30783912b169aae4ac786fc673aacb17214f7be623f703d51d4",
+          "src/mindscopex_analysis/research.py": "d2872d5fa5912efa8cb57ae02386e8722ded0c90875b9ae23de886ff42a712c9",
+          "src/mindscopex_analysis/qwen_scope.py": "5642b127315c770fda3843534b0c3d6323108377c3bf2b1bda8c5beeb24cab28"
+        },
+        {
+          "experiments/trace_fresh_v2_first_divergence.py": "d54e70a73566ba245ddca3a846dbf8668835aa31762015f118a5ddf8c3d8c863",
+          "experiments/diagnose_rate027_baseline.py": "2cdafadd32c1d30783912b169aae4ac786fc673aacb17214f7be623f703d51d4",
+          "src/mindscopex_analysis/research.py": "d2872d5fa5912efa8cb57ae02386e8722ded0c90875b9ae23de886ff42a712c9",
+          "src/mindscopex_analysis/qwen_scope.py": "5642b127315c770fda3843534b0c3d6323108377c3bf2b1bda8c5beeb24cab28"
+        }
+      ]
+    },
+    {
+      "field": "input_hashes",
+      "status": "matched recorded values",
+      "values": [
+        {
+          "behavior": "5b6d8d1ba7c36e932540800097627c0fbf65d3e22e6fd49b49cdb6abcc9a035d",
+          "scores": "56cef3b86da88109c747b608f51a331e09b2d9ad71c316d44ebe0348b6306459",
+          "audit": "0f712ae63d8dde50ad4e98a6b8804caccca16392626d775414daddd138fddd91"
+        },
+        {
+          "behavior": "5b6d8d1ba7c36e932540800097627c0fbf65d3e22e6fd49b49cdb6abcc9a035d",
+          "scores": "56cef3b86da88109c747b608f51a331e09b2d9ad71c316d44ebe0348b6306459",
+          "audit": "0f712ae63d8dde50ad4e98a6b8804caccca16392626d775414daddd138fddd91"
+        },
+        {
+          "behavior": "5b6d8d1ba7c36e932540800097627c0fbf65d3e22e6fd49b49cdb6abcc9a035d",
+          "scores": "56cef3b86da88109c747b608f51a331e09b2d9ad71c316d44ebe0348b6306459",
+          "audit": "0f712ae63d8dde50ad4e98a6b8804caccca16392626d775414daddd138fddd91"
+        }
+      ]
+    }
+  ],
+  "recorded_environment_dicts_equal": true,
+  "limitations": [
+    "Model/tokenizer/SAE revisions are not recorded; matching nulls are not identity proof.",
+    "Cache snapshot path is a hint, not proof of loaded model/tokenizer revision.",
+    "Three single-case conditions; seed 2/4 are historical references, not new repeats.",
+    "Equivalence compares instrumented/uninstrumented paths within each coefficient.",
+    "+8 zero margin is a recorded tie, not Lure logit superiority.",
+    "Teacher forcing and actual generation are separate computation paths."
+  ]
+}

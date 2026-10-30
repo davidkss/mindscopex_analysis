@@ -1,7 +1,9 @@
 # MindScopeX 연구 진행 현황
 
-**기준일:** 2026년 10월 30일  
-**주제:** Growth019 실제 생성 First-Divergence 관측과 Feature Specificity / Cross-Case 검증 준비  
+**기준일:** 2026년 10월 30일
+
+**주제:** Growth019 실제 생성 First-Divergence 관측과 Feature Specificity / Cross-Case 검증 준비
+
 **작성 시작 HEAD:** `bdac1d518c4fe5731f6a7703e9db811174aacc5e` (main, 작업 트리 clean)
 
 10월 29일에는 Teacher-forced First-Divergence와 Behavioral 응답의 일치를 분석했다. 30일에는 **Growth019 실제 A100 생성에서 개입 계수에 따른 Margin·응답 전환을 관측하고 두 블록의 Artifact를 감사**했다. Feature 12207에서도 Lure가 관측되어 Feature 30908의 고유성은 아직 확증되지 않았다.

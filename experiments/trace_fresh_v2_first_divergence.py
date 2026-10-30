@@ -128,6 +128,35 @@ def load_plan(paths=None):
                 measurements=measurements, slot_comparisons=comparisons)
 
 
+def filter_plan(plan, *, case_id=None, coefficient=None, check_equivalence=False):
+    """Select existing conditions and their slot references, preserving the full audit."""
+    if case_id is not None and case_id not in CASE_IDS:
+        raise ValueError(f"Unknown case ID: {case_id!r}; choose one of {CASE_IDS}")
+    if coefficient is not None and (type(coefficient) is not int or coefficient not in COEFFICIENTS):
+        raise ValueError("Coefficient must be one of 0, 7, 8")
+    measurements = [m for m in plan["measurements"]
+                    if (case_id is None or m["case_id"] == case_id)
+                    and (coefficient is None or m["coefficient"] == coefficient)]
+    if not measurements:
+        raise ValueError("No measurements match the requested condition")
+    selected_ids = {m["measurement_id"] for m in measurements}
+    comparisons = [r for r in plan["slot_comparisons"] if r["measurement_id"] in selected_ids]
+    selected_keys = {(m["case_id"], m["coefficient"]) for m in measurements}
+    return dict(plan,
+                filters=dict(case_id=case_id, coefficient=coefficient),
+                case_ids=[cid for cid in plan["case_ids"] if any(c == cid for c, _ in selected_keys)],
+                coefficients=[a for a in plan["coefficients"] if any(c == a for _, c in selected_keys)],
+                measurements=measurements, slot_comparisons=comparisons,
+                n_unique_measurements=len(measurements), n_unique_generation_conditions=len(measurements),
+                n_slot_comparisons=len(comparisons), n_historical_slot_references=len(comparisons),
+                n_selected_slot_comparisons=len(comparisons),
+                n_selected_exception_slots=sum((r["case_id"], r["coefficient"]) in selected_keys
+                                               for r in plan["target_slots"]),
+                audit_scope="target_slots, target_counts and n_exception_slots retain the full audit",
+                equivalence_check_enabled=check_equivalence,
+                expected_generate_calls=len(measurements) * (2 if check_equivalence else 1))
+
+
 def scalar(value):
     value = float(value)
     # Preserve masked -inf explicitly, without nonstandard JSON NaN/Infinity.
@@ -429,18 +458,21 @@ def main(argv=None):
     mode.add_argument("--run-model", action="store_true", help="Explicit model download/loading/GPU opt-in")
     parser.add_argument("--check-equivalence", action="store_true",
                         help="With future GPU execution: add one unchanged production call per condition")
+    parser.add_argument("--case-id", choices=CASE_IDS, help="Select one of the seven prepared Growth cases")
+    parser.add_argument("--coefficient", type=int, choices=COEFFICIENTS,
+                        help="Select coefficient 0, 7 or 8; default includes all three")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     if args.output.exists() or args.output.is_symlink():
         raise FileExistsError(f"Refusing existing output: {args.output}")
     if args.output.resolve().is_relative_to(ROOT / "results/runs"):
         raise ValueError("Use a separate new diagnostics path, outside historical results/runs")
-    plan = load_plan()
-    plan["equivalence_check_enabled"] = args.check_equivalence
-    plan["expected_generate_calls"] = len(plan["measurements"]) * (2 if args.check_equivalence else 1)
+    plan = filter_plan(load_plan(), case_id=args.case_id, coefficient=args.coefficient,
+                       check_equivalence=args.check_equivalence)
     print(json.dumps({k: plan[k] for k in ("target_counts", "target_slots", "coefficients",
                                           "n_unique_measurements", "n_slot_comparisons",
-                                          "n_exception_slots", "expected_generate_calls")}, indent=2))
+                                          "n_exception_slots", "n_selected_slot_comparisons",
+                                          "n_selected_exception_slots", "expected_generate_calls")}, indent=2))
     write_new(args.output, run_model(plan, check_equivalence=args.check_equivalence) if args.run_model else plan)
 
 

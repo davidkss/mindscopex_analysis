@@ -487,5 +487,115 @@ class PlanTests(unittest.TestCase):
             self.assertEqual(json.loads(output.read_text())["status"], "planned")
 
 
+class FilterTests(unittest.TestCase):
+    def setUp(self):
+        self.plan = trace.load_plan()
+        self.cid = 'crt_fresh_v2_growth_019'
+
+    def test_case_only_selects_three_conditions_and_six_references(self):
+        selected = trace.filter_plan(self.plan, case_id=self.cid)
+        self.assertEqual(selected['case_ids'], [self.cid])
+        self.assertEqual(selected['coefficients'], [0, 7, 8])
+        self.assertEqual(selected['n_unique_measurements'], 3)
+        self.assertEqual(selected['n_slot_comparisons'], 6)
+        self.assertEqual(selected['expected_generate_calls'], 3)
+
+    def test_coefficient_only_selects_seven_conditions_and_nineteen_references(self):
+        for coefficient in (0, 7, 8):
+            with self.subTest(coefficient=coefficient):
+                selected = trace.filter_plan(self.plan, coefficient=coefficient)
+                self.assertEqual(selected['coefficients'], [coefficient])
+                self.assertEqual(selected['n_unique_measurements'], 7)
+                self.assertEqual(selected['n_slot_comparisons'], 19)
+                self.assertTrue(all(m['coefficient'] == coefficient for m in selected['measurements']))
+
+    def test_combined_selection_retains_saved_growth019_margin_and_labels(self):
+        selected = trace.filter_plan(self.plan, case_id=self.cid, coefficient=8,
+                                     check_equivalence=True)
+        self.assertEqual(selected['n_unique_measurements'], 1)
+        self.assertEqual(selected['n_slot_comparisons'], 2)
+        self.assertEqual(selected['expected_generate_calls'], 2)
+        self.assertEqual([r['seed'] for r in selected['slot_comparisons']], [2, 4])
+        for slot in selected['slot_comparisons']:
+            self.assertEqual(slot['teacher_forced_first_divergence_margin'], -.125)
+            self.assertEqual(slot['existing_behavioral_label'], 'lure')
+
+    def test_selected_measurements_and_slots_are_consistent_and_full_audit_preserved(self):
+        original = copy.deepcopy(self.plan)
+        for cid in trace.CASE_IDS:
+            for coefficient in trace.COEFFICIENTS:
+                selected = trace.filter_plan(self.plan, case_id=cid, coefficient=coefficient)
+                mids = {m['measurement_id'] for m in selected['measurements']}
+                self.assertEqual({r['measurement_id'] for r in selected['slot_comparisons']}, mids)
+                self.assertEqual(selected['target_slots'], self.plan['target_slots'])
+                self.assertEqual(selected['target_counts'], self.plan['target_counts'])
+                self.assertEqual(selected['n_exception_slots'], 19)
+                self.assertEqual(selected['n_selected_slot_comparisons'], len(selected['slot_comparisons']))
+                self.assertEqual(selected['n_selected_exception_slots'], sum(
+                    r['case_id'] == cid and r['coefficient'] == coefficient
+                    for r in self.plan['target_slots']))
+        self.assertEqual(self.plan, original)
+
+    def test_default_scope_and_equivalence_call_budget(self):
+        for equivalence, calls in ((False, 21), (True, 42)):
+            selected = trace.filter_plan(self.plan, check_equivalence=equivalence)
+            self.assertEqual(selected['measurements'], self.plan['measurements'])
+            self.assertEqual(selected['slot_comparisons'], self.plan['slot_comparisons'])
+            self.assertEqual(selected['n_unique_measurements'], 21)
+            self.assertEqual(selected['n_slot_comparisons'], 57)
+            self.assertEqual(selected['expected_generate_calls'], calls)
+            self.assertFalse(selected['seed_references_are_independent_measurements'])
+
+    def test_invalid_filter_values_are_rejected(self):
+        for kwargs in ({'case_id': 'growth_019'}, {'case_id': 'crt_fresh_v2_growth_001'},
+                       {'coefficient': 9}, {'coefficient': 7.9}, {'coefficient': '8'},
+                       {'coefficient': True}):
+            with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
+                trace.filter_plan(self.plan, **kwargs)
+
+    def test_cli_filters_before_run_model_entry(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(trace, 'run_model') as run:
+            run.side_effect = lambda plan, **kwargs: plan
+            with mock.patch('builtins.print'):
+                trace.main(['--run-model', '--case-id', self.cid, '--coefficient', '8',
+                            '--check-equivalence', '--output', str(Path(tmp) / 'mock.json')])
+            selected = run.call_args.args[0]
+            self.assertEqual(len(selected['measurements']), 1)
+            self.assertEqual(len(selected['slot_comparisons']), 2)
+            self.assertEqual(selected['expected_generate_calls'], 2)
+            self.assertEqual(selected['measurements'][0]['case_id'], self.cid)
+            self.assertEqual(selected['measurements'][0]['coefficient'], 8)
+            self.assertTrue(run.call_args.kwargs['check_equivalence'])
+
+    def test_invalid_cli_never_enters_model_loading_or_creates_output(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(trace, 'run_model') as run:
+            for args in (['--case-id', 'missing'], ['--coefficient', '9'], ['--coefficient', '7.9']):
+                path = Path(tmp) / 'absent.json'
+                with mock.patch('sys.stderr'), self.assertRaises(SystemExit):
+                    trace.main(['--run-model', *args, '--output', str(path)])
+                self.assertFalse(path.exists())
+            run.assert_not_called()
+
+    def test_filtered_plan_cli_has_no_model_library_imports_and_preserves_existing_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'filtered.json'
+            args = ['--plan', '--case-id', self.cid, '--coefficient', '8', '--check-equivalence',
+                    '--output', str(output)]
+            script = ("import sys; from experiments.trace_fresh_v2_first_divergence import main; "
+                      f"main({args!r}); "
+                      "assert 'torch' not in sys.modules and 'transformers' not in sys.modules")
+            result = subprocess.run([sys.executable, '-c', script], cwd=trace.ROOT,
+                                    env=dict(os.environ, HF_HUB_OFFLINE='1', TRANSFORMERS_OFFLINE='1'),
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            data = json.loads(output.read_text())
+            self.assertEqual((data['n_unique_measurements'], data['n_slot_comparisons'],
+                              data['expected_generate_calls']), (1, 2, 2))
+            before = output.read_bytes()
+            with self.assertRaises(FileExistsError):
+                trace.main(args)
+            self.assertEqual(output.read_bytes(), before)
+
+
 if __name__ == "__main__":
     unittest.main()

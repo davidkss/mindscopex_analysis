@@ -128,13 +128,54 @@ class TraceJobTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_config_rejects_scope_expansion_before_subprocess(self):
-        for key, value in [('case_id', 'crt_fresh_v2_growth_007'), ('coefficient', 7),
+        for key, value in [('case_id', 'crt_fresh_v2_growth_007'), ('coefficient', 9),
                            ('check_equivalence', False), ('layer', 6)]:
             cfg = copy.deepcopy(load_toml(CONFIG))
             cfg['diagnostic'][key] = value
             with mock.patch.object(job.subprocess, 'run') as execute, self.assertRaises(ValueError):
                 job.prepare_plan(cfg)
             execute.assert_not_called()
+
+    def test_coefficients_zero_seven_eight_prepare_distinct_single_measurements(self):
+        for coefficient in (0, 7, 8):
+            with self.subTest(coefficient=coefficient):
+                config = load_toml(job.ROOT / f'experiments/configs/trace_fresh_v2_growth019_c{coefficient}_2b.toml')
+                plan = job.prepare_plan(config)
+                self.assertEqual(plan['n_unique_measurements'], 1)
+                self.assertEqual(plan['coefficients'], [coefficient])
+                self.assertEqual(plan['expected_generate_calls'], 2)
+                self.assertEqual([s['seed'] for s in plan['slot_comparisons']], [2, 4])
+
+    def test_coefficient_type_and_extra_diagnostic_fields_rejected(self):
+        for coefficient in (True, 7.0, '7', -1):
+            with self.subTest(coefficient=coefficient):
+                config = copy.deepcopy(load_toml(CONFIG))
+                config['diagnostic']['coefficient'] = coefficient
+                with self.assertRaises(ValueError):
+                    job.prepare_plan(config)
+        config = copy.deepcopy(load_toml(CONFIG))
+        config['diagnostic']['unexpected'] = True
+        with self.assertRaises(ValueError):
+            job.prepare_plan(config)
+
+    def test_zero_and_seven_adapter_runs_validate_matching_filters(self):
+        for coefficient in (0, 7):
+            with self.subTest(coefficient=coefficient):
+                config_path = job.ROOT / f'experiments/configs/trace_fresh_v2_growth019_c{coefficient}_2b.toml'
+                output = job.filter_plan(job.load_plan(), case_id=job.PINNED['case_id'],
+                                         coefficient=coefficient, check_equivalence=True)
+                output['status'] = 'captured'
+                output['measurements'][0]['capture'] = dict(equivalence_check=dict(
+                    status='compared', generated_token_ids_equal=True,
+                    answers_equal=True, equivalent=True))
+                def execute(command, **kwargs):
+                    self.assertEqual(command[command.index('--coefficient') + 1], str(coefficient))
+                    kwargs['stdout'].write('mock diagnostic result\\n')
+                    Path(command[-1]).write_text(json.dumps(output))
+                with mock.patch.object(job.subprocess, 'run', side_effect=execute):
+                    directory = job.run(config_path, self.root / f'coef_{coefficient}')
+                self.assertEqual(json.loads((directory / 'job_manifest.json').read_text())['status'],
+                                 'succeeded')
 
     def test_adapter_forwards_args_and_requires_captured_output(self):
         def success(command, **kwargs):

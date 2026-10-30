@@ -15,6 +15,79 @@ import ast
 from contextlib import nullcontext
 
 from experiments import trace_fresh_v2_first_divergence as trace
+from experiments import diagnose_rate027_baseline as rate_diagnostic
+
+class MockDtype:
+    """Non-JSON dtype stand-in; isinstance behavior matches the supplied torch.dtype."""
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+
+def mock_environment(config_override=None):
+    config = config_override if config_override is not None else SimpleNamespace(dtype=MockDtype('torch.bfloat16'),
+                             torch_dtype=MockDtype('torch.bfloat16'), model_type='qwen3_5',
+                             text_config=SimpleNamespace(dtype=MockDtype('torch.float32'),
+                                                         torch_dtype=MockDtype('torch.float32')))
+    model = SimpleNamespace(config=config, named_parameters=lambda: [], named_modules=lambda: [],
+                            generation_config=SimpleNamespace(to_dict=lambda: {'num_beams': 1}),
+                            training=False)
+    torch_mock = SimpleNamespace(
+        dtype=MockDtype, __version__='mock', version=SimpleNamespace(cuda=None),
+        cuda=SimpleNamespace(is_available=lambda: False, device_count=lambda: 0),
+        backends=SimpleNamespace(cudnn=SimpleNamespace(version=lambda: None, deterministic=False,
+                                                       benchmark=False),
+                                 cuda=SimpleNamespace(matmul=SimpleNamespace(allow_tf32=False))),
+        are_deterministic_algorithms_enabled=lambda: False)
+    # Exercise the real metadata producer without importing/downloading ML packages.
+    with mock.patch.object(rate_diagnostic.importlib.metadata, 'distribution',
+                           side_effect=rate_diagnostic.importlib.metadata.PackageNotFoundError), \
+         mock.patch.dict(sys.modules, {'huggingface_hub': SimpleNamespace(try_to_load_from_cache=lambda *a: None)}):
+        result = rate_diagnostic.environment(model, object(), SimpleNamespace(), torch_mock,
+                                              SimpleNamespace(__version__='mock'), 'bfloat16')
+    return result, config
+
+
+class EnvironmentSerializationTests(unittest.TestCase):
+    def test_model_and_text_config_dtype_fields_are_strings_without_mutating_model(self):
+        environment, config = mock_environment()
+        for name, expected in (('model', 'torch.bfloat16'), ('text', 'torch.float32')):
+            for field in ('dtype', 'torch_dtype'):
+                self.assertEqual(environment['model_configs'][name][field], expected)
+        self.assertIsInstance(config.dtype, MockDtype)
+        self.assertIsInstance(config.text_config.torch_dtype, MockDtype)
+        json.dumps({'environment': environment}, allow_nan=False)
+
+    def test_string_and_none_dtype_fields_are_preserved(self):
+        config = SimpleNamespace(dtype='bfloat16', torch_dtype=None)
+        environment, _ = mock_environment(config)
+        self.assertEqual(environment['model_configs']['model']['dtype'], 'bfloat16')
+        self.assertIsNone(environment['model_configs']['model']['torch_dtype'])
+
+    def test_strict_write_new_serializes_environment_and_refuses_overwrite(self):
+        environment, _ = mock_environment()
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'capture.json'
+            trace.write_new(path, {'environment': environment})
+            before = path.read_bytes()
+            self.assertEqual(json.loads(before)['environment']['model_configs']['text']['dtype'],
+                             'torch.float32')
+            with self.assertRaises(FileExistsError):
+                trace.write_new(path, {'environment': environment})
+            self.assertEqual(path.read_bytes(), before)
+
+    def test_unrelated_objects_and_nan_still_fail_without_creating_output(self):
+        for value, error in ((object(), TypeError), (float('nan'), ValueError)):
+            environment, _ = mock_environment()
+            environment['generation_config']['unrelated'] = value
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / 'must-not-exist.json'
+                with self.assertRaises(error):
+                    trace.write_new(path, {'environment': environment})
+                self.assertFalse(path.exists())
+
 
 class Tensor:
     def __init__(self, values):
@@ -430,8 +503,9 @@ class PlanTests(unittest.TestCase):
             'mindscopex_analysis.research': SimpleNamespace(
                 _binary_choice_completion=_binary_choice_completion, find_decoder_block=lambda *a, **k: model.block),
         }
+        environment, _ = mock_environment()
         with mock.patch.dict(sys.modules, modules), mock.patch(
-                'experiments.diagnose_rate027_baseline.environment', return_value={'mock': True}):
+                'experiments.diagnose_rate027_baseline.environment', return_value=environment):
             result = trace.run_model(plan, check_equivalence=True)
         load_model.assert_called_once()
         load_sae.assert_called_once()

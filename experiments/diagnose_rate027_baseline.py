@@ -230,6 +230,11 @@ def environment(model, processor, tokenizer, torch, transformers, requested_dtyp
                     "_attn_implementation_internal",
                 )
             }
+            # Config attributes may be torch.dtype objects (unlike JSON-ready strings).
+            # Normalize only these known fields; retain strict JSON validation elsewhere.
+            for key in ("dtype", "torch_dtype"):
+                if isinstance(configs[name][key], torch.dtype):
+                    configs[name][key] = str(configs[name][key])
     init_kwargs = getattr(tokenizer, "init_kwargs", {})
     revisions = {
         key: init_kwargs.get(key)

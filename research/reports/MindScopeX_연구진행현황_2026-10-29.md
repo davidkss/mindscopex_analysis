@@ -89,30 +89,40 @@ Correct와 Lure의 토큰이 처음 달라지는 위치에서의 상대적 선�
 
 이는 초기 가설을 입증했다는 뜻이 아니라, 관찰된 불일치를 설명하기 위해 연구 질문을 정교화한 것입니다.
 
-## 3. Git 상태 확인
+## 3. Git 상태 및 연구 기록 관리 (2026-10-30 확인)
 
-사용자가 2026년 10월 29일 공유한 WSL 명령 결과:
+### 3.1 최신 확인 Git 상태
+
+사용자가 2026-10-30 WSL에서 확인한 작업 상태:
 
 ```text
- M scripts/analyze_crt_choice_order.py
- M scripts/analyze_first_divergence_behavior.py
-?? experiments/jobs/research_experiments.py.bak
-?? mindscopex_inventory.py
-?? research/audits/
-?? research/journal/2026-10-23.md.bak
-?? tests/test_analyze_first_divergence_behavior.py
-26bd44d (HEAD -> main, origin/main, origin/HEAD) docs(journal): record first-divergence behavioral audit next step
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+main
+/home/davidkss/ai/mindscopex_analysis  057fb7b [main]
 ```
 
-**해석:** 표시된 시점에서 로컬 `main`과 `origin/main`은 `26bd44d`를 가리키며, Codex의 분석 코드·테스트·감사 보고서는 로컬 수정 또는 미추적 상태입니다. `scripts/analyze_crt_choice_order.py`, `.bak`, `mindscopex_inventory.py`는 별도 작업물일 수 있으므로 일괄 커밋하지 않는 것이 안전합니다.
+- 위 `057fb7b`는 **2026-10-30 문서 수정 작업 시작 전 사용자 로컬에서 확인한 기준 Commit**이다. 이후 GitHub 문서 갱신 Commit이 발생할 수 있으므로 항상 현재 `git status`와 원격 최신 이력을 다시 확인한다.
+- 과거 `26bd44d` 및 미커밋 파일 목록은 2026-10-29 중간 상태였으며 최신 상태로 오인하지 않는다.
+- GitHub 반영 대상은 사용자 본인 저장소 `davidkss/mindscopex_analysis`이며, 원본 `JeonDongJun/mindscopex_analysis`에 반영하지 않는다.
 
-Codex가 보고한 수정사항은 First-Divergence Tie 처리, 유효 분모, 문항 단위 Bootstrap, 입력 검증, 덮어쓰기 방지 등이며 **단위 테스트 10개 통과**입니다. 전체 저장소 테스트는 수행하지 않았다고 보고했습니다.
+### 3.2 연구 기록의 기준
 
-관련 로컬 파일:
+- **1차 상세 연구 기록:** [research/journal/](../journal/) — 날짜별 연구 목적, 기존 실험과의 연결, 실행 조건·명령, 원본 산출물, 결과, 한계, 다음 작업을 기록한다.
+- **전체 진행 현황:** `research/reports/` — Journal 및 검증 보고서를 참조하여 단계별 진행 상황과 핵심 결론을 요약한다.
+- **감사·재현성 근거:** [First-Divergence 감사](../audits/2026-10-29-first-divergence/report.md) — 검증 수치와 슬롯별 근거를 확인한다.
+- 이전 일지를 삭제·이동하거나 당시의 '실행 대기'를 소급 수정하지 않고, 완료 사실은 후속 날짜가 명시된 항목으로 추가한다.
+- 새로운 실험 전에 기존 Journal, 감사 결과, 코드·산출물을 대조하여 이미 수행한 작업을 반복하지 않는다.
+- 기존의 `main` 중심 Git 작업 방식을 유지하며, 사용자 확인 없이 별도 브랜치·Worktree·Pull Request 절차를 도입하지 않는다. 파일 변경 및 Commit/Push 전에는 현재 상태와 대상 저장소를 확인한다.
 
-- `scripts/analyze_first_divergence_behavior.py`
-- `tests/test_analyze_first_divergence_behavior.py`
-- `research/audits/2026-10-29-first-divergence/report.md`
+### 3.3 4단계 감사 완료 후 5단계 준비
+
+- +7: First-Divergence 일치 53/53 (Tie 제외), Tie 11슬롯.
+- +8: First-Divergence 일치 56/58 (Tie 제외), Tie 6슬롯, 불일치 2슬롯.
+- Full-Answer 전체 슬롯 일치: +7은 28/64, +8은 36/64.
+- 실제 생성 시점의 logits 직접 추적과 Feature 30908의 인과적 역할은 아직 미검증이다.
+- 다음 작업은 기존 생성 코드와 Tie/불일치 사례를 먼저 점검한 뒤 실제 생성 logits 검증을 설계하는 것이다.
 
 ## 4. 결론 — 우리는 어느 시점에 있는가?
 

@@ -480,7 +480,7 @@ def run_model(plan, *, check_equivalence=False):
                       for feature in plan["feature_ids"]}
         plan["source_hashes"].update({name: digest(ROOT / name) for name in (
             "experiments/feature_specificity_cross_case.py", "experiments/inputs/feature_specificity_cross_case.json",
-            "src/mindscopex_analysis/models.py")})
+            "src/mindscopex_analysis/models.py", "experiments/revision_pinning.py")})
     captured = {}
     for item in plan["measurements"]:
         feature_args = {"feature_id": item["feature_id"]} if plan.get("pilot") or plan.get("cross_case") else {}

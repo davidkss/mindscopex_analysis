@@ -1,0 +1,627 @@
+{
+  "schema": 1,
+  "purpose": "New cross-case experiment pins; no claim about past Growth019 loaded revisions",
+  "queries": {
+    "model": {
+      "repo_id": "Qwen/Qwen3.5-2B-Base",
+      "queried_at_utc": "2026-10-30T06:31:35.299899+00:00",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B-Base/revision/main?blobs=true",
+      "http_status": 200,
+      "sha": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+      "files": [
+        {
+          "rfilename": ".gitattributes",
+          "blobId": "52373fe24473b1aa44333d318f578ae6bf04b49b",
+          "size": 1570
+        },
+        {
+          "rfilename": "LICENSE",
+          "blobId": "1d5180a42f1c3383ba7c7bd0a50f0837ef0168df",
+          "size": 11343
+        },
+        {
+          "rfilename": "README.md",
+          "blobId": "f89cd1b857c5300003c202ec1c9fe47ffb34dcbd",
+          "size": 3721
+        },
+        {
+          "rfilename": "config.json",
+          "blobId": "d30a15be1bbfd610f58ad80f1fbeb6778f58a80f",
+          "size": 2908
+        },
+        {
+          "rfilename": "merges.txt",
+          "blobId": "a494e019ca1502219fd0128658b979e5f05ae8e8",
+          "size": 3353259
+        },
+        {
+          "rfilename": "model.safetensors-00001-of-00001.safetensors",
+          "blobId": "571ca3f38c610be8e0e8ba67595c6659ade21a9a",
+          "size": 4548221488,
+          "lfs": {
+            "sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+            "size": 4548221488,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "model.safetensors.index.json",
+          "blobId": "10fd4fbf87dc5e198b28d9e0598c70a9780b72c1",
+          "size": 64460
+        },
+        {
+          "rfilename": "preprocessor_config.json",
+          "blobId": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64",
+          "size": 390
+        },
+        {
+          "rfilename": "tokenizer.json",
+          "blobId": "468a6a46bcda7cfedbbda773b0176b8284724e6f",
+          "size": 12807196,
+          "lfs": {
+            "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+            "size": 12807196,
+            "pointerSize": 133
+          }
+        },
+        {
+          "rfilename": "tokenizer_config.json",
+          "blobId": "34e1f7a59c40a7a4197ce3dbb242b94dc5bef1dd",
+          "size": 16712
+        },
+        {
+          "rfilename": "video_preprocessor_config.json",
+          "blobId": "37900b3ff9295e1aa7e211378466356b52e64e55",
+          "size": 386
+        },
+        {
+          "rfilename": "vocab.json",
+          "blobId": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176",
+          "size": 6722759
+        }
+      ],
+      "config_metadata": {
+        "model_type": "qwen3_5",
+        "architectures": [
+          "Qwen3_5ForConditionalGeneration"
+        ]
+      },
+      "card_metadata": {
+        "base_model": null,
+        "library_name": "transformers",
+        "tags": null
+      },
+      "immutable_confirmation": {
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B-Base/revision/b1485b2fa6dfa1287294f269f5fb618e03d52d7c?blobs=true",
+        "queried_at_utc": "2026-10-30T06:32:50.993572+00:00",
+        "http_status": 200,
+        "sha": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+        "file_list_matches": true
+      },
+      "verification": "HF API repository metadata only; file contents/weights not downloaded"
+    },
+    "tokenizer": {
+      "repo_id": "Qwen/Qwen3.5-2B-Base",
+      "queried_at_utc": "2026-10-30T06:31:35.626323+00:00",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B-Base/revision/main?blobs=true",
+      "http_status": 200,
+      "sha": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+      "files": [
+        {
+          "rfilename": ".gitattributes",
+          "blobId": "52373fe24473b1aa44333d318f578ae6bf04b49b",
+          "size": 1570
+        },
+        {
+          "rfilename": "LICENSE",
+          "blobId": "1d5180a42f1c3383ba7c7bd0a50f0837ef0168df",
+          "size": 11343
+        },
+        {
+          "rfilename": "README.md",
+          "blobId": "f89cd1b857c5300003c202ec1c9fe47ffb34dcbd",
+          "size": 3721
+        },
+        {
+          "rfilename": "config.json",
+          "blobId": "d30a15be1bbfd610f58ad80f1fbeb6778f58a80f",
+          "size": 2908
+        },
+        {
+          "rfilename": "merges.txt",
+          "blobId": "a494e019ca1502219fd0128658b979e5f05ae8e8",
+          "size": 3353259
+        },
+        {
+          "rfilename": "model.safetensors-00001-of-00001.safetensors",
+          "blobId": "571ca3f38c610be8e0e8ba67595c6659ade21a9a",
+          "size": 4548221488,
+          "lfs": {
+            "sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+            "size": 4548221488,
+            "pointerSize": 135
+          }
+        },
+        {
+          "rfilename": "model.safetensors.index.json",
+          "blobId": "10fd4fbf87dc5e198b28d9e0598c70a9780b72c1",
+          "size": 64460
+        },
+        {
+          "rfilename": "preprocessor_config.json",
+          "blobId": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64",
+          "size": 390
+        },
+        {
+          "rfilename": "tokenizer.json",
+          "blobId": "468a6a46bcda7cfedbbda773b0176b8284724e6f",
+          "size": 12807196,
+          "lfs": {
+            "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+            "size": 12807196,
+            "pointerSize": 133
+          }
+        },
+        {
+          "rfilename": "tokenizer_config.json",
+          "blobId": "34e1f7a59c40a7a4197ce3dbb242b94dc5bef1dd",
+          "size": 16712
+        },
+        {
+          "rfilename": "video_preprocessor_config.json",
+          "blobId": "37900b3ff9295e1aa7e211378466356b52e64e55",
+          "size": 386
+        },
+        {
+          "rfilename": "vocab.json",
+          "blobId": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176",
+          "size": 6722759
+        }
+      ],
+      "config_metadata": {
+        "model_type": "qwen3_5",
+        "architectures": [
+          "Qwen3_5ForConditionalGeneration"
+        ]
+      },
+      "card_metadata": {
+        "base_model": null,
+        "library_name": "transformers",
+        "tags": null
+      },
+      "immutable_confirmation": {
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B-Base/revision/b1485b2fa6dfa1287294f269f5fb618e03d52d7c?blobs=true",
+        "queried_at_utc": "2026-10-30T06:32:51.313070+00:00",
+        "http_status": 200,
+        "sha": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+        "file_list_matches": true
+      },
+      "verification": "HF API repository metadata only; file contents/weights not downloaded"
+    },
+    "sae": {
+      "repo_id": "Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50",
+      "queried_at_utc": "2026-10-30T06:31:35.878634+00:00",
+      "url": "https://huggingface.co/api/models/Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50/revision/main?blobs=true",
+      "http_status": 200,
+      "sha": "132ea3697b591df9ee46d738aa1d528e3c6082f7",
+      "files": [
+        {
+          "rfilename": ".gitattributes",
+          "blobId": "a6344aac8c09253b3b630fb776ae94478aa0275b",
+          "size": 1519
+        },
+        {
+          "rfilename": "LICENSE",
+          "blobId": "8c6d46e03a7e839e8629a2afd8917c00779bfb97",
+          "size": 11344
+        },
+        {
+          "rfilename": "README.md",
+          "blobId": "c51984591e20a179ae3b57cb284fdafae5b7a476",
+          "size": 6503
+        },
+        {
+          "rfilename": "app.py",
+          "blobId": "e558c588a0a02260f4efe3f95121c0555411221f",
+          "size": 85178
+        },
+        {
+          "rfilename": "config.json",
+          "blobId": "725521d0b1c93c71191704c5a82b5c41363da48f",
+          "size": 449
+        },
+        {
+          "rfilename": "layer0.sae.pt",
+          "blobId": "62ae58b3d66519139cea70a51c8566d1fa2166d5",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "a3824ca119d9f272324a8f9836a09aebd1faea036e294842a5a7b5c8e0236497",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer1.sae.pt",
+          "blobId": "c87153c022050e2773bd1fe42538c55b3a70cfe8",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "185049d4096ab436beb62dd293c03372c97e20fe7642f22f9bb6e040cff2ad3e",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer10.sae.pt",
+          "blobId": "4a91db50979e8b744064f154203e2de3b68a3344",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "421417aff9b2749e8189c90213237e60e3efc038d9c2c774d9fffed9e4722989",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer11.sae.pt",
+          "blobId": "f0967665792eac41345bb24dd4e7b795f4bcbb82",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "809334616c8efa863009e0eebf871f1596fdaf690fae8e0fa921f01c309e4168",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer12.sae.pt",
+          "blobId": "55bd5c6953bfe4bafb8385757a4121dfd3dcdfe9",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "7bd490bf6303ff799a1cd09a5c29d8880fe3ace390cc64bc76345a900be4493d",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer13.sae.pt",
+          "blobId": "a40442b58d13afd5401fe25ae42188e20ee62ffc",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "bc677f1af97c2727024ad90ee204fb2001f2d8f8948d3ea931d9e0e981a4c192",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer14.sae.pt",
+          "blobId": "3419eee6fca7b9b02f659258df49a3c3fef02596",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "4d970a2e8aa8333f2639f6ce53517a3714a01972e653915d4b2a2c975e43a299",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer15.sae.pt",
+          "blobId": "a139dc2c520c3d0c79be995a13777b42aac7ea7e",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "9ebf1b988d91ef0a15ab705aac279ef55f68140f5421d01114599bd3b75d240a",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer16.sae.pt",
+          "blobId": "92486b39202a45961612fae2e7e31e71ebf0fce4",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "360f25b2c6186ac862291343f449278f322179fbd76f54ba76b5a6cf3c11a942",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer17.sae.pt",
+          "blobId": "9d13db311d628852f134adb5f5610ef2b84eefb3",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "10f445e3a68606e2017d557ace9d57b1ef5986e57f9a38fccda5aa045a52be70",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer18.sae.pt",
+          "blobId": "9202f9d28403fcb576535c43b6ec42e8bf87bc6e",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "cd7c96d0a54eff6b4c12ee32fa9b1430e583e9bc4b21d32ba7306c5c3902ddd7",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer19.sae.pt",
+          "blobId": "c26274824787c3ba5346119487f5c891aedbb47b",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "02e134c365603e6d11cd890c9b16582462c6f21b6de2dba0c4c82c2774b2a9e5",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer2.sae.pt",
+          "blobId": "f33f3009285d0f5af3058963d540d5a7020ec7aa",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "836115a7ea16e2a2ebe2f3678f9fd41e1f4339c0013f70c1a2c82d3e7ef1ddb9",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer20.sae.pt",
+          "blobId": "30c55c67c1bab95bde4302db1fc341687e3aa4ef",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "9d38227f20ccb01245faa6e8103d0c074e297f13ec243a0cdd210af9da82cb3b",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer21.sae.pt",
+          "blobId": "3e8f6fa6ecfb0c7f1317fa33d96399e18ef0a9af",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "6cd819c09f799b79d7ae23f75e122de7e7e3f2bf92a514c9a40f61b42e9177f4",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer22.sae.pt",
+          "blobId": "69e05199e34a8904fbcea2b774853faaf01c298f",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "d40aca8f6d8ccf9ba33ff4dccb6bf028def8b6eafff38285cbf90c4532489f86",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer23.sae.pt",
+          "blobId": "9bbac60c4d3e0dcc46ff7b7b01a09b48428c2a2f",
+          "size": 537012603,
+          "lfs": {
+            "sha256": "fe5c1d3b0f78e1622c761d7b949804cac6236591adfb541968a53f0e7032d8b8",
+            "size": 537012603,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer3.sae.pt",
+          "blobId": "7a92a7b551759884a2d6f145886cf0274d546760",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "aacd8ab1864c8190e90b660cc4cbb433916e5611ecc17f23776892cd3cd4af57",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer4.sae.pt",
+          "blobId": "fb5d3b14fa210d372cc8724dee49fa924377c34c",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "e44144de0e482f8ccbbc645a8a239ade3e2eabf2bd30b98650335d3cfa9c5689",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer5.sae.pt",
+          "blobId": "990290214428ab416a904a46180c804958fb45de",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "8d65e489c33a9de48b59d8c8c4456758bb21502c19f5d1646d9d18d66d16482f",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer6.sae.pt",
+          "blobId": "87a3709d946572446a44662b8b0bd3eb3f8e3b88",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "42532fb36f7d2b2699bbb1dc8c3480b79e7cd92c693ef0474252ad21ffcd2f21",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer7.sae.pt",
+          "blobId": "564bebd3a781b573dfeba49d54bb9a9e8071977d",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "fff7549e4ce1582deedc0f72a9631c7bdba3f5a88f7e9d5aae98d1138ef871ab",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer8.sae.pt",
+          "blobId": "f8f72a159e2020c5a378067272fbd5426b01b34f",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "aad783d496cce8c305d9c2468970577fb3574755855705f8ce07abe9e52bd92d",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        },
+        {
+          "rfilename": "layer9.sae.pt",
+          "blobId": "ac707a4e5c74f23cf356f71c8580d94ef4e8ac64",
+          "size": 537012593,
+          "lfs": {
+            "sha256": "dc3332fd715b0f4c712beb5ac5629c9bbadbe1fe0684cd2bd55169e31144c0dc",
+            "size": 537012593,
+            "pointerSize": 134
+          }
+        }
+      ],
+      "config_metadata": {
+        "model_type": "topk_sae",
+        "architectures": null
+      },
+      "card_metadata": {
+        "base_model": "Qwen/Qwen3.5-2B-Base",
+        "library_name": null,
+        "tags": [
+          "sparse-autoencoder",
+          "sae",
+          "mechanistic-interpretability",
+          "interpretability",
+          "qwen-scope",
+          "arxiv:2605.11887"
+        ]
+      },
+      "immutable_confirmation": {
+        "url": "https://huggingface.co/api/models/Qwen/SAE-Res-Qwen3.5-2B-Base-W32K-L0_50/revision/132ea3697b591df9ee46d738aa1d528e3c6082f7?blobs=true",
+        "queried_at_utc": "2026-10-30T06:32:51.569973+00:00",
+        "http_status": 200,
+        "sha": "132ea3697b591df9ee46d738aa1d528e3c6082f7",
+        "file_list_matches": true
+      },
+      "verification": "HF API repository metadata only; file contents/weights not downloaded"
+    }
+  },
+  "selected_revisions": {
+    "model": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "tokenizer": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "sae": "132ea3697b591df9ee46d738aa1d528e3c6082f7"
+  },
+  "model_tokenizer_same_revision": {
+    "independently_queried": true,
+    "equal": true,
+    "tokenizer_files_present": true
+  },
+  "sae_compatibility": {
+    "base_model": "Qwen/Qwen3.5-2B-Base",
+    "layer5_file": {
+      "rfilename": "layer5.sae.pt",
+      "blobId": "990290214428ab416a904a46180c804958fb45de",
+      "size": 537012593,
+      "lfs": {
+        "sha256": "8d65e489c33a9de48b59d8c8c4456758bb21502c19f5d1646d9d18d66d16482f",
+        "size": 537012593,
+        "pointerSize": 134
+      }
+    },
+    "verification": "Metadata correspondence; actual SAE tensor/model compatibility unverified"
+  },
+  "local_cache": {
+    "snapshot_path": "/home/davidkss/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "files": [
+      {
+        "filename": "tokenizer.json",
+        "path": "/home/davidkss/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/tokenizer.json",
+        "exists": true,
+        "metadata_matches": true,
+        "bytes": 12807196,
+        "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+        "api_git_blob_id": "468a6a46bcda7cfedbbda773b0176b8284724e6f",
+        "hash_kind": "lfs_sha256",
+        "expected_sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927"
+      },
+      {
+        "filename": "tokenizer_config.json",
+        "path": "/home/davidkss/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/tokenizer_config.json",
+        "exists": true,
+        "metadata_matches": true,
+        "bytes": 16712,
+        "sha256": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+        "api_git_blob_id": "34e1f7a59c40a7a4197ce3dbb242b94dc5bef1dd",
+        "hash_kind": "git_blob_sha1",
+        "git_blob_id": "34e1f7a59c40a7a4197ce3dbb242b94dc5bef1dd"
+      },
+      {
+        "filename": "vocab.json",
+        "path": "/home/davidkss/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/vocab.json",
+        "exists": true,
+        "metadata_matches": true,
+        "bytes": 6722759,
+        "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+        "api_git_blob_id": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176",
+        "hash_kind": "git_blob_sha1",
+        "git_blob_id": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176"
+      },
+      {
+        "filename": "merges.txt",
+        "path": "/home/davidkss/.cache/huggingface/hub/models--Qwen--Qwen3.5-2B-Base/snapshots/b1485b2fa6dfa1287294f269f5fb618e03d52d7c/merges.txt",
+        "exists": true,
+        "metadata_matches": true,
+        "bytes": 3353259,
+        "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+        "api_git_blob_id": "a494e019ca1502219fd0128658b979e5f05ae8e8",
+        "hash_kind": "git_blob_sha1",
+        "git_blob_id": "a494e019ca1502219fd0128658b979e5f05ae8e8"
+      }
+    ],
+    "all_tokenizer_files_match": true,
+    "note": "File presence/hash is not tokenizer execution or model loading validation"
+  },
+  "runtime_tokenizer": {
+    "status": "unverified",
+    "reason": "Transformers/Tokenizers not installed; cached files were not executed"
+  },
+  "local_runtime_dependencies": {
+    "torch": false,
+    "transformers": false,
+    "tokenizers": false,
+    "huggingface_hub": false
+  },
+  "local_weight_cache": {
+    "model_config_present": false,
+    "model_weight_files_present": false,
+    "sae_repository_cache_present": false
+  },
+  "revision_validation": {
+    "validated_revisions": {
+      "model": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+      "tokenizer": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+      "sae": "132ea3697b591df9ee46d738aa1d528e3c6082f7"
+    },
+    "revision_metadata_verified": true,
+    "revision_loader_forwarding_verified": true,
+    "runtime_tokenizer_validation": "unverified",
+    "runtime_model_loading_validation": "unverified",
+    "runtime_sae_loading_validation": "unverified"
+  },
+  "execution_ready": false,
+  "metadata_only_network": true,
+  "weights_downloaded": false,
+  "initial_sandbox_attempt": "DNS failure; metadata-only retry outside network sandbox succeeded",
+  "loader_forwarding_evidence": {
+    "scope": "CPU AST/Mock only; all AutoConfig/model/processor/tokenizer/SAE boundaries; no real loading",
+    "test_file": "tests/test_revision_pinning.py",
+    "test_file_sha256": "9dbb5ba3be51950f6712299ba5218ea5c5d550840f2f27fad0acd3f5e1a7dbb3"
+  },
+  "local_component_files": {
+    "config.json": false,
+    "model.safetensors.index.json": false,
+    "model.safetensors": false,
+    "preprocessor_config.json": false,
+    "video_preprocessor_config.json": false
+  },
+  "cpu_test_results": {
+    "existing_passed": 90,
+    "new_passed": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skipped_scope": "Existing actual Tensor hook test: Torch/HF unavailable",
+    "separate_launcher_assertion_checks": 3
+  }
+}

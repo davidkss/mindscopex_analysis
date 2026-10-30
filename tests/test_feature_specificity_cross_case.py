@@ -138,7 +138,12 @@ class CrossCaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'revisions'):trace.run_model(self.plan,check_equivalence=True)
         ready=copy.deepcopy(self.plan);ready['study_manifest']['revisions']={k:'a'*40 for k in ('model','tokenizer','sae')}
         with self.assertRaises(ValueError):study.require_ready(ready)
-        ready['study_manifest']['pinning_validation']='verified';study.require_ready(ready)
+        ready['study_manifest']['pinning_validation']='verified'
+        with self.assertRaises(ValueError):study.require_ready(ready)
+        ready['study_manifest']['revision_validation']=dict(validated_revisions=ready['study_manifest']['revisions'],
+            revision_metadata_verified=True,revision_loader_forwarding_verified=True,
+            runtime_tokenizer_validation='verified',runtime_model_loading_validation='verified',runtime_sae_loading_validation='verified')
+        study.require_ready(ready)
         self.assertFalse(self.plan['execution_ready'])
 
     def test_actual_loop_feature_dose_no_hook_and_result_validation(self):

@@ -3,7 +3,6 @@ from __future__ import annotations
 import hashlib
 import json
 import math
-import re
 import sys
 from pathlib import Path
 
@@ -20,11 +19,10 @@ CONDITIONS = [(None,0),(30908,7),(30908,8),(30908,8.5),(12207,7),(12207,8),(1220
 
 
 def require_ready(plan):
-    revisions = plan['study_manifest']['revisions']
-    if (set(revisions) != {'model','tokenizer','sae'}
-            or any(not isinstance(v,str) or not re.fullmatch('[0-9a-f]{40}',v) for v in revisions.values())
-            or plan['study_manifest']['pinning_validation'] != 'verified'):
-        raise ValueError('Cross-case execution blocked: exact revisions and real loader pinning validation unresolved')
+    from experiments.revision_pinning import revision_blockers
+    blockers = revision_blockers(plan['study_manifest'])
+    if blockers:
+        raise ValueError('Cross-case execution blocked: revisions; ' + '; '.join(blockers))
 
 
 def build_plan(block_id):
@@ -43,6 +41,13 @@ def build_plan(block_id):
             or manifest['check_equivalence'] is not True or manifest['activation_diagnostics'] is not True
             or manifest['expected_observations'] != 42 or manifest['expected_generate_calls'] != 84):
         raise ValueError('Study manifest outside preregistered CPU scope')
+    from experiments.revision_pinning import validate_revision_ids
+    validate_revision_ids(manifest['revisions'])
+    from experiments.revision_pinning import validate_revision_evidence
+    evidence_path = ROOT / 'research/audits/2026-10-30-feature-specificity-cross-case/revision_evidence.json'
+    if manifest.get('revision_evidence_path') != str(evidence_path.relative_to(ROOT)):
+        raise ValueError('Cross-case revision evidence path differs')
+    validate_revision_evidence(manifest, json.loads(evidence_path.read_text()))
     if block_id not in manifest['blocks']:
         raise ValueError('Unknown cross-case block')
     base=load_plan()  # Reuse full legacy input/audit consistency checks.
@@ -95,6 +100,8 @@ def build_plan(block_id):
               audit_scope='historical 2026-10-29 audit metadata; not study selection/observation counts',
               measurement_unit='case x condition x block; equivalence pair and historical seeds are not repeats')
     plan['source_files']['protocol_manifest']=dict(path=str(PROTOCOL),sha256=digest(PROTOCOL))
+    plan['source_files']['revision_evidence'] = dict(path=str(evidence_path), sha256=digest(evidence_path))
+    plan['revision_validation'] = manifest.get('revision_validation', {})
     try:require_ready(plan)
     except ValueError as exc:plan['execution_blockers']=[str(exc)]
     else:plan.update(execution_ready=True,execution_blockers=[])

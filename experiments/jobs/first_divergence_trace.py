@@ -1,4 +1,4 @@
-"""Colab adapter for the single Growth019/+8 actual-generation diagnostic."""
+"""Colab adapter for one Growth019 coefficient (0, 7, or 8) per run."""
 from __future__ import annotations
 
 import argparse
@@ -15,16 +15,18 @@ if str(ROOT) not in sys.path:
 from experiments.runners.config import job_name, load_toml, run_name, table
 from experiments.trace_fresh_v2_first_divergence import INPUTS, filter_plan, load_plan, write_new
 
-PINNED = dict(case_id="crt_fresh_v2_growth_019", coefficient=8, layer=5,
+PINNED = dict(case_id="crt_fresh_v2_growth_019", layer=5,
               feature=30908, check_equivalence=True)
+ALLOWED_COEFFICIENTS = (0, 7, 8)
 
 
 def prepare_plan(config):
     cfg = table(config, "diagnostic")
-    if (job_name(config) != "first_divergence_trace" or cfg != PINNED
+    if (job_name(config) != "first_divergence_trace" or {k: v for k, v in cfg.items() if k != "coefficient"} != PINNED
             or type(cfg.get("coefficient")) is not int
+            or cfg.get("coefficient") not in ALLOWED_COEFFICIENTS
             or cfg.get("check_equivalence") is not True):
-        raise ValueError("First trace requires Growth019, coefficient 8, Layer 5/30908 and equivalence=true")
+        raise ValueError("First trace requires Growth019, coefficient 0/7/8, Layer 5/30908 and equivalence=true")
     name = run_name(config)
     if Path(name).name != name or name in (".", ".."):
         raise ValueError("run.name must be a single directory name")
@@ -106,7 +108,8 @@ def run(config_path, output_root):
         output = json.loads((run_dir / "actual_first_divergence.json").read_text())
         if (output.get("status") != "captured" or output.get("n_unique_measurements") != 1
                 or output.get("n_slot_comparisons") != 2 or output.get("expected_generate_calls") != 2
-                or output.get("filters") != dict(case_id=PINNED["case_id"], coefficient=8)):
+                or output.get("filters") != dict(case_id=PINNED["case_id"],
+                                                       coefficient=config["diagnostic"]["coefficient"])):
             raise ValueError("Remote diagnostic did not produce the selected captured result")
         validate_equivalence(output, plan)
         metadata.update(status="succeeded", equivalence_validation="passed")

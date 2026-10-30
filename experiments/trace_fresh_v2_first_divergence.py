@@ -402,7 +402,7 @@ def generation_source_evidence(model):
 
 
 def run_model(plan, *, check_equivalence=False):
-    """The sole model-loading entry point, reachable only with --run-model."""
+    """Legacy opt-in loading path; staged smoke shares the loaded-context capture below."""
     if plan.get("cross_case"):
         from experiments.feature_specificity_cross_case import require_ready
         require_ready(plan)  # Fail before any ML import/download.
@@ -445,6 +445,20 @@ def run_model(plan, *, check_equivalence=False):
     sae = load_qwen_scope_sae(profile.sae_repo_id, 5, device=sae_device, dtype=dtype_from_name(dtype),
                               **({"revision": revisions["sae"]} if revisions else {}))
     block = find_decoder_block(model, 5, block_path_template=profile.block_path_template)
+    return run_loaded_model(plan, model, processor, sae, block, torch=torch,
+                            transformers=transformers, dtype=dtype, profile=profile, sae_device=sae_device)
+
+
+def run_loaded_model(plan, model, processor, sae, block, *, torch, transformers, dtype, profile, sae_device,
+                     after_raw_capture=None, after_capture=None):
+    """Shared capture path for an already loaded context. Smoke calls only after staged validation."""
+    from experiments.diagnose_rate027_baseline import environment
+    from mindscopex_analysis.lure_datasets import load_lure_dataset
+    from mindscopex_analysis.prompts import instruct_lure_case
+    from mindscopex_analysis.full_answer_protocols import token_ids_sha256
+    tokenizer = getattr(processor, "tokenizer", processor)
+    check_equivalence = plan.get("equivalence_check_enabled", False)
+    revisions = plan["study_manifest"]["revisions"] if plan.get("cross_case") else None
     cases = {c.case_id: instruct_lure_case(c) for c in load_lure_dataset("crt_fresh_v2")
              if c.case_id in (plan["case_ids"] if plan.get("cross_case") else CASE_IDS) and c.family == "crt_growth"}
     # Verify all conditions against saved B tokens before the first model.generate call.
@@ -496,10 +510,14 @@ def run_model(plan, *, check_equivalence=False):
                 or any(record["candidate_token_ids"][label] != json.loads(score[f"{label}_token_ids"])
                        for label in ("correct", "lure"))):
             raise ValueError("Actual capture inputs differ from saved Protocol B")
+        if after_raw_capture is not None:
+            after_raw_capture(item, record)
         record["equivalence_check"] = (
             compare_uninstrumented(model, processor, cases[item["case_id"]], block, sae,
                                    item["coefficient"], record, **feature_args)
             if check_equivalence else dict(status="not_run"))
+        if after_capture is not None:
+            after_capture(item, record)
         item["capture"] = record
         captured[item["measurement_id"]] = record
     for slot in plan["slot_comparisons"]:

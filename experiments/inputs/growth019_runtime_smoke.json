@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "result_schema": 4,
+  "run_id": "growth019_pinned_runtime_smoke_2b",
+  "allocation_authorized": false,
+  "execution_ready": false,
+  "case_id": "crt_fresh_v2_growth_019",
+  "layer": 5,
+  "token_position": "all",
+  "conditions": [
+    {"condition_id": "baseline", "feature_id": null, "coefficient": 0},
+    {"condition_id": "f30908-c8p5", "feature_id": 30908, "coefficient": 8.5},
+    {"condition_id": "f12207-c8", "feature_id": 12207, "coefficient": 8}
+  ],
+  "expected_observations": 3,
+  "expected_generate_calls": 6,
+  "extra_model_forwards": 0,
+  "synthetic_hook_module_forwards": 2,
+  "automatic_generation_retries": 0,
+  "phases": ["validate", "generate"],
+  "revision_source": "experiments/inputs/feature_specificity_cross_case.json"
+}

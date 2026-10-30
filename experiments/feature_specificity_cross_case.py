@@ -146,21 +146,7 @@ def validate_result(output,plan):
         for field,margin in [('raw_logit','actual_raw_margin'),('processed_score','actual_processed_score_margin')]:
             if t[ids['lure'][k]][field]-t[ids['correct'][k]][field]!=c[margin]:
                 raise ValueError('Margin arithmetic mismatch')
-        telemetry=c.get('activation_norms',{})
-        if expected['feature_id'] is None:
-            if telemetry != dict(status='no_hook',records=[]):raise ValueError('Baseline must remain no-hook')
-        else:
-            records=telemetry.get('records',[])
-            if (telemetry.get('status')!='measured_at_hook' or not records
-                    or not math.isfinite(telemetry.get('unit_decoder_direction_norm',float('nan')))):
-                raise ValueError('Activation diagnostics missing')
-            for r in records:
-                if r['feature_ids']!=str(expected['feature_id']) or r['coefficient']!=expected['coefficient'] or r['token_position']!='all':
-                    raise ValueError('Activation diagnostics condition mismatch')
-                for key in ('requested_vector_norm','cast_vector_norm','actual_delta_mean','residual_before_mean','residual_after_mean'):
-                    if r.get(key) is None or not math.isfinite(r[key]) or r[key]<0:raise ValueError('Invalid activation norm')
-                if any(r.get(k,0) for k in ('nonfinite_residual_count','nonfinite_post_count','nonfinite_delta_count')):
-                    raise ValueError('Nonfinite activation diagnostics')
+        validate_activation_norms(c.get('activation_norms',{}), expected)
         if c.get('raw_tie') != (c['actual_raw_margin']==0) or c.get('selected_branch_token_id')!=gen[k]:
             raise ValueError('Derived tie/selection mismatch')
     # Derived metrics are checked against this block's shared no-hook reference per case.
@@ -194,3 +180,21 @@ def compare_blocks(outputs):
             teacher_forced_first_margin=left['teacher_forced_first_margin']))
     return dict(schema=1,status='compared recorded observations',rows=rows,n_cases=3,n_observations=42,
                 limitation='Two blocks per case; no generalization, semantic specificity or independent seed repetitions inferred')
+
+
+def validate_activation_norms(telemetry, expected):
+    """Shared finite activation telemetry validation, including the no-hook baseline."""
+    if expected['feature_id'] is None:
+        if telemetry != dict(status='no_hook',records=[]):raise ValueError('Baseline must remain no-hook')
+    else:
+        records=telemetry.get('records',[])
+        if (telemetry.get('status')!='measured_at_hook' or not records
+                or not math.isfinite(telemetry.get('unit_decoder_direction_norm',float('nan')))):
+            raise ValueError('Activation diagnostics missing')
+        for r in records:
+            if r['feature_ids']!=str(expected['feature_id']) or r['coefficient']!=expected['coefficient'] or r['token_position']!='all':
+                raise ValueError('Activation diagnostics condition mismatch')
+            for key in ('requested_vector_norm','cast_vector_norm','actual_delta_mean','residual_before_mean','residual_after_mean'):
+                if r.get(key) is None or not math.isfinite(r[key]) or r[key]<0:raise ValueError('Invalid activation norm')
+            if any(r.get(k,0) for k in ('nonfinite_residual_count','nonfinite_post_count','nonfinite_delta_count')):
+                raise ValueError('Nonfinite activation diagnostics')

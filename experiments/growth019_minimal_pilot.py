@@ -80,6 +80,15 @@ def validate_result(output, plan):
 
 def validate_capture(capture, expected):
     """Shared candidate/EOS/equivalence evidence checks; no generation."""
+    validate_capture_tokens(capture, expected)
+    eq = capture['equivalence_check']
+    if (eq['uninstrumented_generated_token_ids'] != capture['generated_token_ids']
+            or eq['uninstrumented_answer'] != capture['answer']):
+        raise ValueError('Pilot equivalence flags disagree with observations')
+
+
+def validate_capture_tokens(capture, expected):
+    """Shared raw capture checks before an optional equivalence generation."""
     reference = expected['input_reference']
     if (token_ids_sha256(capture['prompt_token_ids']) != reference['prompt_token_ids_sha256']
             or any(capture['candidate_token_ids'][label] != json.loads(reference[f'{label}_token_ids'])
@@ -98,10 +107,6 @@ def validate_capture(capture, expected):
             or any(not step['constraint_verified'] or step['selected_token_id'] not in step['allowed_token_ids']
                    for step in capture['steps'])):
         raise ValueError('Pilot candidate/trie mismatch')
-    eq = capture['equivalence_check']
-    if (eq['uninstrumented_generated_token_ids'] != capture['generated_token_ids']
-            or eq['uninstrumented_answer'] != capture['answer']):
-        raise ValueError('Pilot equivalence flags disagree with observations')
 
 
 def compare_blocks(outputs):

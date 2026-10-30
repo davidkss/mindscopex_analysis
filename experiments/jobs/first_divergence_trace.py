@@ -21,6 +21,17 @@ ALLOWED_COEFFICIENTS = (0, 7, 8)
 
 
 def prepare_plan(config):
+    if "runtime_smoke" in config:
+        from experiments.runtime_smoke import build_plan
+        if (job_name(config)!="first_divergence_trace" or any(table(config,key) for key in ("diagnostic","pilot","cross_case"))
+                or set(table(config,"runtime_smoke"))!={"through"}):
+            raise ValueError("Runtime smoke requires a standalone stage config")
+        plan=build_plan(config["runtime_smoke"]["through"])
+        if run_name(config)!=plan["run_id"]:raise ValueError("Runtime smoke run.name mismatch")
+        summary={k:plan[k] for k in ("n_unique_measurements","expected_generate_calls","synthetic_hook_module_forwards","extra_model_forwards","allocation_authorized","execution_ready")}
+        summary.update(revisions=plan["study_manifest"]["revisions"],conditions=plan["smoke_manifest"]["conditions"],through=plan["through"])
+        print(json.dumps(summary),flush=True)
+        return plan
     if "cross_case" in config:
         from experiments.feature_specificity_cross_case import build_plan
         if (job_name(config) != "first_divergence_trace" or table(config, "diagnostic") or table(config, "pilot")
@@ -117,14 +128,17 @@ def run(config_path, output_root):
         stream.write(config_path.read_bytes())
     write_new(run_dir / "plan.json", plan)
     command = [sys.executable, "-u", str(ROOT / "experiments/trace_fresh_v2_first_divergence.py"), "--run-model"]
-    if plan.get("cross_case"):
+    if plan.get("runtime_smoke"):
+        command = [sys.executable,"-u",str(ROOT/"experiments/runtime_smoke.py"),"--through",plan["through"],"--output-dir",str(run_dir)]
+    elif plan.get("cross_case"):
         command += ["--cross-case-block", plan["block_id"]]
     elif plan.get("pilot"):
         command += ["--pilot-block", plan["block_id"]]
     else:
         command += ["--case-id", config["diagnostic"]["case_id"],
                     "--coefficient", str(config["diagnostic"]["coefficient"]), "--check-equivalence"]
-    command += ["--output", str(run_dir / "actual_first_divergence.json")]
+    if not plan.get("runtime_smoke"):
+        command += ["--output", str(run_dir / "actual_first_divergence.json")]
     metadata = dict(status="running", command=command, expected_generate_calls=plan["expected_generate_calls"],
                     source_files=plan["source_files"])
     if plan.get("pilot") or plan.get("cross_case"):
@@ -135,13 +149,20 @@ def run(config_path, output_root):
     if plan.get("cross_case"):
         metadata["study_manifest_sha256"] = plan["study_manifest_sha256"]
         metadata["schema"] = 3
+    if plan.get("runtime_smoke"):
+        metadata.update(smoke_manifest_sha256=plan["smoke_manifest_sha256"],through=plan["through"],schema=4)
     manifest = run_dir / "job_manifest.json"
     write_new(manifest, metadata)
     try:
         with (run_dir / "diagnostic.log").open("x", encoding="utf-8") as log:
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
-        output = json.loads((run_dir / "actual_first_divergence.json").read_text())
-        if plan.get("cross_case"):
+        filename = "runtime_validation.json" if plan.get("runtime_smoke") and plan["through"]=="validate" else "actual_first_divergence.json"
+        output = json.loads((run_dir / filename).read_text())
+        if plan.get("runtime_smoke"):
+            from experiments.runtime_smoke import validate_result,validate_summary
+            if plan["through"]=="validate":validate_summary(output,plan)
+            else:validate_result(output,plan)
+        elif plan.get("cross_case"):
             from experiments.feature_specificity_cross_case import validate_result
             validate_result(output, plan)
         elif plan.get("pilot"):
@@ -154,7 +175,7 @@ def run(config_path, output_root):
                                                            coefficient=config["diagnostic"]["coefficient"])):
                 raise ValueError("Remote diagnostic did not produce the selected captured result")
             validate_equivalence(output, plan)
-        metadata.update(status="succeeded", equivalence_validation="passed")
+        metadata.update(status="succeeded", equivalence_validation=("not_run" if plan.get("runtime_smoke") and plan["through"]=="validate" else "passed"))
     except Exception as exc:
         metadata.update(status="failed", error=str(exc), returncode=getattr(exc, "returncode", None))
         message = f"TRACE_JOB_FAILED: {exc}\n"

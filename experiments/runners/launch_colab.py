@@ -233,7 +233,10 @@ def launch_one(
         if source != "archive":
             raise ValueError("First trace requires archive source with reference CSVs")
         prepared = prepare_plan(config)  # CPU-only preflight before session allocation or upload.
-        if prepared.get("cross_case") and not dry_run:
+        if prepared.get("runtime_smoke") and not dry_run:
+            from experiments.runtime_smoke import require_allocation_authorized
+            require_allocation_authorized(prepared)
+        elif prepared.get("cross_case") and not dry_run:
             from experiments.feature_specificity_cross_case import require_ready
             require_ready(prepared)  # Revision blockers must stop before GPU allocation.
 
@@ -279,7 +282,7 @@ def launch_one(
         make_source_archive(root, local_run_dir / "source.zip")
         if job == "first_divergence_trace":
             from experiments.jobs.first_divergence_trace import include_reference_inputs
-            if "cross_case" in config:
+            if "cross_case" in config or "runtime_smoke" in config:
                 from experiments.feature_specificity_cross_case import PROTOCOL
                 include_reference_inputs(root, local_run_dir / "source.zip", additional_paths=(PROTOCOL,))
             else:

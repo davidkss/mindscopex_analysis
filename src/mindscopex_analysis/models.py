@@ -234,6 +234,10 @@ def load_qwen_text_generation_model(
     trust_remote_code: bool = True,
     revision: str | None = None,
     tokenizer_revision: str | None = None,
+    local_files_only: bool = False,
+    processor_only: bool = False,
+    prepared_config: Any | None = None,
+    prepared_processor: Any | None = None,
     **kwargs: Any,
 ) -> tuple[Any, Any]:
     """Load a Qwen tokenizer and causal LM for ordinary text generation."""
@@ -246,8 +250,10 @@ def load_qwen_text_generation_model(
     model_revision_kwargs = {"revision": revision} if revision is not None else {}
     token_revision = tokenizer_revision if tokenizer_revision is not None else revision
     tokenizer_revision_kwargs = {"revision": token_revision} if token_revision is not None else {}
+    local_kwargs = {"local_files_only": True} if local_files_only else {}
     try:
-        config = AutoConfig.from_pretrained(model_id, trust_remote_code=trust_remote_code, **model_revision_kwargs)
+        config = (prepared_config if prepared_config is not None else
+                  AutoConfig.from_pretrained(model_id, trust_remote_code=trust_remote_code, **model_revision_kwargs, **local_kwargs))
     except ValueError as exc:
         if "qwen3_5" in str(exc).lower() or "qwen3.5" in model_id.lower():
             raise RuntimeError(
@@ -261,6 +267,7 @@ def load_qwen_text_generation_model(
         "trust_remote_code": trust_remote_code,
         **kwargs,
         **model_revision_kwargs,
+        **local_kwargs,
     }
     resolved_dtype = dtype_from_name(dtype)
     if resolved_dtype is not None:
@@ -273,18 +280,24 @@ def load_qwen_text_generation_model(
             raise ImportError(
                 "Qwen3.5 requires AutoModelForMultimodalLM from the latest Transformers build."
             ) from exc
-        tokenizer = AutoProcessor.from_pretrained(
+        tokenizer = prepared_processor if prepared_processor is not None else AutoProcessor.from_pretrained(
             model_id,
             trust_remote_code=trust_remote_code,
             **tokenizer_revision_kwargs,
+            **local_kwargs,
         )
+        if processor_only:
+            return None, tokenizer
         model = AutoModelForMultimodalLM.from_pretrained(model_id, **model_kwargs)
     else:
-        tokenizer = AutoTokenizer.from_pretrained(
+        tokenizer = prepared_processor if prepared_processor is not None else AutoTokenizer.from_pretrained(
             model_id,
             trust_remote_code=trust_remote_code,
             **tokenizer_revision_kwargs,
+            **local_kwargs,
         )
+        if processor_only:
+            return None, tokenizer
         model = AutoModelForCausalLM.from_pretrained(model_id, **model_kwargs)
     model.eval()
     return model, tokenizer

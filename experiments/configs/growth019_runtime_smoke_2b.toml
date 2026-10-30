@@ -1,0 +1,14 @@
+[run]
+name = "growth019_pinned_runtime_smoke_2b"
+job = "first_divergence_trace"
+
+[runtime_smoke]
+through = "generate"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

@@ -232,6 +232,8 @@ def load_qwen_text_generation_model(
     device_map: str | dict[str, Any] = "auto",
     dtype: str | torch.dtype | None = None,
     trust_remote_code: bool = True,
+    revision: str | None = None,
+    tokenizer_revision: str | None = None,
     **kwargs: Any,
 ) -> tuple[Any, Any]:
     """Load a Qwen tokenizer and causal LM for ordinary text generation."""
@@ -241,8 +243,11 @@ def load_qwen_text_generation_model(
     except ImportError as exc:
         raise ImportError("transformers is required for Qwen text generation.") from exc
 
+    model_revision_kwargs = {"revision": revision} if revision is not None else {}
+    token_revision = tokenizer_revision if tokenizer_revision is not None else revision
+    tokenizer_revision_kwargs = {"revision": token_revision} if token_revision is not None else {}
     try:
-        config = AutoConfig.from_pretrained(model_id, trust_remote_code=trust_remote_code)
+        config = AutoConfig.from_pretrained(model_id, trust_remote_code=trust_remote_code, **model_revision_kwargs)
     except ValueError as exc:
         if "qwen3_5" in str(exc).lower() or "qwen3.5" in model_id.lower():
             raise RuntimeError(
@@ -255,6 +260,7 @@ def load_qwen_text_generation_model(
         "device_map": device_map,
         "trust_remote_code": trust_remote_code,
         **kwargs,
+        **model_revision_kwargs,
     }
     resolved_dtype = dtype_from_name(dtype)
     if resolved_dtype is not None:
@@ -270,12 +276,14 @@ def load_qwen_text_generation_model(
         tokenizer = AutoProcessor.from_pretrained(
             model_id,
             trust_remote_code=trust_remote_code,
+            **tokenizer_revision_kwargs,
         )
         model = AutoModelForMultimodalLM.from_pretrained(model_id, **model_kwargs)
     else:
         tokenizer = AutoTokenizer.from_pretrained(
             model_id,
             trust_remote_code=trust_remote_code,
+            **tokenizer_revision_kwargs,
         )
         model = AutoModelForCausalLM.from_pretrained(model_id, **model_kwargs)
     model.eval()

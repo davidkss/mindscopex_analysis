@@ -262,14 +262,15 @@ def inspect_capture(wrapper, candidate_ids, eos_ids):
 
 
 @contextmanager
-def intervention(block, sae, coefficient, *, feature_id=30908):
+def intervention(block, sae, coefficient, *, feature_id=30908, diagnostics=None):
     """Same production hook factory; coefficient zero is a no-hook baseline."""
     if coefficient == 0:
         yield
         return
     from mindscopex_analysis.qwen_scope import make_feature_steering_hook
+    options = {"diagnostics": diagnostics} if diagnostics is not None else {}
     handle = block.register_forward_hook(make_feature_steering_hook(
-        sae, [feature_id], coefficient=coefficient, token_position="all"))
+        sae, [feature_id], coefficient=coefficient, token_position="all", **options))
     try:
         yield
     finally:
@@ -334,7 +335,7 @@ def compare_uninstrumented(model, tokenizer, case, block, sae, coefficient, capt
                 note="Passive observer changes no generation arguments; equality is per observed run.")
 
 
-def capture_case(model, tokenizer, case, block, sae, coefficient, *, feature_id=30908):
+def capture_case(model, tokenizer, case, block, sae, coefficient, *, feature_id=30908, diagnostics=None):
     from mindscopex_analysis.research import _binary_choice_completion
     text_tokenizer = getattr(tokenizer, "tokenizer", tokenizer)
     candidates = [list(text_tokenizer.encode(text, add_special_tokens=False))
@@ -345,7 +346,7 @@ def capture_case(model, tokenizer, case, block, sae, coefficient, *, feature_id=
         raise ValueError("Tokenizer requires EOS IDs")
     wrapper = RecordingModel(model)
     answer, error = None, None
-    with intervention(block, sae, coefficient, feature_id=feature_id):
+    with intervention(block, sae, coefficient, feature_id=feature_id, diagnostics=diagnostics):
         try:
             answer = _binary_choice_completion(wrapper, tokenizer, case, max_new_tokens=16)
         except RuntimeError as exc:
@@ -402,6 +403,11 @@ def generation_source_evidence(model):
 
 def run_model(plan, *, check_equivalence=False):
     """The sole model-loading entry point, reachable only with --run-model."""
+    if plan.get("cross_case"):
+        from experiments.feature_specificity_cross_case import require_ready
+        require_ready(plan)  # Fail before any ML import/download.
+        if not check_equivalence:
+            raise ValueError("Cross-case execution requires equivalence check")
     sys.path.insert(0, str(ROOT / "src"))
     import torch
     import transformers
@@ -422,21 +428,25 @@ def run_model(plan, *, check_equivalence=False):
     if not torch.cuda.is_available():
         raise RuntimeError("This opt-in diagnostic requires GPU; CPU tests use mocks")
     profile = get_qwen35_analysis_profile("2b")
-    if plan.get("pilot") and (profile.analysis_model_id != plan["pilot_manifest"]["model_id"]
-                              or profile.sae_repo_id != plan["pilot_manifest"]["sae_repo_id"]):
+    manifest = plan.get("study_manifest") or plan.get("pilot_manifest")
+    if manifest and (profile.analysis_model_id != manifest["model_id"]
+                     or profile.sae_repo_id != manifest["sae_repo_id"]):
         raise ValueError("Loaded profile differs from the pilot manifest")
     dtype = recommended_dtype_name()
+    revisions = plan["study_manifest"]["revisions"] if plan.get("cross_case") else None
+    revision_args = dict(revision=revisions["model"], tokenizer_revision=revisions["tokenizer"]) if revisions else {}
     model, processor = load_qwen_text_generation_model(
-        profile.analysis_model_id, device_map="auto", dtype=dtype)
+        profile.analysis_model_id, device_map="auto", dtype=dtype, **revision_args)
     tokenizer = getattr(processor, "tokenizer", processor)
     config = model.generation_config
     if any(getattr(config, k, 1) not in (None, 1) for k in ("num_beams", "num_return_sequences")):
         raise ValueError("Single-sequence greedy capture required; generation config is not changed")
     sae_device = default_sae_device()
-    sae = load_qwen_scope_sae(profile.sae_repo_id, 5, device=sae_device, dtype=dtype_from_name(dtype))
+    sae = load_qwen_scope_sae(profile.sae_repo_id, 5, device=sae_device, dtype=dtype_from_name(dtype),
+                              **({"revision": revisions["sae"]} if revisions else {}))
     block = find_decoder_block(model, 5, block_path_template=profile.block_path_template)
     cases = {c.case_id: instruct_lure_case(c) for c in load_lure_dataset("crt_fresh_v2")
-             if c.case_id in CASE_IDS and c.family == "crt_growth"}
+             if c.case_id in (plan["case_ids"] if plan.get("cross_case") else CASE_IDS) and c.family == "crt_growth"}
     # Verify all conditions against saved B tokens before the first model.generate call.
     for item in plan["measurements"]:
         case, score = cases[item["case_id"]], (item.get("input_reference") or item["score_reference"])
@@ -451,7 +461,7 @@ def run_model(plan, *, check_equivalence=False):
     plan["environment"] = environment(model, processor, tokenizer, torch, transformers, dtype)
     plan["sae"] = dict(repo_id=profile.sae_repo_id, layer=5, feature_id=30908,
                         device=sae_device, dtype=str(sae.W_dec.dtype), resolved_revision=None)
-    if plan.get("pilot"):
+    if plan.get("pilot") or plan.get("cross_case"):
         plan["sae"].update(feature_id=None, feature_ids=plan["feature_ids"])
     plan["loading_evidence"] = loading_evidence(model, tokenizer)
     plan["generation_source_evidence"] = generation_source_evidence(model)
@@ -461,10 +471,26 @@ def run_model(plan, *, check_equivalence=False):
     if plan.get("pilot"):
         plan["source_hashes"].update({name: digest(ROOT / name) for name in (
             "experiments/growth019_minimal_pilot.py", "experiments/inputs/growth019_minimal_pilot.json")})
+    unit_norms = {}
+    if plan.get("cross_case"):
+        from mindscopex_analysis.qwen_scope import sae_decoder_direction
+        plan["revision_requests"] = revisions
+        plan["revision_loading_status"] = "requested immutable commits; exact loaded state still requires verification"
+        unit_norms = {feature: float(sae_decoder_direction(sae, [feature]).detach().float().norm().item())
+                      for feature in plan["feature_ids"]}
+        plan["source_hashes"].update({name: digest(ROOT / name) for name in (
+            "experiments/feature_specificity_cross_case.py", "experiments/inputs/feature_specificity_cross_case.json",
+            "src/mindscopex_analysis/models.py")})
     captured = {}
     for item in plan["measurements"]:
-        feature_args = {"feature_id": item["feature_id"]} if plan.get("pilot") else {}
-        record = capture_case(model, processor, cases[item["case_id"]], block, sae, item["coefficient"], **feature_args)
+        feature_args = {"feature_id": item["feature_id"]} if plan.get("pilot") or plan.get("cross_case") else {}
+        diagnostics = [] if plan.get("cross_case") else None
+        record = capture_case(model, processor, cases[item["case_id"]], block, sae, item["coefficient"],
+                              **feature_args, **({"diagnostics": diagnostics} if diagnostics is not None else {}))
+        if diagnostics is not None:
+            record["activation_norms"] = (dict(status="no_hook", records=[]) if item["feature_id"] is None else
+                dict(status="measured_at_hook", unit_decoder_direction_norm=unit_norms[item["feature_id"]],
+                     records=diagnostics, note="Instrumented forward only; per-token statistics, no extra forward"))
         score = item.get("input_reference") or item["score_reference"]
         if (token_ids_sha256(record["prompt_token_ids"]) != score["prompt_token_ids_sha256"]
                 or any(record["candidate_token_ids"][label] != json.loads(score[f"{label}_token_ids"])
@@ -486,6 +512,21 @@ def run_model(plan, *, check_equivalence=False):
                     actual_processed_score_margin=record["actual_processed_score_margin"],
                     behavioral_label_agreement=(record["new_generation_label"] == slot["existing_behavioral_label"]
                                                 if record["new_generation_label"] is not None else None))
+    if plan.get("cross_case"):
+        baselines = {m["case_id"]: m["capture"]["actual_raw_margin"] for m in plan["measurements"] if m["feature_id"] is None}
+        processed_baselines = {m["case_id"]: m["capture"]["actual_processed_score_margin"]
+                               for m in plan["measurements"] if m["feature_id"] is None}
+        for item in plan["measurements"]:
+            record = item["capture"]
+            baseline = baselines[item["case_id"]]
+            record["raw_margin_minus_baseline"] = (record["actual_raw_margin"] - baseline
+                if record["actual_raw_margin"] is not None and baseline is not None else None)
+            processed_baseline = processed_baselines[item["case_id"]]
+            record["processed_margin_minus_baseline"] = (record["actual_processed_score_margin"] - processed_baseline
+                if record["actual_processed_score_margin"] is not None and processed_baseline is not None else None)
+            record["raw_tie"] = record["actual_raw_margin"] == 0 if record["observed"] else None
+            record["selected_branch_token_id"] = (record["steps"][record["common_prefix_length"]]["selected_token_id"]
+                                                   if record["observed"] else None)
     plan.update(status="captured", finished_at=datetime.now(UTC).isoformat(), limitations=[
         "One generate per unique case/coefficient; seed slots are references, not independent measurements.",
         "Historical +8 raw response files and exact model/SAE revisions remain unverified.",
@@ -493,6 +534,13 @@ def run_model(plan, *, check_equivalence=False):
         "Capture equivalence is CPU-mock tested; actual GPU equivalence is not established by mocks.",
         "Observation of logit/selection association does not establish feature semantics or reasoning mechanism.",
     ])
+    if plan.get("cross_case"):
+        plan["limitations"] = [
+            "One case/feature/coefficient/block observation includes an equivalence pair, not two repeats.",
+            "Activation telemetry is from instrumented forwards only; baseline remains no-hook.",
+            "Requested revisions are not proof of exact loaded checkpoints; real loader validation is required.",
+            "Two blocks and three selected growth cases cannot establish general semantic specificity.",
+        ]
     return plan
 
 
@@ -510,6 +558,7 @@ def main(argv=None):
     mode.add_argument("--run-model", action="store_true", help="Explicit model download/loading/GPU opt-in")
     parser.add_argument("--check-equivalence", action="store_true",
                         help="With future GPU execution: add one unchanged production call per condition")
+    parser.add_argument("--cross-case-block", choices=("block-1", "block-2"), help="Opt-in specificity study; execution gated by revisions")
     parser.add_argument("--pilot-block", choices=("block-1", "block-2"), help="Five-condition minimal pilot block")
     parser.add_argument("--case-id", choices=CASE_IDS, help="Select one of the seven prepared Growth cases")
     parser.add_argument("--coefficient", type=int, choices=COEFFICIENTS,
@@ -520,7 +569,13 @@ def main(argv=None):
         raise FileExistsError(f"Refusing existing output: {args.output}")
     if args.output.resolve().is_relative_to(ROOT / "results/runs"):
         raise ValueError("Use a separate new diagnostics path, outside historical results/runs")
-    if args.pilot_block:
+    if args.cross_case_block:
+        if args.pilot_block or args.case_id is not None or args.coefficient is not None:
+            parser.error("Cross-case block cannot be combined with legacy/pilot filters")
+        from experiments.feature_specificity_cross_case import build_plan
+        plan = build_plan(args.cross_case_block)
+        args.check_equivalence = True
+    elif args.pilot_block:
         if args.case_id is not None or args.coefficient is not None:
             parser.error("Pilot block cannot be combined with legacy case/coefficient filters")
         from experiments.growth019_minimal_pilot import build_plan
@@ -533,6 +588,9 @@ def main(argv=None):
                                     "n_unique_measurements", "n_slot_comparisons",
                                     "n_exception_slots", "n_selected_slot_comparisons",
                                     "n_selected_exception_slots", "expected_generate_calls")}
+    if plan.get("cross_case"):
+        summary.update(block_id=plan["block_id"], execution_ready=plan["execution_ready"],
+                       execution_blockers=plan["execution_blockers"])
     if plan.get("pilot"):
         summary.update(block_id=plan["block_id"], run_id=plan["run_id"],
                        conditions=plan["pilot_manifest"]["conditions"])

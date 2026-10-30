@@ -21,6 +21,16 @@ ALLOWED_COEFFICIENTS = (0, 7, 8)
 
 
 def prepare_plan(config):
+    if "cross_case" in config:
+        from experiments.feature_specificity_cross_case import build_plan
+        if (job_name(config) != "first_divergence_trace" or table(config, "diagnostic") or table(config, "pilot")
+                or set(table(config, "cross_case")) != {"block_id"}):
+            raise ValueError("Cross-case requires standalone block config")
+        plan = build_plan(config["cross_case"]["block_id"])
+        if run_name(config) != plan["run_id"]:
+            raise ValueError("Cross-case run.name must match block run_id")
+        print(json.dumps({k: plan[k] for k in ("block_id", "case_ids", "n_unique_measurements", "expected_generate_calls", "execution_ready", "execution_blockers")}), flush=True)
+        return plan
     if "pilot" in config:
         from experiments.growth019_minimal_pilot import build_plan
         if (job_name(config) != "first_divergence_trace" or table(config, "diagnostic")
@@ -52,11 +62,11 @@ def prepare_plan(config):
     return plan
 
 
-def include_reference_inputs(root, archive_path):
-    """Existing source packer excludes results; include only the three required CSVs."""
+def include_reference_inputs(root, archive_path, *, additional_paths=()):
+    """Include required CSVs and explicit additional read-only evidence excluded by the packer."""
     with zipfile.ZipFile(archive_path, "a", compression=zipfile.ZIP_DEFLATED) as archive:
         existing = set(archive.namelist())
-        for source in INPUTS.values():
+        for source in (*INPUTS.values(), *additional_paths):
             relative = source.relative_to(ROOT)
             path = root / relative
             name = relative.as_posix()
@@ -107,7 +117,9 @@ def run(config_path, output_root):
         stream.write(config_path.read_bytes())
     write_new(run_dir / "plan.json", plan)
     command = [sys.executable, "-u", str(ROOT / "experiments/trace_fresh_v2_first_divergence.py"), "--run-model"]
-    if plan.get("pilot"):
+    if plan.get("cross_case"):
+        command += ["--cross-case-block", plan["block_id"]]
+    elif plan.get("pilot"):
         command += ["--pilot-block", plan["block_id"]]
     else:
         command += ["--case-id", config["diagnostic"]["case_id"],
@@ -115,16 +127,24 @@ def run(config_path, output_root):
     command += ["--output", str(run_dir / "actual_first_divergence.json")]
     metadata = dict(status="running", command=command, expected_generate_calls=plan["expected_generate_calls"],
                     source_files=plan["source_files"])
-    if plan.get("pilot"):
+    if plan.get("pilot") or plan.get("cross_case"):
         metadata.update(block_id=plan["block_id"], run_id=plan["run_id"],
-                        pilot_manifest_sha256=plan["pilot_manifest_sha256"], n_observations=5)
+                        n_observations=plan["n_unique_measurements"])
+    if plan.get("pilot"):
+        metadata["pilot_manifest_sha256"] = plan["pilot_manifest_sha256"]
+    if plan.get("cross_case"):
+        metadata["study_manifest_sha256"] = plan["study_manifest_sha256"]
+        metadata["schema"] = 3
     manifest = run_dir / "job_manifest.json"
     write_new(manifest, metadata)
     try:
         with (run_dir / "diagnostic.log").open("x", encoding="utf-8") as log:
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
         output = json.loads((run_dir / "actual_first_divergence.json").read_text())
-        if plan.get("pilot"):
+        if plan.get("cross_case"):
+            from experiments.feature_specificity_cross_case import validate_result
+            validate_result(output, plan)
+        elif plan.get("pilot"):
             from experiments.growth019_minimal_pilot import validate_result
             validate_result(output, plan)
         else:

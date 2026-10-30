@@ -1,0 +1,14 @@
+[run]
+name = "cross_case_specificity_block-1_2b"
+job = "first_divergence_trace"
+
+[cross_case]
+block_id = "block-1"
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

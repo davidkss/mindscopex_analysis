@@ -75,29 +75,33 @@ def validate_result(output, plan):
     for actual, expected in zip(output['measurements'],plan['measurements'],strict=True):
         if any(actual.get(k) != expected[k] for k in ('case_id','feature_id','coefficient','condition_id')):
             raise ValueError('Pilot condition mismatch')
-        capture = actual['capture']
-        reference = expected['input_reference']
-        if (token_ids_sha256(capture['prompt_token_ids']) != reference['prompt_token_ids_sha256']
-                or any(capture['candidate_token_ids'][label] != json.loads(reference[f'{label}_token_ids'])
-                       for label in ('correct','lure'))):
-            raise ValueError('Pilot prompt/candidate token mismatch')
-        if any(not math.isfinite(capture[k]) for k in ('actual_raw_margin','actual_processed_score_margin')):
-            raise ValueError('Pilot margin must be finite')
-        if (not all(capture.get(k) is True for k in ('observed','eos_observed','eos_terminated',
-                                                   'complete_candidate','behavioral_response_valid'))
-                or capture['generated_token_ids'][-1] not in capture['eos_token_ids']):
-            raise ValueError('Pilot EOS/observation incomplete')
-        ids = capture['generated_token_ids'][:-1]
-        label = capture['new_generation_label']
-        if (ids != capture['candidate_token_ids'].get(label)
-                or capture['answer'] != capture['candidate_texts'][label].strip()
-                or any(not step['constraint_verified'] or step['selected_token_id'] not in step['allowed_token_ids']
-                       for step in capture['steps'])):
-            raise ValueError('Pilot candidate/trie mismatch')
-        eq = capture['equivalence_check']
-        if (eq['uninstrumented_generated_token_ids'] != capture['generated_token_ids']
-                or eq['uninstrumented_answer'] != capture['answer']):
-            raise ValueError('Pilot equivalence flags disagree with observations')
+        validate_capture(actual['capture'], expected)
+
+
+def validate_capture(capture, expected):
+    """Shared candidate/EOS/equivalence evidence checks; no generation."""
+    reference = expected['input_reference']
+    if (token_ids_sha256(capture['prompt_token_ids']) != reference['prompt_token_ids_sha256']
+            or any(capture['candidate_token_ids'][label] != json.loads(reference[f'{label}_token_ids'])
+                   for label in ('correct','lure'))):
+        raise ValueError('Pilot prompt/candidate token mismatch')
+    if any(not math.isfinite(capture[k]) for k in ('actual_raw_margin','actual_processed_score_margin')):
+        raise ValueError('Pilot margin must be finite')
+    if (not all(capture.get(k) is True for k in ('observed','eos_observed','eos_terminated',
+                                               'complete_candidate','behavioral_response_valid'))
+            or capture['generated_token_ids'][-1] not in capture['eos_token_ids']):
+        raise ValueError('Pilot EOS/observation incomplete')
+    ids = capture['generated_token_ids'][:-1]
+    label = capture['new_generation_label']
+    if (ids != capture['candidate_token_ids'].get(label)
+            or capture['answer'] != capture['candidate_texts'][label].strip()
+            or any(not step['constraint_verified'] or step['selected_token_id'] not in step['allowed_token_ids']
+                   for step in capture['steps'])):
+        raise ValueError('Pilot candidate/trie mismatch')
+    eq = capture['equivalence_check']
+    if (eq['uninstrumented_generated_token_ids'] != capture['generated_token_ids']
+            or eq['uninstrumented_answer'] != capture['answer']):
+        raise ValueError('Pilot equivalence flags disagree with observations')
 
 
 def compare_blocks(outputs):

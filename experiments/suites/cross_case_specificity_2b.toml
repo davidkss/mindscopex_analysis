@@ -1,0 +1,5 @@
+[suite]
+configs = [
+  "../configs/cross_case_specificity_block-1_2b.toml",
+  "../configs/cross_case_specificity_block-2_2b.toml",
+]

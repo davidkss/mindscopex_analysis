@@ -146,11 +146,13 @@ def load_qwen_scope_sae(
     device: str | torch.device = "cpu",
     dtype: torch.dtype | None = None,
     top_k: int | None = None,
+    revision: str | None = None,
 ) -> QwenScopeSAE:
     """Download and load one Qwen-Scope SAE checkpoint from Hugging Face."""
 
     filename = f"layer{int(layer)}.sae.pt"
-    path = hf_hub_download(repo_id=repo_id, filename=filename, cache_dir=cache_dir)
+    revision_kwargs = {"revision": revision} if revision is not None else {}
+    path = hf_hub_download(repo_id=repo_id, filename=filename, cache_dir=cache_dir, **revision_kwargs)
     try:
         state = torch.load(path, map_location="cpu", weights_only=True)
     except TypeError:

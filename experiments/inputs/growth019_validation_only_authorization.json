@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "authorization_id": "validation-only-20261030",
+  "approved_scope": "User approved Phase 5-D-3B A100 validation-only; no generation",
+  "run_id": "growth019_pinned_validation_only_2b",
+  "through": "validate",
+  "gpu": "A100",
+  "allocation_authorized": true,
+  "max_allocation_attempts": 1,
+  "expected_generate_calls": 0,
+  "extra_model_forwards": 0,
+  "synthetic_hook_module_forwards": 2,
+  "automatic_execution_retries": 0,
+  "execution_ready": false
+}

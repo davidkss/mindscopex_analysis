@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -194,6 +194,15 @@ def ensure_session(
     raise subprocess.CalledProcessError(result.returncode if result else 1, cmd)
 
 
+def ensure_validation_session_once(session, gpu):
+    """One new A100 attempt; never reuse/replace/reallocate a session in this scope."""
+    status=subprocess.run(["colab","status","-s",session],check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+    if status.stdout:print(status.stdout,flush=True)
+    if "not found" not in (status.stdout or "").lower():
+        raise RuntimeError("Validation-only requires an explicitly absent fresh session; status uncertain or session exists")
+    run_cmd(["colab","new","-s",session,"--gpu",gpu])
+
+
 def write_local_manifest(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -228,11 +237,15 @@ def launch_one(
     gpu = default_gpu if default_gpu is not None else colab_cfg.get("gpu")
     tpu = default_tpu if default_tpu is not None else colab_cfg.get("tpu")
 
+    strict_validation=False
     if job == "first_divergence_trace":
         from experiments.jobs.first_divergence_trace import prepare_plan
         if source != "archive":
             raise ValueError("First trace requires archive source with reference CSVs")
         prepared = prepare_plan(config)  # CPU-only preflight before session allocation or upload.
+        strict_validation=prepared.get("authorization_id")=="validation-only-20261030"
+        if strict_validation and (allocation_attempts!=1 or str(gpu).upper()!="A100" or tpu or keep_session):
+            raise ValueError("Validation-only requires A100, exactly one allocation attempt, and automatic cleanup")
         if prepared.get("runtime_smoke") and not dry_run:
             from experiments.runtime_smoke import require_allocation_authorized
             require_allocation_authorized(prepared)
@@ -264,6 +277,7 @@ def launch_one(
     write_local_manifest(
         local_run_dir / "launcher_manifest.json",
         {
+            "created_at_utc": datetime.now(timezone.utc).isoformat(),
             "config": str(config_path),
             "session": session,
             "gpu": gpu,
@@ -294,14 +308,18 @@ def launch_one(
         print(f"Dry run prepared {local_run_dir}")
         return local_run_dir
 
-    ensure_session(
-        session,
+    if strict_validation:
+        ensure_validation_session_once(session,str(gpu))
+    else:
+        ensure_session(
+            session,
         str(gpu) if gpu else None,
         str(tpu) if tpu else None,
         allocation_attempts=allocation_attempts,
         allocation_retry_delay=allocation_retry_delay,
     )
-    run_cmd_retry(["colab", "upload", "-s", session, str(local_config), remote_config_path])
+    transfer_options=dict(attempts=1,delay=0) if strict_validation else {}
+    run_cmd_retry(["colab", "upload", "-s", session, str(local_config), remote_config_path],**transfer_options)
     if source == "archive":
         run_cmd_retry(
             [
@@ -311,7 +329,8 @@ def launch_one(
                 session,
                 str(local_run_dir / "source.zip"),
                 remote_source_archive,
-            ]
+            ],
+            **transfer_options,
         )
     exec_result = run_cmd(
         [
@@ -338,8 +357,8 @@ def launch_one(
         try:
             run_cmd_retry(
                 ["colab", "download", "-s", session, candidate, str(local_zip)],
-                attempts=12,
-                delay=10.0,
+                attempts=1 if strict_validation else 12,
+                delay=0 if strict_validation else 10.0,
             )
             unpack_archive(local_zip, local_run_dir / "artifacts")
             artifact_downloaded = True

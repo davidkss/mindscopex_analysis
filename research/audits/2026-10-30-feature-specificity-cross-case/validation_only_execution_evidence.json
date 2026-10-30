@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "status": "failed_before_allocation",
+  "starting_git_commit": "e51be0c7f8990a446be81fdcaadefa58821fbb2f",
+  "run_directory": "results/runs/20261030-170836_growth019_pinned_validation_only_2b",
+  "session": "mindscopex-valonly-20261030-approved",
+  "through": "validate",
+  "execution_ready": false,
+  "launcher_invocations": 1,
+  "colab_new_invocations": 0,
+  "remote_execution_invocations": 0,
+  "actual_generate_calls": 0,
+  "actual_model_forward_calls": 0,
+  "actual_synthetic_hook_forwards": 0,
+  "expected_synthetic_hook_forwards": 2,
+  "error": "SSLCertVerificationError: self-signed certificate in certificate chain during colab status; launcher failed closed before colab new",
+  "stages": {
+    "files": "not_reached",
+    "processor": "not_reached",
+    "model": "not_reached",
+    "sae": "not_reached",
+    "hook": "not_reached"
+  },
+  "cleanup": {
+    "stop_attempted": true,
+    "stop_output": "Session not found",
+    "final_status_query": "failed: TLS certificate verification",
+    "remote_server_state": "unverified; no new allocation command issued"
+  },
+  "revisions": {
+    "model": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "tokenizer": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "sae": "132ea3697b591df9ee46d738aa1d528e3c6082f7"
+  },
+  "environment": {
+    "local_colab_cli": "0.7.4",
+    "remote_cuda": "not recorded",
+    "remote_torch": "not recorded",
+    "remote_transformers": "not recorded",
+    "gpu_memory": "not recorded"
+  },
+  "cpu_tests": {
+    "run": 134,
+    "passed": 133,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "files": {
+    "remote_bootstrap.py": {
+      "bytes": 7254,
+      "sha256": "732b65fb606359e5fc3110759dcd2133dfdddff996adff823bbfc7b440175c39"
+    },
+    "config.toml": {
+      "bytes": 302,
+      "sha256": "aa03cbede77e95b2e849364453a8f6f32cf9f095bffb2f46ece245a7e57b9af6"
+    },
+    "launcher_manifest.json": {
+      "bytes": 1263,
+      "sha256": "5292b34e1088e11c9d7fbebbe06791dbd1a3cd889a8ac4879f3df1ad447f54ba"
+    },
+    "launcher_execution.log": {
+      "bytes": 27098,
+      "sha256": "c1e10368e097221f1a1ce905780b3f5c59b1067ccb2186756c87cd932f43f688"
+    },
+    "final_session_status.log": {
+      "bytes": 25472,
+      "sha256": "b55d4e6e747dca083a745d449011c6a183e8f71e960dbf1d8bb4c7571e9dc284"
+    },
+    "source.zip": {
+      "bytes": 1484247,
+      "sha256": "19ad5c04cfd3dd7f59a101248f34776e492a9be7cfba68857d6e624fa621a048"
+    }
+  },
+  "artifact_zip": null,
+  "source_zip": "results/runs/20261030-170836_growth019_pinned_validation_only_2b/source.zip"
+}

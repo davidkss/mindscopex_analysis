@@ -7,6 +7,7 @@ import json
 import math
 import sys
 import traceback
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -17,9 +18,10 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
+AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
 
 
-def build_plan(through='generate'):
+def build_plan(through='generate',authorization=None):
     manifest=json.loads(MANIFEST.read_text())
     if (through not in ('validate','generate') or manifest['run_id']!='growth019_pinned_runtime_smoke_2b'
             or [r['condition_id'] for r in manifest['conditions']]!=['baseline','f30908-c8p5','f12207-c8'] or manifest['schema']!=1 or manifest['result_schema']!=4
@@ -44,12 +46,32 @@ def build_plan(through='generate'):
                 execution_ready=False,allocation_authorized=manifest['allocation_authorized'],
                 execution_blockers=['Separate GPU allocation approval required; fresh runtime stages must pass before generation'])
     plan['source_files']['smoke_manifest']=dict(path=str(MANIFEST),sha256=digest(MANIFEST))
+    if authorization is not None:
+        if authorization!='validation-only-20261030' or through!='validate':
+            raise ValueError('Authorization is restricted to validation-only; generation remains forbidden')
+        policy=json.loads(AUTHORIZATION.read_text())
+        if (policy.get('schema')!=1 or policy.get('authorization_id')!=authorization
+                or policy.get('through')!='validate' or policy.get('gpu')!='A100'
+                or policy.get('allocation_authorized') is not True or policy.get('max_allocation_attempts')!=1
+                or policy.get('expected_generate_calls')!=0 or policy.get('extra_model_forwards')!=0
+                or policy.get('synthetic_hook_module_forwards')!=2 or policy.get('automatic_execution_retries')!=0
+                or policy.get('execution_ready') is not False
+                or policy.get('run_id')!='growth019_pinned_validation_only_2b'):
+            raise ValueError('Validation-only authorization scope mismatch')
+        plan.update(authorization_id=authorization,authorization_policy=policy,authorization_sha256=digest(AUTHORIZATION),
+                    allocation_authorized=True,run_id=policy['run_id'],expected_generate_calls=0,
+                    measurements=[],n_unique_measurements=0,n_unique_generation_conditions=0,
+                    execution_blockers=['Generation prohibited; runtime validation only'])
+        plan['source_files']['validation_authorization']=dict(path=str(AUTHORIZATION),sha256=digest(AUTHORIZATION))
     return plan
 
 
 def require_allocation_authorized(plan):
-    if plan['smoke_manifest']['allocation_authorized'] is not True:
-        raise ValueError('Runtime smoke allocation is not authorized; preparation/dry-run only')
+    if (plan.get('authorization_id')!='validation-only-20261030' or plan.get('through')!='validate'
+            or plan.get('expected_generate_calls')!=0 or plan.get('allocation_authorized') is not True
+            or plan.get('authorization_sha256')!=digest(AUTHORIZATION)
+            or plan.get('authorization_policy')!=json.loads(AUTHORIZATION.read_text())):
+        raise ValueError('Runtime smoke allocation is not authorized; validation-only approval required')
 
 
 def verify_file(path,metadata):
@@ -72,6 +94,8 @@ def validate_summary(summary,plan):
             or [r.get('stage') for r in summary.get('stages',[])]!=list(STAGES)
             or any(r.get('status')!='passed' for r in summary.get('stages',[]))):
         raise ValueError('Runtime smoke validation stage evidence incomplete')
+    if plan['through']=='validate' and (summary.get('actual_generate_attempts')!=0 or summary.get('extra_model_forwards')!=0 or summary.get('synthetic_hook_module_forwards')!=2):
+        raise ValueError('Validation-only invocation budget mismatch')
 
 
 def validate_result(result,plan):
@@ -106,17 +130,26 @@ def execute_stages(plan,backend,run_dir):
     state=dict(schema=1,status='running',smoke_manifest_sha256=plan['smoke_manifest_sha256'],
                started_at_utc=datetime.now(timezone.utc).isoformat(),
                revisions=plan['study_manifest']['revisions'],stages=[],actual_generate_attempts=0,
-               synthetic_hook_module_forwards=0,extra_model_forwards=0,execution_ready=False)
+               synthetic_hook_module_forwards=0,extra_model_forwards=0,execution_ready=False,
+               source_hashes={name:digest(ROOT/name) for name in ('experiments/runtime_smoke.py','src/mindscopex_analysis/models.py','src/mindscopex_analysis/qwen_scope.py','src/mindscopex_analysis/research.py')})
     current_stage='files'
     try:
         for i,name in enumerate(STAGES):
             current_stage=name
+            stage_started=time.perf_counter()
+            stage_start_utc=datetime.now(timezone.utc).isoformat()
             evidence=getattr(backend,name)()
             # Status is produced by concrete checks in the backend, never from CLI/config.
-            record=dict(stage=name,status='passed',evidence=evidence,finished_at_utc=datetime.now(timezone.utc).isoformat())
+            record=dict(stage=name,status='passed',evidence=evidence,started_at_utc=stage_start_utc,elapsed_seconds=time.perf_counter()-stage_started,
+                        gpu_memory=backend.metrics() if hasattr(backend,'metrics') else dict(status='mock'),finished_at_utc=datetime.now(timezone.utc).isoformat())
             write_new(run_dir/f'stage_{i+1}_{name}.json',record)
             state['stages'].append(record)
             if name=='hook':state['synthetic_hook_module_forwards']=2
+        state['actual_generate_attempts']=getattr(backend,'actual_generate_attempts',0)
+        state['blocked_generate_attempts']=getattr(backend,'blocked_generate_attempts',0)
+        state['blocked_model_forward_attempts']=getattr(backend,'blocked_model_forward_attempts',0)
+        if plan['through']=='validate' and any(state[k] for k in ('actual_generate_attempts','blocked_generate_attempts','blocked_model_forward_attempts')):
+            raise RuntimeError('Validation-only forbidden call detected')
         state['status']='validated'
         validate_summary(state,plan)
         write_new(run_dir/'runtime_validation.json',state)
@@ -130,11 +163,15 @@ def execute_stages(plan,backend,run_dir):
         state['status']='succeeded'
         return state
     except Exception as exc:
-        state.update(status='failed',failed_stage=current_stage,error=f'{type(exc).__name__}: {exc}')
+        state.update(status='failed',failed_stage=current_stage,failed_stage_elapsed_seconds=time.perf_counter()-stage_started,error=f'{type(exc).__name__}: {exc}')
         write_new(run_dir/'partial_file_integrity.json',getattr(backend,'file_records',{}))
         with (run_dir/'runtime_failure.log').open('x') as stream:stream.write(traceback.format_exc())
         raise
     finally:
+        state['finished_at_utc']=datetime.now(timezone.utc).isoformat()
+        state['gpu_memory']=backend.metrics() if hasattr(backend,'metrics') else dict(status='mock')
+        state['blocked_generate_attempts']=getattr(backend,'blocked_generate_attempts',0)
+        state['blocked_model_forward_attempts']=getattr(backend,'blocked_model_forward_attempts',0)
         state['actual_generate_attempts']=getattr(backend,'actual_generate_attempts',0)
         state['synthetic_hook_module_forwards']=getattr(backend,'synthetic_hook_module_forward_attempts',state['synthetic_hook_module_forwards'])
         write_new(run_dir/'runtime_status.json',state)
@@ -148,11 +185,23 @@ class RuntimeBackend:
         self.metadata=json.loads((ROOT/plan['study_manifest']['revision_evidence_path']).read_text())
         self.plan['started_at']=datetime.now(timezone.utc).isoformat()
         self.actual_generate_attempts=0;self.synthetic_hook_module_forward_attempts=0;self.snapshots={};self.file_records={}
+        self.blocked_generate_attempts=0;self.blocked_model_forward_attempts=0
+
+    def metrics(self):
+        if not hasattr(self,'torch'):return dict(status='CUDA not initialized')
+        try:
+            cuda=self.torch.cuda
+            cuda.synchronize()
+            free,total=cuda.mem_get_info()
+            return dict(status='recorded',gpu=cuda.get_device_name(0),allocated_bytes=int(cuda.memory_allocated()),
+                        reserved_bytes=int(cuda.memory_reserved()),peak_allocated_bytes=int(cuda.max_memory_allocated()),
+                        peak_reserved_bytes=int(cuda.max_memory_reserved()),device_free_bytes=int(free),device_total_bytes=int(total))
+        except Exception as exc:return dict(status='unverified',error=str(exc))
 
     def files(self):
         import torch
         import transformers
-        from huggingface_hub import hf_hub_download
+        from huggingface_hub import hf_hub_download,try_to_load_from_cache
         self.torch=torch;self.transformers=transformers
         if not torch.cuda.is_available() or 'A100' not in torch.cuda.get_device_name(0):
             raise RuntimeError('This authorized runtime smoke requires an A100')
@@ -164,9 +213,14 @@ class RuntimeBackend:
             for metadata in files:
                 key=(evidence['repo_id'],self.revisions[role],metadata['rfilename'])
                 if key not in verified:
+                    cached=try_to_load_from_cache(repo_id=evidence['repo_id'],filename=metadata['rfilename'],revision=self.revisions[role])
+                    cache_hit=isinstance(cached,str) and Path(cached).is_file()
+                    fetch_started=time.perf_counter()
                     path=Path(hf_hub_download(repo_id=evidence['repo_id'],revision=self.revisions[role],filename=metadata['rfilename']))
                     if path.parent.name!=self.revisions[role]:raise ValueError('Downloaded path is not the requested immutable snapshot')
                     verified[key]=verify_file(path,metadata)
+                    verified[key].update(cache_hit_before=cache_hit,fetch_and_verify_seconds=time.perf_counter()-fetch_started,
+                                         payload_bytes_if_uncached=0 if cache_hit else metadata['size'])
                 records.append(verified[key])
                 path=Path(verified[key]['path'])
             self.snapshots[role]=path.parent
@@ -199,6 +253,17 @@ class RuntimeBackend:
         return dict(processor_class=type(self.processor_object).__name__,tokenizer_class=type(tok).__name__,
                     requested_revision=self.revisions['tokenizer'],snapshot=str(self.snapshots['tokenizer']),input_comparison=comparison)
 
+    def block_model_execution(self):
+        if getattr(self,'plan',{}).get('through')=='validate':
+            def forbid_generate(*args,**kwargs):
+                self.blocked_generate_attempts+=1
+                raise RuntimeError('Qwen generate forbidden during validation-only')
+            def forbid_forward(*args,**kwargs):
+                self.blocked_model_forward_attempts+=1
+                raise RuntimeError('Qwen forward forbidden during validation-only')
+            self.model_object.generate=forbid_generate
+            self.model_object.forward=forbid_forward
+
     def model(self):
         from mindscopex_analysis.models import load_qwen_text_generation_model,get_qwen35_analysis_profile
         if not self.torch.cuda.is_bf16_supported():raise ValueError('BF16 required for this smoke scope')
@@ -206,6 +271,7 @@ class RuntimeBackend:
             revision=self.revisions['model'],tokenizer_revision=self.revisions['tokenizer'],
             prepared_config=self.config,prepared_processor=self.processor_object,local_files_only=True,use_safetensors=True,dtype='bfloat16',device_map='auto')
         if processor is not self.processor_object:raise ValueError('Processor changed during model loading')
+        self.block_model_execution()
         recorded=getattr(self.model_object.config,'_commit_hash',None)
         if recorded is not None and recorded!=self.revisions['model']:raise ValueError('Loaded model commit mismatch')
         if type(self.model_object).__name__ not in self.metadata['queries']['model']['config_metadata']['architectures']:
@@ -264,6 +330,7 @@ class RuntimeBackend:
                     limitation='Identity dispatch tests real Tensor hook arithmetic; actual Layer5 dispatch is checked during generation')
 
     def generate(self,run_dir):
+        if self.plan['through']=='validate':raise RuntimeError('Generation forbidden by validation-only scope')
         from experiments import trace_fresh_v2_first_divergence as trace
         backend=self
         class CountCalls:
@@ -295,8 +362,9 @@ class RuntimeBackend:
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--through',choices=('validate','generate'),default='generate')
+    parser.add_argument('--authorization',choices=('validation-only-20261030',))
     parser.add_argument('--output-dir',type=Path,required=True)
-    args=parser.parse_args(argv);plan=build_plan(args.through)
+    args=parser.parse_args(argv);plan=build_plan(args.through,args.authorization)
     require_allocation_authorized(plan)
     execute_stages(plan,RuntimeBackend(plan),args.output_dir)
 

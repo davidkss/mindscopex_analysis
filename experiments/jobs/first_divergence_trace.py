@@ -24,12 +24,12 @@ def prepare_plan(config):
     if "runtime_smoke" in config:
         from experiments.runtime_smoke import build_plan
         if (job_name(config)!="first_divergence_trace" or any(table(config,key) for key in ("diagnostic","pilot","cross_case"))
-                or set(table(config,"runtime_smoke"))!={"through"}):
+                or set(table(config,"runtime_smoke")) not in ({"through"},{"through","authorization"})):
             raise ValueError("Runtime smoke requires a standalone stage config")
-        plan=build_plan(config["runtime_smoke"]["through"])
+        plan=build_plan(config["runtime_smoke"]["through"],config["runtime_smoke"].get("authorization"))
         if run_name(config)!=plan["run_id"]:raise ValueError("Runtime smoke run.name mismatch")
         summary={k:plan[k] for k in ("n_unique_measurements","expected_generate_calls","synthetic_hook_module_forwards","extra_model_forwards","allocation_authorized","execution_ready")}
-        summary.update(revisions=plan["study_manifest"]["revisions"],conditions=plan["smoke_manifest"]["conditions"],through=plan["through"])
+        summary.update(revisions=plan["study_manifest"]["revisions"],conditions=plan["smoke_manifest"]["conditions"] if plan["through"]=="generate" else [],through=plan["through"])
         print(json.dumps(summary),flush=True)
         return plan
     if "cross_case" in config:
@@ -129,7 +129,10 @@ def run(config_path, output_root):
     write_new(run_dir / "plan.json", plan)
     command = [sys.executable, "-u", str(ROOT / "experiments/trace_fresh_v2_first_divergence.py"), "--run-model"]
     if plan.get("runtime_smoke"):
-        command = [sys.executable,"-u",str(ROOT/"experiments/runtime_smoke.py"),"--through",plan["through"],"--output-dir",str(run_dir)]
+        command = [sys.executable,"-u",str(ROOT/"experiments/runtime_smoke.py"),"--through",plan["through"]]
+        if plan.get("authorization_id"):
+            command += ["--authorization",plan["authorization_id"]]
+        command += ["--output-dir",str(run_dir)]
     elif plan.get("cross_case"):
         command += ["--cross-case-block", plan["block_id"]]
     elif plan.get("pilot"):

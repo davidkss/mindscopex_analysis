@@ -117,3 +117,68 @@ ChatGPT는 사용자가 '다음 진행해줘'라고 요청해도 이를 **GitHub
 6. 기존 GPU 실행 결과와 실패 기록을 수정하거나 성공으로 재분류하지 않는다.
 
 Phase 5-D-3B에서는 사용자의 예외적 명시 승인에 따라 Codex가 Validation-only Launcher를 실행했으나 TLS 오류로 GPU 할당 전에 중단했다. 이 실패 기록은 유지한다. 후속 사용자 WSL 연결 성공은 모델/SAE 런타임 검증 성공을 의미하지 않는다. 회사 CA 사전 점검은 [Colab CLI 회사 CA TLS 운영 가이드](research/guides/colab_cli_corporate_ca_tls.md)를 따른다. 인증서 재설치·CLI 업데이트·TLS 검증 우회는 이번 후속 조치에 포함하지 않는다.
+
+## 10. ChatGPT / Codex 혼합 운영 방식
+
+MindScopeX의 연구 효율성과 실험 재현성을 높이기 위해 소스코드 개발과 연구 문서 작성을 분리한다. **이 절은 승인된 연구 문서에 대한 향후 예외 및 역할 분담 기준이다.** 기존1~9절의 이력은 삭제하지 않으며, 1~8절의 ChatGPT 직접 문서 변경 제한 및 기존 문서·Git 담당 표현과 충돌할 경우 해당 승인 문서 범위에는 이 절을 적용한다. 소스코드 변경 책임과9절의 GPU 승인·실행 원칙은 유지한다.
+
+### 10.1 역할별 담당 범위
+
+| 작업 | 기본 담당 |
+|---|---|
+| 연구 설계 및 가설 수립 | ChatGPT |
+| 연구 결과 분석 및 해석 | ChatGPT |
+| 연구 진행 현황 보고서 | ChatGPT |
+| 논문 초안 및 연구 요약 MD | ChatGPT |
+| 소스코드 구현 및 수정 | Codex |
+| Notebook / Config 수정 | Codex |
+| CPU 테스트 및 회귀 검증 | Codex |
+| 실험 기술 문서 및 실행 결과 Journal | Codex |
+| Git Commit / Push | 각 작업 담당자 |
+| Colab CLI GPU 실행 | 사용자 WSL |
+| Qwen / SAE CUDA 실행 | Google Colab |
+
+### 10.2 ChatGPT의 GitHub 직접 수정 허용 범위
+
+사용자가 명시적으로 승인한 경우 ChatGPT는 다음 문서를 GitHub에서 직접 작성하거나 수정할 수 있다.
+
+- `research/reports/`의 연구 진행 현황 보고서
+- 논문 초안 및 연구 요약 문서
+- 실험 결과를 바탕으로 작성하는 분석 중심 MD 문서
+
+직접 수정 전에 반드시 최신 Git HEAD와 관련 Journal, Audit, Artifact를 확인한다. 직접 수정 시에도 Git Commit SHA와 변경 파일을 사용자에게 보고한다. 사용자의 단순한 분석·설명 요청을 GitHub 수정 승인으로 해석하지 않는다.
+
+### 10.3 Codex 담당 범위
+
+Codex는 다음 작업을 기본적으로 담당한다.
+
+- `src/`
+- `experiments/`
+- `tests/`
+- Jupyter Notebook
+- 실험 Config / Manifest
+- 실험 실행과 재현성에 직접 연결되는 기술 문서
+- 실험 결과 및 검증 이력을 기록하는 `research/journal/`
+
+소스코드 변경 시 필요한 CPU 테스트와 회귀 검증을 수행하고 실제 결과를 보고한다.
+
+### 10.4 Journal 운영 원칙
+
+`research/journal/YYYY-MM-DD.md`는 Codex가 실험 실행 및 코드 변경 이력을 기록하는 것을 기본으로 한다. ChatGPT는 Journal을 검토하고 연구적 의미를 해석하여 `research/reports/`에 반영한다.
+
+Journal은 기존 내용 보존 및 append-only 원칙을 유지한다. 예외적으로 ChatGPT가 Journal을 직접 수정해야 할 경우 사용자의 별도 명시적 승인을 받는다.
+
+### 10.5 GitHub 변경 안전 규칙
+
+1. 모든 변경 전 최신 Git HEAD를 확인한다.
+2. 기존 Run/Audit/Artifact를 덮어쓰지 않는다.
+3. 기존 연구 결과를 새로운 실험 결과로 표현하지 않는다.
+4. GitHub 직접 변경과 Codex 변경을 동시에 진행하여 충돌시키지 않는다.
+5. 원격 Commit과 로컬 WSL 상태가 달라지면 다음 작업 전에 동기화한다.
+6. Commit SHA와 Push 성공 여부를 명확히 구분하여 보고한다.
+7. 문서만 변경한 작업을 코드 테스트 또는 GPU 검증 완료로 표현하지 않는다.
+8. 사용자가 별도로 지정한 작업 방식이 있다면 해당 요청의 승인 범위 내에서 수행한다.
+
+### 10.6 GPU 실험 운영 원칙
+
+기존9절을 유지한다. Codex와 ChatGPT는 기본적으로 Colab GPU 실험을 직접 실행하지 않는다. GPU 실험은 별도 사용자 승인 후 사용자 WSL에서 Colab CLI를 통해 실행한다. 기존 승인이나 문서 변경 승인을 GPU 재실행 승인으로 해석하지 않는다.

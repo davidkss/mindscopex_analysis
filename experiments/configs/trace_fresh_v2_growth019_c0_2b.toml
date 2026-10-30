@@ -1,0 +1,18 @@
+[run]
+name = "trace_fresh_v2_growth019_c0_2b"
+job = "first_divergence_trace"
+
+[diagnostic]
+case_id = "crt_fresh_v2_growth_019"
+coefficient = 0
+layer = 5
+feature = 30908
+check_equivalence = true
+
+[colab]
+gpu = "A100"
+
+[remote]
+source = "archive"
+repo_dir = "/content/mindscopex_analysis"
+output_root = "/content/mindscopex_artifacts"

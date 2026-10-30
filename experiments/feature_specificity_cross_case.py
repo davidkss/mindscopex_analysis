@@ -102,6 +102,14 @@ def build_plan(block_id):
     plan['source_files']['protocol_manifest']=dict(path=str(PROTOCOL),sha256=digest(PROTOCOL))
     plan['source_files']['revision_evidence'] = dict(path=str(evidence_path), sha256=digest(evidence_path))
     plan['revision_validation'] = manifest.get('revision_validation', {})
+    if plan['revision_validation'].get('cached_tokenizer_runtime_verified') == 'verified':
+        from experiments.revision_pinning import validate_cached_runtime_evidence
+        record = manifest['cached_tokenizer_runtime_evidence']
+        runtime_path = ROOT / record['path']
+        if not runtime_path.resolve().is_relative_to(ROOT) or digest(runtime_path) != record['sha256']:
+            raise ValueError('Cached tokenizer runtime evidence SHA/path mismatch')
+        validate_cached_runtime_evidence(manifest, json.loads(runtime_path.read_text()), inputs)
+        plan['source_files']['cached_tokenizer_runtime'] = dict(path=str(runtime_path), sha256=digest(runtime_path))
     try:require_ready(plan)
     except ValueError as exc:plan['execution_blockers']=[str(exc)]
     else:plan.update(execution_ready=True,execution_blockers=[])

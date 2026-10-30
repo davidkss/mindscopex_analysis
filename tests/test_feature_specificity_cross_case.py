@@ -142,7 +142,8 @@ class CrossCaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):study.require_ready(ready)
         ready['study_manifest']['revision_validation']=dict(validated_revisions=ready['study_manifest']['revisions'],
             revision_metadata_verified=True,revision_loader_forwarding_verified=True,
-            runtime_tokenizer_validation='verified',runtime_model_loading_validation='verified',runtime_sae_loading_validation='verified')
+            runtime_tokenizer_validation='verified',runtime_model_loading_validation='verified',runtime_sae_loading_validation='verified',
+            cached_tokenizer_runtime_verified='verified',production_processor_runtime_verified='verified')
         study.require_ready(ready)
         self.assertFalse(self.plan['execution_ready'])
 

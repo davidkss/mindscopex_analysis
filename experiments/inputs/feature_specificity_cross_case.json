@@ -74,7 +74,13 @@
     "revision_loader_forwarding_verified": true,
     "runtime_tokenizer_validation": "unverified",
     "runtime_model_loading_validation": "unverified",
-    "runtime_sae_loading_validation": "unverified"
+    "runtime_sae_loading_validation": "unverified",
+    "cached_tokenizer_runtime_verified": "verified",
+    "production_processor_runtime_verified": "unverified"
   },
-  "revision_evidence_path": "research/audits/2026-10-30-feature-specificity-cross-case/revision_evidence.json"
+  "revision_evidence_path": "research/audits/2026-10-30-feature-specificity-cross-case/revision_evidence.json",
+  "cached_tokenizer_runtime_evidence": {
+    "path": "research/audits/2026-10-30-feature-specificity-cross-case/tokenizer_runtime_results.json",
+    "sha256": "50d46f0fa2c965783440cefd563cdad4822194eaf38a9921671de161b537d449"
+  }
 }

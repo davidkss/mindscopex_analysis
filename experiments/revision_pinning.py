@@ -17,6 +17,7 @@ from mindscopex_analysis.full_answer_protocols import token_ids_sha256
 ROLES = {'model', 'tokenizer', 'sae'}
 RUNTIME_FIELDS = ('runtime_tokenizer_validation', 'runtime_model_loading_validation',
                   'runtime_sae_loading_validation')
+TOKENIZER_RUNTIME_FIELDS = ('cached_tokenizer_runtime_verified', 'production_processor_runtime_verified')
 TOKENIZER_FILES = ('tokenizer.json', 'tokenizer_config.json', 'vocab.json', 'merges.txt')
 
 
@@ -41,7 +42,7 @@ def revision_blockers(manifest):
     for key in ('revision_metadata_verified', 'revision_loader_forwarding_verified'):
         if state.get(key) is not True:
             blockers.append(f'{key} is not verified')
-    for key in RUNTIME_FIELDS:
+    for key in TOKENIZER_RUNTIME_FIELDS + RUNTIME_FIELDS:
         if state.get(key) != 'verified':
             blockers.append(f'{key}={state.get(key, "unverified")}')
     # Keep the original gate and add explicit runtime checks; metadata/mock is insufficient.
@@ -135,3 +136,24 @@ def validate_revision_evidence(manifest, evidence):
             raise ValueError(f'Revision file metadata missing: {role}')
     if evidence['queries']['sae'].get('card_metadata', {}).get('base_model') != manifest['model_id']:
         raise ValueError('SAE Base model metadata differs')
+
+
+def validate_cached_runtime_evidence(manifest, evidence, case_inputs=None):
+    """Accept only cached-tokenizer evidence; never infer Processor/model validation."""
+    state = evidence.get('validation_state', {})
+    cases = evidence.get('cached_tokenizer_runtime', {}).get('cases', [])
+    if (evidence.get('tokenizer_revision') != manifest['revisions']['tokenizer']
+            or evidence.get('status') != 'verified' or state.get('cached_tokenizer_runtime_verified') != 'verified'
+            or evidence.get('cached_tokenizer_runtime', {}).get('status') != 'verified'
+            or len(cases) != 3 or {c.get('case_id') for c in cases} != set(manifest['case_ids'])
+            or any(c.get('status') != 'verified' or not c.get('checks') or not all(v is True for v in c['checks'].values()) for c in cases)
+            or evidence.get('network_connection_attempts') != []
+            or evidence.get('model_generate_calls') != 0 or evidence.get('model_sae_weights_loaded') is not False):
+        raise ValueError('Cached tokenizer runtime evidence invalid or mismatched')
+    if case_inputs is not None:
+        for case in cases:
+            expected = case_inputs[case['case_id']]
+            if (case['prepared_prompt'] != expected['prompt']
+                    or case['prompt_token_ids'] != expected['prompt_token_ids']
+                    or case['candidate_token_ids'] != expected['candidate_token_ids']):
+                raise ValueError('Cached tokenizer runtime inputs are stale/mismatched')

@@ -31,7 +31,8 @@ class RevisionPinningTests(unittest.TestCase):
         manifest['pinning_validation']='verified'
         manifest['revision_validation']=dict(validated_revisions=dict(manifest['revisions']),
             revision_metadata_verified=True,revision_loader_forwarding_verified=True,
-            runtime_tokenizer_validation='verified',runtime_model_loading_validation='verified',runtime_sae_loading_validation='verified')
+            runtime_tokenizer_validation='verified',runtime_model_loading_validation='verified',runtime_sae_loading_validation='verified',
+            cached_tokenizer_runtime_verified='verified',production_processor_runtime_verified='verified')
         return plan
 
     def test_exact_sha_format_and_bad_revisions_rejected(self):

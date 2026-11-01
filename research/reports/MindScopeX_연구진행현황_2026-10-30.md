@@ -1,4 +1,5 @@
 # MindScopeX 연구 진행 현황
+<img width="713" height="483" alt="image" src="https://github.com/user-attachments/assets/2cd13f5a-7379-48db-9390-357fe5a03042" />
 
 **기준일:** 2026년 10월 30일
 

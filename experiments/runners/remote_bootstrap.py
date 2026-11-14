@@ -13,6 +13,7 @@ def render_bootstrap(payload: dict[str, Any]) -> str:
     return f'''\
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -56,6 +57,8 @@ def prepare_source():
     source = PAYLOAD.get("source", "archive")
     if source == "archive":
         archive = Path(PAYLOAD["remote_source_archive"])
+        if PAYLOAD.get("validation_authorization") and (repo_dir.exists() or repo_dir.is_symlink()):
+            raise FileExistsError("Validation-only refuses existing source; no automatic cleanup")
         if repo_dir.exists():
             shutil.rmtree(repo_dir)
         repo_dir.mkdir(parents=True, exist_ok=True)
@@ -98,6 +101,18 @@ def ensure_dependencies(repo_dir):
 
 
 def main():
+    if PAYLOAD.get("validation_authorization"):
+        # Persist outside the unpacked source so a second bootstrap cannot erase this claim.
+        ledger = Path("/content/mindscopex_authorizations")
+        if ledger.is_symlink():
+            raise FileExistsError("Refusing symlink authorization ledger")
+        ledger.mkdir(parents=True, exist_ok=True)
+        with (ledger / (PAYLOAD["validation_authorization"] + ".json")).open("x") as stream:
+            json.dump(PAYLOAD, stream, indent=2)
+        for key, filename in (("config_sha256", "remote_config_path"),
+                              ("source_archive_sha256", "remote_source_archive")):
+            if hashlib.sha256(Path(PAYLOAD[filename]).read_bytes()).hexdigest() != PAYLOAD[key]:
+                raise ValueError("Validation-only uploaded file SHA mismatch")
     repo_dir = prepare_source()
     os.environ["MINDSCOPEX_ROOT"] = str(repo_dir.resolve())
     os.chdir(repo_dir)

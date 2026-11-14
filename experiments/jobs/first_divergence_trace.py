@@ -116,6 +116,9 @@ def validate_equivalence(output, plan):
 def run(config_path, output_root):
     config = load_toml(config_path)
     plan = prepare_plan(config)
+    if plan.get("authorization_id"):
+        from experiments.runtime_smoke import require_allocation_authorized
+        require_allocation_authorized(plan)
     run_dir = output_root / run_name(config)
     if run_dir.is_symlink():
         raise FileExistsError("Refusing symlink run directory")
@@ -154,6 +157,9 @@ def run(config_path, output_root):
         metadata["schema"] = 3
     if plan.get("runtime_smoke"):
         metadata.update(smoke_manifest_sha256=plan["smoke_manifest_sha256"],through=plan["through"],schema=4)
+    if plan.get("authorization_id"):
+        metadata.update(authorization_id=plan["authorization_id"],
+                        authorization_sha256=plan["authorization_sha256"])
     manifest = run_dir / "job_manifest.json"
     write_new(manifest, metadata)
     try:

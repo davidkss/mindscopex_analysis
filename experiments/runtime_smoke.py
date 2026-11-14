@@ -19,6 +19,17 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
 AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
+ACTIVE_AUTHORIZATION = 'validation-only-20261114'
+# Explicit paths only; caller-supplied policy paths are never accepted.
+AUTHORIZATIONS = {
+    'validation-only-20261030': (AUTHORIZATION, 'growth019_pinned_validation_only_2b', None),
+    ACTIVE_AUTHORIZATION: (
+        ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114.json',
+        'growth019_pinned_validation_only_20261114_2b',
+        '0ba964637004f00c0b8ffffda274a7d8bbc4f9b05c328e753abb35fbe73bfe76',
+    ),
+}
+
 
 
 def build_plan(through='generate',authorization=None):
@@ -47,31 +58,61 @@ def build_plan(through='generate',authorization=None):
                 execution_blockers=['Separate GPU allocation approval required; fresh runtime stages must pass before generation'])
     plan['source_files']['smoke_manifest']=dict(path=str(MANIFEST),sha256=digest(MANIFEST))
     if authorization is not None:
-        if authorization!='validation-only-20261030' or through!='validate':
+        if authorization not in AUTHORIZATIONS or through!='validate':
             raise ValueError('Authorization is restricted to validation-only; generation remains forbidden')
-        policy=json.loads(AUTHORIZATION.read_text())
+        policy_path, run_id, expected_sha = AUTHORIZATIONS[authorization]
+        if expected_sha is not None and digest(policy_path) != expected_sha:
+            raise ValueError('Validation-only policy SHA mismatch')
+        policy=json.loads(policy_path.read_text())
         if (policy.get('schema')!=1 or policy.get('authorization_id')!=authorization
                 or policy.get('through')!='validate' or policy.get('gpu')!='A100'
                 or policy.get('allocation_authorized') is not True or policy.get('max_allocation_attempts')!=1
                 or policy.get('expected_generate_calls')!=0 or policy.get('extra_model_forwards')!=0
                 or policy.get('synthetic_hook_module_forwards')!=2 or policy.get('automatic_execution_retries')!=0
                 or policy.get('execution_ready') is not False
-                or policy.get('run_id')!='growth019_pinned_validation_only_2b'):
+                or policy.get('run_id')!=run_id):
             raise ValueError('Validation-only authorization scope mismatch')
-        plan.update(authorization_id=authorization,authorization_policy=policy,authorization_sha256=digest(AUTHORIZATION),
+        if authorization == ACTIVE_AUTHORIZATION and (
+                policy.get('revisions') != plan['study_manifest']['revisions']
+                or policy.get('execution_actor') != 'user_wsl'
+                or policy.get('automatic_session_cleanup') is not True):
+            raise ValueError('Validation-only revision or execution policy mismatch')
+        plan.update(authorization_id=authorization,authorization_policy=policy,authorization_sha256=digest(policy_path),
                     allocation_authorized=True,run_id=policy['run_id'],expected_generate_calls=0,
                     measurements=[],n_unique_measurements=0,n_unique_generation_conditions=0,
                     execution_blockers=['Generation prohibited; runtime validation only'])
-        plan['source_files']['validation_authorization']=dict(path=str(AUTHORIZATION),sha256=digest(AUTHORIZATION))
+        plan['source_files']['validation_authorization']=dict(path=str(policy_path),sha256=digest(policy_path))
     return plan
 
 
 def require_allocation_authorized(plan):
-    if (plan.get('authorization_id')!='validation-only-20261030' or plan.get('through')!='validate'
-            or plan.get('expected_generate_calls')!=0 or plan.get('allocation_authorized') is not True
-            or plan.get('authorization_sha256')!=digest(AUTHORIZATION)
-            or plan.get('authorization_policy')!=json.loads(AUTHORIZATION.read_text())):
-        raise ValueError('Runtime smoke allocation is not authorized; validation-only approval required')
+    if plan.get('authorization_id') != ACTIVE_AUTHORIZATION:
+        raise ValueError('Runtime smoke allocation is not authorized; historical approval retired')
+    expected = build_plan('validate', ACTIVE_AUTHORIZATION)
+    for key in ('authorization_id', 'authorization_policy', 'authorization_sha256',
+                'through', 'run_id', 'expected_generate_calls', 'allocation_authorized',
+                'extra_model_forwards', 'synthetic_hook_module_forwards',
+                'automatic_generation_retries', 'execution_ready', 'measurements',
+                'n_unique_measurements', 'n_unique_generation_conditions', 'source_files',
+                'study_manifest', 'smoke_manifest_sha256'):
+        if plan.get(key) != expected[key]:
+            raise ValueError(f'Runtime smoke allocation is not authorized: {key} mismatch')
+
+
+def claim_authorization(plan, directory, **context):
+    """Consume before external side effects. Never release a failed attempt's claim."""
+    require_allocation_authorized(plan)
+    directory = Path(directory)
+    if any(p.is_symlink() for p in (directory, *directory.parents)):
+        raise FileExistsError('Refusing symlink authorization ledger')
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / (plan['authorization_id'] + '.json')
+    with path.open('x') as stream:
+        json.dump(dict(authorization_id=plan['authorization_id'],
+                       authorization_sha256=plan['authorization_sha256'],
+                       run_id=plan['run_id'], consumed_at_utc=datetime.now(timezone.utc).isoformat(),
+                       **context), stream, indent=2)
+    return path
 
 
 def verify_file(path,metadata):
@@ -94,6 +135,9 @@ def validate_summary(summary,plan):
             or [r.get('stage') for r in summary.get('stages',[])]!=list(STAGES)
             or any(r.get('status')!='passed' for r in summary.get('stages',[]))):
         raise ValueError('Runtime smoke validation stage evidence incomplete')
+    if plan.get('authorization_id') and any(
+            summary.get(k) != plan[k] for k in ('authorization_id', 'authorization_sha256')):
+        raise ValueError('Runtime validation authorization evidence mismatch')
     if plan['through']=='validate' and (summary.get('actual_generate_attempts')!=0 or summary.get('extra_model_forwards')!=0 or summary.get('synthetic_hook_module_forwards')!=2):
         raise ValueError('Validation-only invocation budget mismatch')
 
@@ -132,6 +176,9 @@ def execute_stages(plan,backend,run_dir):
                revisions=plan['study_manifest']['revisions'],stages=[],actual_generate_attempts=0,
                synthetic_hook_module_forwards=0,extra_model_forwards=0,execution_ready=False,
                source_hashes={name:digest(ROOT/name) for name in ('experiments/runtime_smoke.py','src/mindscopex_analysis/models.py','src/mindscopex_analysis/qwen_scope.py','src/mindscopex_analysis/research.py')})
+    if plan.get('authorization_id'):
+        state.update(authorization_id=plan['authorization_id'],
+                     authorization_sha256=plan['authorization_sha256'])
     current_stage='files'
     try:
         for i,name in enumerate(STAGES):
@@ -144,7 +191,9 @@ def execute_stages(plan,backend,run_dir):
                         gpu_memory=backend.metrics() if hasattr(backend,'metrics') else dict(status='mock'),finished_at_utc=datetime.now(timezone.utc).isoformat())
             write_new(run_dir/f'stage_{i+1}_{name}.json',record)
             state['stages'].append(record)
-            if name=='hook':state['synthetic_hook_module_forwards']=2
+            if name=='hook':
+                state['synthetic_hook_module_forwards']=getattr(
+                    backend, 'synthetic_hook_module_forward_attempts', 2)
         state['actual_generate_attempts']=getattr(backend,'actual_generate_attempts',0)
         state['blocked_generate_attempts']=getattr(backend,'blocked_generate_attempts',0)
         state['blocked_model_forward_attempts']=getattr(backend,'blocked_model_forward_attempts',0)
@@ -314,6 +363,8 @@ class RuntimeBackend:
             diagnostics=[];module=self.torch.nn.Identity();hidden=self.torch.ones((1,2,self.sae_object.d_model),device='cuda',dtype=self.torch.bfloat16)
             handle=module.register_forward_hook(make_feature_steering_hook(self.sae_object,[feature],coefficient=coefficient,token_position='all',diagnostics=diagnostics))
             try:
+                if self.synthetic_hook_module_forward_attempts >= self.plan['synthetic_hook_module_forwards']:
+                    raise RuntimeError('Synthetic hook forward budget exhausted')
                 self.synthetic_hook_module_forward_attempts+=1
                 with self.torch.inference_mode():output=module(hidden)
                 direction=sae_decoder_direction(self.sae_object,[feature],[float(coefficient)]).to(device=hidden.device,dtype=hidden.dtype)
@@ -362,10 +413,12 @@ class RuntimeBackend:
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--through',choices=('validate','generate'),default='generate')
-    parser.add_argument('--authorization',choices=('validation-only-20261030',))
+    parser.add_argument('--authorization',choices=tuple(AUTHORIZATIONS))
     parser.add_argument('--output-dir',type=Path,required=True)
     args=parser.parse_args(argv);plan=build_plan(args.through,args.authorization)
     require_allocation_authorized(plan)
+    claim_authorization(plan, ROOT/'results/.runtime_authorization_claims',
+                        output_dir=str(args.output_dir.resolve()))
     execute_stages(plan,RuntimeBackend(plan),args.output_dir)
 
 

@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -194,13 +196,133 @@ def ensure_session(
     raise subprocess.CalledProcessError(result.returncode if result else 1, cmd)
 
 
-def ensure_validation_session_once(session, gpu):
+def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None):
     """One new A100 attempt; never reuse/replace/reallocate a session in this scope."""
     status=subprocess.run(["colab","status","-s",session],check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
     if status.stdout:print(status.stdout,flush=True)
-    if "not found" not in (status.stdout or "").lower():
+    if not re.fullmatch(r"(?:Error:\s*)?Session not found[.!]?",
+                        (status.stdout or "").strip(), flags=re.IGNORECASE):
         raise RuntimeError("Validation-only requires an explicitly absent fresh session; status uncertain or session exists")
+    if on_allocation_attempt is not None:
+        on_allocation_attempt()
     run_cmd(["colab","new","-s",session,"--gpu",gpu])
+
+
+
+def recover_validation_artifacts(session, remote_output_root, name, local_run_dir):
+    """Best-effort recovery, one attempt per location; retain partial downloads."""
+    record = dict(artifact_dir=None, attempts=[])
+    candidates = (f"{remote_output_root}/{name}.zip", f"/content/{name}_artifacts.zip")
+    for index, remote in enumerate(candidates):
+        archive = local_run_dir / ("artifacts.zip" if index == 0 else "artifacts_fallback.zip")
+        destination = local_run_dir / ("artifacts" if index == 0 else "artifacts_fallback")
+        try:
+            run_cmd_retry(["colab", "download", "-s", session, remote, str(archive)],
+                          attempts=1, delay=0)
+            unpack_archive(archive, destination)
+            record['artifact_dir'] = str(destination)
+            record['attempts'].append(dict(path=remote, status='recovered'))
+            break
+        except Exception as exc:
+            record['attempts'].append(dict(path=remote, status='failed', error=str(exc)))
+            print(f"[validation recovery] {remote}: {exc}", file=sys.stderr, flush=True)
+    if record['artifact_dir'] is None:
+        partial = local_run_dir / 'partial_artifacts'
+        partial.mkdir(exist_ok=False)
+        filenames = ['job.log', 'diagnostic.log', 'job_manifest.json', 'plan.json',
+                     'runtime_status.json', 'runtime_validation.json', 'runtime_failure.log',
+                     'partial_file_integrity.json']
+        filenames += [f'stage_{i}_{stage}.json' for i, stage in enumerate(
+            ('files', 'processor', 'model', 'sae', 'hook'), 1)]
+        for filename in filenames:
+            remote = f"{remote_output_root}/{name}/{filename}"
+            try:
+                run_cmd_retry(['colab', 'download', '-s', session, remote,
+                               str(partial / filename)], attempts=1, delay=0)
+                record['attempts'].append(dict(path=remote, status='recovered'))
+            except Exception as exc:
+                record['attempts'].append(dict(path=remote, status='failed', error=str(exc)))
+    for filename in ('colab_log.md', 'colab_log.jsonl'):
+        try:
+            result = run_cmd(['colab', 'log', '-s', session, '-o',
+                              str(local_run_dir / filename)], check=False)
+            record['attempts'].append(dict(path=filename, returncode=result.returncode))
+        except Exception as exc:
+            record['attempts'].append(dict(path=filename, status='failed', error=str(exc)))
+    write_local_manifest(local_run_dir / 'artifact_recovery.json', record)
+    return record
+
+
+def stop_validation_session(session, local_run_dir):
+    """Attempt stop once; never mask an earlier execution/recovery exception."""
+    manual = shlex.join(['colab', 'stop', '-s', session])
+    record = dict(session=session, manual_stop_command=manual, stop_attempts=1)
+    try:
+        result = run_cmd(['colab', 'stop', '-s', session], check=False)
+        record.update(returncode=result.returncode,
+                      status='stop_command_succeeded' if result.returncode == 0 else 'failed')
+    except Exception as exc:
+        record.update(status='failed', error=str(exc))
+    if record['status'] == 'failed':
+        print(f"[validation cleanup FAILED] session={session}. "
+              f"WSL manual stop: {manual}", file=sys.stderr, flush=True)
+    else:
+        print(f"[validation cleanup] stop command succeeded: session={session}", flush=True)
+    try:
+        write_local_manifest(local_run_dir / 'session_cleanup.json', record)
+    except Exception as exc:
+        print(f"[validation cleanup] cannot record cleanup status: {exc}",
+              file=sys.stderr, flush=True)
+    return record
+
+
+def launch_validation_once(*, prepared, root, session, gpu, local_run_dir,
+                           local_config, remote_config_path, remote_source_archive,
+                           bootstrap, exec_timeout, remote_output_root, name):
+    from experiments.runtime_smoke import claim_authorization
+    claim = claim_authorization(prepared, root/'results/.authorization_claims',
+                                session=session, local_run_dir=str(local_run_dir.resolve()))
+    write_local_manifest(local_run_dir/'authorization_execution.json', {
+        'claim': str(claim), 'authorization_id': prepared['authorization_id'],
+        'authorization_sha256': prepared['authorization_sha256'],
+        'source_archive_sha256': hashlib.sha256((local_run_dir/'source.zip').read_bytes()).hexdigest(),
+        'automatic_session_cleanup': True,
+    })
+    allocation_attempted = False
+    recovery = None
+    cleanup = None
+
+    def mark_allocation_attempt():
+        nonlocal allocation_attempted
+        allocation_attempted = True  # Even a failed/uncertain allocation must be cleaned up.
+
+    try:
+        ensure_validation_session_once(session, str(gpu),
+                                       on_allocation_attempt=mark_allocation_attempt)
+        run_cmd_retry(['colab', 'upload', '-s', session, str(local_config), remote_config_path],
+                      attempts=1, delay=0)
+        run_cmd_retry(['colab', 'upload', '-s', session, str(local_run_dir/'source.zip'),
+                       remote_source_archive], attempts=1, delay=0)
+        result = run_cmd(['colab', 'exec', '-s', session, '--timeout', str(exec_timeout),
+                          '-f', str(bootstrap)], check=False)
+        if result.returncode != 0:
+            raise RuntimeError(f'remote validation failed: returncode={result.returncode}; '
+                               f'inspect {local_run_dir}')
+    finally:
+        if allocation_attempted:
+            try:
+                recovery = recover_validation_artifacts(session, remote_output_root,
+                                                         name, local_run_dir)
+            finally:
+                cleanup = stop_validation_session(session, local_run_dir)
+    if cleanup is None or cleanup['status'] != 'stop_command_succeeded':
+        raise RuntimeError(f'Validation session cleanup failed; inspect {local_run_dir}')
+    if not recovery or not recovery['artifact_dir']:
+        raise RuntimeError(f'Validation artifacts could not be recovered; inspect {local_run_dir}')
+    manifest = Path(recovery['artifact_dir']) / 'job_manifest.json'
+    if not manifest.is_file() or json.loads(manifest.read_text()).get('status') != 'succeeded':
+        raise RuntimeError(f'Trace artifacts do not confirm success; inspect {local_run_dir}')
+    return local_run_dir
 
 
 def write_local_manifest(path: Path, payload: dict[str, Any]) -> None:
@@ -243,9 +365,9 @@ def launch_one(
         if source != "archive":
             raise ValueError("First trace requires archive source with reference CSVs")
         prepared = prepare_plan(config)  # CPU-only preflight before session allocation or upload.
-        strict_validation=prepared.get("authorization_id")=="validation-only-20261030"
-        if strict_validation and (allocation_attempts!=1 or str(gpu).upper()!="A100" or tpu or keep_session):
-            raise ValueError("Validation-only requires A100, exactly one allocation attempt, and automatic cleanup")
+        strict_validation=bool(prepared.get("authorization_id"))
+        if strict_validation and (allocation_attempts!=1 or str(gpu).upper()!="A100" or tpu or keep_session or allocation_retry_delay!=0):
+            raise ValueError("Validation-only requires A100, exactly one allocation attempt, no keep override, and zero retry delay")
         if prepared.get("runtime_smoke") and not dry_run:
             from experiments.runtime_smoke import require_allocation_authorized
             require_allocation_authorized(prepared)
@@ -263,6 +385,9 @@ def launch_one(
         "job": job,
         "job_path": JOB_PATHS[job],
         "source": source,
+        "validation_authorization": prepared["authorization_id"] if strict_validation else None,
+        "authorization_sha256": prepared["authorization_sha256"] if strict_validation else None,
+        "config_sha256": hashlib.sha256(local_config.read_bytes()).hexdigest(),
         "remote_repo_dir": remote_repo_dir,
         "remote_output_root": remote_output_root,
         "remote_config_path": remote_config_path,
@@ -284,6 +409,8 @@ def launch_one(
             "tpu": tpu,
             "keep_session": keep_session,
             "payload": payload,
+            "runtime_plan": prepared if strict_validation else None,
+            "config_sha256": hashlib.sha256(local_config.read_bytes()).hexdigest(),
             "git_commit": git_value(["rev-parse", "HEAD"], root),
             "git_status": git_value(["status", "--short"], root),
         },
@@ -304,20 +431,23 @@ def launch_one(
     elif source != "git":
         raise ValueError(f"Unknown [remote].source={source!r}")
 
+    if strict_validation:
+        payload['source_archive_sha256'] = hashlib.sha256((local_run_dir/'source.zip').read_bytes()).hexdigest()
+        bootstrap.write_text(render_bootstrap(payload), encoding="utf-8")
+
     if dry_run:
         print(f"Dry run prepared {local_run_dir}")
         return local_run_dir
 
     if strict_validation:
-        ensure_validation_session_once(session,str(gpu))
-    else:
-        ensure_session(
-            session,
-        str(gpu) if gpu else None,
-        str(tpu) if tpu else None,
-        allocation_attempts=allocation_attempts,
-        allocation_retry_delay=allocation_retry_delay,
-    )
+        return launch_validation_once(
+            prepared=prepared, root=root, session=session, gpu=gpu, local_run_dir=local_run_dir,
+            local_config=local_config, remote_config_path=remote_config_path,
+            remote_source_archive=remote_source_archive, bootstrap=bootstrap,
+            exec_timeout=exec_timeout, remote_output_root=remote_output_root, name=name)
+    ensure_session(
+        session, str(gpu) if gpu else None, str(tpu) if tpu else None,
+        allocation_attempts=allocation_attempts, allocation_retry_delay=allocation_retry_delay)
     transfer_options=dict(attempts=1,delay=0) if strict_validation else {}
     run_cmd_retry(["colab", "upload", "-s", session, str(local_config), remote_config_path],**transfer_options)
     if source == "archive":
@@ -439,6 +569,9 @@ def main() -> None:
 
     root = repo_root()
     configs = resolve_configs(args.config_or_suite.resolve())
+    validation_scope = any("runtime_smoke" in load_toml(p) for p in configs)
+    if validation_scope and (len(configs) != 1 or args.continue_on_error):
+        parser.error("Runtime validation requires a single config and no continue-on-error")
     if not args.dry_run:
         check_colab_cli()
 
@@ -477,7 +610,7 @@ def main() -> None:
                     # Drop the (possibly dead) session so the next config gets a fresh VM.
                     run_cmd(["colab", "stop", "-s", args.session], check=False)
     finally:
-        if not args.keep and not args.dry_run:
+        if not validation_scope and not args.keep and not args.dry_run:
             run_cmd(["colab", "stop", "-s", args.session], check=False)
 
     print("Prepared runs:")

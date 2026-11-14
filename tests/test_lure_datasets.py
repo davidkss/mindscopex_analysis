@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import csv
 import json
 import unittest
 from importlib.resources import files
+from pathlib import Path
 
 from mindscopex_analysis import (
     HagendorffCRTItem,
@@ -21,6 +23,7 @@ _EXPECTED = {
     "crt2": 4,
     "crt_fresh_v1": 30,
     "crt_fresh_v2": 150,
+    "crt_fresh_v2_rate_order_pilot": 20,
     "crt7_classic": 7,
     "crt_pilot": 9,
     "goal_affordance_traps_v1": 240,
@@ -93,6 +96,35 @@ class LureDatasetLoaderTests(unittest.TestCase):
         self.assertTrue(all(case.condition == "hostile" for case in cases))
         self.assertTrue(all(case.control_prompt for case in cases))
         self.assertTrue(all("validation=closed_form" in case.note for case in cases))
+
+    def test_rate_order_pilot_matches_source_and_parent(self) -> None:
+        cases = load_lure_dataset("crt_fresh_v2_rate_order_pilot")
+        self.assertEqual(lure_dataset_info("crt_fresh_v2_rate_order_pilot").family_counts,
+                         {"crt_rate": 20})
+        parent = {c.case_id: c for c in load_lure_dataset("crt_fresh_v2")}
+        source = (Path(__file__).resolve().parents[1]
+                  / "experiments/generated/fresh_v2_rate_order_pilot.csv")
+        with source.open(newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        self.assertEqual(len(rows), 20)
+        self.assertEqual({c.case_id for c in cases}, {r["case_id"] for r in rows})
+        indexed = {r["case_id"]: r for r in rows}
+        pairs = {}
+        for case in cases:
+            row = indexed[case.case_id]
+            original = parent[case.pair_id]
+            self.assertEqual(case.family, "crt_rate")
+            self.assertEqual(case.prompt, row["question"] + "\nAnswer:")
+            self.assertEqual(case.condition, row["order"])
+            self.assertEqual(case.pair_id, row["pair_id"])
+            self.assertEqual(case.template_id, "IF_FIRST")
+            for field in ("correct_answer", "lure_answer"):
+                self.assertEqual(getattr(case, field), getattr(original, field))
+                self.assertEqual(getattr(case, field).strip(), row[field])
+            pairs.setdefault(case.pair_id, []).append(case.condition)
+        self.assertEqual(len(pairs), 10)
+        for conditions in pairs.values():
+            self.assertCountEqual(conditions, ["correct_first", "lure_first"])
 
     def test_semantic_illusions_are_premise_rejection(self) -> None:
         info = lure_dataset_info("hagendorff_semantic_illusion")

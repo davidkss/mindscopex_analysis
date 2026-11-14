@@ -128,8 +128,14 @@ class MultiSeedTests(unittest.TestCase):
 
     def test_actual_seed1_legacy_and_all_seeds(self):
         root = multi.ROOT / 'results/runs'
-        if not root.exists():
-            self.skipTest('real research inputs unavailable')
+        name = 'study_transfer_fresh_v2_negative_dose_f30908_seed'
+        inputs = [p for p in root.rglob('generations.json')
+                  if p.parts[-3:-1] == ('artifacts', 'behavioral')
+                  and any(p.parents[2].name == f'{name}{seed}_2b'
+                          or p.parents[2].name.endswith(f'_{name}{seed}_2b')
+                          for seed in range(1, 6))]
+        if not inputs:
+            self.skipTest('real negative-dose inputs absent; published results unverified')
         data, _ = multi.summarize(multi.discover(root, range(1, 6)))
         self.assertEqual(len(data['seed_summary']), 30)
         paths = multi.discover(root, [1])

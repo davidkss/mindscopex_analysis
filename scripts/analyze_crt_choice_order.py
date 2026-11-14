@@ -9,10 +9,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 import analyze_crt_negative_dose as single
 from mindscopex_analysis.cases import LureCase
-from mindscopex_analysis.choice_order import COEFFICIENTS, ORDERS, choice_letter, ordered_case
+from mindscopex_analysis.choice_order import (
+    COEFFICIENTS,
+    LETTER_MODE,
+    ORDERS,
+    choice_letter,
+    letter_label,
+    ordered_case,
+)
 
 
-def analyze(data, seed):
+def analyze(data, seed, output_mode='binary_choice'):
+    if output_mode not in ('binary_choice', LETTER_MODE):
+        raise ValueError('unknown output mode')
+    encoding = 'choice_letter' if output_mode == LETTER_MODE else 'answer_value'
     if not isinstance(data, list) or len(data) != 6:
         raise ValueError(f'Seed {seed}: expected six order/coefficient blocks')
     indexed, cases_ref, baselines, rows = {}, None, {}, []
@@ -20,7 +30,7 @@ def analyze(data, seed):
         order, c = block['choice_order'], block['coefficient']
         if order not in ORDERS or isinstance(c, bool) or c not in COEFFICIENTS or (order, c) in indexed:
             raise ValueError('invalid/duplicate order or coefficient')
-        if block.get('output_mode') != 'binary_choice' or block.get('response_encoding') != 'answer_value':
+        if block.get('output_mode') != output_mode or block.get('response_encoding') != encoding:
             raise ValueError('wrong output encoding')
         cases = {r['case_id']: LureCase(**r) for r in block['cases']}
         if len(cases) != 40 or len(block['cases']) != 40:
@@ -29,7 +39,7 @@ def analyze(data, seed):
             cases_ref = cases
         if cases != cases_ref:
             raise ValueError('case contents differ across orders/coefficients')
-        if block['prompts'] != {k: ordered_case(v, order).prompt for k, v in cases.items()}:
+        if block['prompts'] != {k: ordered_case(v, order, output_mode).prompt for k, v in cases.items()}:
             raise ValueError('prompt/order mismatch')
         b = single.index_rows(block['baseline_rows'], 'baseline')
         a = single.index_rows(block['steered_rows'], 'steered')
@@ -43,15 +53,20 @@ def analyze(data, seed):
         for field in ('baseline_rows', 'steered_rows'):
             for r in block[field]:
                 case = cases[r['case_id']]
-                letter = choice_letter(r['answer'], case, order)
-                label = 'correct' if r['answer'].strip() == case.correct_answer.strip() else 'lure'
+                letter = (r['answer'] if output_mode == LETTER_MODE
+                          else choice_letter(r['answer'], case, order))
+                label = letter_label(letter, order)
                 if r.get('choice') != letter or r['label'] != label or r['family'] != case.family:
                     raise ValueError('wrong choice/label/family mapping')
+        def response_choice(row, case):
+            return (row['answer'] if output_mode == LETTER_MODE
+                    else choice_letter(row['answer'], case, order))
+
         for key in sorted(cases):
             rows.append(dict(seed=seed, choice_order=order, coefficient=c, case_id=key,
                              family=b[key]['family'], baseline_label=b[key]['label'],
-                             steered_label=a[key]['label'], baseline_choice=choice_letter(b[key]['answer'], cases[key], order),
-                             steered_choice=choice_letter(a[key]['answer'], cases[key], order),
+                             steered_label=a[key]['label'], baseline_choice=response_choice(b[key], cases[key]),
+                             steered_choice=response_choice(a[key], cases[key]),
                              transition=f"{b[key]['label']}_to_{a[key]['label']}"))
         indexed[order, c] = True
     if set(indexed) != {(o,c) for o in ORDERS for c in COEFFICIENTS}:

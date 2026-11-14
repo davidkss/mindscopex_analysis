@@ -39,6 +39,25 @@ class ValidationStatusResponseTests(unittest.TestCase):
             with self.subTest(output=output):
                 self.check_status(output, True)
 
+    def test_actual_wsl_colab_update_banner(self):
+        output = (
+            '[colab] A new version of Colab CLI is available: 0.8.0 (current: 0.7.4)\n'
+            "[colab] Run 'colab update' to update.\n"
+            '[colab] To silence this check, set "enable_update_check": false in '
+            '~/.config/colab-cli/settings.json\n\n'
+            "[colab] Session 'mindscopex-valonly-20261114' not found.\n"
+        )
+        self.check_status(output, True)
+        for blocked in (
+            output.replace(SESSION, 'another-session'),
+            output + 'Authentication failed\n',
+            'TLS error\n' + output,
+            output + '[colab] Arbitrary message\n',
+            output.replace("Run 'colab update'", "Run 'colab update --unknown'"),
+        ):
+            with self.subTest(output=blocked):
+                self.check_status(blocked, False)
+
     def test_known_upgrade_banner_before_or_after_absence(self):
         short_banner = (
             '[colab] A new version of Colab CLI is available: 0.7.5 (current: 0.7.4)\n'

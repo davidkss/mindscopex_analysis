@@ -207,7 +207,8 @@ def validation_session_absent(output, session):
         rf'\[colab\] A new version of Colab CLI is available: {version} '
         rf'\(current: {version}\)\n'
         r"(?:\[colab\] You can run 'colab update --install' to upgrade in place\.\n)?"
-        r"\[colab\] Run '(?:uv tool install -U|pip install --upgrade) google-colab-cli' "
+        r"\[colab\] Run '(?:colab update|(?:uv tool install -U|pip install --upgrade) "
+        r"google-colab-cli)' "
         r'to update\.'
         r'(?:\n\[colab\] To silence this check, set "enable_update_check": false in '
         r'~/.config/colab-cli/settings\.json)?'

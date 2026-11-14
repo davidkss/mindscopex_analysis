@@ -14,6 +14,12 @@ from experiments.runners import launch_colab as launch
 
 
 class ValidationSessionCleanupTests(unittest.TestCase):
+    def setUp(self):
+        # Retain historical lifecycle coverage without activating production execution.
+        patcher = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', 'validation-only-20261114')
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
     def exercise(self, root, *, phase=None, stop_code=0, missing_archive=False):
         run = root / 'run'
         run.mkdir()
@@ -23,6 +29,8 @@ class ValidationSessionCleanupTests(unittest.TestCase):
 
         def command(cmd, **kwargs):
             events.append(cmd[1])
+            if cmd[1] == 'new' and phase == 'http_503':
+                raise subprocess.CalledProcessError(1, cmd, output='HTTP 503 Service Unavailable')
             if cmd[1] == phase:
                 raise RuntimeError(f'mock {phase} failure')
             if cmd[1] == 'exec' and phase == 'remote_failure':
@@ -77,6 +85,24 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             self.assertEqual(json.loads((result/'session_cleanup.json').read_text())['status'],
                              'stop_command_succeeded')
             self.assertTrue((result/'artifact_recovery.json').exists())
+
+    def test_http_503_is_recorded_once_and_keeps_uncertain_cleanup(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            stack, kwargs, events = self.exercise(Path(tmp), phase='http_503')
+            with stack, self.assertRaises(subprocess.CalledProcessError):
+                launch.launch_validation_once(**kwargs)
+            self.assert_recovered_before_stop(events)
+            self.assertNotIn('upload', events)
+            self.assertNotIn('exec', events)
+            run = kwargs['local_run_dir']
+            record = json.loads((run/'allocation_attempt.json').read_text())
+            self.assertEqual(record['category'], 'http_503')
+            self.assertEqual(record['allocation_attempts'], 1)
+            self.assertEqual(record['server_assignment_status'], 'unverified')
+            self.assertEqual((run/'allocation_output.log').read_text(),
+                             'HTTP 503 Service Unavailable')
+            self.assertEqual(json.loads((run/'session_cleanup.json').read_text())['status'],
+                             'stop_command_succeeded')
 
     def test_remote_failure_and_transport_exceptions_still_recover_and_stop(self):
         for phase in ('remote_failure', 'upload', 'exec', 'new'):

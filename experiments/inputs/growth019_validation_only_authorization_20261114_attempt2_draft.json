@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "authorization_id": "validation-only-20261114-attempt2",
+  "run_id": "growth019_pinned_validation_only_20261114_attempt2_2b",
+  "through": "validate",
+  "gpu": "A100",
+  "allocation_authorized": false,
+  "max_allocation_attempts": 1,
+  "expected_generate_calls": 0,
+  "extra_model_forwards": 0,
+  "synthetic_hook_module_forwards": 2,
+  "automatic_execution_retries": 0,
+  "execution_ready": false,
+  "execution_actor": "user_wsl",
+  "automatic_session_cleanup": true,
+  "revisions": {
+    "model": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "tokenizer": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "sae": "132ea3697b591df9ee46d738aa1d528e3c6082f7"
+  },
+  "authorization_status": "pending",
+  "proposed_scope": "Draft only: Phase 5-D-3B validation-only; explicit new GPU approval required",
+  "session": "mindscopex-valonly-20261114-a2"
+}

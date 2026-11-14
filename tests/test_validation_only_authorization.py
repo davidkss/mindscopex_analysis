@@ -17,7 +17,12 @@ AUTH='validation-only-20261114'
 
 
 class ValidationOnlyApprovalTests(unittest.TestCase):
-    def setUp(self):self.plan=smoke.build_plan('validate',AUTH)
+    def setUp(self):
+        self.plan=smoke.build_plan('validate',AUTH)
+        # Historical approved lifecycle under mocks only; production has no active approval.
+        patcher = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', AUTH)
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
     def test_config_approval_budget_and_revisions(self):
         config=load_toml(smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml')

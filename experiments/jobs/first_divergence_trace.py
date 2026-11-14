@@ -30,6 +30,11 @@ def prepare_plan(config):
         if run_name(config)!=plan["run_id"]:raise ValueError("Runtime smoke run.name mismatch")
         summary={k:plan[k] for k in ("n_unique_measurements","expected_generate_calls","synthetic_hook_module_forwards","extra_model_forwards","allocation_authorized","execution_ready")}
         summary.update(revisions=plan["study_manifest"]["revisions"],conditions=plan["smoke_manifest"]["conditions"] if plan["through"]=="generate" else [],through=plan["through"])
+        if plan.get("authorization_id"):
+            summary.update(authorization_id=plan["authorization_id"], run_id=plan["run_id"],
+                           authorization_sha256=plan["authorization_sha256"],
+                           authorization_status=plan.get("authorization_status", "historical"),
+                           gpu=plan["authorization_policy"]["gpu"])
         print(json.dumps(summary),flush=True)
         return plan
     if "cross_case" in config:

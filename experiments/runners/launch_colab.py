@@ -54,8 +54,15 @@ def run_cmd(
     *,
     cwd: Path | None = None,
     check: bool = True,
+    capture_output: bool = False,
 ) -> subprocess.CompletedProcess:
     print("+ " + " ".join(cmd), flush=True)
+    if capture_output:
+        result = subprocess.run(cmd, cwd=cwd, check=check, text=True,
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        if result.stdout:
+            print(result.stdout, flush=True)
+        return result
     return subprocess.run(cmd, cwd=cwd, check=check, text=True)
 
 
@@ -216,7 +223,7 @@ def validation_session_absent(output, session):
     return re.fullmatch(rf'(?:{upgrade}\n)?(?:{legacy}|{named})(?:\n{upgrade})?', lines) is not None
 
 
-def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None):
+def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None, report_dir=None):
     """One new A100 attempt; never reuse/replace/reallocate a session in this scope."""
     status=subprocess.run(["colab","status","-s",session],check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
     if status.stdout:print(status.stdout,flush=True)
@@ -224,7 +231,36 @@ def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None):
         raise RuntimeError("Validation-only requires an explicitly absent fresh session; status uncertain or session exists")
     if on_allocation_attempt is not None:
         on_allocation_attempt()
-    run_cmd(["colab","new","-s",session,"--gpu",gpu])
+    command = ["colab", "new", "-s", session, "--gpu", gpu]
+    if report_dir is None:
+        run_cmd(command)
+        return
+    report_dir = Path(report_dir)
+    record = dict(session=session, gpu=gpu, allocation_attempts=1,
+                  server_assignment_status='unverified')
+    output = ''
+    try:
+        result = run_cmd(command, capture_output=True)
+        output = getattr(result, 'stdout', '') or ''
+        record.update(status='command_succeeded', returncode=result.returncode)
+    except Exception as exc:
+        output = getattr(exc, 'output', None) or str(exc)
+        category = ('http_503' if re.search(r'\b503\b', output) else
+                    'tls' if re.search(r'TLS|SSL|certificate', output, re.IGNORECASE) else
+                    'authentication' if re.search(r'auth|unauthorized|forbidden', output,
+                                                re.IGNORECASE) else 'unknown')
+        record.update(status='failed', category=category, error=str(exc),
+                      returncode=getattr(exc, 'returncode', None))
+        raise
+    finally:
+        try:
+            with (report_dir/'allocation_output.log').open('x') as stream:
+                stream.write(output)
+            with (report_dir/'allocation_attempt.json').open('x') as stream:
+                json.dump(record, stream, indent=2)
+        except Exception as exc:
+            print(f"[validation allocation] cannot preserve allocation evidence: {exc}",
+                  file=sys.stderr, flush=True)
 
 
 
@@ -317,7 +353,8 @@ def launch_validation_once(*, prepared, root, session, gpu, local_run_dir,
 
     try:
         ensure_validation_session_once(session, str(gpu),
-                                       on_allocation_attempt=mark_allocation_attempt)
+                                       on_allocation_attempt=mark_allocation_attempt,
+                                       report_dir=local_run_dir)
         run_cmd_retry(['colab', 'upload', '-s', session, str(local_config), remote_config_path],
                       attempts=1, delay=0)
         run_cmd_retry(['colab', 'upload', '-s', session, str(local_run_dir/'source.zip'),
@@ -387,6 +424,9 @@ def launch_one(
         strict_validation=bool(prepared.get("authorization_id"))
         if strict_validation and (allocation_attempts!=1 or str(gpu).upper()!="A100" or tpu or keep_session or allocation_retry_delay!=0):
             raise ValueError("Validation-only requires A100, exactly one allocation attempt, no keep override, and zero retry delay")
+        if prepared.get("authorization_status") == "pending":
+            if session != prepared["authorization_policy"]["session"]:
+                raise ValueError("Draft validation session name mismatch")
         if prepared.get("runtime_smoke") and not dry_run:
             from experiments.runtime_smoke import require_allocation_authorized
             require_allocation_authorized(prepared)
@@ -455,6 +495,8 @@ def launch_one(
         bootstrap.write_text(render_bootstrap(payload), encoding="utf-8")
 
     if dry_run:
+        if strict_validation:
+            print("CPU preparation only: remote_calls=0; authorization_claim_created=false")
         print(f"Dry run prepared {local_run_dir}")
         return local_run_dir
 

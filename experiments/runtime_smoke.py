@@ -19,16 +19,47 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
 AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
-ACTIVE_AUTHORIZATION = 'validation-only-20261114'
+# All historical allocations are retired. Draft candidates never activate execution.
+ACTIVE_AUTHORIZATION = None
 # Explicit paths only; caller-supplied policy paths are never accepted.
 AUTHORIZATIONS = {
     'validation-only-20261030': (AUTHORIZATION, 'growth019_pinned_validation_only_2b', None),
-    ACTIVE_AUTHORIZATION: (
+    'validation-only-20261114': (
         ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114.json',
         'growth019_pinned_validation_only_20261114_2b',
         '0ba964637004f00c0b8ffffda274a7d8bbc4f9b05c328e753abb35fbe73bfe76',
     ),
 }
+
+
+DRAFT_AUTHORIZATION = 'validation-only-20261114-attempt2'
+DRAFT_POLICY = ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114_attempt2_draft.json'
+DRAFT_RUN_ID = 'growth019_pinned_validation_only_20261114_attempt2_2b'
+
+
+def draft_plan(plan):
+    """CPU planning only; this policy is deliberately outside AUTHORIZATIONS."""
+    expected = dict(
+        schema=1, authorization_id=DRAFT_AUTHORIZATION, run_id=DRAFT_RUN_ID,
+        authorization_status='pending', through='validate', gpu='A100',
+        allocation_authorized=False, execution_ready=False, execution_actor='user_wsl',
+        expected_generate_calls=0, extra_model_forwards=0, synthetic_hook_module_forwards=2,
+        max_allocation_attempts=1, automatic_execution_retries=0, automatic_session_cleanup=True,
+        revisions=plan['study_manifest']['revisions'], session='mindscopex-valonly-20261114-a2',
+        proposed_scope='Draft only: Phase 5-D-3B validation-only; explicit new GPU approval required',
+    )
+    policy = json.loads(DRAFT_POLICY.read_text())
+    # Canonical JSON comparison also rejects booleans substituted for integer budgets.
+    if json.dumps(policy, sort_keys=True) != json.dumps(expected, sort_keys=True):
+        raise ValueError('Pending validation draft policy scope mismatch')
+    plan.update(authorization_id=DRAFT_AUTHORIZATION, authorization_status='pending',
+                authorization_policy=policy, authorization_sha256=digest(DRAFT_POLICY),
+                allocation_authorized=False, execution_ready=False, run_id=DRAFT_RUN_ID,
+                expected_generate_calls=0, measurements=[], n_unique_measurements=0,
+                n_unique_generation_conditions=0, execution_blockers=['Pending explicit new GPU approval'])
+    plan['source_files']['validation_authorization_draft'] = dict(
+        path=str(DRAFT_POLICY), sha256=digest(DRAFT_POLICY))
+    return plan
 
 
 
@@ -57,6 +88,10 @@ def build_plan(through='generate',authorization=None):
                 execution_ready=False,allocation_authorized=manifest['allocation_authorized'],
                 execution_blockers=['Separate GPU allocation approval required; fresh runtime stages must pass before generation'])
     plan['source_files']['smoke_manifest']=dict(path=str(MANIFEST),sha256=digest(MANIFEST))
+    if authorization == DRAFT_AUTHORIZATION:
+        if through != 'validate':
+            raise ValueError('Draft is restricted to validation-only CPU planning')
+        return draft_plan(plan)
     if authorization is not None:
         if authorization not in AUTHORIZATIONS or through!='validate':
             raise ValueError('Authorization is restricted to validation-only; generation remains forbidden')
@@ -72,7 +107,7 @@ def build_plan(through='generate',authorization=None):
                 or policy.get('execution_ready') is not False
                 or policy.get('run_id')!=run_id):
             raise ValueError('Validation-only authorization scope mismatch')
-        if authorization == ACTIVE_AUTHORIZATION and (
+        if authorization == 'validation-only-20261114' and (
                 policy.get('revisions') != plan['study_manifest']['revisions']
                 or policy.get('execution_actor') != 'user_wsl'
                 or policy.get('automatic_session_cleanup') is not True):
@@ -86,7 +121,8 @@ def build_plan(through='generate',authorization=None):
 
 
 def require_allocation_authorized(plan):
-    if plan.get('authorization_id') != ACTIVE_AUTHORIZATION:
+    if (ACTIVE_AUTHORIZATION is None or plan.get('authorization_status') == 'pending'
+            or plan.get('authorization_id') != ACTIVE_AUTHORIZATION):
         raise ValueError('Runtime smoke allocation is not authorized; historical approval retired')
     expected = build_plan('validate', ACTIVE_AUTHORIZATION)
     for key in ('authorization_id', 'authorization_policy', 'authorization_sha256',

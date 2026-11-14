@@ -196,12 +196,30 @@ def ensure_session(
     raise subprocess.CalledProcessError(result.returncode if result else 1, cmd)
 
 
+def validation_session_absent(output, session):
+    """Accept only explicit absence, optionally accompanied by the CLI upgrade banner."""
+    lines = '\n'.join(line.strip() for line in (output or '').splitlines() if line.strip())
+    legacy = r'(?i:(?:Error:\s*)?Session not found[.!]?)'
+    named = rf"\[colab\] Session '{re.escape(session)}' not found\."
+    # Colab CLI 0.7.4 auto_update.announce_upgrade; do not discard arbitrary notices/errors.
+    version = r'\d+\.\d+\.\d+'
+    upgrade = (
+        rf'\[colab\] A new version of Colab CLI is available: {version} '
+        rf'\(current: {version}\)\n'
+        r"(?:\[colab\] You can run 'colab update --install' to upgrade in place\.\n)?"
+        r"\[colab\] Run '(?:uv tool install -U|pip install --upgrade) google-colab-cli' "
+        r'to update\.'
+        r'(?:\n\[colab\] To silence this check, set "enable_update_check": false in '
+        r'~/.config/colab-cli/settings\.json)?'
+    )
+    return re.fullmatch(rf'(?:{upgrade}\n)?(?:{legacy}|{named})(?:\n{upgrade})?', lines) is not None
+
+
 def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None):
     """One new A100 attempt; never reuse/replace/reallocate a session in this scope."""
     status=subprocess.run(["colab","status","-s",session],check=False,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
     if status.stdout:print(status.stdout,flush=True)
-    if not re.fullmatch(r"(?:Error:\s*)?Session not found[.!]?",
-                        (status.stdout or "").strip(), flags=re.IGNORECASE):
+    if not validation_session_absent(status.stdout, session):
         raise RuntimeError("Validation-only requires an explicitly absent fresh session; status uncertain or session exists")
     if on_allocation_attempt is not None:
         on_allocation_attempt()

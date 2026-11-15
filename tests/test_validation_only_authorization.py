@@ -13,19 +13,70 @@ from experiments.runners import launch_colab as launch
 from experiments.runners.config import load_toml
 from test_runtime_smoke import FakeBackend
 
-AUTH='validation-only-20261114'
+AUTH='validation-only-20261114-attempt2'
 
 
 class ValidationOnlyApprovalTests(unittest.TestCase):
     def setUp(self):
         self.plan=smoke.build_plan('validate',AUTH)
-        # Historical approved lifecycle under mocks only; production has no active approval.
-        patcher = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', AUTH)
-        patcher.start()
-        self.addCleanup(patcher.stop)
+
+    def test_final_status_fingerprint_and_default_route(self):
+        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, AUTH)
+        self.assertEqual(self.plan['authorization_status'], 'approved')
+        self.assertTrue(self.plan['allocation_authorized'])
+        self.assertFalse(self.plan['execution_ready'])
+        policy_path = smoke.AUTHORIZATIONS[AUTH][0]
+        self.assertNotEqual(policy_path, smoke.DRAFT_POLICY)
+        self.assertEqual(self.plan['authorization_sha256'], smoke.digest(policy_path))
+        self.assertNotEqual(smoke.digest(policy_path), smoke.digest(smoke.DRAFT_POLICY))
+        draft = smoke.build_plan('validate', AUTH, draft=True)
+        self.assertEqual(draft['authorization_status'], 'pending')
+        with self.assertRaises(ValueError):
+            smoke.require_allocation_authorized(draft)
+        for field, value in [('authorization_status', 'pending'),
+                             ('authorization_status', None), ('allocation_authorized', False)]:
+            altered = copy.deepcopy(self.plan)
+            altered[field] = value
+            with self.assertRaises(ValueError):
+                smoke.require_allocation_authorized(altered)
+
+    def test_final_policy_approved_fields_checked_in_addition_to_sha(self):
+        final = smoke.AUTHORIZATIONS[AUTH]
+        for field, value in [('authorization_status', 'pending'), ('allocation_authorized', False),
+                             ('session', 'other'), ('gpu', 'H100'), ('max_allocation_attempts', 2),
+                             ('revisions', {}), ('expected_generate_calls', 1)]:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as tmp:
+                altered = dict(self.plan['authorization_policy'], **{field: value})
+                path = Path(tmp)/'policy.json'
+                path.write_text(json.dumps(altered))
+                with mock.patch.dict(smoke.AUTHORIZATIONS,
+                                     {AUTH: (path, final[1], smoke.digest(path))}):
+                    with self.assertRaises(ValueError):
+                        smoke.build_plan('validate', AUTH)
+
+    def test_both_historical_approvals_stay_blocked(self):
+        for old in ('validation-only-20261030', 'validation-only-20261114'):
+            with self.subTest(old=old):
+                plan = smoke.build_plan('validate', old)
+                with self.assertRaises(ValueError):
+                    smoke.require_allocation_authorized(plan)
+
+    def test_session_or_gpu_mismatch_cannot_claim_or_allocate(self):
+        for session, gpu in [('other', 'A100'), ('mindscopex-valonly-20261114-a2', 'H100')]:
+            with self.subTest(session=session, gpu=gpu), tempfile.TemporaryDirectory() as tmp:
+                with mock.patch.object(launch, 'ensure_validation_session_once') as allocate:
+                    with self.assertRaises(ValueError):
+                        launch.launch_validation_once(
+                            prepared=self.plan, root=Path(tmp), session=session, gpu=gpu,
+                            local_run_dir=Path(tmp), local_config=Path(tmp)/'unused',
+                            remote_config_path='unused', remote_source_archive='unused',
+                            bootstrap=Path(tmp)/'unused', exec_timeout=900,
+                            remote_output_root='unused', name=self.plan['run_id'])
+                    allocate.assert_not_called()
+                self.assertEqual(list(Path(tmp).iterdir()), [])
 
     def test_config_approval_budget_and_revisions(self):
-        config=load_toml(smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml')
+        config=load_toml(smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_attempt2_2b.toml')
         plan=job.prepare_plan(config);smoke.require_allocation_authorized(plan)
         self.assertEqual(plan['n_unique_measurements'],0);self.assertEqual(plan['measurements'],[])
         self.assertEqual(plan['expected_generate_calls'],0);self.assertEqual(plan['extra_model_forwards'],0)
@@ -37,16 +88,16 @@ class ValidationOnlyApprovalTests(unittest.TestCase):
         with self.assertRaises(ValueError):smoke.build_plan('generate',AUTH)
         plan=smoke.build_plan('generate');plan['smoke_manifest']['allocation_authorized']=True
         with self.assertRaises(ValueError):smoke.require_allocation_authorized(plan)
-        config=load_toml(smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml')
+        config=load_toml(smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_attempt2_2b.toml')
         config['runtime_smoke']['through']='generate'
         with self.assertRaises(ValueError):job.prepare_plan(config)
         original=smoke.build_plan('generate')
         self.assertFalse(original['allocation_authorized'])
 
     def test_launcher_rejects_retry_wrong_gpu_or_keep_before_allocation(self):
-        path=smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml'
+        path=smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_attempt2_2b.toml'
         args=dict(root=smoke.ROOT,session='mock-absent',keep_session=False,default_gpu='A100',default_tpu=None,exec_timeout=900,allocation_attempts=1,allocation_retry_delay=0,dry_run=False)
-        for key,value in [('allocation_attempts',2),('default_gpu','H100'),('keep_session',True),('allocation_retry_delay',1),('default_tpu','v5e')]:
+        for key,value in [('allocation_attempts',2),('default_gpu','H100'),('keep_session',True),('allocation_retry_delay',1),('default_tpu','v5e'),('session','other')]:
             changed=dict(args);changed[key]=value
             with mock.patch.object(launch,'ensure_validation_session_once') as allocate:
                 with self.assertRaises(ValueError):launch.launch_one(path,**changed)
@@ -85,7 +136,7 @@ class ValidationOnlyApprovalTests(unittest.TestCase):
             self.assertTrue((Path(tmp)/'runtime_validation.json').exists())
 
     def test_validation_adapter_forwards_only_validate_and_authorization(self):
-        config=smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml'
+        config=smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_attempt2_2b.toml'
         with tempfile.TemporaryDirectory() as tmp:
             def child(command,**kwargs):
                 self.assertEqual(command[command.index('--through')+1],'validate')
@@ -149,10 +200,10 @@ class ValidationOnlyApprovalTests(unittest.TestCase):
             smoke.validate_summary(state, self.plan)
 
     def test_dry_run_then_single_consumption_even_after_failure(self):
-        config = smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml'
+        config = smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_attempt2_2b.toml'
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            args = dict(root=root, session='mock', keep_session=False, default_gpu='A100',
+            args = dict(root=root, session='mindscopex-valonly-20261114-a2', keep_session=False, default_gpu='A100',
                         default_tpu=None, exec_timeout=900, allocation_attempts=1,
                         allocation_retry_delay=0)
             with mock.patch.object(launch, 'make_source_archive',
@@ -197,7 +248,7 @@ class ValidationOnlyApprovalTests(unittest.TestCase):
                 backend.assert_called_once()
 
     def test_cli_preflight_exception_does_not_stop_unowned_session(self):
-        config = smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_2b.toml'
+        config = smoke.ROOT/'experiments/configs/growth019_validation_only_20261114_attempt2_2b.toml'
         argv = ['launch', str(config), '--session', 'mock', '--gpu', 'A100',
                 '--allocation-attempts', '1', '--allocation-retry-delay', '0']
         with mock.patch('sys.argv', argv), \

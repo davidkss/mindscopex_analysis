@@ -24,9 +24,13 @@ def prepare_plan(config):
     if "runtime_smoke" in config:
         from experiments.runtime_smoke import build_plan
         if (job_name(config)!="first_divergence_trace" or any(table(config,key) for key in ("diagnostic","pilot","cross_case"))
-                or set(table(config,"runtime_smoke")) not in ({"through"},{"through","authorization"})):
+                or set(table(config,"runtime_smoke")) not in ({"through"},{"through","authorization"},{"through","authorization","policy"})):
             raise ValueError("Runtime smoke requires a standalone stage config")
-        plan=build_plan(config["runtime_smoke"]["through"],config["runtime_smoke"].get("authorization"))
+        runtime = config["runtime_smoke"]
+        if "policy" in runtime and runtime["policy"] != "draft":
+            raise ValueError("Only explicit CPU draft planning can override the final policy")
+        plan=build_plan(runtime["through"], runtime.get("authorization"),
+                        draft=runtime.get("policy") == "draft")
         if run_name(config)!=plan["run_id"]:raise ValueError("Runtime smoke run.name mismatch")
         summary={k:plan[k] for k in ("n_unique_measurements","expected_generate_calls","synthetic_hook_module_forwards","extra_model_forwards","allocation_authorized","execution_ready")}
         summary.update(revisions=plan["study_manifest"]["revisions"],conditions=plan["smoke_manifest"]["conditions"] if plan["through"]=="generate" else [],through=plan["through"])

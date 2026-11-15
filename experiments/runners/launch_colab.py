@@ -335,6 +335,9 @@ def launch_validation_once(*, prepared, root, session, gpu, local_run_dir,
                            local_config, remote_config_path, remote_source_archive,
                            bootstrap, exec_timeout, remote_output_root, name):
     from experiments.runtime_smoke import claim_authorization
+    policy = prepared['authorization_policy']
+    if ((policy.get('session') and session != policy['session']) or gpu != policy['gpu']):
+        raise ValueError('Validation allocation session/GPU mismatch')
     claim = claim_authorization(prepared, root/'results/.authorization_claims',
                                 session=session, local_run_dir=str(local_run_dir.resolve()))
     write_local_manifest(local_run_dir/'authorization_execution.json', {
@@ -424,9 +427,9 @@ def launch_one(
         strict_validation=bool(prepared.get("authorization_id"))
         if strict_validation and (allocation_attempts!=1 or str(gpu).upper()!="A100" or tpu or keep_session or allocation_retry_delay!=0):
             raise ValueError("Validation-only requires A100, exactly one allocation attempt, no keep override, and zero retry delay")
-        if prepared.get("authorization_status") == "pending":
+        if prepared.get("authorization_policy", {}).get("session"):
             if session != prepared["authorization_policy"]["session"]:
-                raise ValueError("Draft validation session name mismatch")
+                raise ValueError("Validation session name mismatch")
         if prepared.get("runtime_smoke") and not dry_run:
             from experiments.runtime_smoke import require_allocation_authorized
             require_allocation_authorized(prepared)

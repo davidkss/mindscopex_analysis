@@ -19,10 +19,15 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
 AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
-# All historical allocations are retired. Draft candidates never activate execution.
-ACTIVE_AUTHORIZATION = None
+# Only the final 2026-11-15 Attempt2 approval can authorize execution.
+ACTIVE_AUTHORIZATION = 'validation-only-20261114-attempt2'
 # Explicit paths only; caller-supplied policy paths are never accepted.
 AUTHORIZATIONS = {
+    ACTIVE_AUTHORIZATION: (
+        ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114_attempt2.json',
+        'growth019_pinned_validation_only_20261114_attempt2_2b',
+        'd0d42c5456226eb86c29dcea8b188b1c77f2a3cbb9bc37330e6837b06e3e39d1',
+    ),
     'validation-only-20261030': (AUTHORIZATION, 'growth019_pinned_validation_only_2b', None),
     'validation-only-20261114': (
         ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114.json',
@@ -63,7 +68,7 @@ def draft_plan(plan):
 
 
 
-def build_plan(through='generate',authorization=None):
+def build_plan(through='generate',authorization=None, *, draft=False):
     manifest=json.loads(MANIFEST.read_text())
     if (through not in ('validate','generate') or manifest['run_id']!='growth019_pinned_runtime_smoke_2b'
             or [r['condition_id'] for r in manifest['conditions']]!=['baseline','f30908-c8p5','f12207-c8'] or manifest['schema']!=1 or manifest['result_schema']!=4
@@ -88,8 +93,8 @@ def build_plan(through='generate',authorization=None):
                 execution_ready=False,allocation_authorized=manifest['allocation_authorized'],
                 execution_blockers=['Separate GPU allocation approval required; fresh runtime stages must pass before generation'])
     plan['source_files']['smoke_manifest']=dict(path=str(MANIFEST),sha256=digest(MANIFEST))
-    if authorization == DRAFT_AUTHORIZATION:
-        if through != 'validate':
+    if draft:
+        if authorization != DRAFT_AUTHORIZATION or through != 'validate':
             raise ValueError('Draft is restricted to validation-only CPU planning')
         return draft_plan(plan)
     if authorization is not None:
@@ -107,12 +112,17 @@ def build_plan(through='generate',authorization=None):
                 or policy.get('execution_ready') is not False
                 or policy.get('run_id')!=run_id):
             raise ValueError('Validation-only authorization scope mismatch')
-        if authorization == 'validation-only-20261114' and (
+        if authorization in ('validation-only-20261114', ACTIVE_AUTHORIZATION) and (
                 policy.get('revisions') != plan['study_manifest']['revisions']
                 or policy.get('execution_actor') != 'user_wsl'
                 or policy.get('automatic_session_cleanup') is not True):
             raise ValueError('Validation-only revision or execution policy mismatch')
-        plan.update(authorization_id=authorization,authorization_policy=policy,authorization_sha256=digest(policy_path),
+        if authorization == ACTIVE_AUTHORIZATION and (
+                policy.get('authorization_status') != 'approved'
+                or policy.get('session') != 'mindscopex-valonly-20261114-a2'):
+            raise ValueError('Final approval status/session mismatch')
+        plan.update(authorization_status=policy.get('authorization_status', 'historical'),
+                    authorization_id=authorization,authorization_policy=policy,authorization_sha256=digest(policy_path),
                     allocation_authorized=True,run_id=policy['run_id'],expected_generate_calls=0,
                     measurements=[],n_unique_measurements=0,n_unique_generation_conditions=0,
                     execution_blockers=['Generation prohibited; runtime validation only'])
@@ -121,11 +131,11 @@ def build_plan(through='generate',authorization=None):
 
 
 def require_allocation_authorized(plan):
-    if (ACTIVE_AUTHORIZATION is None or plan.get('authorization_status') == 'pending'
+    if (ACTIVE_AUTHORIZATION is None or plan.get('authorization_status') != 'approved'
             or plan.get('authorization_id') != ACTIVE_AUTHORIZATION):
         raise ValueError('Runtime smoke allocation is not authorized; historical approval retired')
     expected = build_plan('validate', ACTIVE_AUTHORIZATION)
-    for key in ('authorization_id', 'authorization_policy', 'authorization_sha256',
+    for key in ('authorization_id', 'authorization_status', 'authorization_policy', 'authorization_sha256',
                 'through', 'run_id', 'expected_generate_calls', 'allocation_authorized',
                 'extra_model_forwards', 'synthetic_hook_module_forwards',
                 'automatic_generation_retries', 'execution_ready', 'measurements',

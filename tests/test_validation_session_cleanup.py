@@ -14,12 +14,6 @@ from experiments.runners import launch_colab as launch
 
 
 class ValidationSessionCleanupTests(unittest.TestCase):
-    def setUp(self):
-        # Retain historical lifecycle coverage without activating production execution.
-        patcher = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', 'validation-only-20261114')
-        patcher.start()
-        self.addCleanup(patcher.stop)
-
     def exercise(self, root, *, phase=None, stop_code=0, missing_archive=False):
         run = root / 'run'
         run.mkdir()
@@ -53,7 +47,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             (destination / 'job_manifest.json').write_text(json.dumps(dict(status='succeeded')))
 
         kwargs = dict(prepared=smoke.build_plan('validate', smoke.ACTIVE_AUTHORIZATION),
-                      root=root, session='mindscopex-valonly-20261114', gpu='A100',
+                      root=root, session='mindscopex-valonly-20261114-a2', gpu='A100',
                       local_run_dir=run, local_config=run/'config.toml',
                       remote_config_path='/content/config.toml',
                       remote_source_archive='/content/source.zip',
@@ -81,6 +75,10 @@ class ValidationSessionCleanupTests(unittest.TestCase):
                 result = launch.launch_validation_once(**kwargs)
             self.assert_recovered_before_stop(events)
             self.assertEqual(result, kwargs['local_run_dir'])
+            claims = list((Path(tmp)/'results/.authorization_claims').glob('*.json'))
+            self.assertEqual(len(claims), 1)
+            self.assertEqual(json.loads(claims[0].read_text())['authorization_id'],
+                             smoke.ACTIVE_AUTHORIZATION)
             self.assertEqual((result/'source.zip').read_bytes(), b'preserve')
             self.assertEqual(json.loads((result/'session_cleanup.json').read_text())['status'],
                              'stop_command_succeeded')
@@ -159,7 +157,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
                         launch.launch_validation_once(**kwargs)
                 self.assert_recovered_before_stop(events)
                 self.assertIn('cleanup FAILED', stderr.getvalue())
-                self.assertIn('colab stop -s mindscopex-valonly-20261114', stderr.getvalue())
+                self.assertIn('colab stop -s mindscopex-valonly-20261114-a2', stderr.getvalue())
                 record = json.loads((kwargs['local_run_dir']/'session_cleanup.json').read_text())
                 self.assertEqual(record['status'], 'failed')
                 self.assertTrue((kwargs['local_run_dir']/'artifacts/job_manifest.json').exists())

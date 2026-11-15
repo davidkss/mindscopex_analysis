@@ -21,15 +21,21 @@ SESSION = 'mindscopex-valonly-20261114-a2'
 class PendingValidationDraftTests(unittest.TestCase):
     def setUp(self):
         platform.platform()
-        self.plan = job.prepare_plan(load_toml(CONFIG))
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        self.config = Path(tmp.name)/'draft.toml'
+        self.config.write_text(CONFIG.read_text().replace(
+            'authorization = "validation-only-20261114-attempt2"',
+            'authorization = "validation-only-20261114-attempt2"\npolicy = "draft"'))
+        self.plan = job.prepare_plan(load_toml(self.config))
         self.args = dict(root=smoke.ROOT, session=SESSION, keep_session=False,
                          default_gpu='A100', default_tpu=None, exec_timeout=900,
                          allocation_attempts=1, allocation_retry_delay=0)
 
     def test_pending_schema_budget_revisions_and_inactive_identity(self):
         policy = self.plan['authorization_policy']
-        self.assertIsNone(smoke.ACTIVE_AUTHORIZATION)
-        self.assertNotIn(smoke.DRAFT_AUTHORIZATION, smoke.AUTHORIZATIONS)
+        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261114-attempt2')
+        self.assertNotEqual(smoke.AUTHORIZATIONS[smoke.ACTIVE_AUTHORIZATION][0], smoke.DRAFT_POLICY)
         self.assertEqual(policy['authorization_status'], 'pending')
         self.assertFalse(policy['allocation_authorized'])
         self.assertFalse(self.plan['allocation_authorized'])
@@ -60,17 +66,20 @@ class PendingValidationDraftTests(unittest.TestCase):
              mock.patch.object(smoke, 'RuntimeBackend') as backend:
             args = dict(self.args, root=Path(tmp))
             with self.assertRaises(ValueError):
-                launch.launch_one(CONFIG, dry_run=False, **args)
+                launch.launch_one(self.config, dry_run=False, **args)
             with self.assertRaises(ValueError):
-                job.run(CONFIG, Path(tmp))
+                job.run(self.config, Path(tmp))
             with self.assertRaises(ValueError):
                 smoke.require_allocation_authorized(self.plan)
             with self.assertRaises(ValueError):
                 smoke.claim_authorization(self.plan, Path(tmp)/'claims')
-            # Runtime's CLI only lists historical policies, so the draft is rejected by argparse.
-            with self.assertRaises(SystemExit):
-                smoke.main(['--through', 'validate', '--authorization', smoke.DRAFT_AUTHORIZATION,
-                            '--output-dir', str(Path(tmp)/'runtime')])
+            # Substituting Draft bytes for the pinned final policy must fail before the Backend.
+            final = smoke.AUTHORIZATIONS[smoke.ACTIVE_AUTHORIZATION]
+            with mock.patch.dict(smoke.AUTHORIZATIONS, {
+                    smoke.ACTIVE_AUTHORIZATION: (smoke.DRAFT_POLICY, final[1], final[2])}):
+                with self.assertRaises(ValueError):
+                    smoke.main(['--through', 'validate', '--authorization', smoke.DRAFT_AUTHORIZATION,
+                                '--output-dir', str(Path(tmp)/'runtime')])
             command.assert_not_called()
             transfer.assert_not_called()
             remote.assert_not_called()
@@ -103,7 +112,7 @@ class PendingValidationDraftTests(unittest.TestCase):
                     path.write_text(json.dumps(policy))
                     with mock.patch.object(smoke, 'DRAFT_POLICY', path):
                         with self.assertRaisesRegex(ValueError, 'scope mismatch'):
-                            smoke.build_plan('validate', smoke.DRAFT_AUTHORIZATION)
+                            smoke.build_plan('validate', smoke.DRAFT_AUTHORIZATION, draft=True)
 
     def test_wrong_launcher_options_run_id_and_generation_blocked(self):
         for key, value in [('session', 'other'), ('default_gpu', 'H100'),
@@ -112,9 +121,9 @@ class PendingValidationDraftTests(unittest.TestCase):
             with self.subTest(key=key), tempfile.TemporaryDirectory() as tmp:
                 args = dict(self.args, root=Path(tmp), **{key: value})
                 with self.assertRaises(ValueError):
-                    launch.launch_one(CONFIG, dry_run=True, **args)
+                    launch.launch_one(self.config, dry_run=True, **args)
                 self.assertEqual(list(Path(tmp).iterdir()), [])
-        config = load_toml(CONFIG)
+        config = load_toml(self.config)
         config['run']['name'] = 'wrong-run'
         with self.assertRaises(ValueError):
             job.prepare_plan(config)
@@ -135,7 +144,7 @@ class PendingValidationDraftTests(unittest.TestCase):
              mock.patch.object(launch, 'run_cmd_retry') as transfer, \
              mock.patch.object(launch.subprocess, 'run') as remote:
             args = dict(self.args, root=Path(tmp))
-            run = launch.launch_one(CONFIG, dry_run=True, **args)
+            run = launch.launch_one(self.config, dry_run=True, **args)
             manifest = json.loads((run/'launcher_manifest.json').read_text())
             plan = manifest['runtime_plan']
             self.assertEqual(plan['authorization_status'], 'pending')

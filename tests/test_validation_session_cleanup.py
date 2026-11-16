@@ -28,6 +28,11 @@ class ValidationSessionCleanupTests(unittest.TestCase):
 
         def command(cmd, **kwargs):
             events.append(cmd[1])
+            if cmd[1] == 'new':
+                self.assertEqual(kwargs['env']['COLAB_CLI_ASSIGN_RETRIES'], '0')
+                self.assertEqual(kwargs['env']['COLAB_CLI_RETRY_BACKOFF'], '0')
+            if cmd[1] == 'new' and phase == 'read_timeout':
+                raise subprocess.CalledProcessError(1, cmd, output='ReadTimeout: read timed out')
             if cmd[1] == 'new' and phase in ('http_503', 'service_unavailable'):
                 output = ('HTTP 503 Service Unavailable' if phase == 'http_503'
                           else 'ColabRequestError: Service Unavailable\n')
@@ -127,7 +132,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             self.assertEqual(len(list((Path(tmp)/'results/.authorization_claims').glob('*.json'))), 1)
 
     def test_remote_failure_and_transport_exceptions_still_recover_and_stop(self):
-        for phase in ('remote_failure', 'upload', 'exec', 'new'):
+        for phase in ('remote_failure', 'upload', 'exec', 'new', 'read_timeout'):
             with self.subTest(phase=phase), tempfile.TemporaryDirectory() as tmp:
                 stack, kwargs, events = self.exercise(Path(tmp), phase=phase)
                 with stack, self.assertRaises((RuntimeError, subprocess.CalledProcessError)):

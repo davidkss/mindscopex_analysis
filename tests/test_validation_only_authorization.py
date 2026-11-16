@@ -110,7 +110,8 @@ class ValidationOnlyApprovalTests(unittest.TestCase):
         absent=SimpleNamespace(returncode=0,stdout='Session not found')
         with mock.patch.object(launch.subprocess,'run',return_value=absent),mock.patch.object(launch,'run_cmd',side_effect=RuntimeError('allocation failed')) as allocate:
             with self.assertRaises(RuntimeError):launch.ensure_validation_session_once('mock','A100')
-            allocate.assert_called_once_with(['colab','new','-s','mock','--gpu','A100'])
+            allocate.assert_called_once_with(['colab','new','-s','mock','--gpu','A100'],
+                                             env=mock.ANY)
         for text in ('Session exists Hardware: A100', 'authentication error',
                      'TLS certificate file not found', 'authentication error: Session not found'):
             with mock.patch.object(launch.subprocess,'run',return_value=SimpleNamespace(returncode=1,stdout=text)),mock.patch.object(launch,'run_cmd') as allocate:

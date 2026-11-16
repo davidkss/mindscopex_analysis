@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import shlex
 import shutil
@@ -55,15 +56,17 @@ def run_cmd(
     cwd: Path | None = None,
     check: bool = True,
     capture_output: bool = False,
+    env: dict[str, str] | None = None,
 ) -> subprocess.CompletedProcess:
     print("+ " + " ".join(cmd), flush=True)
+    options = {} if env is None else {"env": env}
     if capture_output:
-        result = subprocess.run(cmd, cwd=cwd, check=check, text=True,
+        result = subprocess.run(cmd, cwd=cwd, check=check, text=True, **options,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         if result.stdout:
             print(result.stdout, flush=True)
         return result
-    return subprocess.run(cmd, cwd=cwd, check=check, text=True)
+    return subprocess.run(cmd, cwd=cwd, check=check, text=True, **options)
 
 
 def run_cmd_retry(
@@ -232,15 +235,18 @@ def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None, 
     if on_allocation_attempt is not None:
         on_allocation_attempt()
     command = ["colab", "new", "-s", session, "--gpu", gpu]
+    # Scope overrides to this child; a single CLI call can otherwise retry POSTs.
+    allocation_env = dict(os.environ, COLAB_CLI_ASSIGN_RETRIES="0",
+                          COLAB_CLI_RETRY_BACKOFF="0")
     if report_dir is None:
-        run_cmd(command)
+        run_cmd(command, env=allocation_env)
         return
     report_dir = Path(report_dir)
     record = dict(session=session, gpu=gpu, allocation_attempts=1,
                   server_assignment_status='unverified')
     output = ''
     try:
-        result = run_cmd(command, capture_output=True)
+        result = run_cmd(command, capture_output=True, env=allocation_env)
         output = getattr(result, 'stdout', '') or ''
         record.update(status='command_succeeded', returncode=result.returncode)
     except Exception as exc:

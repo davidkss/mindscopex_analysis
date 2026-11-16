@@ -26,7 +26,8 @@ class ValidationStatusResponseTests(unittest.TestCase):
                 launch.ensure_validation_session_once(SESSION, 'A100',
                                                        on_allocation_attempt=callback)
                 callback.assert_called_once_with()
-                allocate.assert_called_once_with(['colab', 'new', '-s', SESSION, '--gpu', 'A100'])
+                allocate.assert_called_once_with(['colab', 'new', '-s', SESSION, '--gpu', 'A100'],
+                                                 env=mock.ANY)
             else:
                 with self.assertRaises(RuntimeError):
                     launch.ensure_validation_session_once(SESSION, 'A100',

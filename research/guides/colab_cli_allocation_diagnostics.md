@@ -142,3 +142,120 @@ ReadTimeout은 기존 unknown 분류를 유지한다. 생명주기 Mock에 환�
 Runtime5단계는 여전히 미검증이다. 서비스 가용성·실제 GPU·네트워크 및 서버 종료/청구는
 CPU Mock이 보장하지 않는다. 이번 작업 성공은 할당 서비스 복구나 Runtime 성공을 의미하지 않는다.
 코드/테스트/Journal/Commit은 Codex, Push는 사용자 WSL, GPU 실행은 별도 승인 후 사용자 WSL 담당이다.
+
+## 8. 2026-11-16 최종 설치 CLI / Transport CPU Preflight — NO-GO
+
+### 8.1 실제 설치 환경 확인 (읽기 전용)
+
+시작 HEAD와 origin/main 및 직접 조회한 원격 main은 모두
+`eac8cd179331b538d7a18a81c9bd844ba0140728`, 작업 트리는 clean이었다.
+`command -v colab`은 `/home/davidkss/.local/bin/colab`, symlink 대상은
+`/home/davidkss/.local/share/uv/tools/google-colab-cli/bin/colab`이다.
+entrypoint shebang은 `/home/davidkss/.local/share/uv/tools/google-colab-cli/bin/python`이며,
+그 interpreter에서 metadata.version은 google-colab-cli=0.7.5다. `uv tool list`도 같은 버전과
+colab entrypoint를 표시했다. sandbox의 첫 목록 조회는 uv의 임시파일 생성 제한으로 실패했고,
+권한을 확장한 읽기 조회에서 성공했다. 패키지/사용자 설정은 변경하지 않았다.
+
+실제 import된 client는 다음 파일이다.
+
+```text
+/home/davidkss/.local/share/uv/tools/google-colab-cli/lib/python3.12/site-packages/colab_cli/client.py
+```
+
+colab_cli 자체는 namespace package라 __file__이 없으며, 실제 client.__file__로 위치를 확인했다.
+공식 [v0.7.5 Archive](https://github.com/googlecolab/google-colab-cli/archive/refs/tags/v0.7.5.tar.gz)의
+src/colab_cli 아래24개 파일을 설치 디렉터리와 바이트 대조했다: 일치24/상이0/누락0,
+추가 Python 소스0. client.py는 앞 절의 SHA와 동일하며 assign은 실제로 환경변수를 읽는다.
+이는 패키지 소스/리소스 대조이며 wheel 빌드 전체 및 의존 패키지 전체의 공식 배포물 동일성
+검증은 아니다. 공식 Archive 조회 외 Colab 서버 연결/CLI 명령 실행은 없었다.
+
+설치 의존성 metadata: requests=2.34.2, google-auth=2.62.1, urllib3=2.8.0.
+사용자 인증 파일/토큰/쿠키/Proxy 자격증명은 읽거나 출력하지 않았다.
+
+### 8.2 실제 설치 함수의 완전 오프라인 테스트
+
+재현 명령(설치 interpreter 사용, CLI 실행 아님):
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 /home/davidkss/.local/share/uv/tools/google-colab-cli/bin/python -B scripts/verify_colab_cli_preflight.py
+```
+
+10개 테스트 통과. 스크립트는 CLI/HTTP 모듈 import 전에 socket connect/connect_ex/
+create_connection/getaddrinfo를 차단한다. 각 테스트 본문 전에 socket 및 실제 HTTPAdapter.send의
+차단 여부를 sentinel 요청으로 검증한다. sentinel도 차단 지점에서 끝나며 네트워크로 나가지 않는다.
+assign 테스트는 실제 Client.assign→_get/_post_assignment→_issue_request를 실행하고
+session.request에서 합성 응답/예외만 반환한다. 자체 재구현한 assign을 테스트하지 않는다.
+transport 테스트는 실제 AuthorizedSession/requests의 요청·Redirect 코드를 실행하고
+BaseAdapter의 합성 send에서 종료한다. 실제 HTTPAdapter.send도 차단 상태로 유지한다.
+실제 사용자 credentials loader/인증 갱신 네트워크는 호출하지 않고 합성 Credentials를 사용한다.
+테스트 중 환경/Mock은 종료 시 복구하며 설치 파일은 변경하지 않는다.
+
+| CPU 조건 | 확인 결과 |
+|---|---|
+| retries0 + 503/ReadTimeout | 최초 GET1/POST1, 추가 POST·sleep0 |
+| retries3 + 502/503/504/ReadTimeout | GET4/POST4 상한 도달 |
+| 412 + retries0 또는3 | GET1/POST1, 추가시도0 |
+| POST 실패 후 GET에서 Assignment 확인 | GET2/POST1, 중복 POST 없음 |
+| 최초 GET에서 Assignment 확인 | GET1/POST0 |
+| transport 합성401→401→200 | adapter send에 POST3, 합성 credential refresh2 |
+| transport 합성307 또는308→200 | adapter send에 POST2, 인증 refresh0 |
+
+표의 POST는 함수/합성 adapter 경계에서 센 호출이다. 실제 네트워크 송신수나 실제 Colab
+응답이 아니다. 후자의 transport 결과는 assign 환경변수0과 독립적인 재전송 경로다.
+테스트 통과는 해당 잔여 위험을 재현했다는 뜻이며 안전한 단일 POST가 입증됐다는 뜻이 아니다.
+
+### 8.3 실제 설치 HTTP 전송 계층
+
+소스 경로는 위 site-packages 기준이다.
+
+| 계층 | 읽기 및 Mock 결과 | 단일 할당 정책 영향 |
+|---|---|---|
+| colab_cli/auth.py get_credentials | 사용자/ADC credentials 확보 후 기본 AuthorizedSession 생성; 별도 할당 전용 adapter 설정 없음 | assign 환경변수만으로 하위 재전송 제어 불가 |
+| requests/adapters.py HTTPAdapter | 기본 DEFAULT_RETRIES=0, Retry(0, read=False), status_forcelist 비어 있음 | 기본 할당 adapter에서 502/503/504·ReadTimeout 추가 재시도 없음 |
+| urllib3/util/retry.py | POST는 기본 allowed_methods에 없음; total0/readFalse 확인 및 increment의 예외 전파 Mock | 기본 adapter의 내부 재시도는 차단되지만 상위 auth/Redirect는 별개 |
+| google/auth/transport/requests.py AuthorizedSession | 기본 refresh status401, max_refresh_attempts2; refresh 후 같은 method/data로 self.request 재귀 호출 | assign POST1 안에서도 응답401 조건에 POST가 최대3번 adapter로 내려갈 수 있음 |
+| AuthorizedSession의 인증 요청용 session | HTTPS HTTPAdapter(max_retries=3) 별도 구성 | 토큰 갱신 트래픽 재시도는 할당 POST와 구분; 인증을 무리하게 끄지 않음 |
+| requests/sessions.py Redirect | allow_redirects=True 기본, 307/308은 POST 유지; 기본 max_redirects30 | GET 변환이 없는 추가 POST 경로; auth 재호출과 조합 가능 |
+| Proxy/회사 네트워크 | 로컬 코드만으로 외부 장비의 재전송/변환을 입증할 수 없음 | 실제 wire/server 처리수는 미검증 |
+
+선제 credentials.before_request에서 필요시 토큰을 갱신하는 동작과, 이미 요청을 보낸 후401에서
+같은 POST를 재호출하는 동작은 구분한다. 기본 AuthorizedSession은 502/503/504나 ReadTimeout을
+자체 auth 조건으로 재시도하지 않지만, assign의 retries3 루프는 이를 재시도한다.
+requests는 보통301/302/303에서 POST를 GET으로 바꾸지만307/308은 메서드를 유지한다.
+TLS·인증서 검증·실제 인증 갱신·사용자 Proxy 설정은 변경하지 않았다.
+
+참고 공식 [requests sessions 소스](https://github.com/psf/requests/blob/v2.34.2/src/requests/sessions.py),
+[urllib3 Retry 소스](https://github.com/urllib3/urllib3/blob/2.8.0/src/urllib3/util/retry.py).
+google-auth의 해당 버전 raw URL은404였으므로 원격 동일성은 확인하지 못했다.
+위 google-auth 분석은 설치된 metadata/실제 소스와 실행 Mock에 근거한다.
+
+설치 핵심 소스 SHA-256(의존 패키지 배포 전체 지문은 아님):
+
+```text
+colab_cli/auth.py             0bef52f554d75a277b91eef897ccaf0c54d5e2e6535c2b00257a6daba242e009
+google/auth/transport/requests.py eae46f3e87edce8ff85fb533316dcce7c4ac9cc36e27650a55cbf83b9c91bc86
+requests/adapters.py          647eabd4453de232aa40b55ff033d6f19778910b7e7069c51fdf63076fc77493
+requests/sessions.py          96fbb30bbbf06a59a5268d13b57885149756aa3f31695b5c15e41dd7bb2f67a6
+urllib3/util/retry.py          0fdc26b67d1ecc42b0cab3972f20bb07284d783f4dc318394fe8b99098c42925
+```
+
+### 8.4 Launcher 검증 및 최종 판정
+
+기존 validation46개 테스트 통과. 자식 두변수0 강제/부모3 덮어쓰기/일반명령 환경불변,
+소진된 과거승인 및 Attempt2 차단/claim 미생성/할당실패 뒤 회수·종료를 확인했다.
+Launcher·Runtime·Job은 변경하지 않았다. ACTIVE_AUTHORIZATION=None을 유지한다.
+미확인 CLI에 대한 자동 fingerprint gate는 현재 production에 없으므로 미래 승인활성화만으로
+미확인 환경을 허용할 위험은 남는다. 이번 검증 스크립트의 지문 검사는 진단용이며
+Launcher 실행 gate가 아니다. 현재는 활성 승인 부재가 실제 실행을 막는다.
+
+**최종 NO-GO — 추가 보완 필요.** 실제 설치 CLI와 assign 루프 제어는 확인했으나,
+엄격한 단일 POST 정책에서401 인증 갱신/307·308 Redirect에 따른 추가 POST 경로가 남아 있다.
+과거 실패에서 이 경로가 발생했다는 증거는 없다. 테스트의 정상 통과와 NO-GO는 모순되지 않는다.
+실제 패킷/Colab 서버 처리 횟수, Proxy 재전송, Runtime5단계는 미검증이다.
+
+최소 후속 조건: 신규 GPU 승인 준비 전에 **할당 POST에 한정해** 이미 전송된 요청의
+인증 재호출/Redirect를 불확실 실패로 종료하고 기존 회수·정리로 넘길 수 있는 안전한 경계를
+별도 CPU 작업으로 설계·검증한다. 인증·TLS 전체를 끄거나 패키지를 임의 수정/업그레이드하지 않는다.
+미확인 CLI/transport 변경은 해당 검증을 통과하기 전 실행거부해야 한다.
+엄격한 전송1회 대신 논리적 할당1회로 정책을 바꿀지는 별도 사용자 결정이며 자동으로 완화하지 않는다.
+이번에 해당 개발이나 신규승인 활성화를 시작하지 않는다. 사용자가 결과를 검토한 뒤 범위를 정한다.

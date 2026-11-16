@@ -248,7 +248,9 @@ def ensure_validation_session_once(session, gpu, *, on_allocation_attempt=None, 
         category = ('http_503' if re.search(r'\b503\b', output) else
                     'tls' if re.search(r'TLS|SSL|certificate', output, re.IGNORECASE) else
                     'authentication' if re.search(r'auth|unauthorized|forbidden', output,
-                                                re.IGNORECASE) else 'unknown')
+                                                re.IGNORECASE) else
+                    'service_unavailable' if re.search(r'Service\s+Unavailable', output,
+                                                      re.IGNORECASE) else 'unknown')
         record.update(status='failed', category=category, error=str(exc),
                       returncode=getattr(exc, 'returncode', None))
         raise

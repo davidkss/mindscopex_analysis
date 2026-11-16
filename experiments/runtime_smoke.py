@@ -19,11 +19,12 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
 AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
-# Only the final 2026-11-15 Attempt2 approval can authorize execution.
-ACTIVE_AUTHORIZATION = 'validation-only-20261114-attempt2'
+# Attempt2 was consumed on 2026-11-15; retire across checkouts without a local ledger.
+ACTIVE_AUTHORIZATION = None
+ATTEMPT2_AUTHORIZATION = 'validation-only-20261114-attempt2'
 # Explicit paths only; caller-supplied policy paths are never accepted.
 AUTHORIZATIONS = {
-    ACTIVE_AUTHORIZATION: (
+    ATTEMPT2_AUTHORIZATION: (
         ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114_attempt2.json',
         'growth019_pinned_validation_only_20261114_attempt2_2b',
         'd0d42c5456226eb86c29dcea8b188b1c77f2a3cbb9bc37330e6837b06e3e39d1',
@@ -112,12 +113,12 @@ def build_plan(through='generate',authorization=None, *, draft=False):
                 or policy.get('execution_ready') is not False
                 or policy.get('run_id')!=run_id):
             raise ValueError('Validation-only authorization scope mismatch')
-        if authorization in ('validation-only-20261114', ACTIVE_AUTHORIZATION) and (
+        if authorization in ('validation-only-20261114', ATTEMPT2_AUTHORIZATION) and (
                 policy.get('revisions') != plan['study_manifest']['revisions']
                 or policy.get('execution_actor') != 'user_wsl'
                 or policy.get('automatic_session_cleanup') is not True):
             raise ValueError('Validation-only revision or execution policy mismatch')
-        if authorization == ACTIVE_AUTHORIZATION and (
+        if authorization == ATTEMPT2_AUTHORIZATION and (
                 policy.get('authorization_status') != 'approved'
                 or policy.get('session') != 'mindscopex-valonly-20261114-a2'):
             raise ValueError('Final approval status/session mismatch')

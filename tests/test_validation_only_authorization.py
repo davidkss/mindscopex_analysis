@@ -18,6 +18,9 @@ AUTH='validation-only-20261114-attempt2'
 
 class ValidationOnlyApprovalTests(unittest.TestCase):
     def setUp(self):
+        active = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', smoke.ATTEMPT2_AUTHORIZATION)
+        active.start()
+        self.addCleanup(active.stop)
         self.plan=smoke.build_plan('validate',AUTH)
 
     def test_final_status_fingerprint_and_default_route(self):

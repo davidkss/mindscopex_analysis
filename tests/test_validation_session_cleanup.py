@@ -14,6 +14,11 @@ from experiments.runners import launch_colab as launch
 
 
 class ValidationSessionCleanupTests(unittest.TestCase):
+    def setUp(self):
+        active = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', smoke.ATTEMPT2_AUTHORIZATION)
+        active.start()
+        self.addCleanup(active.stop)
+
     def exercise(self, root, *, phase=None, stop_code=0, missing_archive=False):
         run = root / 'run'
         run.mkdir()
@@ -23,8 +28,10 @@ class ValidationSessionCleanupTests(unittest.TestCase):
 
         def command(cmd, **kwargs):
             events.append(cmd[1])
-            if cmd[1] == 'new' and phase == 'http_503':
-                raise subprocess.CalledProcessError(1, cmd, output='HTTP 503 Service Unavailable')
+            if cmd[1] == 'new' and phase in ('http_503', 'service_unavailable'):
+                output = ('HTTP 503 Service Unavailable' if phase == 'http_503'
+                          else 'ColabRequestError: Service Unavailable\n')
+                raise subprocess.CalledProcessError(1, cmd, output=output)
             if cmd[1] == phase:
                 raise RuntimeError(f'mock {phase} failure')
             if cmd[1] == 'exec' and phase == 'remote_failure':
@@ -101,6 +108,23 @@ class ValidationSessionCleanupTests(unittest.TestCase):
                              'HTTP 503 Service Unavailable')
             self.assertEqual(json.loads((run/'session_cleanup.json').read_text())['status'],
                              'stop_command_succeeded')
+
+    def test_service_unavailable_preserves_output_recovers_and_stops_without_retry(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            stack, kwargs, events = self.exercise(Path(tmp), phase='service_unavailable')
+            with stack, self.assertRaises(subprocess.CalledProcessError):
+                launch.launch_validation_once(**kwargs)
+            self.assert_recovered_before_stop(events)
+            self.assertNotIn('upload', events)
+            self.assertNotIn('exec', events)
+            run = kwargs['local_run_dir']
+            record = json.loads((run/'allocation_attempt.json').read_text())
+            self.assertEqual(record['category'], 'service_unavailable')
+            self.assertEqual(record['allocation_attempts'], 1)
+            self.assertEqual(record['server_assignment_status'], 'unverified')
+            self.assertEqual((run/'allocation_output.log').read_text(),
+                             'ColabRequestError: Service Unavailable\n')
+            self.assertEqual(len(list((Path(tmp)/'results/.authorization_claims').glob('*.json'))), 1)
 
     def test_remote_failure_and_transport_exceptions_still_recover_and_stop(self):
         for phase in ('remote_failure', 'upload', 'exec', 'new'):

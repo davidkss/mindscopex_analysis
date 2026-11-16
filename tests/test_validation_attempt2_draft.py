@@ -34,8 +34,8 @@ class PendingValidationDraftTests(unittest.TestCase):
 
     def test_pending_schema_budget_revisions_and_inactive_identity(self):
         policy = self.plan['authorization_policy']
-        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261114-attempt2')
-        self.assertNotEqual(smoke.AUTHORIZATIONS[smoke.ACTIVE_AUTHORIZATION][0], smoke.DRAFT_POLICY)
+        self.assertIsNone(smoke.ACTIVE_AUTHORIZATION)
+        self.assertNotEqual(smoke.AUTHORIZATIONS[smoke.ATTEMPT2_AUTHORIZATION][0], smoke.DRAFT_POLICY)
         self.assertEqual(policy['authorization_status'], 'pending')
         self.assertFalse(policy['allocation_authorized'])
         self.assertFalse(self.plan['allocation_authorized'])
@@ -74,9 +74,9 @@ class PendingValidationDraftTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 smoke.claim_authorization(self.plan, Path(tmp)/'claims')
             # Substituting Draft bytes for the pinned final policy must fail before the Backend.
-            final = smoke.AUTHORIZATIONS[smoke.ACTIVE_AUTHORIZATION]
+            final = smoke.AUTHORIZATIONS[smoke.ATTEMPT2_AUTHORIZATION]
             with mock.patch.dict(smoke.AUTHORIZATIONS, {
-                    smoke.ACTIVE_AUTHORIZATION: (smoke.DRAFT_POLICY, final[1], final[2])}):
+                    smoke.ATTEMPT2_AUTHORIZATION: (smoke.DRAFT_POLICY, final[1], final[2])}):
                 with self.assertRaises(ValueError):
                     smoke.main(['--through', 'validate', '--authorization', smoke.DRAFT_AUTHORIZATION,
                                 '--output-dir', str(Path(tmp)/'runtime')])
@@ -93,6 +93,30 @@ class PendingValidationDraftTests(unittest.TestCase):
                 smoke.claim_authorization(old, Path(tmp)/'fresh-ledger')
             with self.assertRaises(ValueError):
                 smoke.require_allocation_authorized(old)
+            self.assertEqual(list(Path(tmp).iterdir()), [])
+
+    def test_all_consumed_approvals_block_every_execution_entry_without_ledger(self):
+        self.assertIsNone(smoke.ACTIVE_AUTHORIZATION)
+        with tempfile.TemporaryDirectory() as tmp, \
+             mock.patch.object(launch, 'run_cmd') as command, \
+             mock.patch.object(launch, 'run_cmd_retry') as transfer, \
+             mock.patch.object(launch.subprocess, 'run') as remote, \
+             mock.patch.object(smoke, 'RuntimeBackend') as backend:
+            for auth in smoke.AUTHORIZATIONS:
+                plan = smoke.build_plan('validate', auth)
+                with self.subTest(auth=auth), self.assertRaises(ValueError):
+                    smoke.claim_authorization(plan, Path(tmp)/'claims')
+                with self.subTest(auth=auth), self.assertRaises(ValueError):
+                    smoke.main(['--through', 'validate', '--authorization', auth,
+                                '--output-dir', str(Path(tmp)/'runtime')])
+            with self.assertRaises(ValueError):
+                launch.launch_one(CONFIG, dry_run=False, **dict(self.args, root=Path(tmp)))
+            with self.assertRaises(ValueError):
+                job.run(CONFIG, Path(tmp))
+            command.assert_not_called()
+            transfer.assert_not_called()
+            remote.assert_not_called()
+            backend.assert_not_called()
             self.assertEqual(list(Path(tmp).iterdir()), [])
 
     def test_policy_changes_and_extra_fields_rejected(self):
@@ -157,6 +181,9 @@ class PendingValidationDraftTests(unittest.TestCase):
 
     def test_allocation_error_classification_keeps_exact_output(self):
         for output, category in [('HTTP 503 Service Unavailable', 'http_503'),
+                                 ('ColabRequestError: Service Unavailable\n', 'service_unavailable'),
+                                 ('service unavailable', 'service_unavailable'),
+                                 ('HTTP 503', 'http_503'),
                                  ('SSLCertVerificationError', 'tls'),
                                  ('Authentication failed', 'authentication'),
                                  ('Unknown response', 'unknown')]:

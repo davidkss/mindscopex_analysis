@@ -346,6 +346,11 @@ def launch_validation_once(*, prepared, root, session, gpu, local_run_dir,
     policy = prepared['authorization_policy']
     if ((policy.get('session') and session != policy['session']) or gpu != policy['gpu']):
         raise ValueError('Validation allocation session/GPU mismatch')
+    if prepared.get('authorization_id') == 'validation-only-20261116-attempt3':
+        from experiments.runtime_smoke import require_allocation_authorized
+        from experiments.runners.validation_cli_environment import verify_validation_cli_environment
+        require_allocation_authorized(prepared)
+        verify_validation_cli_environment()
     claim = claim_authorization(prepared, root/'results/.authorization_claims',
                                 session=session, local_run_dir=str(local_run_dir.resolve()))
     write_local_manifest(local_run_dir/'authorization_execution.json', {

@@ -15,9 +15,10 @@ from experiments.runners import launch_colab as launch
 
 class ValidationSessionCleanupTests(unittest.TestCase):
     def setUp(self):
-        active = mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', smoke.ATTEMPT2_AUTHORIZATION)
-        active.start()
-        self.addCleanup(active.stop)
+        from experiments.runners import validation_cli_environment as environment
+        gate = mock.patch.object(environment, 'verify_validation_cli_environment')
+        gate.start()
+        self.addCleanup(gate.stop)
 
     def exercise(self, root, *, phase=None, stop_code=0, missing_archive=False):
         run = root / 'run'
@@ -31,6 +32,8 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             if cmd[1] == 'new':
                 self.assertEqual(kwargs['env']['COLAB_CLI_ASSIGN_RETRIES'], '0')
                 self.assertEqual(kwargs['env']['COLAB_CLI_RETRY_BACKOFF'], '0')
+            if cmd[1] == 'new' and phase in ('401', '307', '308', 'tls'):
+                raise subprocess.CalledProcessError(1, cmd, output=f'HTTP {phase} uncertain')
             if cmd[1] == 'new' and phase == 'read_timeout':
                 raise subprocess.CalledProcessError(1, cmd, output='ReadTimeout: read timed out')
             if cmd[1] == 'new' and phase in ('http_503', 'service_unavailable'):
@@ -59,7 +62,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             (destination / 'job_manifest.json').write_text(json.dumps(dict(status='succeeded')))
 
         kwargs = dict(prepared=smoke.build_plan('validate', smoke.ACTIVE_AUTHORIZATION),
-                      root=root, session='mindscopex-valonly-20261114-a2', gpu='A100',
+                      root=root, session='mindscopex-valonly-20261116-a3', gpu='A100',
                       local_run_dir=run, local_config=run/'config.toml',
                       remote_config_path='/content/config.toml',
                       remote_source_archive='/content/source.zip',
@@ -132,7 +135,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             self.assertEqual(len(list((Path(tmp)/'results/.authorization_claims').glob('*.json'))), 1)
 
     def test_remote_failure_and_transport_exceptions_still_recover_and_stop(self):
-        for phase in ('remote_failure', 'upload', 'exec', 'new', 'read_timeout'):
+        for phase in ('remote_failure', 'upload', 'exec', 'new', 'read_timeout', '401', '307', '308', 'tls'):
             with self.subTest(phase=phase), tempfile.TemporaryDirectory() as tmp:
                 stack, kwargs, events = self.exercise(Path(tmp), phase=phase)
                 with stack, self.assertRaises((RuntimeError, subprocess.CalledProcessError)):
@@ -186,7 +189,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
                         launch.launch_validation_once(**kwargs)
                 self.assert_recovered_before_stop(events)
                 self.assertIn('cleanup FAILED', stderr.getvalue())
-                self.assertIn('colab stop -s mindscopex-valonly-20261114-a2', stderr.getvalue())
+                self.assertIn('colab stop -s mindscopex-valonly-20261116-a3', stderr.getvalue())
                 record = json.loads((kwargs['local_run_dir']/'session_cleanup.json').read_text())
                 self.assertEqual(record['status'], 'failed')
                 self.assertTrue((kwargs['local_run_dir']/'artifacts/job_manifest.json').exists())

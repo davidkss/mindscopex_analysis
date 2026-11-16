@@ -34,7 +34,7 @@ class PendingValidationDraftTests(unittest.TestCase):
 
     def test_pending_schema_budget_revisions_and_inactive_identity(self):
         policy = self.plan['authorization_policy']
-        self.assertIsNone(smoke.ACTIVE_AUTHORIZATION)
+        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261116-attempt3')
         self.assertNotEqual(smoke.AUTHORIZATIONS[smoke.ATTEMPT2_AUTHORIZATION][0], smoke.DRAFT_POLICY)
         self.assertEqual(policy['authorization_status'], 'pending')
         self.assertFalse(policy['allocation_authorized'])
@@ -96,13 +96,13 @@ class PendingValidationDraftTests(unittest.TestCase):
             self.assertEqual(list(Path(tmp).iterdir()), [])
 
     def test_all_consumed_approvals_block_every_execution_entry_without_ledger(self):
-        self.assertIsNone(smoke.ACTIVE_AUTHORIZATION)
+        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261116-attempt3')
         with tempfile.TemporaryDirectory() as tmp, \
              mock.patch.object(launch, 'run_cmd') as command, \
              mock.patch.object(launch, 'run_cmd_retry') as transfer, \
              mock.patch.object(launch.subprocess, 'run') as remote, \
              mock.patch.object(smoke, 'RuntimeBackend') as backend:
-            for auth in smoke.AUTHORIZATIONS:
+            for auth in (a for a in smoke.AUTHORIZATIONS if a != smoke.ACTIVE_AUTHORIZATION):
                 plan = smoke.build_plan('validate', auth)
                 with self.subTest(auth=auth), self.assertRaises(ValueError):
                     smoke.claim_authorization(plan, Path(tmp)/'claims')

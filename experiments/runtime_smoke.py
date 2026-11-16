@@ -19,11 +19,16 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
 AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
-# Attempt2 was consumed on 2026-11-15; retire across checkouts without a local ledger.
-ACTIVE_AUTHORIZATION = None
+# Only the explicitly approved Attempt3 can execute; previous approvals remain retired.
+ACTIVE_AUTHORIZATION = 'validation-only-20261116-attempt3'
 ATTEMPT2_AUTHORIZATION = 'validation-only-20261114-attempt2'
 # Explicit paths only; caller-supplied policy paths are never accepted.
 AUTHORIZATIONS = {
+    'validation-only-20261116-attempt3': (
+        ROOT/'experiments/inputs/growth019_validation_only_authorization_20261116_attempt3.json',
+        'growth019_pinned_validation_only_20261116_attempt3_2b',
+        '90b5ad68f4871b69d1e1625e7acc7af9dd19bba8126e055b601ab6f08c86e26e',
+    ),
     ATTEMPT2_AUTHORIZATION: (
         ROOT/'experiments/inputs/growth019_validation_only_authorization_20261114_attempt2.json',
         'growth019_pinned_validation_only_20261114_attempt2_2b',
@@ -69,6 +74,28 @@ def draft_plan(plan):
 
 
 
+
+ATTEMPT3_DRAFT = ROOT/'experiments/inputs/growth019_validation_only_authorization_20261116_attempt3_draft.json'
+ATTEMPT3_DRAFT_SHA = 'f82f4a3f518a04ef0a1cfb5ce2e6c2550c8f8620e31df7db1b449f9e124a610a'
+ATTEMPT3_SCOPE = '2026-11-16 user approved Option B: user WSL only, one logical A100 allocation, no automatic reallocation or CLI error retries; accepts authentication/redirect POST replay, unbounded HTTP POST count and possible duplicate server allocations/Compute Unit cost; validation five stages only, Generate 0, extra model forward 0, synthetic hook at most 2; approximately 5.085GB weights and auxiliary downloads, artifact recovery and cleanup.'
+
+
+def expected_attempt3_policy():
+    """Reconstruct the exact approved scope from the preserved, pinned CPU draft."""
+    if digest(ATTEMPT3_DRAFT) != ATTEMPT3_DRAFT_SHA:
+        raise ValueError('Attempt3 source draft SHA mismatch')
+    policy = json.loads(ATTEMPT3_DRAFT.read_text())
+    policy.pop('proposed_scope')
+    metadata = policy.pop('draft_metadata')
+    metadata.update(cpu_preparation_only=False,
+                    risk_acceptance_status='accepted_explicit_user_approval',
+                    gpu_execution_risk_accepted=True, gpu_execution_status='validation_only_authorized',
+                    user_approval_date='2026-11-16', source_draft_sha256=ATTEMPT3_DRAFT_SHA)
+    policy.update(authorization_status='approved', allocation_authorized=True,
+                  approval_metadata=metadata, approved_scope=ATTEMPT3_SCOPE)
+    return policy
+
+
 def build_plan(through='generate',authorization=None, *, draft=False):
     manifest=json.loads(MANIFEST.read_text())
     if (through not in ('validate','generate') or manifest['run_id']!='growth019_pinned_runtime_smoke_2b'
@@ -105,6 +132,9 @@ def build_plan(through='generate',authorization=None, *, draft=False):
         if expected_sha is not None and digest(policy_path) != expected_sha:
             raise ValueError('Validation-only policy SHA mismatch')
         policy=json.loads(policy_path.read_text())
+        if authorization == 'validation-only-20261116-attempt3' and (
+                json.dumps(policy, sort_keys=True) != json.dumps(expected_attempt3_policy(), sort_keys=True)):
+            raise ValueError('Attempt3 approved scope mismatch')
         if (policy.get('schema')!=1 or policy.get('authorization_id')!=authorization
                 or policy.get('through')!='validate' or policy.get('gpu')!='A100'
                 or policy.get('allocation_authorized') is not True or policy.get('max_allocation_attempts')!=1

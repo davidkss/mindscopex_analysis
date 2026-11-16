@@ -259,3 +259,89 @@ Launcher 실행 gate가 아니다. 현재는 활성 승인 부재가 실제 실�
 미확인 CLI/transport 변경은 해당 검증을 통과하기 전 실행거부해야 한다.
 엄격한 전송1회 대신 논리적 할당1회로 정책을 바꿀지는 별도 사용자 결정이며 자동으로 완화하지 않는다.
 이번에 해당 개발이나 신규승인 활성화를 시작하지 않는다. 사용자가 결과를 검토한 뒤 범위를 정한다.
+
+## 9. 2026-11-16 단일 할당 POST 최소 보완 가능성 검토 — NO-GO 유지
+
+### 9.1 이번 검토 범위
+
+기준 로컬 HEAD/origin/main/직접 조회 원격 main은 모두
+`99f69c8988b056920adb31871b335f14e4892ee0`, 작업 트리는 clean이었다.
+이전 버전비교/패키지24파일 대조/장애원인 분석 및 기존 정상동작 전용검사는 반복하지 않았다.
+이번에는 현재 subprocess 기반 CLI 0.7.5에서 할당 POST만 제어할 수 있는 공개 접점과,
+실제 Client.assign부터 AuthorizedSession/requests까지 연결된 추가 통합 Mock을 확인했다.
+
+### 9.2 공개 설정과 CLI 연결의 한계
+
+설치된 소스의 호출 경로:
+
+```text
+Launcher run_cmd -> colab new 자식
+commands/session.py:new -> common.state.client.assign
+common.py:State.client -> auth.get_credentials -> AuthorizedSession(creds)
+Client.assign -> _post_assignment -> _issue_request -> session.request
+```
+
+| 후보 | 지원되는 API | 현재 CLI subprocess에서 적용 가능한가? |
+|---|---|---|
+| AuthorizedSession(max_refresh_attempts=0) | 생성자 인자는 공개 | CLI의 get_credentials는 인자를 받거나 전달하지 않음; 세션 전체설정이므로 할당 전용 객체 주입도 필요 |
+| request(..., allow_redirects=False) | requests의 공개 요청 인자 | Client.assign/_post_assignment에는 전달 인자가 없음; CLI flag/환경설정도 없음 |
+| session hooks / mount | requests의 공개 인스턴스 API | 자식이 내부 생성한 인스턴스에 등록할 CLI 옵션/주입 factory가 없음 |
+| 기존 retries/backoff 환경변수0 | 설치 assign이 지원 | 502/503/504·ReadTimeout 루프만 제어, auth/Redirect는 별개 |
+
+검토한 설치 파일은 commands/session.py:new, cli.py:callback, common.py:State.client,
+auth.py:get_credentials, state.py:Settings, client.py:assign/_post_assignment다.
+CLI 전역 옵션은 인증방식/인증설정 경로/세션상태경로/로그이며 transport 설정을 받지 않는다.
+Settings는 업데이트 안내 관련 필드뿐이다. 인증방식 변경이나 timeout 변경은 이 문제 해결이 아니다.
+
+공개 requests/google-auth API 자체가 없는 것이 아니라 **현재 CLI 명령에 안전하게 연결할 공개
+확장 접점이 없다**는 결론이다. 부모 Launcher에서 환경변수만 추가해 객체 설정을 바꿀 수 없다.
+표준오류 감시·프로세스 종료는 하위 재전송보다 늦을 수 있어 보장이 되지 않는다.
+
+다음 방식은 적용하지 않았다:
+- common.state._client 교체, 클래스/모듈 전역 monkeypatch 또는 sitecustomize 주입.
+- 설치 패키지 수정/업그레이드 및 인증 갱신·TLS 검증의 전역 비활성화.
+- 내부 명령함수를 재호출하는 wrapper나 세션상태/History/Proxy token 저장을 새로 구현하는 대체 CLI.
+
+이 방식들은 요청한 안정적인 최소 보완 범위를 벗어나거나 다른 인증/명령 동작의 검증이 필요하다.
+따라서 production 할당 guard는 **구현하지 않았다**. 정상인증 기능 및 다른 CLI 명령을 그대로 두고,
+ACTIVE_AUTHORIZATION=None으로 기존 실제 실행 차단을 유지한다.
+
+### 9.3 신규 실제 설치 코드 통합 Mock
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 /home/davidkss/.local/share/uv/tools/google-colab-cli/bin/python -B scripts/verify_colab_cli_preflight.py --replay-boundary-only
+```
+
+새 옵션은 신규 통합검사1개(8조건)만 실행한다. 기존10개 Preflight 전체를 반복하지 않는다.
+기존 socket/실제 HTTPAdapter 차단 및 테스트 시작 전 sentinel 검증을 사용한다.
+실제 설치0.7.5 Client.assign→_get/_post_assignment→_issue_request→AuthorizedSession→requests를
+연결하고 마지막 BaseAdapter.send에서 합성응답/ReadTimeout을 반환한다.
+사용자 인증 loader/실제 요청은 호출하지 않는다. 함수 wrap은 테스트 내부 호출계수용 Mock이며
+production monkeypatch가 아니다. 부모환경/패키지/사용자설정은 변경하지 않는다.
+
+| 응답 조건, assign retries0 | _post_assignment 호출 | 합성 transport의 POST | 요구 POST≤1 판정 |
+|---|---:|---:|---|
+| 정상200 | 1 | 1 | 충족 |
+| 401 지속 | 1 | 3 | **미충족**, refresh2 |
+| 307 후 정상 | 1 | 2 | **미충족** |
+| 308 후 정상 | 1 | 2 | **미충족** |
+| 502/503/504 | 각각1 | 각각1 | 충족 |
+| ReadTimeout | 1 | 1 | 충족 |
+
+모든 조건은 초기 GET1이며 CLI assign 루프의 추가 시도/sleep은0이다.
+검사1개 통과는 위 관측이 예상과 같다는 뜻이며 **401/307/308 차단 테스트 통과가 아니다**.
+실제 네트워크 송신/서버 처리 횟수를 입증하지 않는다. 실패원인이나 과거 재전송도 추정하지 않는다.
+부모retries3→자식0, 과거승인 차단 및 회수·종료는 관련 validation 회귀에서 확인한다.
+
+### 9.4 판정과 필요한 최소 다음 조건
+
+**NO-GO — 현재 설치 CLI의 지원 인터페이스만으로 할당 POST에 한정된 최소 보완을 연결할 수 없음.**
+기존 Launcher/Runtime/Job은 수정하지 않았다. 새로운 GPU 승인/Config/claim도 만들지 않았다.
+
+필요한 다음 조건은 upstream이 제공하거나 별도 범위에서 검증한 **명령별 transport 주입 접점**이다.
+그 접점은 선제적 정상 인증갱신을 유지하면서 이미 전송된 할당 POST의401 재호출 및
+307/308 추적을 중단하고, 불확실 실패를 기존 회수·종료 경로에 전달해야 한다.
+현 설치패키지 변경금지 조건에서는 즉시 적용할 수 없다. 지원 없는 플래그/환경변수를 만들어
+효과가 있는 것처럼 사용하지 않는다. 외부Proxy/네트워크 재전송 및 서버처리는 여전히 미검증이다.
+사용자가 허용범위를 바꾸기 전 신규 승인 준비나 우회개발로 진행하지 않는다.
+검증 결과·전체 smoke·보존 확인의 실제 명령과 수치는 같은 날짜 Journal 후속 절에 기록한다.

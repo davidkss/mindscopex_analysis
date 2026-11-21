@@ -19,20 +19,21 @@ SESSION = 'mindscopex-valonly-20261116-a3'
 
 
 class Attempt3ApprovalTests(unittest.TestCase):
-    def test_exact_policy_risk_acceptance_and_only_active_approval(self):
-        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, AUTH)
+    def test_exact_policy_risk_acceptance_and_current_active_approval(self):
         plan = job.prepare_plan(load_toml(CONFIG))
-        smoke.require_allocation_authorized(plan)
         policy = plan['authorization_policy']
         self.assertEqual(policy, smoke.expected_attempt3_policy())
         self.assertEqual(plan['authorization_sha256'], smoke.AUTHORIZATIONS[AUTH][2])
         self.assertEqual((plan['expected_generate_calls'], plan['extra_model_forwards'],
                           plan['synthetic_hook_module_forwards']), (0, 0, 2))
         self.assertFalse(plan['execution_ready'])
-        for old in smoke.AUTHORIZATIONS:
-            if old != AUTH:
+        for authorization in smoke.AUTHORIZATIONS:
+            registered = smoke.build_plan('validate', authorization)
+            if authorization == smoke.ACTIVE_AUTHORIZATION:
+                smoke.require_allocation_authorized(registered)
+            else:
                 with self.assertRaises(ValueError):
-                    smoke.require_allocation_authorized(smoke.build_plan('validate', old))
+                    smoke.require_allocation_authorized(registered)
 
     def test_policy_tampering_rejected_even_with_substituted_registry_sha(self):
         original = smoke.expected_attempt3_policy()
@@ -75,6 +76,7 @@ class Attempt3ApprovalTests(unittest.TestCase):
 
     def test_environment_failure_precedes_claim_and_any_cli(self):
         with tempfile.TemporaryDirectory() as tmp, \
+             mock.patch.object(smoke, 'ACTIVE_AUTHORIZATION', AUTH), \
              mock.patch.object(environment, 'verify_validation_cli_environment',
                                side_effect=ValueError('environment drift')), \
              mock.patch.object(launch, 'run_cmd') as remote:

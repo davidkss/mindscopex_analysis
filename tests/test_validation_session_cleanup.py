@@ -61,8 +61,8 @@ class ValidationSessionCleanupTests(unittest.TestCase):
             destination.mkdir()
             (destination / 'job_manifest.json').write_text(json.dumps(dict(status='succeeded')))
 
-        kwargs = dict(prepared=smoke.build_plan('validate', smoke.ACTIVE_AUTHORIZATION),
-                      root=root, session='mindscopex-valonly-20261116-a3', gpu='A100',
+        plan = smoke.build_plan('validate', smoke.ACTIVE_AUTHORIZATION)
+        kwargs = dict(prepared=plan, root=root, session=plan['authorization_policy']['session'], gpu='A100',
                       local_run_dir=run, local_config=run/'config.toml',
                       remote_config_path='/content/config.toml',
                       remote_source_archive='/content/source.zip',
@@ -189,7 +189,7 @@ class ValidationSessionCleanupTests(unittest.TestCase):
                         launch.launch_validation_once(**kwargs)
                 self.assert_recovered_before_stop(events)
                 self.assertIn('cleanup FAILED', stderr.getvalue())
-                self.assertIn('colab stop -s mindscopex-valonly-20261116-a3', stderr.getvalue())
+                self.assertIn(f"colab stop -s {kwargs['session']}", stderr.getvalue())
                 record = json.loads((kwargs['local_run_dir']/'session_cleanup.json').read_text())
                 self.assertEqual(record['status'], 'failed')
                 self.assertTrue((kwargs['local_run_dir']/'artifacts/job_manifest.json').exists())

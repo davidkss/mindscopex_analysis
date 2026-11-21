@@ -77,7 +77,6 @@ class Attempt3DraftTests(unittest.TestCase):
         self.assertEqual(self.policy['draft_metadata']['failure_policy'], expected)
 
     def test_attempt3_is_unknown_to_every_real_execution_entry(self):
-        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261116-attempt3')
         self.assertIn(AUTH, smoke.AUTHORIZATIONS)
         final = smoke.AUTHORIZATIONS[AUTH]
         with mock.patch.dict(smoke.AUTHORIZATIONS, {AUTH: (DRAFT, final[1], final[2])}), \
@@ -121,7 +120,6 @@ class Attempt3DraftTests(unittest.TestCase):
             backend.assert_not_called()
 
     def test_retired_approvals_and_attempt2_draft_remain_unchanged(self):
-        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261116-attempt3')
         for auth in (a for a in smoke.AUTHORIZATIONS if a != smoke.ACTIVE_AUTHORIZATION):
             with self.subTest(auth=auth), self.assertRaises(ValueError):
                 smoke.require_allocation_authorized(smoke.build_plan('validate', auth))

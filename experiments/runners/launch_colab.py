@@ -342,11 +342,11 @@ def stop_validation_session(session, local_run_dir):
 def launch_validation_once(*, prepared, root, session, gpu, local_run_dir,
                            local_config, remote_config_path, remote_source_archive,
                            bootstrap, exec_timeout, remote_output_root, name):
-    from experiments.runtime_smoke import claim_authorization
+    from experiments.runtime_smoke import ATTEMPT3_AUTHORIZATION, ATTEMPT4_AUTHORIZATION, claim_authorization
     policy = prepared['authorization_policy']
     if ((policy.get('session') and session != policy['session']) or gpu != policy['gpu']):
         raise ValueError('Validation allocation session/GPU mismatch')
-    if prepared.get('authorization_id') == 'validation-only-20261116-attempt3':
+    if prepared.get('authorization_id') in (ATTEMPT3_AUTHORIZATION, ATTEMPT4_AUTHORIZATION):
         from experiments.runtime_smoke import require_allocation_authorized
         from experiments.runners.validation_cli_environment import verify_validation_cli_environment
         require_allocation_authorized(prepared)

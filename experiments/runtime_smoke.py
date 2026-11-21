@@ -8,7 +8,7 @@ import math
 import sys
 import traceback
 import time
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -19,12 +19,27 @@ from experiments.trace_fresh_v2_first_divergence import digest,write_new
 MANIFEST=ROOT/'experiments/inputs/growth019_runtime_smoke.json'
 STAGES=('files','processor','model','sae','hook')
 AUTHORIZATION=ROOT/'experiments/inputs/growth019_validation_only_authorization.json'
-# Only the explicitly approved Attempt3 can execute; previous approvals remain retired.
-ACTIVE_AUTHORIZATION = 'validation-only-20261116-attempt3'
 ATTEMPT2_AUTHORIZATION = 'validation-only-20261114-attempt2'
+ATTEMPT3_AUTHORIZATION = 'validation-only-20261116-attempt3'
+ATTEMPT4_AUTHORIZATION = 'validation-only-20261121-attempt4'
+ATTEMPT4_RUN_ID = 'growth019_pinned_validation_only_20261121_attempt4_2b'
+ATTEMPT4_POLICY = ROOT/'experiments/inputs/growth019_validation_only_authorization_20261121_attempt4.json'
+# Pin the reviewed final file only after a separate explicit user approval.
+ATTEMPT4_APPROVED_SHA = None
+
+
+def _configure_authorizations(registry, attempt4_sha):
+    if attempt4_sha is None:
+        return registry, ATTEMPT3_AUTHORIZATION
+    registered = dict(registry)
+    registered[ATTEMPT4_AUTHORIZATION] = (ATTEMPT4_POLICY, ATTEMPT4_RUN_ID, attempt4_sha)
+    # The single active slot retires Attempt3 here. Its usage remains UNKNOWN.
+    return registered, ATTEMPT4_AUTHORIZATION
+
+
 # Explicit paths only; caller-supplied policy paths are never accepted.
-AUTHORIZATIONS = {
-    'validation-only-20261116-attempt3': (
+AUTHORIZATIONS, ACTIVE_AUTHORIZATION = _configure_authorizations({
+    ATTEMPT3_AUTHORIZATION: (
         ROOT/'experiments/inputs/growth019_validation_only_authorization_20261116_attempt3.json',
         'growth019_pinned_validation_only_20261116_attempt3_2b',
         '90b5ad68f4871b69d1e1625e7acc7af9dd19bba8126e055b601ab6f08c86e26e',
@@ -40,7 +55,7 @@ AUTHORIZATIONS = {
         'growth019_pinned_validation_only_20261114_2b',
         '0ba964637004f00c0b8ffffda274a7d8bbc4f9b05c328e753abb35fbe73bfe76',
     ),
-}
+}, ATTEMPT4_APPROVED_SHA)
 
 
 DRAFT_AUTHORIZATION = 'validation-only-20261114-attempt2'
@@ -96,6 +111,43 @@ def expected_attempt3_policy():
     return policy
 
 
+ATTEMPT4_DRAFT = ROOT/'experiments/inputs/growth019_validation_only_authorization_20261121_attempt4_draft.json'
+ATTEMPT4_DRAFT_SHA = 'd67d23c5712daf4c5831bee1343ff33a58957b1ad12a5fe70832473b2b744929'
+ATTEMPT4_SCOPE = (
+    'User approved Attempt4 for user WSL only: one logical A100 allocation, no automatic reallocation '
+    'or CLI error retries; accepts authentication/redirect POST replay, no HTTP POST or Compute Unit '
+    'cost limit guarantee, and possible duplicate server allocations; five validation stages only, '
+    'Generate 0, extra model forward 0, synthetic hook at most 2; approximately 5.085GB weights and '
+    'auxiliary downloads, artifact recovery and cleanup.'
+)
+
+
+def _read_attempt4_draft():
+    raw = ATTEMPT4_DRAFT.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != ATTEMPT4_DRAFT_SHA:
+        raise ValueError('Attempt4 source draft SHA mismatch')
+    return json.loads(raw)
+
+
+def expected_attempt4_policy(approval_date):
+    """Describe the required final policy; this function does not register or approve it."""
+    if not isinstance(approval_date, str):
+        raise ValueError('Attempt4 requires a recorded explicit approval date')
+    parsed_date = date.fromisoformat(approval_date)
+    if parsed_date.isoformat() != approval_date or parsed_date < date(2026, 11, 21):
+        raise ValueError('Attempt4 explicit approval date is invalid')
+    policy = _read_attempt4_draft()
+    policy.pop('proposed_scope')
+    metadata = policy.pop('draft_metadata')
+    metadata.update(cpu_preparation_only=False,
+                    risk_acceptance_status='accepted_explicit_user_approval',
+                    gpu_execution_risk_accepted=True, gpu_execution_status='validation_only_authorized',
+                    user_approval_date=approval_date, source_draft_sha256=ATTEMPT4_DRAFT_SHA)
+    policy.update(authorization_status='approved', allocation_authorized=True,
+                  approval_metadata=metadata, approved_scope=ATTEMPT4_SCOPE)
+    return policy
+
+
 def build_plan(through='generate',authorization=None, *, draft=False):
     manifest=json.loads(MANIFEST.read_text())
     if (through not in ('validate','generate') or manifest['run_id']!='growth019_pinned_runtime_smoke_2b'
@@ -125,6 +177,19 @@ def build_plan(through='generate',authorization=None, *, draft=False):
         if authorization != DRAFT_AUTHORIZATION or through != 'validate':
             raise ValueError('Draft is restricted to validation-only CPU planning')
         return draft_plan(plan)
+    if (authorization == ATTEMPT4_AUTHORIZATION and through == 'validate'
+            and authorization not in AUTHORIZATIONS):
+        policy = _read_attempt4_draft()
+        if policy['revisions'] != plan['study_manifest']['revisions']:
+            raise ValueError('Attempt4 draft revisions differ from pinned validation revisions')
+        plan.update(authorization_id=authorization, authorization_status='pending',
+                    authorization_policy=policy, authorization_sha256=ATTEMPT4_DRAFT_SHA,
+                    allocation_authorized=False, run_id=ATTEMPT4_RUN_ID, expected_generate_calls=0,
+                    measurements=[], n_unique_measurements=0, n_unique_generation_conditions=0,
+                    execution_blockers=['Pending explicit new GPU approval and risk acceptance'])
+        plan['source_files']['validation_authorization_draft'] = dict(
+            path=str(ATTEMPT4_DRAFT), sha256=ATTEMPT4_DRAFT_SHA)
+        return plan
     if authorization is not None:
         if authorization not in AUTHORIZATIONS or through!='validate':
             raise ValueError('Authorization is restricted to validation-only; generation remains forbidden')
@@ -132,9 +197,17 @@ def build_plan(through='generate',authorization=None, *, draft=False):
         if expected_sha is not None and digest(policy_path) != expected_sha:
             raise ValueError('Validation-only policy SHA mismatch')
         policy=json.loads(policy_path.read_text())
-        if authorization == 'validation-only-20261116-attempt3' and (
+        if authorization == ATTEMPT3_AUTHORIZATION and (
                 json.dumps(policy, sort_keys=True) != json.dumps(expected_attempt3_policy(), sort_keys=True)):
             raise ValueError('Attempt3 approved scope mismatch')
+        if authorization == ATTEMPT4_AUTHORIZATION:
+            metadata = policy.get('approval_metadata')
+            if expected_sha is None or not isinstance(metadata, dict):
+                raise ValueError('Attempt4 requires a pinned final approval and risk acceptance')
+            expected_policy = expected_attempt4_policy(metadata.get('user_approval_date'))
+            if (json.dumps(policy, sort_keys=True) != json.dumps(expected_policy, sort_keys=True)
+                    or policy['revisions'] != plan['study_manifest']['revisions']):
+                raise ValueError('Attempt4 approved scope mismatch')
         if (policy.get('schema')!=1 or policy.get('authorization_id')!=authorization
                 or policy.get('through')!='validate' or policy.get('gpu')!='A100'
                 or policy.get('allocation_authorized') is not True or policy.get('max_allocation_attempts')!=1
@@ -162,6 +235,9 @@ def build_plan(through='generate',authorization=None, *, draft=False):
 
 
 def require_allocation_authorized(plan):
+    if (plan.get('authorization_id') == ATTEMPT4_AUTHORIZATION
+            and ATTEMPT4_AUTHORIZATION not in AUTHORIZATIONS):
+        raise ValueError('Attempt4 allocation is not authorized; explicit GPU approval is pending')
     if (ACTIVE_AUTHORIZATION is None or plan.get('authorization_status') != 'approved'
             or plan.get('authorization_id') != ACTIVE_AUTHORIZATION):
         raise ValueError('Runtime smoke allocation is not authorized; historical approval retired')

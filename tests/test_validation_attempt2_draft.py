@@ -32,9 +32,15 @@ class PendingValidationDraftTests(unittest.TestCase):
                          default_gpu='A100', default_tpu=None, exec_timeout=900,
                          allocation_attempts=1, allocation_retry_delay=0)
 
+    def assert_active_slot(self):
+        attempt4_pinned = smoke.ATTEMPT4_APPROVED_SHA is not None
+        expected = smoke.ATTEMPT4_AUTHORIZATION if attempt4_pinned else smoke.ATTEMPT3_AUTHORIZATION
+        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, expected)
+        self.assertEqual(smoke.ATTEMPT4_AUTHORIZATION in smoke.AUTHORIZATIONS, attempt4_pinned)
+
     def test_pending_schema_budget_revisions_and_inactive_identity(self):
         policy = self.plan['authorization_policy']
-        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261116-attempt3')
+        self.assert_active_slot()
         self.assertNotEqual(smoke.AUTHORIZATIONS[smoke.ATTEMPT2_AUTHORIZATION][0], smoke.DRAFT_POLICY)
         self.assertEqual(policy['authorization_status'], 'pending')
         self.assertFalse(policy['allocation_authorized'])
@@ -96,7 +102,7 @@ class PendingValidationDraftTests(unittest.TestCase):
             self.assertEqual(list(Path(tmp).iterdir()), [])
 
     def test_all_consumed_approvals_block_every_execution_entry_without_ledger(self):
-        self.assertEqual(smoke.ACTIVE_AUTHORIZATION, 'validation-only-20261116-attempt3')
+        self.assert_active_slot()
         with tempfile.TemporaryDirectory() as tmp, \
              mock.patch.object(launch, 'run_cmd') as command, \
              mock.patch.object(launch, 'run_cmd_retry') as transfer, \

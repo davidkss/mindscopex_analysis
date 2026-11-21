@@ -48,3 +48,9 @@
 기본 mechanistic pair는 정확히 대응하는 `Qwen/Qwen3.5-27B`와
 `Qwen/SAE-Res-Qwen3.5-27B-W80K-L0_50`입니다. 2B/9B/35B-A3B profile의 공식 SAE는
 Base checkpoint용이므로 post-trained behavior model의 feature로 직접 해석하지 않습니다.
+
+## 운영 규칙과 감사
+
+AI 협업과 저장소 운영 규칙의 정본은 [MINDSCOPEX_WORKFLOW_RULES.md](MINDSCOPEX_WORKFLOW_RULES.md)입니다.
+Claude Code는 기본적으로 읽기 전용으로 감사하며, 기준 Git SHA와 변경분을 검토해 발견 사항과
+근거를 보고합니다.

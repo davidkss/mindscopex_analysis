@@ -25,7 +25,7 @@ ATTEMPT4_AUTHORIZATION = 'validation-only-20261121-attempt4'
 ATTEMPT4_RUN_ID = 'growth019_pinned_validation_only_20261121_attempt4_2b'
 ATTEMPT4_POLICY = ROOT/'experiments/inputs/growth019_validation_only_authorization_20261121_attempt4.json'
 # Pin the reviewed final file only after a separate explicit user approval.
-ATTEMPT4_APPROVED_SHA = None
+ATTEMPT4_APPROVED_SHA = '4c7d93da969b6ab110c5b0286b78b8a460e96c645486f38460e8ae1c8500afd1'
 
 
 def _configure_authorizations(registry, attempt4_sha):

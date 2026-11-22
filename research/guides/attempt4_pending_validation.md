@@ -1,8 +1,13 @@
 # Attempt4 A100 Runtime Validation-only 승인 초안
 
 2026-11-21 기준 `bc3bc59b4876460924c465a91aebb7fcb6abb3c5`에서 준비했다.
-**PENDING / GPU NO-GO.** Attempt3의 사용 여부는 `UNKNOWN`이다. Attempt4는 별도
-사용자 승인 대상이다. [Attempt3 승인 및 실행 기록](attempt3_approved_validation.md).
+준비 당시 판정은 **PENDING / GPU NO-GO**였다. Attempt3의 사용 여부는 `UNKNOWN`이다.
+[Attempt3 승인 및 실행 기록](attempt3_approved_validation.md).
+
+2026-11-22 사용자가 Attempt4의 범위와 잔여 위험을 명시적으로 수락했다. 최종 정책의 SHA-256을
+등록해 Attempt4를 단일 활성 슬롯으로 전환했다. 실제 실행은 사용자 회사 노트북의 지정 WSL
+checkout에서 아래 사전 점검을 모두 통과한 경우에 한한다.
+[Attempt4 최종 승인 JSON](../../experiments/inputs/growth019_validation_only_authorization_20261121_attempt4.json).
 
 ## 실행 범위와 승인할 잔여 위험
 
@@ -38,8 +43,8 @@ JSON·Config·Run·Claim의 기록은 그대로 남긴다.
 Attempt4는 `results/.authorization_claims/validation-only-20261121-attempt4.json`을
 별도로 사용한다. 실제 Launcher가 환경 검사 후 할당 전에 Claim을 소비하며, 실패한 경우에도
 Claim을 보존한다. Ledger는 checkout 간 공유되지 않으므로 승인된 한 사용자 checkout에서만
-시도한다. `execution_ready=false`는 검증 준비 상태를 나타낸다. 현재 Config의 CPU Dry-run은
-원격 호출·GPU 할당·Claim 없이 PENDING 계획을 출력한다.
+시도한다. `execution_ready=false`는 검증 준비 상태를 나타낸다. Config의 CPU Dry-run은
+원격 호출·GPU 할당·Claim 없이 등록 전에는 PENDING 계획을, 등록 후에는 승인 계획을 출력한다.
 [승인 검증 코드](../../experiments/runtime_smoke.py),
 [Attempt4 Config](../../experiments/configs/growth019_validation_only_20261121_attempt4_2b.toml).
 
@@ -57,8 +62,9 @@ Claim을 보존한다. Ledger는 checkout 간 공유되지 않으므로 승인�
 
 ### 네트워크·TLS 점검
 
-회사망과 휴대폰 테더링은 각각 확인할 수 있다. 실제 실행에 사용할 네트워크에서 같은 사용자
-WSL 셸과 Colab 계정으로 점검한다. 네트워크를 바꿨다면 새 연결에서 다시 확인한다. 테더링에서도
+사용자는 회사망과 휴대폰 테더링을 모두 허용했다. 실행 직전 실제 실행에 사용할 네트워크에서
+같은 사용자 WSL 셸과 Colab 계정으로 이 절의 F1 점검을 통과해야 한다. 네트워크를 바꿨다면
+새 연결에서 다시 확인한다. 테더링에서도
 셸 초기화 파일이 설정한 회사 CA 및 Proxy 환경변수가 남을 수 있으므로 현재 셸을 확인한다.
 
 - `REQUESTS_CA_BUNDLE`, `CURL_CA_BUNDLE`, `SSL_CERT_FILE`의 설정 여부를 확인한다.
@@ -108,7 +114,7 @@ bash experiments/run_colab.sh experiments/configs/growth019_validation_only_2026
 ## 최종 정책 확정 절차
 
 2026-11-22 기준 HEAD는 `728f37093e2238409a7b5c529a3981a587473e6b`다.
-현재 Attempt4는 **PENDING / GPU NO-GO**다. 최종 정책을 구성하는 규칙은
+이 절은 승인 대기 단계에서 마련한 절차를 기록한다. 최종 정책을 구성하는 규칙은
 `expected_attempt4_policy(approval_date)`에 정의돼 있다. 이 함수는 초안의 고정 SHA를
 검증하고 승인일을 포함한 정책 내용을 반환한다. 승인 근거는 사용자의 명시적 의사 표시로 확인한다.
 [정책 검증 코드](../../experiments/runtime_smoke.py).

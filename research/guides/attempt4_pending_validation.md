@@ -5,8 +5,9 @@
 [Attempt3 승인 및 실행 기록](attempt3_approved_validation.md).
 
 2026-11-22 사용자가 Attempt4의 범위와 잔여 위험을 명시적으로 수락했다. 최종 정책의 SHA-256을
-등록해 Attempt4를 단일 활성 슬롯으로 전환했다. 실제 실행은 사용자 회사 노트북의 지정 WSL
-checkout에서 아래 사전 점검을 모두 통과한 경우에 한한다.
+등록해 Attempt4를 단일 활성 슬롯으로 전환했다. 최초 승인 시 실행 위치는 사용자 회사 노트북의
+지정 WSL checkout이었다. 같은 날 사용자가 단일 실행 위치를 아래 표의 집 PC WSL checkout으로
+변경했다. 실제 실행은 지정 checkout에서 사전 점검을 모두 통과한 경우에 한한다.
 [Attempt4 최종 승인 JSON](../../experiments/inputs/growth019_validation_only_authorization_20261121_attempt4.json).
 
 ## 실행 범위와 승인할 잔여 위험
@@ -16,7 +17,8 @@ checkout에서 아래 사전 점검을 모두 통과한 경우에 한한다.
 | Authorization ID | `validation-only-20261121-attempt4` |
 | Run ID | `growth019_pinned_validation_only_20261121_attempt4_2b` |
 | Session ID | `mindscopex-valonly-20261121-a4` |
-| 실행 주체와 GPU | 사용자 회사 WSL, A100 논리적 할당 최대 1회 |
+| 실행 주체와 GPU | 집 PC `DESKTOP-PALP9K3`의 WSL 사용자 `davidkss`, A100 논리적 할당 최대 1회 |
+| 단일 실행 checkout | `/home/davidkss/ai/mindscopex_analysis` |
 | 검증 | Files/SHA → Production Processor → Qwen Model → Layer 5 SAE → CUDA Synthetic Hook |
 | 호출 예산 | Generate 0회, 추가 Qwen Model Forward 0회, Synthetic Hook Forward 최대 2회 |
 | 재시도 | 외부 세션 생성 프로세스 최대 1회, 자동 재할당·CLI 할당 오류 재시도·자동 실행 재시도 0회 |
@@ -50,21 +52,22 @@ Claim을 보존한다. Ledger는 checkout 간 공유되지 않으므로 승인�
 
 ## 사용자 WSL에서 실행 전 확인
 
-1. 최종 정책이 승인되고 Attempt4만 활성화된 실행 checkout인지 확인한다. `git rev-parse HEAD`,
-   `git status --short`와 승인 JSON SHA-256을 확인한다. 새 소스 Archive는 Launcher에서 생성한다.
+1. PC 이름, WSL 사용자, checkout 경로가 위 표와 일치하고 Attempt4만 활성화됐는지 확인한다.
+   `git rev-parse HEAD`, `git status --short`와 승인 JSON SHA-256을 확인한다. 새 소스 Archive는
+   Launcher에서 생성한다.
 2. 사용자 WSL에서 `command -v colab`과 `uv tool list`로 기존 검증 경로와 CLI 0.7.5를 확인한다.
    업데이트 알림이 표시돼도 CLI 0.7.5를 유지한다. Launcher가 검증된 설치 파일 지문을
    확인한다. 디스크·메모리 여유도 점검한다.
 3. 아래 네트워크·TLS 점검을 실행 직전에 완료한다. CU 잔액·사용률·활성 할당을 기록한다.
    관련 활성 세션이나 귀속이 불분명한 할당이 있으면 새 할당을 보류한다.
-4. 현재 승인으로 시도한 적이 없고 모든 실행 환경에서 Attempt4 Claim이 사용되지 않았음을
-   확인한다. 기존 승인이나 오래된 Attempt3 checkout·Archive로 재시도하지 않는다.
+4. 회사 노트북 WSL에서 현재 승인으로 시도하거나 Attempt4 Claim을 소비한 적이 없는지 사용자가
+   확인한다. 지정 checkout을 포함한 모든 실행 환경에서 미사용이 확인된 경우에만 실행한다.
+   기존 승인이나 오래된 Attempt3 checkout·Archive로 재시도하지 않는다.
 
 ### 네트워크·TLS 점검
 
-사용자는 회사망과 휴대폰 테더링을 모두 허용했다. 실행 직전 실제 실행에 사용할 네트워크에서
-같은 사용자 WSL 셸과 Colab 계정으로 이 절의 F1 점검을 통과해야 한다. 네트워크를 바꿨다면
-새 연결에서 다시 확인한다. 테더링에서도
+회사망 또는 휴대폰 테더링 중 실행 직전 F1 점검을 통과한 연결을 사용한다. 지정된 집 PC의 같은
+WSL 셸과 Colab 계정으로 점검하고 네트워크가 바뀌면 새 연결에서 다시 확인한다. 테더링에서도
 셸 초기화 파일이 설정한 회사 CA 및 Proxy 환경변수가 남을 수 있으므로 현재 셸을 확인한다.
 
 - `REQUESTS_CA_BUNDLE`, `CURL_CA_BUNDLE`, `SSL_CERT_FILE`의 설정 여부를 확인한다.
@@ -90,9 +93,11 @@ CA 파일의 존재는 파일 접근 확인이고, `colab sessions` 성공은 �
 
 ## 활성화 후 실행할 단일 명령
 
-아래 명령은 최종 승인과 활성화, 사전 점검을 마친 사용자가 WSL에서 한 번만 실행한다.
+아래 명령은 최종 승인과 활성화, 사전 점검을 마친 사용자가 한 번만 실행한다.
 
-Attempt4의 `experiments/run_colab.sh`는 사용자 회사 노트북 WSL의 지정 checkout에서만 실행한다. 집 PC 등 다른 checkout에서는 실행을 금지한다. Claim은 checkout 간 공유되지 않는다.
+Attempt4의 `experiments/run_colab.sh`는 집 PC `DESKTOP-PALP9K3`의 WSL 사용자
+`davidkss`로 `/home/davidkss/ai/mindscopex_analysis`에서만 실행한다. 회사 노트북 및
+다른 checkout에서는 실행을 금지한다. Claim은 checkout 간 공유되지 않는다.
 
 ```bash
 bash experiments/run_colab.sh experiments/configs/growth019_validation_only_20261121_attempt4_2b.toml --session mindscopex-valonly-20261121-a4 --gpu A100 --allocation-attempts 1 --allocation-retry-delay 0 --exec-timeout 900
@@ -106,7 +111,7 @@ bash experiments/run_colab.sh experiments/configs/growth019_validation_only_2026
 - Claim, `authorization_execution.json`, `allocation_attempt.json`, `artifact_recovery.json`,
   `session_cleanup.json`과 확보한 Runtime 산출물을 보존한다. 성공은 같은 Authorization ID·SHA의
   다섯 단계가 모두 통과하고 호출 예산을 지킨 결과로 확인한다.
-- 사용자 WSL에서 `colab sessions`, `colab status -s mindscopex-valonly-20261121-a4`와
+- 지정된 집 PC WSL에서 `colab sessions`, `colab status -s mindscopex-valonly-20261121-a4`와
   CU 사용률·잔액·활성 할당을 조회한다. 종료 명령의 성공은 서버 종료 확인과 구분한다.
 - 실패나 상태 불확실성이 발생하면 새 할당을 시작하지 않는다. Claim이 소비된 뒤에는 결과와
   관계없이 같은 승인으로 다시 실행하지 않으며, 정리 상태와 CU 이력을 확인한다.
@@ -142,7 +147,7 @@ Attempt4 Config는 현재 승인 ID로 최종 정책을 찾는다.
 
 ### 사용자 승인과 최종 파일의 SHA-256
 
-사용자가 실제 승인일과 Attempt4 ID를 명시하고, 위의 회사 WSL Validation-only 범위와 약
+사용자가 실제 승인일과 Attempt4 ID를 명시하고, 위의 WSL Validation-only 범위와 약
 5.085GB 가중치 및 부속 파일 다운로드, 실패 시 Artifact 회수 및 세션 정리 시도를 승인해야
 한다. 401 인증 갱신과 307/308 Redirect에 따른 추가 POST, HTTP POST 및 서버 할당 수 상한
 미보장, 중복·잔류 할당, 추가 CU 차감·청구 지연과 비용 상한 미확정도 명시적 수락 대상이다.
@@ -193,7 +198,7 @@ Attempt4로 전환된다. 활성 정책은 파일 SHA와 고정 Draft에서 재�
    Dry-run에서 최종 SHA와 Config, 소스 Archive CRC·파일 바이트 및 원격 호출·Claim 0을
    확인하고 전체 CPU 회귀를 실행한다.
 
-CPU 증거와 활성화 Diff는 운영 규칙 §12에 따라 검토한다. 사용자 Commit·Push 후 회사 WSL의
+CPU 증거와 활성화 Diff는 운영 규칙 §12에 따라 검토한다. 사용자 Commit·Push 후 집 PC WSL의
 지정 checkout에서 위 사전 점검을 완료하고 단일 실행 명령을 사용한다. 승인 이후에도 실제
-A100 가용성, 서버 처리·종료, CU와 Runtime 5단계는 회사 WSL 실행 및 사후 확인으로 검증한다.
+A100 가용성, 서버 처리·종료, CU와 Runtime 5단계는 집 PC WSL 실행 및 사후 확인으로 검증한다.
 [운영 규칙](../../MINDSCOPEX_WORKFLOW_RULES.md#12-2026-11-21-ai-협업-및-독립-검토).
